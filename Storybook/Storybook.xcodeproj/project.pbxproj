@@ -9,7 +9,18 @@
 /* Begin PBXBuildFile section */
 		957A89452226620900CDD25D /* StorybookKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 957A89432226620900CDD25D /* StorybookKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		957A89522226621400CDD25D /* StorybookUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 957A89502226621400CDD25D /* StorybookUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		957A89572226629900CDD25D /* StorybookKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 957A89412226620900CDD25D /* StorybookKit.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		957A89582226629F00CDD25D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 957A89282226610200CDD25D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 957A89402226620900CDD25D;
+			remoteInfo = StorybookKit;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		957A89412226620900CDD25D /* StorybookKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorybookKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -32,6 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				957A89572226629900CDD25D /* StorybookKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,6 +56,7 @@
 				957A89422226620900CDD25D /* StorybookKit */,
 				957A894F2226621400CDD25D /* StorybookUI */,
 				957A89322226610200CDD25D /* Products */,
+				957A89562226629900CDD25D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -72,6 +85,13 @@
 				957A89512226621400CDD25D /* Info.plist */,
 			);
 			path = StorybookUI;
+			sourceTree = "<group>";
+		};
+		957A89562226629900CDD25D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -126,6 +146,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				957A89592226629F00CDD25D /* PBXTargetDependency */,
 			);
 			name = StorybookUI;
 			productName = StorybookUI;
@@ -200,6 +221,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		957A89592226629F00CDD25D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 957A89402226620900CDD25D /* StorybookKit */;
+			targetProxy = 957A89582226629F00CDD25D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		957A89372226610200CDD25D /* Debug */ = {
