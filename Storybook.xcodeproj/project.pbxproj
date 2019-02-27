@@ -22,7 +22,7 @@
 		957A896D2226696500CDD25D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957A896A2226696500CDD25D /* Extensions.swift */; };
 		957A896E2226696500CDD25D /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957A896B2226696500CDD25D /* DetailViewController.swift */; };
 		957A89732226697600CDD25D /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957A89702226697600CDD25D /* MenuViewController.swift */; };
-		957A89742226697600CDD25D /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957A89712226697600CDD25D /* SplitViewController.swift */; };
+		957A89742226697600CDD25D /* StorybookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957A89712226697600CDD25D /* StorybookViewController.swift */; };
 		957A89752226697600CDD25D /* StackScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957A89722226697600CDD25D /* StackScrollViewController.swift */; };
 		957A897B2226699E00CDD25D /* ContainerStackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957A89772226699E00CDD25D /* ContainerStackCell.swift */; };
 		957A897C2226699E00CDD25D /* HeaderStackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957A89782226699E00CDD25D /* HeaderStackCell.swift */; };
@@ -62,7 +62,7 @@
 		957A896A2226696500CDD25D /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		957A896B2226696500CDD25D /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		957A89702226697600CDD25D /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
-		957A89712226697600CDD25D /* SplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
+		957A89712226697600CDD25D /* StorybookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorybookViewController.swift; sourceTree = "<group>"; };
 		957A89722226697600CDD25D /* StackScrollViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackScrollViewController.swift; sourceTree = "<group>"; };
 		957A89772226699E00CDD25D /* ContainerStackCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerStackCell.swift; sourceTree = "<group>"; };
 		957A89782226699E00CDD25D /* HeaderStackCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderStackCell.swift; sourceTree = "<group>"; };
@@ -138,7 +138,7 @@
 				957A896B2226696500CDD25D /* DetailViewController.swift */,
 				957A896A2226696500CDD25D /* Extensions.swift */,
 				957A89702226697600CDD25D /* MenuViewController.swift */,
-				957A89712226697600CDD25D /* SplitViewController.swift */,
+				957A89712226697600CDD25D /* StorybookViewController.swift */,
 				957A89722226697600CDD25D /* StackScrollViewController.swift */,
 				957A895C2226662500CDD25D /* StorybookUI.swift */,
 				957A89762226699E00CDD25D /* Components */,
@@ -317,7 +317,7 @@
 				957A898A22266A1000CDD25D /* StackScrollView.swift in Sources */,
 				957A897B2226699E00CDD25D /* ContainerStackCell.swift in Sources */,
 				957A898722266A1000CDD25D /* StackCell.swift in Sources */,
-				957A89742226697600CDD25D /* SplitViewController.swift in Sources */,
+				957A89742226697600CDD25D /* StorybookViewController.swift in Sources */,
 				957A89732226697600CDD25D /* MenuViewController.swift in Sources */,
 				957A898922266A1000CDD25D /* StackCellType.swift in Sources */,
 				957A897E2226699E00CDD25D /* EmptyStackCell.swift in Sources */,
