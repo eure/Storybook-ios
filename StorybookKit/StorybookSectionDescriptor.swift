@@ -9,16 +9,16 @@
 import Foundation
 
 public struct StorybookSectionDescriptor {
-  
-  public let title: String
-  public let items: [StorybookItemDescriptor]
-  
-  public init(
-    title: String,
-    items: [StorybookItemDescriptor]
-    ) {
-    self.title = title
-    self.items = items
-  }
-  
+    
+    public let title: String
+    public let items: [StorybookItemDescriptor]
+    
+    public init(
+        title: String,
+        items: [StorybookItemDescriptor]
+        ) {
+        self.title = title
+        self.items = items
+    }
+    
 }

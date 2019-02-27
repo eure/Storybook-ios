@@ -9,13 +9,13 @@
 import Foundation
 
 public struct StorybookMenuDescriptor {
-  
-  public let sections: [StorybookSectionDescriptor]
-  
-  public init(
-    sections: [StorybookSectionDescriptor]
-    ) {
-    self.sections = sections
-  }
-  
+    
+    public let sections: [StorybookSectionDescriptor]
+    
+    public init(
+        sections: [StorybookSectionDescriptor]
+        ) {
+        self.sections = sections
+    }
+    
 }

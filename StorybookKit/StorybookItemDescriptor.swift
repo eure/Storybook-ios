@@ -9,19 +9,19 @@
 import Foundation
 
 public struct StorybookItemDescriptor {
-  
-  public let title: String
-  public let detail: String
-  public let componentsFactory: () -> [StorybookComponent]
-  
-  public init(
-    title: String,
-    detail: String,
-    components: @escaping () -> [StorybookComponent]
-    ) {
-    self.title = title
-    self.detail = detail
-    self.componentsFactory = components
-  }
-  
+    
+    public let title: String
+    public let detail: String
+    public let componentsFactory: () -> [StorybookComponent]
+    
+    public init(
+        title: String,
+        detail: String,
+        components: @escaping () -> [StorybookComponent]
+        ) {
+        self.title = title
+        self.detail = detail
+        self.componentsFactory = components
+    }
+    
 }
