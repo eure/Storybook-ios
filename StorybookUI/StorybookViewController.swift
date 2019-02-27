@@ -10,13 +10,13 @@ import UIKit
 
 import StorybookKit
 
-final class StorybookViewController : UISplitViewController {
+public final class StorybookViewController : UISplitViewController {
     
     private let menuController: MenuViewController
     
     private lazy var secondaryViewController = UINavigationController()
     
-    init(menuDescriptor: StorybookMenuDescriptor) {
+    public init(menuDescriptor: StorybookMenuDescriptor) {
         
         self.menuController = .init(menuDescriptor: menuDescriptor)
         
@@ -28,11 +28,12 @@ final class StorybookViewController : UISplitViewController {
         ]
     }
     
+    @available(*, unavailable)
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         
         delegate = self
@@ -40,7 +41,7 @@ final class StorybookViewController : UISplitViewController {
         
     }
     
-    override func showDetailViewController(_ vc: UIViewController, sender: Any?) {
+    public override func showDetailViewController(_ vc: UIViewController, sender: Any?) {
         
         if isCollapsed {
             super.showDetailViewController(vc, sender: sender)
@@ -53,30 +54,30 @@ final class StorybookViewController : UISplitViewController {
 
 extension StorybookViewController : UISplitViewControllerDelegate {
     
-    func splitViewController(_ svc: UISplitViewController, willChangeTo displayMode: UISplitViewController.DisplayMode) {
+    public func splitViewController(_ svc: UISplitViewController, willChangeTo displayMode: UISplitViewController.DisplayMode) {
     }
     
-    func splitViewController(_ splitViewController: UISplitViewController, show vc: UIViewController, sender: Any?) -> Bool {
+    public func splitViewController(_ splitViewController: UISplitViewController, show vc: UIViewController, sender: Any?) -> Bool {
         return true
     }
     
-    func splitViewController(_ splitViewController: UISplitViewController, showDetail vc: UIViewController, sender: Any?) -> Bool {
+    public func splitViewController(_ splitViewController: UISplitViewController, showDetail vc: UIViewController, sender: Any?) -> Bool {
         return false
     }
     
-    func splitViewControllerSupportedInterfaceOrientations(_ splitViewController: UISplitViewController) -> UIInterfaceOrientationMask {
+    public func splitViewControllerSupportedInterfaceOrientations(_ splitViewController: UISplitViewController) -> UIInterfaceOrientationMask {
         return .all
     }
     
-    func splitViewController(_ splitViewController: UISplitViewController, separateSecondaryFrom primaryViewController: UIViewController) -> UIViewController? {
+    public func splitViewController(_ splitViewController: UISplitViewController, separateSecondaryFrom primaryViewController: UIViewController) -> UIViewController? {
         return secondaryViewController
     }
     
-    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
+    public func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
         return true
     }
     
-    func splitViewControllerPreferredInterfaceOrientationForPresentation(_ splitViewController: UISplitViewController) -> UIInterfaceOrientation {
+    public func splitViewControllerPreferredInterfaceOrientationForPresentation(_ splitViewController: UISplitViewController) -> UIInterfaceOrientation {
         return .landscapeLeft
     }
 }
