@@ -10,6 +10,8 @@
 		957A89452226620900CDD25D /* StorybookKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 957A89432226620900CDD25D /* StorybookKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		957A89522226621400CDD25D /* StorybookUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 957A89502226621400CDD25D /* StorybookUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		957A89572226629900CDD25D /* StorybookKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 957A89412226620900CDD25D /* StorybookKit.framework */; };
+		957A895B2226661600CDD25D /* StorybookKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957A895A2226661600CDD25D /* StorybookKit.swift */; };
+		957A895D2226662500CDD25D /* StorybookUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957A895C2226662500CDD25D /* StorybookUI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +31,8 @@
 		957A894E2226621400CDD25D /* StorybookUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorybookUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		957A89502226621400CDD25D /* StorybookUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorybookUI.h; sourceTree = "<group>"; };
 		957A89512226621400CDD25D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		957A895A2226661600CDD25D /* StorybookKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorybookKit.swift; sourceTree = "<group>"; };
+		957A895C2226662500CDD25D /* StorybookUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorybookUI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +78,7 @@
 			children = (
 				957A89432226620900CDD25D /* StorybookKit.h */,
 				957A89442226620900CDD25D /* Info.plist */,
+				957A895A2226661600CDD25D /* StorybookKit.swift */,
 			);
 			path = StorybookKit;
 			sourceTree = "<group>";
@@ -83,6 +88,7 @@
 			children = (
 				957A89502226621400CDD25D /* StorybookUI.h */,
 				957A89512226621400CDD25D /* Info.plist */,
+				957A895C2226662500CDD25D /* StorybookUI.swift */,
 			);
 			path = StorybookUI;
 			sourceTree = "<group>";
@@ -164,9 +170,11 @@
 				TargetAttributes = {
 					957A89402226620900CDD25D = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
 					};
 					957A894D2226621400CDD25D = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
 					};
 				};
 			};
@@ -210,6 +218,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				957A895B2226661600CDD25D /* StorybookKit.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,6 +226,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				957A895D2226662500CDD25D /* StorybookUI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -357,6 +367,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -373,6 +384,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = jp.eure.StorybookKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -382,6 +394,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -407,6 +420,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -423,6 +437,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = jp.eure.StorybookUI;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -432,6 +447,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
