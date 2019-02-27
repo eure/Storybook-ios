@@ -8,6 +8,8 @@
 
 import Foundation
 
+import StorybookKit
+
 final class StackScrollViewController : CodeBasedViewController {
   
   private let stackScrollView = StackScrollView()

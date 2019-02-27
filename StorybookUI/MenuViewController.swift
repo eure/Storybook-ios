@@ -8,6 +8,8 @@
 
 import UIKit
 
+import StorybookKit
+
 final class MenuViewController : CodeBasedViewController {
   
   private let stackScrollView = StackScrollView()

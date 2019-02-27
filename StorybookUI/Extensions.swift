@@ -9,6 +9,8 @@
 
 import Foundation
 
+import StorybookKit
+
 extension StorybookItemDescriptor {
   
   func makeCells() -> [UIView] {
