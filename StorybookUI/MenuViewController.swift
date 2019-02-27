@@ -31,8 +31,14 @@ final class MenuViewController : CodeBasedViewController {
     view.backgroundColor = .white
     
     view.addSubview(stackScrollView)
-    stackScrollView.easy.layout(Edges())
-    
+
+    NSLayoutConstraint.activate([
+        stackScrollView.topAnchor.constraint(equalTo: view.topAnchor),
+        stackScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+        stackScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+        stackScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+
     do {
       
       let views: [UIView] = menuDescriptor.sections.flatMap { section in
@@ -121,10 +127,13 @@ extension MenuViewController {
       
       addSubview(titleLabel)
       
-      titleLabel.easy.layout(
-        Edges(16),
-        Height(>=16)
-      )
+        NSLayoutConstraint.activate([
+            titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 16.0),
+            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16.0),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.0),
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 16.0),
+            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 16.0)
+            ])
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -170,14 +179,14 @@ extension MenuViewController {
       backgroundColor = .white
       
       addSubview(titleLabel)
-      
-      titleLabel.easy.layout(
-        Top(16),
-        Trailing(16),
-        Leading(32),
-        Bottom(16),
-        Height(>=16)
-      )
+
+        NSLayoutConstraint.activate([
+            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16.0),
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 16.0),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32.0),
+            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 16.0),
+            titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 16.0)
+            ])
     }
     
     required init?(coder aDecoder: NSCoder) {
