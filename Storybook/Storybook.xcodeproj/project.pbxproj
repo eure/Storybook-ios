@@ -7,17 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		957A89362226610200CDD25D /* Storybook.h in Headers */ = {isa = PBXBuildFile; fileRef = 957A89342226610200CDD25D /* Storybook.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		957A89452226620900CDD25D /* StorybookKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 957A89432226620900CDD25D /* StorybookKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		957A89522226621400CDD25D /* StorybookUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 957A89502226621400CDD25D /* StorybookUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		957A89312226610200CDD25D /* Storybook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Storybook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		957A89342226610200CDD25D /* Storybook.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Storybook.h; sourceTree = "<group>"; };
-		957A89352226610200CDD25D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		957A89412226620900CDD25D /* StorybookKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorybookKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		957A89432226620900CDD25D /* StorybookKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorybookKit.h; sourceTree = "<group>"; };
+		957A89442226620900CDD25D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		957A894E2226621400CDD25D /* StorybookUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorybookUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		957A89502226621400CDD25D /* StorybookUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorybookUI.h; sourceTree = "<group>"; };
+		957A89512226621400CDD25D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		957A892E2226610200CDD25D /* Frameworks */ = {
+		957A893E2226620900CDD25D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		957A894B2226621400CDD25D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -30,7 +41,8 @@
 		957A89272226610200CDD25D = {
 			isa = PBXGroup;
 			children = (
-				957A89332226610200CDD25D /* Storybook */,
+				957A89422226620900CDD25D /* StorybookKit */,
+				957A894F2226621400CDD25D /* StorybookUI */,
 				957A89322226610200CDD25D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -38,50 +50,86 @@
 		957A89322226610200CDD25D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				957A89312226610200CDD25D /* Storybook.framework */,
+				957A89412226620900CDD25D /* StorybookKit.framework */,
+				957A894E2226621400CDD25D /* StorybookUI.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		957A89332226610200CDD25D /* Storybook */ = {
+		957A89422226620900CDD25D /* StorybookKit */ = {
 			isa = PBXGroup;
 			children = (
-				957A89342226610200CDD25D /* Storybook.h */,
-				957A89352226610200CDD25D /* Info.plist */,
+				957A89432226620900CDD25D /* StorybookKit.h */,
+				957A89442226620900CDD25D /* Info.plist */,
 			);
-			path = Storybook;
+			path = StorybookKit;
+			sourceTree = "<group>";
+		};
+		957A894F2226621400CDD25D /* StorybookUI */ = {
+			isa = PBXGroup;
+			children = (
+				957A89502226621400CDD25D /* StorybookUI.h */,
+				957A89512226621400CDD25D /* Info.plist */,
+			);
+			path = StorybookUI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		957A892C2226610200CDD25D /* Headers */ = {
+		957A893C2226620900CDD25D /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				957A89362226610200CDD25D /* Storybook.h in Headers */,
+				957A89452226620900CDD25D /* StorybookKit.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		957A89492226621400CDD25D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				957A89522226621400CDD25D /* StorybookUI.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		957A89302226610200CDD25D /* Storybook */ = {
+		957A89402226620900CDD25D /* StorybookKit */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 957A89392226610200CDD25D /* Build configuration list for PBXNativeTarget "Storybook" */;
+			buildConfigurationList = 957A89462226620900CDD25D /* Build configuration list for PBXNativeTarget "StorybookKit" */;
 			buildPhases = (
-				957A892C2226610200CDD25D /* Headers */,
-				957A892D2226610200CDD25D /* Sources */,
-				957A892E2226610200CDD25D /* Frameworks */,
-				957A892F2226610200CDD25D /* Resources */,
+				957A893C2226620900CDD25D /* Headers */,
+				957A893D2226620900CDD25D /* Sources */,
+				957A893E2226620900CDD25D /* Frameworks */,
+				957A893F2226620900CDD25D /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = Storybook;
-			productName = Storybook;
-			productReference = 957A89312226610200CDD25D /* Storybook.framework */;
+			name = StorybookKit;
+			productName = StorybookKit;
+			productReference = 957A89412226620900CDD25D /* StorybookKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		957A894D2226621400CDD25D /* StorybookUI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 957A89532226621400CDD25D /* Build configuration list for PBXNativeTarget "StorybookUI" */;
+			buildPhases = (
+				957A89492226621400CDD25D /* Headers */,
+				957A894A2226621400CDD25D /* Sources */,
+				957A894B2226621400CDD25D /* Frameworks */,
+				957A894C2226621400CDD25D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = StorybookUI;
+			productName = StorybookUI;
+			productReference = 957A894E2226621400CDD25D /* StorybookUI.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -93,7 +141,10 @@
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "eureka, Inc.";
 				TargetAttributes = {
-					957A89302226610200CDD25D = {
+					957A89402226620900CDD25D = {
+						CreatedOnToolsVersion = 10.1;
+					};
+					957A894D2226621400CDD25D = {
 						CreatedOnToolsVersion = 10.1;
 					};
 				};
@@ -110,13 +161,21 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				957A89302226610200CDD25D /* Storybook */,
+				957A89402226620900CDD25D /* StorybookKit */,
+				957A894D2226621400CDD25D /* StorybookUI */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		957A892F2226610200CDD25D /* Resources */ = {
+		957A893F2226620900CDD25D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		957A894C2226621400CDD25D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -126,7 +185,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		957A892D2226610200CDD25D /* Sources */ = {
+		957A893D2226620900CDD25D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		957A894A2226621400CDD25D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -188,7 +254,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -246,7 +312,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -258,23 +324,24 @@
 			};
 			name = Release;
 		};
-		957A893A2226610200CDD25D /* Debug */ = {
+		957A89472226620900CDD25D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = Storybook/Info.plist;
+				INFOPLIST_FILE = StorybookKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = jp.eure.pairs.Storybook;
+				PRODUCT_BUNDLE_IDENTIFIER = jp.eure.StorybookKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.2;
@@ -282,23 +349,74 @@
 			};
 			name = Debug;
 		};
-		957A893B2226610200CDD25D /* Release */ = {
+		957A89482226620900CDD25D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = Storybook/Info.plist;
+				INFOPLIST_FILE = StorybookKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = jp.eure.pairs.Storybook;
+				PRODUCT_BUNDLE_IDENTIFIER = jp.eure.StorybookKit;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		957A89542226621400CDD25D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = StorybookUI/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = jp.eure.StorybookUI;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		957A89552226621400CDD25D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = StorybookUI/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = jp.eure.StorybookUI;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.2;
@@ -318,11 +436,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		957A89392226610200CDD25D /* Build configuration list for PBXNativeTarget "Storybook" */ = {
+		957A89462226620900CDD25D /* Build configuration list for PBXNativeTarget "StorybookKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				957A893A2226610200CDD25D /* Debug */,
-				957A893B2226610200CDD25D /* Release */,
+				957A89472226620900CDD25D /* Debug */,
+				957A89482226620900CDD25D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		957A89532226621400CDD25D /* Build configuration list for PBXNativeTarget "StorybookUI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				957A89542226621400CDD25D /* Debug */,
+				957A89552226621400CDD25D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
