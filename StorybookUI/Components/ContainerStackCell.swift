@@ -51,22 +51,22 @@ class ContainerStackCell : CodeBasedView, StackCellType {
 
       classNameLabel.easy.layout([
         Top(.appSpace(1)).to(titleLabel, .bottom),
-        Leading(.appSpace(4)),
-        Trailing(.appSpace(4)),
+        Leading(16),
+        Trailing(16),
         Bottom(.appSpace(2))
         ])
     }
     
     titleContainerView.easy.layout([
       Top(.appSpace(3)),
-      Right(.appSpace(4)),
-      Left(.appSpace(4)),
+      Right(16),
+      Left(16),
       ])
     
     contentView.easy.layout([
       Top().to(titleContainerView),
-      Right(.appSpace(4)),
-      Left(.appSpace(4)),
+      Right(16),
+      Left(16),
       Bottom(.appSpace(3)),
       ])
   }

@@ -38,14 +38,14 @@ final class MenuViewController : CodeBasedViewController {
       let views: [UIView] = menuDescriptor.sections.flatMap { section in
         [
           SectionCell(title: section.title) { },
-          SeparatorView(leftMargin: .appSpace(4), rightMargin: 0, backgroundColor: .white, separatorColor: UIColor(white: 0, alpha: 0.1))
+          SeparatorView(leftMargin: 16, rightMargin: 0, backgroundColor: .white, separatorColor: UIColor(white: 0, alpha: 0.1))
           ] +
           section.items.flatMap { item in
             [
               ItemCell(title: item.title) { [weak self] in
                 self?.showDetailViewController(StackScrollViewController(descriptor: item), sender: self)
               },
-              SeparatorView(leftMargin: .appSpace(8), rightMargin: 0, backgroundColor: .white, separatorColor: UIColor(white: 0, alpha: 0.1))
+              SeparatorView(leftMargin: 32, rightMargin: 0, backgroundColor: .white, separatorColor: UIColor(white: 0, alpha: 0.1))
             ]
         }
       }
@@ -59,7 +59,7 @@ final class MenuViewController : CodeBasedViewController {
 
 extension MenuViewController {
   
-  final class HighlightStackCell : TapStackCell {
+  class HighlightStackCell : TapStackCell {
     
     // MARK: - Properties
     
@@ -122,7 +122,7 @@ extension MenuViewController {
       addSubview(titleLabel)
       
       titleLabel.easy.layout(
-        Edges(.appSpace(4)),
+        Edges(16),
         Height(>=16)
       )
     }
@@ -172,10 +172,10 @@ extension MenuViewController {
       addSubview(titleLabel)
       
       titleLabel.easy.layout(
-        Top(.appSpace(4)),
-        Trailing(.appSpace(4)),
-        Leading(.appSpace(8)),
-        Bottom(.appSpace(4)),
+        Top(16),
+        Trailing(16),
+        Leading(32),
+        Bottom(16),
         Height(>=16)
       )
     }
