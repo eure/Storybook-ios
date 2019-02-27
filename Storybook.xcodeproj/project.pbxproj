@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4BB03C0122266C1F006E9E49 /* TapStackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB03C0022266C1F006E9E49 /* TapStackCell.swift */; };
 		957A89452226620900CDD25D /* StorybookKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 957A89432226620900CDD25D /* StorybookKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		957A89522226621400CDD25D /* StorybookUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 957A89502226621400CDD25D /* StorybookUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		957A89572226629900CDD25D /* StorybookKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 957A89412226620900CDD25D /* StorybookKit.framework */; };
@@ -43,6 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4BB03C0022266C1F006E9E49 /* TapStackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapStackCell.swift; sourceTree = "<group>"; };
 		957A89412226620900CDD25D /* StorybookKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorybookKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		957A89432226620900CDD25D /* StorybookKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorybookKit.h; sourceTree = "<group>"; };
 		957A89442226620900CDD25D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -98,7 +100,9 @@
 				957A89322226610200CDD25D /* Products */,
 				957A89562226629900CDD25D /* Frameworks */,
 			);
+			indentWidth = 4;
 			sourceTree = "<group>";
+			tabWidth = 4;
 		};
 		957A89322226610200CDD25D /* Products */ = {
 			isa = PBXGroup;
@@ -156,6 +160,7 @@
 				957A89782226699E00CDD25D /* HeaderStackCell.swift */,
 				957A89792226699E00CDD25D /* SeparatorStackCell.swift */,
 				957A897A2226699E00CDD25D /* EmptyStackCell.swift */,
+				4BB03C0022266C1F006E9E49 /* TapStackCell.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -322,6 +327,7 @@
 				957A897D2226699E00CDD25D /* SeparatorStackCell.swift in Sources */,
 				957A897C2226699E00CDD25D /* HeaderStackCell.swift in Sources */,
 				957A89752226697600CDD25D /* StackScrollViewController.swift in Sources */,
+				4BB03C0122266C1F006E9E49 /* TapStackCell.swift in Sources */,
 				957A896E2226696500CDD25D /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

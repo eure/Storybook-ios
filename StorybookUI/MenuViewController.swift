@@ -59,7 +59,30 @@ final class MenuViewController : CodeBasedViewController {
 
 extension MenuViewController {
   
-  class HighlightStackCell : Element.TapStackCell {
+  final class HighlightStackCell : TapStackCell {
+    
+    // MARK: - Properties
+    
+    override var isHighlighted: Bool {
+        didSet {
+            
+            guard oldValue != isHighlighted else { return }
+            
+            UIView.animate(withDuration: 0.2, delay: 0, options: [.beginFromCurrentState, .allowUserInteraction], animations: {
+                
+                if self.isHighlighted {
+                    
+                    self.backgroundColor = self.backgroundColor?.add(hue: 0, saturation: 0, brightness: -0.1, alpha: 0)
+                } else {
+                    
+                    self.backgroundColor = self.backgroundColor?.add(hue: 0, saturation: 0, brightness: +0.1, alpha: 0)
+                }
+            }) { _ in
+            }
+        }
+    }
+    
+    // MARK: - Initializers
     
     override init() {
       super.init()
@@ -68,38 +91,24 @@ extension MenuViewController {
     required init?(coder aDecoder: NSCoder) {
       fatalError("init(coder:) has not been implemented")
     }
-    
-    override var isHighlighted: Bool {
-      didSet {
-        
-        guard oldValue != isHighlighted else { return }
-        
-        UIView.animate(withDuration: 0.2, delay: 0, options: [.beginFromCurrentState, .allowUserInteraction], animations: {
-          
-          if self.isHighlighted {
-            
-            self.backgroundColor = self.backgroundColor?.add(hue: 0, saturation: 0, brightness: -0.1, alpha: 0)
-          } else {
-            
-            self.backgroundColor = self.backgroundColor?.add(hue: 0, saturation: 0, brightness: +0.1, alpha: 0)
-          }
-        }) { _ in
-        }
-      }
-    }
+   
   }
   
-  final class SectionCell : Element.TapStackCell {
+  final class SectionCell : TapStackCell {
+    
+    // MARK: - Properties
     
     private let titleLabel = UILabel()
     
-    private let disposeBag = DisposeBag()
+    private let didTapAction: () -> Void
+    
+    // MARK: - Initializers
     
     convenience init(title: String, didTap: @escaping () -> Void = {}) {
       self.init()
       set(title: title)
       
-      rx.tap.asDriver().drive(onNext: didTap).disposed(by: disposeBag)
+        addTarget(self, action: #selector(_didTap), for: .touchUpInside)
     }
     
     override init() {
@@ -122,23 +131,34 @@ extension MenuViewController {
       fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Functions
+    
     func set(title: String) {
       titleLabel.text = title
+    }
+    
+    @objc private dynamic func _didTap() {
+        didTapAction()
     }
     
   }
   
   final class ItemCell : HighlightStackCell {
     
+    // MARK: - Properties
+    
     private let titleLabel = UILabel()
     
-    private let disposeBag = DisposeBag()
+    private let didTapAction: () -> Void
+    
+    // MARK: - Initializers
     
     convenience init(title: String, didTap: @escaping () -> Void = {}) {
+        self.didTapAction = didTap
       self.init()
       set(title: title)
-      
-      rx.tap.asDriver().drive(onNext: didTap).disposed(by: disposeBag)
+        
+        addTarget(self, action: #selector(_didTap), for: .touchUpInside)
     }
     
     override init() {
@@ -164,8 +184,14 @@ extension MenuViewController {
       fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Functions
+    
     func set(title: String) {
       titleLabel.text = title
+    }
+    
+    @objc private dynamic func _didTap() {
+        didTapAction()
     }
     
   }
