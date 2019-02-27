@@ -48,27 +48,28 @@ class ContainerStackCell : CodeBasedView, StackCellType {
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 16.0)
             ])
 
-
-      classNameLabel.easy.layout([
-        Top(.appSpace(1)).to(titleLabel, .bottom),
-        Leading(16),
-        Trailing(16),
-        Bottom(.appSpace(2))
-        ])
+        NSLayoutConstraint.activate([
+            classNameLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4.0),
+            classNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.0),
+            classNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 16.0),
+            classNameLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 8.0),
+            ])
     }
-    
-    titleContainerView.easy.layout([
-      Top(.appSpace(3)),
-      Right(16),
-      Left(16),
-      ])
-    
-    contentView.easy.layout([
-      Top().to(titleContainerView),
-      Right(16),
-      Left(16),
-      Bottom(.appSpace(3)),
-      ])
+
+
+    NSLayoutConstraint.activate([
+        titleContainerView.topAnchor.constraint(equalTo: topAnchor, constant: 12.0),
+        titleContainerView.rightAnchor.constraint(equalTo: rightAnchor, constant: 16.0),
+        titleContainerView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16.0)
+        ])
+
+
+    NSLayoutConstraint.activate([
+        contentView.topAnchor.constraint(equalTo: titleContainerView.topAnchor),
+        contentView.rightAnchor.constraint(equalTo: rightAnchor, constant: 16.0),
+        contentView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16.0),
+        contentView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 12.0)
+        ])
   }
   
   override func layoutSublayers(of layer: CALayer) {
