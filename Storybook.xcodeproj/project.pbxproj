@@ -21,6 +21,8 @@
 		4BB03C2D2226709D006E9E49 /* MyUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BB03C262226709D006E9E49 /* MyUIKit.framework */; };
 		4BB03C2E2226709D006E9E49 /* MyUIKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4BB03C262226709D006E9E49 /* MyUIKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4BB03C32222670AA006E9E49 /* StorybookKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 957A89412226620900CDD25D /* StorybookKit.framework */; };
+		4BB03C3622267262006E9E49 /* StorybookDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB03C3522267262006E9E49 /* StorybookDefinition.swift */; };
+		4BB03C382226726A006E9E49 /* Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB03C372226726A006E9E49 /* Elements.swift */; };
 		957A89452226620900CDD25D /* StorybookKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 957A89432226620900CDD25D /* StorybookKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		957A89522226621400CDD25D /* StorybookUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 957A89502226621400CDD25D /* StorybookUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		957A89572226629900CDD25D /* StorybookKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 957A89412226620900CDD25D /* StorybookKit.framework */; };
@@ -112,6 +114,8 @@
 		4BB03C262226709D006E9E49 /* MyUIKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MyUIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BB03C282226709D006E9E49 /* MyUIKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyUIKit.h; sourceTree = "<group>"; };
 		4BB03C292226709D006E9E49 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4BB03C3522267262006E9E49 /* StorybookDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorybookDefinition.swift; sourceTree = "<group>"; };
+		4BB03C372226726A006E9E49 /* Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Elements.swift; sourceTree = "<group>"; };
 		957A89412226620900CDD25D /* StorybookKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorybookKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		957A89432226620900CDD25D /* StorybookKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorybookKit.h; sourceTree = "<group>"; };
 		957A89442226620900CDD25D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -195,6 +199,8 @@
 			children = (
 				4BB03C282226709D006E9E49 /* MyUIKit.h */,
 				4BB03C292226709D006E9E49 /* Info.plist */,
+				4BB03C3522267262006E9E49 /* StorybookDefinition.swift */,
+				4BB03C372226726A006E9E49 /* Elements.swift */,
 			);
 			path = MyUIKit;
 			sourceTree = "<group>";
@@ -416,6 +422,7 @@
 					};
 					4BB03C252226709D006E9E49 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
 					};
 					957A89402226620900CDD25D = {
 						CreatedOnToolsVersion = 10.1;
@@ -496,6 +503,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BB03C382226726A006E9E49 /* Elements.swift in Sources */,
+				4BB03C3622267262006E9E49 /* StorybookDefinition.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -628,6 +637,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -645,6 +655,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = jp.eure.storybook.demo.MyUIKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -654,6 +665,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;

@@ -8,13 +8,25 @@
 
 import UIKit
 
+import MyUIKit
+import StorybookUI
+
 class ViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    // Do any additional setup after loading the view, typically from a nib.
+    
   }
 
-
+  @IBAction private func didTapPresentButton(_ sender: Any) {
+  
+    let controller = StorybookViewController(menuDescriptor: __storybookMenuDescriptor)
+    
+    addChild(controller)
+    view.addSubview(controller.view)
+    controller.view.frame = view.bounds
+    
+  }
+  
 }
 

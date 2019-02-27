@@ -30,6 +30,7 @@ final class MenuViewController : CodeBasedViewController {
         
         view.backgroundColor = .white
         
+        stackScrollView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(stackScrollView)
         
         NSLayoutConstraint.activate([
@@ -107,14 +108,15 @@ extension MenuViewController {
             
             backgroundColor = .white
             
+            titleLabel.translatesAutoresizingMaskIntoConstraints = false
             addSubview(titleLabel)
             
             NSLayoutConstraint.activate([
                 titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 16.0),
                 titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16.0),
                 titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.0),
-                titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 16.0),
-                titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 16.0)
+                titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.0),
+                titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16.0)
                 ])
             
             set(title: title)
@@ -163,13 +165,14 @@ extension MenuViewController {
             
             backgroundColor = .white
             
+            titleLabel.translatesAutoresizingMaskIntoConstraints = false
             addSubview(titleLabel)
             
             NSLayoutConstraint.activate([
                 titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16.0),
-                titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 16.0),
+                titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.0),
                 titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32.0),
-                titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 16.0),
+                titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16.0),
                 titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 16.0)
                 ])
             

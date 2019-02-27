@@ -24,6 +24,7 @@ final class SeparatorView : CodeBasedView {
     let borderView = UIView()
     
     borderView.backgroundColor = separatorColor
+    borderView.translatesAutoresizingMaskIntoConstraints = false
     addSubview(borderView)
     
     let scale = UIScreen.main.scale
