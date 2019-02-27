@@ -20,11 +20,9 @@ class ViewController: UIViewController {
 
   @IBAction private func didTapPresentButton(_ sender: Any) {
   
-    let controller = StorybookViewController(menuDescriptor: __storybookMenuDescriptor)
+    let controller = StorybookViewController(menuDescriptor: __storybookMenuDescriptor, showDismissButton: true)
     
-    addChild(controller)
-    view.addSubview(controller.view)
-    controller.view.frame = view.bounds
+    present(controller, animated: true, completion: nil)
     
   }
   

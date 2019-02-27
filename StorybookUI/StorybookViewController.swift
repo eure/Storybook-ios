@@ -12,18 +12,22 @@ import StorybookKit
 
 public final class StorybookViewController : UISplitViewController {
     
-    private let menuController: MenuViewController
+    private let mainViewController: UINavigationController
     
-    private lazy var secondaryViewController = UINavigationController()
+    private let secondaryViewController = UINavigationController()
     
-    public init(menuDescriptor: StorybookMenuDescriptor) {
+    public init(menuDescriptor: StorybookMenuDescriptor, showDismissButton: Bool) {
         
-        self.menuController = .init(menuDescriptor: menuDescriptor)
+        let menuController = MenuViewController.init(menuDescriptor: menuDescriptor)
+        self.mainViewController = UINavigationController(rootViewController: menuController)
         
         super.init(nibName: nil, bundle: nil)
         
+        let dismissButton = UIBarButtonItem(title: "Dismiss", style: .plain, target: self, action: #selector(didTapDismissButton))
+        menuController.navigationItem.leftBarButtonItem = dismissButton
+        
         viewControllers = [
-            UINavigationController(rootViewController: menuController),
+            mainViewController,
             secondaryViewController,
         ]
     }
@@ -49,6 +53,10 @@ public final class StorybookViewController : UISplitViewController {
             super.showDetailViewController(UINavigationController(rootViewController: vc), sender: sender)
         }
         
+    }
+    
+    @objc private func didTapDismissButton() {
+        dismiss(animated: true, completion: nil)
     }
 }
 
@@ -77,7 +85,7 @@ extension StorybookViewController : UISplitViewControllerDelegate {
         return true
     }
     
-    public func splitViewControllerPreferredInterfaceOrientationForPresentation(_ splitViewController: UISplitViewController) -> UIInterfaceOrientation {
-        return .landscapeLeft
-    }
+//    public func splitViewControllerPreferredInterfaceOrientationForPresentation(_ splitViewController: UISplitViewController) -> UIInterfaceOrientation {
+//        return .portrait
+//    }
 }
