@@ -28,17 +28,17 @@ final class SeparatorView : CodeBasedView {
     
     let scale = UIScreen.main.scale
     let onePixel = 1 / scale
-    
-    easy.layout([
-      Height(1),
-      ])
-    
-    borderView.easy.layout([
-      Top(onePixel / scale),
-      Height(onePixel),
-      Right(rightMargin),
-      Left(leftMargin),
-      ])
+
+    NSLayoutConstraint.activate([
+        heightAnchor.constraint(equalToConstant: 1.0)
+        ])
+
+    NSLayoutConstraint.activate([
+        borderView.topAnchor.constraint(equalTo: topAnchor, constant: onePixel / scale),
+        borderView.heightAnchor.constraint(equalToConstant: onePixel),
+        borderView.rightAnchor.constraint(equalTo: rightAnchor, constant: rightMargin),
+        borderView.leftAnchor.constraint(equalTo: leftAnchor, constant: rightMargin)
+        ])
   }
   
 }

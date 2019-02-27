@@ -42,12 +42,13 @@ class ContainerStackCell : CodeBasedView, StackCellType {
       titleContainerView.addSubview(titleLabel)
       titleContainerView.addSubview(classNameLabel)
       
-      titleLabel.easy.layout([
-        Top(.appSpace(2)),
-        Leading(.appSpace(4)),
-        Trailing(.appSpace(4)),
-        ])
-      
+        NSLayoutConstraint.activate([
+            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 8.0),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.0),
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 16.0)
+            ])
+
+
       classNameLabel.easy.layout([
         Top(.appSpace(1)).to(titleLabel, .bottom),
         Leading(.appSpace(4)),
@@ -117,13 +118,13 @@ extension ContainerStackCell {
     set(className: className)
     
     contentView.addSubview(bodyView)
-    
-    bodyView.easy.layout([
-      Top(.appSpace(2)),
-      Bottom(.appSpace(2)),
-      Left(.appSpace(2)),
-      Right(.appSpace(2)),
-      ])
-  }
+
+    NSLayoutConstraint.activate([
+        bodyView.topAnchor.constraint(equalTo: topAnchor, constant: 8.0),
+        bodyView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 8.0),
+        bodyView.leftAnchor.constraint(equalTo: leftAnchor, constant: 8.0),
+        bodyView.rightAnchor.constraint(equalTo: rightAnchor, constant: 8.0)
+        ])
+    }
 
 }

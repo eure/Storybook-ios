@@ -26,19 +26,19 @@ final class HeaderStackCell : CodeBasedView {
     detailLabel.font = UIFont.preferredFont(forTextStyle: .headline)
     detailLabel.textColor = UIColor(white: 0, alpha: 0.4)
     detailLabel.numberOfLines = 0
-    
-    titleLabel.easy.layout([
-      Top(.appSpace(4)),
-      Trailing(.appSpace(4)),
-      Leading(.appSpace(4)),
-      ])
-    
-    detailLabel.easy.layout([
-      Top(.appSpace(2)).to(titleLabel, .bottom),
-      Trailing(.appSpace(4)),
-      Leading(.appSpace(4)),
-      Bottom(.appSpace(4))
-      ])
+
+    NSLayoutConstraint.activate([
+        titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16.0),
+        titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 16.0),
+        titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.0)
+        ])
+
+    NSLayoutConstraint.activate([
+        detailLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8.0),
+        detailLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 16.0),
+        detailLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.0),
+        detailLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16.0)
+        ])
   }
   
   func set(title: String) {
