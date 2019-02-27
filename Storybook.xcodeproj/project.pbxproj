@@ -12,6 +12,11 @@
 		957A89572226629900CDD25D /* StorybookKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 957A89412226620900CDD25D /* StorybookKit.framework */; };
 		957A895B2226661600CDD25D /* StorybookKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957A895A2226661600CDD25D /* StorybookKit.swift */; };
 		957A895D2226662500CDD25D /* StorybookUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957A895C2226662500CDD25D /* StorybookUI.swift */; };
+		957A89632226673A00CDD25D /* StorybookSectionDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957A895E2226673A00CDD25D /* StorybookSectionDescriptor.swift */; };
+		957A89642226673A00CDD25D /* StorybookItemDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957A895F2226673A00CDD25D /* StorybookItemDescriptor.swift */; };
+		957A89652226673A00CDD25D /* StorybookComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957A89602226673A00CDD25D /* StorybookComponent.swift */; };
+		957A89662226673A00CDD25D /* StorybookComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957A89612226673A00CDD25D /* StorybookComponentView.swift */; };
+		957A89672226673A00CDD25D /* StorybookMenuDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957A89622226673A00CDD25D /* StorybookMenuDescriptor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +38,11 @@
 		957A89512226621400CDD25D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		957A895A2226661600CDD25D /* StorybookKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorybookKit.swift; sourceTree = "<group>"; };
 		957A895C2226662500CDD25D /* StorybookUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorybookUI.swift; sourceTree = "<group>"; };
+		957A895E2226673A00CDD25D /* StorybookSectionDescriptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorybookSectionDescriptor.swift; sourceTree = "<group>"; };
+		957A895F2226673A00CDD25D /* StorybookItemDescriptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorybookItemDescriptor.swift; sourceTree = "<group>"; };
+		957A89602226673A00CDD25D /* StorybookComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorybookComponent.swift; sourceTree = "<group>"; };
+		957A89612226673A00CDD25D /* StorybookComponentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorybookComponentView.swift; sourceTree = "<group>"; };
+		957A89622226673A00CDD25D /* StorybookMenuDescriptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorybookMenuDescriptor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,7 +88,12 @@
 			children = (
 				957A89432226620900CDD25D /* StorybookKit.h */,
 				957A89442226620900CDD25D /* Info.plist */,
+				957A89602226673A00CDD25D /* StorybookComponent.swift */,
+				957A89612226673A00CDD25D /* StorybookComponentView.swift */,
+				957A895F2226673A00CDD25D /* StorybookItemDescriptor.swift */,
 				957A895A2226661600CDD25D /* StorybookKit.swift */,
+				957A89622226673A00CDD25D /* StorybookMenuDescriptor.swift */,
+				957A895E2226673A00CDD25D /* StorybookSectionDescriptor.swift */,
 			);
 			path = StorybookKit;
 			sourceTree = "<group>";
@@ -218,6 +233,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				957A89642226673A00CDD25D /* StorybookItemDescriptor.swift in Sources */,
+				957A89662226673A00CDD25D /* StorybookComponentView.swift in Sources */,
+				957A89672226673A00CDD25D /* StorybookMenuDescriptor.swift in Sources */,
+				957A89632226673A00CDD25D /* StorybookSectionDescriptor.swift in Sources */,
+				957A89652226673A00CDD25D /* StorybookComponent.swift in Sources */,
 				957A895B2226661600CDD25D /* StorybookKit.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
