@@ -44,7 +44,7 @@ final class MenuViewController : CodeBasedViewController {
             
             let views: [UIView] = menuDescriptor.sections.flatMap { section in
                 [
-                    SectionCell(title: section.title) { },
+                    SectionCell(title: section.title),
                     SeparatorView(leftMargin: 16, rightMargin: 0, backgroundColor: .white, separatorColor: UIColor(white: 0, alpha: 0.1))
                     ] +
                     section.items.flatMap { item in
@@ -88,19 +88,16 @@ extension MenuViewController {
         
     }
     
-    final class SectionCell : TapStackCell {
+    final class SectionCell : EmptyStackCell {
         
         // MARK: - Properties
         
         private let titleLabel = UILabel()
         
-        private let didTapAction: () -> Void
-        
         // MARK: - Initializers
         
-        init(title: String, didTap: @escaping () -> Void = {}) {
+        init(title: String) {
             
-            self.didTapAction = didTap
             super.init()
             
             titleLabel.numberOfLines = 0
@@ -121,9 +118,6 @@ extension MenuViewController {
             
             set(title: title)
 
-            
-            addTarget(self, action: #selector(_didTap), for: .touchUpInside)
-
         }
         
         required init?(coder aDecoder: NSCoder) {
@@ -135,11 +129,7 @@ extension MenuViewController {
         func set(title: String) {
             titleLabel.text = title
         }
-        
-        @objc private dynamic func _didTap() {
-            didTapAction()
-        }
-        
+
     }
     
     final class ItemCell : HighlightStackCell {

@@ -34,7 +34,12 @@ extension StorybookComponent {
         self.className = String(reflecting: type(of: element))
         self.bodyView = StorybookComponentView(element: element)
     }
-    
+
+    public init(title: String, className: String, element: UIView) {
+        self.title = title
+        self.className = className
+        self.bodyView = StorybookComponentView(element: element)
+    }
 }
 
 #if canImport(AsyncDisplayKit)

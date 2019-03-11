@@ -32,8 +32,8 @@ extension StorybookComponentView {
         
         NSLayoutConstraint.activate([
             element.topAnchor.constraint(equalTo: topAnchor, constant: 32.0),
-            element.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -32.0),
-            element.leftAnchor.constraint(greaterThanOrEqualTo: leftAnchor, constant: 32.0),
+            element.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -16.0),
+            element.leftAnchor.constraint(greaterThanOrEqualTo: leftAnchor, constant: 16.0),
             element.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -32.0),
             element.centerXAnchor.constraint(equalTo: centerXAnchor)
             ])

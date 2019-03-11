@@ -10,5 +10,7 @@ import Foundation
 
 class EmptyStackCell : CodeBasedView, StackCellType {
   
-  
+    init() {
+        super.init(frame: .zero)
+    }
 }
