@@ -21,7 +21,8 @@ public let __storybookMenuDescriptor: StorybookMenuDescriptor = StorybookMenuDes
                     components: { () -> [StorybookComponent] in
                         [
                             Elements.MyLabel.makeStorybookComponent(title: "Hello"),
-                            Elements.MyLabel.makeStorybookComponent(title: "HelloHelloHelloHello")
+                            Elements.MyLabel.makeStorybookComponent(title: "HelloHelloHelloHello"),
+                            Elements.LightLabel.makeStorybookComponent(title: "HelloHello")
                         ]
                 })
             ])
