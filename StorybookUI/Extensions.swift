@@ -16,7 +16,10 @@ extension StorybookItemDescriptor {
   func makeCells() -> [UIView] {
     
     return componentsFactory().map {
-      ContainerStackCell(bodyView: $0.bodyView, title: $0.title, className: $0.className)
+      ContainerStackCell(bodyView: $0.bodyView,
+                         title: $0.title,
+                         className: $0.className,
+                         backgroundColor: $0.backgroundColor)
     }
   }
 }

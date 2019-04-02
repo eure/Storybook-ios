@@ -12,11 +12,11 @@ import StorybookKit
 
 public enum Elements {
     
-    public final class MyLabel : UIView {
+    public class MyLabel : UIView {
         
-        private let label: UILabel = .init()
+        fileprivate let label: UILabel = .init()
         
-        public init(title: String) {
+        public required init(title: String) {
             super.init(frame: .zero)
             label.text = title
             
@@ -32,10 +32,6 @@ public enum Elements {
             
         }
         
-//        public override var intrinsicContentSize: CGSize {
-//            return label.intrinsicContentSize
-//        }
-        
         public required init?(coder aDecoder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
@@ -43,9 +39,28 @@ public enum Elements {
         class func makeStorybookComponent(title: String) -> StorybookComponent {
             
             let element = self.init(title: title)
-            
+
             return StorybookComponent(element: element)
         }
-        
+    }
+
+    public final class LightLabel : MyLabel {
+
+        public required init(title: String) {
+            super.init(title: title)
+            label.textColor = .init(white: 0.95, alpha: 1.0)
+        }
+
+        public required init?(coder aDecoder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+
+        override class func makeStorybookComponent(title: String) -> StorybookComponent {
+
+            let element = self.init(title: title)
+
+            return StorybookComponent(element: element,
+                                      backgroundColor: .init(white: 0, alpha: 0.78))
+        }
     }
 }
