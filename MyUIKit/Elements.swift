@@ -59,7 +59,8 @@ public enum Elements {
 
             let element = self.init(title: title)
 
-            return StorybookComponent(element: element, useDarkBackgroundColor: true)
+            return StorybookComponent(element: element,
+                                      backgroundColor: .init(white: 0, alpha: 0.78))
         }
     }
 }

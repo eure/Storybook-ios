@@ -116,14 +116,7 @@ class ContainerStackCell : CodeBasedView, StackCellType {
         classNameLabel.text = className
     }
 
-    func set(useDarkBackgroundColor: Bool) {
-        let backgroundColor: UIColor
-        if useDarkBackgroundColor {
-            backgroundColor = .init(white: 0, alpha: 0.78)
-        } else {
-            backgroundColor = .init(white: 0, alpha: 0.02)
-        }
-
+    func set(backgroundColor: UIColor) {
         contentViewShapeLayer.fillColor = backgroundColor.cgColor
     }
 }
@@ -133,13 +126,13 @@ extension ContainerStackCell {
     convenience init(bodyView: UIView,
                      title: String,
                      className: String,
-                     useDarkBackgroundColor: Bool) {
+                     backgroundColor: UIColor?) {
         self.init()
         
         set(title: title)
         set(className: className)
-        set(useDarkBackgroundColor: useDarkBackgroundColor)
-        
+        set(backgroundColor: backgroundColor ?? .init(white: 0, alpha: 0.02))
+
         bodyView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(bodyView)        
         

@@ -19,7 +19,7 @@ extension StorybookItemDescriptor {
       ContainerStackCell(bodyView: $0.bodyView,
                          title: $0.title,
                          className: $0.className,
-                         useDarkBackgroundColor: $0.useDarkBackgroundColor)
+                         backgroundColor: $0.backgroundColor)
     }
   }
 }
