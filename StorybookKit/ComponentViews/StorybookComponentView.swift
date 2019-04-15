@@ -8,7 +8,10 @@
 
 import UIKit
 
-open class StorybookComponentView : UIView {
+@available(*, deprecated, renamed: "StorybookComponentBasicView")
+public typealias StorybookComponentView = StorybookComponentBasicView
+
+open class StorybookComponentBasicView : UIView {
     
     public init() {
         super.init(frame: .zero)
