@@ -14,11 +14,14 @@ public struct StorybookComponent {
     public let className: String
     public let bodyView: UIView
     public let backgroundColor: UIColor?
-
-    public init(title: String,
-                className: String,
-                bodyView: StorybookComponentView,
-                backgroundColor: UIColor? = nil) {
+    
+    public init(
+        title: String,
+        className: String,
+        bodyView: StorybookComponentView,
+        backgroundColor: UIColor? = nil
+        ) {
+        
         self.title = title
         self.bodyView = bodyView
         self.className = className
@@ -41,7 +44,7 @@ extension StorybookComponent {
         self.bodyView = StorybookComponentView(element: element)
         self.backgroundColor = backgroundColor
     }
-
+    
     public init(title: String, className: String, element: UIView, backgroundColor: UIColor? = nil) {
         self.title = title
         self.className = className
