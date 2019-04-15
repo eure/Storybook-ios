@@ -34,8 +34,8 @@ public final class StorybookViewController : UISplitViewController {
         
         super.init(nibName: nil, bundle: nil)
         
-        if dismissHandler != nil {            
-            let dismissButton = UIBarButtonItem(title: "Dismiss", style: .plain, target: self, action: #selector(didTapDismissButton))
+        if dismissHandler != nil {
+            let dismissButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(didTapDismissButton))
             menuController.navigationItem.leftBarButtonItem = dismissButton
         }
         
