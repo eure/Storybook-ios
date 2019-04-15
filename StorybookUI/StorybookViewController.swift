@@ -12,24 +12,46 @@ import StorybookKit
 
 public final class StorybookViewController : UISplitViewController {
     
+    public typealias DismissHandler = (StorybookViewController) -> Void
+    
     private let mainViewController: UINavigationController
     
     private let secondaryViewController = UINavigationController()
     
-    public init(menuDescriptor: StorybookMenuDescriptor, showDismissButton: Bool) {
+    private let dismissHandler: DismissHandler?
+    
+    /// Initializer
+    ///
+    /// - Parameters:
+    ///   - menuDescriptor:
+    ///   - dismissHandler: A closure to handle event for touch-up-inside on DismissButton. If you set nil, dismiss button will be disappear.
+    public init(menuDescriptor: StorybookMenuDescriptor, dismissHandler: DismissHandler?) {
         
         let menuController = MenuViewController.init(menuDescriptor: menuDescriptor)
         self.mainViewController = UINavigationController(rootViewController: menuController)
         
+        self.dismissHandler = dismissHandler
+        
         super.init(nibName: nil, bundle: nil)
         
-        let dismissButton = UIBarButtonItem(title: "Dismiss", style: .plain, target: self, action: #selector(didTapDismissButton))
-        menuController.navigationItem.leftBarButtonItem = dismissButton
+        if dismissHandler != nil {
+            let dismissButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(didTapDismissButton))
+            menuController.navigationItem.leftBarButtonItem = dismissButton
+        }
         
         viewControllers = [
             mainViewController,
             secondaryViewController,
         ]
+        
+    }
+    
+    @available(*, deprecated, message: "Use init(menuDescriptor: StorybookMenuDescriptor, dismissHandler: DismissHandler?) instead")
+    public convenience init(menuDescriptor: StorybookMenuDescriptor, showDismissButton: Bool) {
+        
+        self.init(menuDescriptor: menuDescriptor, dismissHandler: { v in
+            v.dismiss(animated: true, completion: nil)
+        })
     }
     
     @available(*, unavailable)
@@ -56,7 +78,7 @@ public final class StorybookViewController : UISplitViewController {
     }
     
     @objc private func didTapDismissButton() {
-        dismiss(animated: true, completion: nil)
+        dismissHandler?(self)
     }
 }
 
