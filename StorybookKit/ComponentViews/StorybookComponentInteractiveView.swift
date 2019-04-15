@@ -15,7 +15,7 @@ open class StorybookComponentInteractiveView : UIView {
   
   // MARK: - Initializers
   
-  public init(element: UIView, actionDiscriptors: [ActionDescriptor]) {
+  public init<T: UIView>(element: T, actionDiscriptors: [ActionDescriptor<T>]) {
     
     super.init(frame: .zero)
     
@@ -33,7 +33,10 @@ open class StorybookComponentInteractiveView : UIView {
         
         button.setTitle(descriptor.title, for: .normal)
         button.addTarget(self, action: #selector(actionButtonTouchUpInside), for: .touchUpInside)
-        button.action = descriptor.action
+        button.action = { [weak element] in
+          guard let element = element else { return }
+          descriptor.action(element)
+        }
         
         stackView.addArrangedSubview(button)
         
@@ -82,16 +85,16 @@ open class StorybookComponentInteractiveView : UIView {
 
 extension StorybookComponentInteractiveView {
   
-  public struct ActionDescriptor {
+  public struct ActionDescriptor<T> {
     
     // MARK: - Properties
     public let title: String
     
-    public let action: () -> Void
+    public let action: (T) -> Void
     
     // MARK: - Initializers
     
-    public init(title: String, action: @escaping () -> Void) {
+    public init(title: String, action: @escaping (T) -> Void) {
       
       self.title = title
       self.action = action
