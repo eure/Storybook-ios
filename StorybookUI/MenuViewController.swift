@@ -12,6 +12,21 @@ import StorybookKit
 
 final class MenuViewController : CodeBasedViewController {
     
+    struct Identifier : Equatable {
+        
+        let raw: String
+        
+        init(menu: StorybookMenuDescriptor, section: StorybookSectionDescriptor, item: StorybookItemDescriptor) {
+            self.raw = "\(menu.identifier)|\(section.identifier)|\(item.identifier)"
+        }
+        
+        init(raw: String) {
+            self.raw = raw
+        }
+    }
+    
+    private let defaults = UserDefaults.init(suiteName: "jp.eure.storybook")
+    
     private let stackScrollView = StackScrollView()
     
     private let menuDescriptor: StorybookMenuDescriptor
@@ -42,19 +57,42 @@ final class MenuViewController : CodeBasedViewController {
         
         do {
             
+            let lastSelectedItemIdentifier = loadLastSelectedItemIdentifier()
+            var lastSelectedItem: UIView?
+            
             let views: [UIView] = menuDescriptor.sections.flatMap { section in
                 [
                     SectionCell(title: section.title),
                     SeparatorView(leftMargin: 16, rightMargin: 0, backgroundColor: .white, separatorColor: UIColor(white: 0, alpha: 0.1))
                     ] +
-                    section.items.flatMap { item in
-                        [
+                    section.items.flatMap { item -> [UIView] in
+                        
+                        let identifier = Identifier(menu: menuDescriptor, section: section, item: item)
+                        
+                        if identifier == lastSelectedItemIdentifier {
+                            lastSelectedItem = ItemCell(title: item.title) { [weak self] in
+                                self?.showDetailViewController(StackScrollViewController(descriptor: item), sender: self)
+                                self?.storeLastSelectItem(identifier: identifier)
+                            }
+                        }
+                        
+                        return  [
                             ItemCell(title: item.title) { [weak self] in
                                 self?.showDetailViewController(StackScrollViewController(descriptor: item), sender: self)
+                                self?.storeLastSelectItem(identifier: identifier)
                             },
                             SeparatorView(leftMargin: 32, rightMargin: 0, backgroundColor: .white, separatorColor: UIColor(white: 0, alpha: 0.1))
                         ]
                 }
+            }
+            
+            if let item = lastSelectedItem {
+                stackScrollView.append(views: [
+                    SectionCell(title: "Last selected item"),
+                    SeparatorView(leftMargin: 32, rightMargin: 0, backgroundColor: .white, separatorColor: UIColor(white: 0, alpha: 0.1)),
+                    item,
+                    SeparatorView(leftMargin: 32, rightMargin: 0, backgroundColor: .white, separatorColor: UIColor(white: 0, alpha: 0.1))
+                    ])
             }
             
             stackScrollView.append(views: views)
@@ -62,6 +100,20 @@ final class MenuViewController : CodeBasedViewController {
         }
         
     }
+  
+    private func storeLastSelectItem(identifier: Identifier) {
+        
+        defaults?.setValue(identifier.raw, forKey: "lastSelectedItem")
+        
+    }
+    
+    private func loadLastSelectedItemIdentifier() -> Identifier? {
+        
+        let string = defaults?.value(forKey: "lastSelectedItem") as? String
+        
+        return string.map { Identifier(raw: $0) }
+    }
+  
 }
 
 extension MenuViewController {
