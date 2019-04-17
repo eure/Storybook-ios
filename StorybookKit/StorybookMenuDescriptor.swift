@@ -11,11 +11,16 @@ import Foundation
 public struct StorybookMenuDescriptor {
     
     public let sections: [StorybookSectionDescriptor]
-    
+    public let identifier: String
+  
     public init(
-        sections: [StorybookSectionDescriptor]
+        sections: [StorybookSectionDescriptor],
+        file: StaticString = #file,
+        line: UInt = #line,
+        column: UInt = #column
         ) {
         self.sections = sections
+        self.identifier = "\(file)|\(line)|\(column)"
     }
     
 }
