@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class CodeBasedView : UIView {
+class CodeBasedView : UIView {
   
   public override init(frame: CGRect) {
     super.init(frame: frame)
@@ -20,7 +20,7 @@ open class CodeBasedView : UIView {
   }
 }
 
-open class CodeBasedViewController : UIViewController {
+class CodeBasedViewController : UIViewController {
   
   public init() {
     super.init(nibName: nil, bundle: nil)
