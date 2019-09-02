@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4B1E456D231CC2420020D738 /* StorybookComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E456B231CC2420020D738 /* StorybookComponentView.swift */; };
+		4B1E456E231CC2420020D738 /* StorybookComponentInteractiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E456C231CC2420020D738 /* StorybookComponentInteractiveView.swift */; };
 		4BB03C0122266C1F006E9E49 /* TapStackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB03C0022266C1F006E9E49 /* TapStackCell.swift */; };
 		4BB03C0922267064006E9E49 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB03C0822267064006E9E49 /* AppDelegate.swift */; };
 		4BB03C0B22267064006E9E49 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB03C0A22267064006E9E49 /* ViewController.swift */; };
@@ -31,7 +33,6 @@
 		957A89632226673A00CDD25D /* StorybookSectionDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957A895E2226673A00CDD25D /* StorybookSectionDescriptor.swift */; };
 		957A89642226673A00CDD25D /* StorybookItemDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957A895F2226673A00CDD25D /* StorybookItemDescriptor.swift */; };
 		957A89652226673A00CDD25D /* StorybookComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957A89602226673A00CDD25D /* StorybookComponent.swift */; };
-		957A89662226673A00CDD25D /* StorybookComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957A89612226673A00CDD25D /* StorybookComponentView.swift */; };
 		957A89672226673A00CDD25D /* StorybookMenuDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957A89622226673A00CDD25D /* StorybookMenuDescriptor.swift */; };
 		957A89692226695A00CDD25D /* CodeBased.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957A89682226695A00CDD25D /* CodeBased.swift */; };
 		957A896D2226696500CDD25D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957A896A2226696500CDD25D /* Extensions.swift */; };
@@ -103,6 +104,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4B1E456B231CC2420020D738 /* StorybookComponentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorybookComponentView.swift; sourceTree = "<group>"; };
+		4B1E456C231CC2420020D738 /* StorybookComponentInteractiveView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorybookComponentInteractiveView.swift; sourceTree = "<group>"; };
 		4BB03C0022266C1F006E9E49 /* TapStackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapStackCell.swift; sourceTree = "<group>"; };
 		4BB03C0622267064006E9E49 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BB03C0822267064006E9E49 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -127,7 +130,6 @@
 		957A895E2226673A00CDD25D /* StorybookSectionDescriptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorybookSectionDescriptor.swift; sourceTree = "<group>"; };
 		957A895F2226673A00CDD25D /* StorybookItemDescriptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorybookItemDescriptor.swift; sourceTree = "<group>"; };
 		957A89602226673A00CDD25D /* StorybookComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorybookComponent.swift; sourceTree = "<group>"; };
-		957A89612226673A00CDD25D /* StorybookComponentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorybookComponentView.swift; sourceTree = "<group>"; };
 		957A89622226673A00CDD25D /* StorybookMenuDescriptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorybookMenuDescriptor.swift; sourceTree = "<group>"; };
 		957A89682226695A00CDD25D /* CodeBased.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeBased.swift; sourceTree = "<group>"; };
 		957A896A2226696500CDD25D /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -181,6 +183,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4B1E456A231CC2420020D738 /* ComponentViews */ = {
+			isa = PBXGroup;
+			children = (
+				4B1E456B231CC2420020D738 /* StorybookComponentView.swift */,
+				4B1E456C231CC2420020D738 /* StorybookComponentInteractiveView.swift */,
+			);
+			path = ComponentViews;
+			sourceTree = "<group>";
+		};
 		4BB03C0722267064006E9E49 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
@@ -235,8 +246,8 @@
 			children = (
 				957A89432226620900CDD25D /* StorybookKit.h */,
 				957A89442226620900CDD25D /* Info.plist */,
+				4B1E456A231CC2420020D738 /* ComponentViews */,
 				957A89602226673A00CDD25D /* StorybookComponent.swift */,
-				957A89612226673A00CDD25D /* StorybookComponentView.swift */,
 				957A895F2226673A00CDD25D /* StorybookItemDescriptor.swift */,
 				957A895A2226661600CDD25D /* StorybookKit.swift */,
 				957A89622226673A00CDD25D /* StorybookMenuDescriptor.swift */,
@@ -513,10 +524,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				957A89642226673A00CDD25D /* StorybookItemDescriptor.swift in Sources */,
-				957A89662226673A00CDD25D /* StorybookComponentView.swift in Sources */,
+				4B1E456E231CC2420020D738 /* StorybookComponentInteractiveView.swift in Sources */,
 				957A89672226673A00CDD25D /* StorybookMenuDescriptor.swift in Sources */,
 				957A89632226673A00CDD25D /* StorybookSectionDescriptor.swift in Sources */,
 				957A89652226673A00CDD25D /* StorybookComponent.swift in Sources */,
+				4B1E456D231CC2420020D738 /* StorybookComponentView.swift in Sources */,
 				957A895B2226661600CDD25D /* StorybookKit.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
