@@ -65,7 +65,7 @@ final class ContainerStackCell : CodeBasedView, StackCellType {
         
         
         NSLayoutConstraint.activate([
-            titleContainerView.topAnchor.constraint(equalTo: topAnchor, constant: 12.0),
+            titleContainerView.topAnchor.constraint(equalTo: topAnchor, constant: 12),
             titleContainerView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
             titleContainerView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0)
             ])
@@ -78,7 +78,7 @@ final class ContainerStackCell : CodeBasedView, StackCellType {
             contentView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12)
             ])
     }
-     
+    
     func set(title: String) {
         titleLabel.text = title
     }
@@ -86,7 +86,7 @@ final class ContainerStackCell : CodeBasedView, StackCellType {
     func set(className: String) {
         classNameLabel.text = className
     }
-
+    
     func set(backgroundColor: UIColor) {
         contentView.backgroundColor = backgroundColor
     }
@@ -99,22 +99,22 @@ extension ContainerStackCell {
         title: String,
         className: String,
         backgroundColor: UIColor?
-    ) {
+        ) {
         
         self.init()
         
         set(title: title)
         set(className: className)
         set(backgroundColor: backgroundColor ?? .init(white: 0, alpha: 0.02))
-
+        
         bodyView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(bodyView)        
+        contentView.addSubview(bodyView)
         
         NSLayoutConstraint.activate([
-            bodyView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8.0),
-            bodyView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8.0),
-            bodyView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 8.0),
-            bodyView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -8.0)
+            bodyView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            bodyView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            bodyView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            bodyView.rightAnchor.constraint(equalTo: contentView.rightAnchor)
             ])
     }
     

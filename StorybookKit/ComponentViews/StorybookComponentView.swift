@@ -26,7 +26,10 @@ open class StorybookComponentBasicView : UIView {
 
 extension StorybookComponentBasicView {
     
-    public convenience init(element: UIView, insets: UIEdgeInsets = .init(top: 32, left: 16, bottom: 16, right: 32)) {
+    public convenience init(
+        element: UIView,
+        insets: UIEdgeInsets = .init(top: 32, left: 16, bottom: 32, right: 16)
+        ) {
         self.init()
         
         addSubview(element)
@@ -47,9 +50,12 @@ extension StorybookComponentBasicView {
 
 import AsyncDisplayKit
 
-extension StorybookComponentView {
+extension StorybookComponentBasicView {
     
-    public convenience init(element: ASDisplayNode, insets: UIEdgeInsets = .init(top: 32, left: 16, bottom: 16, right: 32)) {
+    public convenience init(
+        element: ASDisplayNode,
+        insets: UIEdgeInsets = .init(top: 32, left: 16, bottom: 32, right: 16)
+        ) {
         self.init(element: NodeView(embedNode: element), insets: insets)
     }
 }
