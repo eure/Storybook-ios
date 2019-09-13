@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ContainerStackCell : CodeBasedView, StackCellType {
+final class ContainerStackCell : CodeBasedView, StackCellType {
     
     private let titleContainerView = UIView()
     let contentView = UIView()
@@ -39,7 +39,7 @@ class ContainerStackCell : CodeBasedView, StackCellType {
         
         classNameLabel.numberOfLines = 0
         classNameLabel.textColor = UIColor(white: 0, alpha: 0.4)
-        classNameLabel.font = UIFont.preferredFont(forTextStyle: .caption1)
+        classNameLabel.font = UIFont.preferredFont(forTextStyle: .headline)
         
         do {
             
@@ -66,48 +66,19 @@ class ContainerStackCell : CodeBasedView, StackCellType {
         
         NSLayoutConstraint.activate([
             titleContainerView.topAnchor.constraint(equalTo: topAnchor, constant: 12.0),
-            titleContainerView.rightAnchor.constraint(equalTo: rightAnchor, constant: -16.0),
-            titleContainerView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16.0)
+            titleContainerView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
+            titleContainerView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0)
             ])
         
         
         NSLayoutConstraint.activate([
             contentView.topAnchor.constraint(equalTo: titleContainerView.bottomAnchor),
-            contentView.rightAnchor.constraint(equalTo: rightAnchor, constant: -16.0),
-            contentView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16.0),
-            contentView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12.0)
+            contentView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
+            contentView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0),
+            contentView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12)
             ])
     }
-    
-    override func layoutSublayers(of layer: CALayer) {
-        super.layoutSublayers(of: layer)
-        
-        do {
-            contentViewShapeLayer.frame = self.layer.bounds
-            
-            let path = UIBezierPath(
-                roundedRect: self.contentView.layer.frame,
-                byRoundingCorners: [.bottomLeft, .bottomRight],
-                cornerRadii: CGSize(width: 8, height: 8)
-            )
-            
-            contentViewShapeLayer.path = path.cgPath
-        }
-        
-        do {
-            titleContainerViewViewShapeLayer.frame = self.layer.bounds
-            
-            let path = UIBezierPath(
-                roundedRect: self.titleContainerView.layer.frame,
-                byRoundingCorners: [.topLeft, .topRight],
-                cornerRadii: CGSize(width: 8, height: 8)
-            )
-            
-            titleContainerViewViewShapeLayer.path = path.cgPath
-        }
-        
-    }
-    
+     
     func set(title: String) {
         titleLabel.text = title
     }
@@ -117,16 +88,19 @@ class ContainerStackCell : CodeBasedView, StackCellType {
     }
 
     func set(backgroundColor: UIColor) {
-        contentViewShapeLayer.fillColor = backgroundColor.cgColor
+        contentView.backgroundColor = backgroundColor
     }
 }
 
 extension ContainerStackCell {
     
-    convenience init(bodyView: UIView,
-                     title: String,
-                     className: String,
-                     backgroundColor: UIColor?) {
+    convenience init(
+        bodyView: UIView,
+        title: String,
+        className: String,
+        backgroundColor: UIColor?
+    ) {
+        
         self.init()
         
         set(title: title)
