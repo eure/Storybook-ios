@@ -31,7 +31,7 @@ public struct StorybookComponent {
 
 extension StorybookComponent {
     
-    public init<T>(type: T.Type, bodyView: StorybookComponentView, backgroundColor: UIColor? = nil) {
+    public init<T>(type: T.Type, bodyView: StorybookComponentBasicView, backgroundColor: UIColor? = nil) {
         self.title = String(reflecting: T.self)
         self.className = String(reflecting: T.self)
         self.bodyView = bodyView
@@ -41,14 +41,14 @@ extension StorybookComponent {
     public init(title: String? = nil, element: UIView, backgroundColor: UIColor? = nil) {
         self.title = title ?? ""
         self.className = String(reflecting: type(of: element))
-        self.bodyView = StorybookComponentView(element: element)
+        self.bodyView = StorybookComponentBasicView(element: element)
         self.backgroundColor = backgroundColor
     }
     
     public init(title: String, className: String, element: UIView, backgroundColor: UIColor? = nil) {
         self.title = title
         self.className = className
-        self.bodyView = StorybookComponentView(element: element)
+        self.bodyView = StorybookComponentBasicView(element: element)
         self.backgroundColor = backgroundColor
     }
 }
