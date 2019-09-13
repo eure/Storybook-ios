@@ -24,9 +24,9 @@ open class StorybookComponentBasicView : UIView {
     
 }
 
-extension StorybookComponentView {
+extension StorybookComponentBasicView {
     
-    public convenience init(element: UIView) {
+    public convenience init(element: UIView, insets: UIEdgeInsets = .init(top: 32, left: 16, bottom: 16, right: 32)) {
         self.init()
         
         addSubview(element)
@@ -34,10 +34,10 @@ extension StorybookComponentView {
         element.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            element.topAnchor.constraint(equalTo: topAnchor, constant: 32.0),
-            element.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -16.0),
-            element.leftAnchor.constraint(greaterThanOrEqualTo: leftAnchor, constant: 16.0),
-            element.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -32.0),
+            element.topAnchor.constraint(equalTo: topAnchor, constant: insets.top),
+            element.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -insets.right),
+            element.leftAnchor.constraint(greaterThanOrEqualTo: leftAnchor, constant: insets.left),
+            element.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -insets.bottom),
             element.centerXAnchor.constraint(equalTo: centerXAnchor)
             ])
     }
@@ -49,8 +49,8 @@ import AsyncDisplayKit
 
 extension StorybookComponentView {
     
-    public convenience init(element: ASDisplayNode) {
-        self.init(element: NodeView(embedNode: element))
+    public convenience init(element: ASDisplayNode, insets: UIEdgeInsets = .init(top: 32, left: 16, bottom: 16, right: 32)) {
+        self.init(element: NodeView(embedNode: element), insets: insets)
     }
 }
 
