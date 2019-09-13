@@ -18,7 +18,7 @@ public struct StorybookComponent {
     public init(
         title: String,
         className: String,
-        bodyView: StorybookComponentView,
+        bodyView: UIView,
         backgroundColor: UIColor? = nil
         ) {
         
