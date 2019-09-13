@@ -63,4 +63,35 @@ public enum Elements {
                                       backgroundColor: .init(white: 0, alpha: 0.78))
         }
     }
+    
+    public final class FilledLabel : MyLabel {
+        
+        public required init(title: String) {
+            super.init(title: title)
+            backgroundColor = .init(white: 0, alpha: 0.48)
+            
+            label.textColor = .init(white: 0.95, alpha: 1.0)
+        }
+        
+        public required init?(coder aDecoder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+
+        override class func makeStorybookComponent(title: String) -> StorybookComponent {
+            
+            let element = self.init(title: title)
+            NSLayoutConstraint.activate([
+                element.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width)
+                ])
+
+            return StorybookComponent(
+                title: "",
+                className: String(reflecting: type(of: element).self),
+                bodyView: StorybookComponentBasicView(
+                    element: element,
+                    insets: .init(top: 32, left: 0, bottom: 32, right: 0)
+                )
+            )
+        }
+    }
 }
