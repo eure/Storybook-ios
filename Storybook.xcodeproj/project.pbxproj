@@ -27,6 +27,7 @@
 		9523242A23D1C76C00677D5A /* MyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9523242923D1C76C00677D5A /* MyLabel.swift */; };
 		9523242C23D1C81A00677D5A /* LightLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9523242B23D1C81A00677D5A /* LightLabel.swift */; };
 		9523242E23D1E8D200677D5A /* FilledLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9523242D23D1E8D200677D5A /* FilledLabel.swift */; };
+		9523243423D201F600677D5A /* HighlightStackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9523243323D201F600677D5A /* HighlightStackCell.swift */; };
 		957A89452226620900CDD25D /* StorybookKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 957A89432226620900CDD25D /* StorybookKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		957A89522226621400CDD25D /* StorybookUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 957A89502226621400CDD25D /* StorybookUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		957A89572226629900CDD25D /* StorybookKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 957A89412226620900CDD25D /* StorybookKit.framework */; };
@@ -123,6 +124,7 @@
 		9523242923D1C76C00677D5A /* MyLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyLabel.swift; sourceTree = "<group>"; };
 		9523242B23D1C81A00677D5A /* LightLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightLabel.swift; sourceTree = "<group>"; };
 		9523242D23D1E8D200677D5A /* FilledLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilledLabel.swift; sourceTree = "<group>"; };
+		9523243323D201F600677D5A /* HighlightStackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightStackCell.swift; sourceTree = "<group>"; };
 		957A89412226620900CDD25D /* StorybookKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorybookKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		957A89432226620900CDD25D /* StorybookKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorybookKit.h; sourceTree = "<group>"; };
 		957A89442226620900CDD25D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -309,6 +311,7 @@
 				957A89772226699E00CDD25D /* ContainerStackCell.swift */,
 				957A897A2226699E00CDD25D /* EmptyStackCell.swift */,
 				957A89782226699E00CDD25D /* HeaderStackCell.swift */,
+				9523243323D201F600677D5A /* HighlightStackCell.swift */,
 				957A89792226699E00CDD25D /* SeparatorStackCell.swift */,
 				4BB03C0022266C1F006E9E49 /* TapStackCell.swift */,
 			);
@@ -563,6 +566,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				957A898A22266A1000CDD25D /* StackScrollView.swift in Sources */,
+				9523243423D201F600677D5A /* HighlightStackCell.swift in Sources */,
 				957A897B2226699E00CDD25D /* ContainerStackCell.swift in Sources */,
 				957A898722266A1000CDD25D /* StackCell.swift in Sources */,
 				957A89742226697600CDD25D /* StorybookViewController.swift in Sources */,

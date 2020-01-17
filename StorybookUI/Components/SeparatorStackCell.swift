@@ -16,7 +16,7 @@ final class SeparatorView : CodeBasedView {
     leftMargin: CGFloat = 0,
     rightMargin: CGFloat = 0,
     backgroundColor: UIColor = UIColor.white,
-    separatorColor: UIColor = UIColor(white: 0, alpha: 0.2)) {
+    separatorColor: UIColor = UIColor(white: 0, alpha: 0.1)) {
     
     super.init(frame: .zero)
     
