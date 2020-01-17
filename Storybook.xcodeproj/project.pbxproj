@@ -24,7 +24,9 @@
 		4BB03C2E2226709D006E9E49 /* MyUIKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4BB03C262226709D006E9E49 /* MyUIKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4BB03C32222670AA006E9E49 /* StorybookKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 957A89412226620900CDD25D /* StorybookKit.framework */; };
 		4BB03C3622267262006E9E49 /* StorybookDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB03C3522267262006E9E49 /* StorybookDefinition.swift */; };
-		4BB03C382226726A006E9E49 /* Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB03C372226726A006E9E49 /* Elements.swift */; };
+		9523242A23D1C76C00677D5A /* MyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9523242923D1C76C00677D5A /* MyLabel.swift */; };
+		9523242C23D1C81A00677D5A /* LightLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9523242B23D1C81A00677D5A /* LightLabel.swift */; };
+		9523242E23D1E8D200677D5A /* FilledLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9523242D23D1E8D200677D5A /* FilledLabel.swift */; };
 		957A89452226620900CDD25D /* StorybookKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 957A89432226620900CDD25D /* StorybookKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		957A89522226621400CDD25D /* StorybookUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 957A89502226621400CDD25D /* StorybookUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		957A89572226629900CDD25D /* StorybookKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 957A89412226620900CDD25D /* StorybookKit.framework */; };
@@ -118,7 +120,9 @@
 		4BB03C282226709D006E9E49 /* MyUIKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyUIKit.h; sourceTree = "<group>"; };
 		4BB03C292226709D006E9E49 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4BB03C3522267262006E9E49 /* StorybookDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorybookDefinition.swift; sourceTree = "<group>"; };
-		4BB03C372226726A006E9E49 /* Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Elements.swift; sourceTree = "<group>"; };
+		9523242923D1C76C00677D5A /* MyLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyLabel.swift; sourceTree = "<group>"; };
+		9523242B23D1C81A00677D5A /* LightLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightLabel.swift; sourceTree = "<group>"; };
+		9523242D23D1E8D200677D5A /* FilledLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilledLabel.swift; sourceTree = "<group>"; };
 		957A89412226620900CDD25D /* StorybookKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorybookKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		957A89432226620900CDD25D /* StorybookKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorybookKit.h; sourceTree = "<group>"; };
 		957A89442226620900CDD25D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -211,9 +215,19 @@
 				4BB03C282226709D006E9E49 /* MyUIKit.h */,
 				4BB03C292226709D006E9E49 /* Info.plist */,
 				4BB03C3522267262006E9E49 /* StorybookDefinition.swift */,
-				4BB03C372226726A006E9E49 /* Elements.swift */,
+				9523242823D1C76000677D5A /* Elements */,
 			);
 			path = MyUIKit;
+			sourceTree = "<group>";
+		};
+		9523242823D1C76000677D5A /* Elements */ = {
+			isa = PBXGroup;
+			children = (
+				9523242D23D1E8D200677D5A /* FilledLabel.swift */,
+				9523242B23D1C81A00677D5A /* LightLabel.swift */,
+				9523242923D1C76C00677D5A /* MyLabel.swift */,
+			);
+			path = Elements;
 			sourceTree = "<group>";
 		};
 		957A89272226610200CDD25D = {
@@ -514,8 +528,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4BB03C382226726A006E9E49 /* Elements.swift in Sources */,
+				9523242E23D1E8D200677D5A /* FilledLabel.swift in Sources */,
 				4BB03C3622267262006E9E49 /* StorybookDefinition.swift in Sources */,
+				9523242A23D1C76C00677D5A /* MyLabel.swift in Sources */,
+				9523242C23D1C81A00677D5A /* LightLabel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

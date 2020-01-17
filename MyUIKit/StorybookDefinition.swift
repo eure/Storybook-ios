@@ -10,21 +10,20 @@ import Foundation
 
 import StorybookKit
 
-public let __storybookMenuDescriptor: StorybookMenuDescriptor = StorybookMenuDescriptor(
-    sections: [
-        StorybookSectionDescriptor(
-            title: "Sample",
-            items: [
-                StorybookItemDescriptor(
-                    title: "Sample",
-                    detail: "Sample Detail Text",
-                    components: { () -> [StorybookComponent] in
-                        [
-                            Elements.MyLabel.makeStorybookComponent(title: "Hello"),
-                            Elements.MyLabel.makeStorybookComponent(title: "HelloHelloHelloHello"),
-                            Elements.LightLabel.makeStorybookComponent(title: "HelloHello"),
-                            Elements.FilledLabel.makeStorybookComponent(title: "Hello")
-                        ]
-                })
-            ])
-])
+public let __storybookMenuDescriptor = StorybookMenuDescriptor(
+  sections: [
+    StorybookSectionDescriptor(
+      title: "Sample Section",
+      items: [
+        StorybookItemDescriptor(
+          title: "Labels",
+          detail: "A description of labels",
+          components: {
+            return MyLabel.makeStorybookComponents()
+              + LightLabel.makeStorybookComponents()
+              + FilledLabel.makeStorybookComponents()
+        })
+      ]
+    )
+  ]
+)
