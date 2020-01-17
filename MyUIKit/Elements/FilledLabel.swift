@@ -26,9 +26,9 @@ final class FilledLabel: MyLabel {
     return [
       .init(
         title: "",
-        className: "className",
+        className: String(reflecting: self),
         bodyView: StorybookComponentBasicView(
-          element: self.init(title: "HelloHello"),
+          stretchableElement: self.init(title: "HelloHello"),
           insets: .init(top: 32, left: 0, bottom: 32, right: 0)
         )
       )
