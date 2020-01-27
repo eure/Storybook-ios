@@ -18,7 +18,7 @@ extension StorybookItemDescriptor {
     return componentsFactory().map {
       ContainerStackCell(bodyView: $0.bodyView,
                          title: $0.title,
-                         className: $0.className,
+                         description: $0.description,
                          backgroundColor: $0.backgroundColor)
     }
   }
