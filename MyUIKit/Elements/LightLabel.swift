@@ -13,7 +13,7 @@ final class LightLabel: MyLabel {
   
   public required init(title: String) {
     super.init(title: title)
-    label.textColor = .init(white: 0.95, alpha: 1.0)
+    label.textColor = .lightText
   }
   
   public required init?(coder aDecoder: NSCoder) {
@@ -23,7 +23,7 @@ final class LightLabel: MyLabel {
   override class func makeStorybookComponents() -> [StorybookComponent] {
     return [
       .init(element: self.init(title: "Hello"),
-            backgroundColor: .init(white: 0, alpha: 0.78))
+            backgroundColor: .black)
     ]
   }
 }

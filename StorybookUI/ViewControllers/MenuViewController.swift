@@ -46,7 +46,11 @@ final class MenuViewController : CodeBasedViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    view.backgroundColor = .white
+    if #available(iOSApplicationExtension 13.0, *) {
+      view.backgroundColor = .systemBackground
+    } else {
+      view.backgroundColor = .white
+    }
     
     stackScrollView.translatesAutoresizingMaskIntoConstraints = false
     view.addSubview(stackScrollView)
@@ -144,8 +148,6 @@ final private class SectionCell : EmptyStackCell {
     titleLabel.numberOfLines = 0
     titleLabel.font = UIFont.preferredFont(forTextStyle: .headline)
     
-    backgroundColor = .white
-    
     titleLabel.translatesAutoresizingMaskIntoConstraints = false
     addSubview(titleLabel)
     
@@ -194,8 +196,6 @@ final private class ItemCell : HighlightStackCell {
     
     titleLabel.numberOfLines = 0
     titleLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
-    
-    backgroundColor = .white
     
     titleLabel.translatesAutoresizingMaskIntoConstraints = false
     addSubview(titleLabel)

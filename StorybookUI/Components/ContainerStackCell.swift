@@ -34,11 +34,19 @@ final class ContainerStackCell : CodeBasedView, StackCellType {
     addSubview(contentView)
     
     titleLabel.numberOfLines = 0
-    titleLabel.textColor = UIColor(white: 0, alpha: 0.6)
+    if #available(iOSApplicationExtension 13.0, *) {
+      titleLabel.textColor = .secondaryLabel
+    } else {
+      titleLabel.textColor = .init(white: 0, alpha: 0.6)
+    }
     titleLabel.font = UIFont.preferredFont(forTextStyle: .headline)
     
     descriptionLabel.numberOfLines = 0
-    descriptionLabel.textColor = UIColor(white: 0, alpha: 0.4)
+    if #available(iOSApplicationExtension 13.0, *) {
+      descriptionLabel.textColor = .tertiaryLabel
+    } else {
+      titleLabel.textColor = .init(white: 0, alpha: 0.4)
+    }
     descriptionLabel.font = UIFont.preferredFont(forTextStyle: .headline)
     
     do {
@@ -105,7 +113,12 @@ extension ContainerStackCell {
     
     set(title: title)
     set(description: description)
-    set(backgroundColor: backgroundColor ?? .init(white: 0, alpha: 0.02))
+
+    if #available(iOSApplicationExtension 13.0, *) {
+      set(backgroundColor: backgroundColor ?? .secondarySystemBackground)
+    } else {
+      set(backgroundColor: backgroundColor ?? .init(white: 0, alpha: 0.02))
+    }
     
     bodyView.translatesAutoresizingMaskIntoConstraints = false
     contentView.addSubview(bodyView)

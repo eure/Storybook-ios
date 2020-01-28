@@ -35,8 +35,8 @@ class MyLabel: UIView {
 
   class func makeStorybookComponents() -> [StorybookComponent] {
     return [
-      .init(element: self.init(title: "Hello")),
-      .init(element: self.init(title: "HelloHelloHelloHello"))
+      .init(title: "Short text", element: self.init(title: "Hello")),
+      .init(title: "Long Text", element: self.init(title: "HelloHelloHelloHello"))
     ]
   }
 }

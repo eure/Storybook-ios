@@ -14,7 +14,8 @@ final class FilledLabel: MyLabel {
   public required init(title: String) {
     super.init(title: title)
     
-    layer.borderColor = UIColor.red.cgColor
+    backgroundColor = UIColor.systemRed.withAlphaComponent(0.2)
+    layer.borderColor = UIColor.systemRed.cgColor
     layer.borderWidth = 1.0
   }
   

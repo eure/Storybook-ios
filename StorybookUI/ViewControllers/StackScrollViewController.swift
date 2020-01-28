@@ -22,7 +22,11 @@ final class StackScrollViewController : CodeBasedViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    view.backgroundColor = .white
+    if #available(iOSApplicationExtension 13.0, *) {
+      view.backgroundColor = .systemBackground
+    } else {
+      view.backgroundColor = .white
+    }
     
     view.addSubview(stackScrollView)
     stackScrollView.frame = view.bounds
