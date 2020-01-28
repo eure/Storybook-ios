@@ -25,4 +25,24 @@ public struct StorybookSectionDescriptor {
     self.items = items
     self.identifier = "\(file)|\(line)|\(column)"
   }
+
+  public init(
+    _ title: String,
+    file: StaticString = #file,
+    line: UInt = #line,
+    column: UInt = #column,
+    @StorybookBuilder<StorybookItemDescriptor> _ item: () -> StorybookItemDescriptor
+  ) {
+    self.init(title: title, items: [item()], file: file, line: line, column: column)
+  }
+
+  public init(
+    _ title: String,
+    file: StaticString = #file,
+    line: UInt = #line,
+    column: UInt = #column,
+    @StorybookBuilder<StorybookItemDescriptor> _ items: () -> [StorybookItemDescriptor]
+  ) {
+    self.init(title: title, items: items(), file: file, line: line, column: column)
+  }
 }
