@@ -9,53 +9,59 @@
 import UIKit
 
 class TapStackCell : UIControl, StackCellType {
-    
-    // MARK: - Properties
-    
-    override var isHighlighted: Bool {
-        get {
-            
-            return super.isHighlighted
-        }
-        set {
-            
-            super.isHighlighted = newValue
-            
-            UIView.animate(withDuration: 0.2, delay: 0, options: [.beginFromCurrentState, .allowUserInteraction], animations: {
-                
-                if newValue {
-                    
-                    self.backgroundColor = UIColor(white: 0.95, alpha: 1)
-                } else {
-                    
-                    self.backgroundColor = UIColor(white: 1, alpha: 1)
-                }
-            }) { (finish) in
-            }
-        }
+  
+  // MARK: - Properties
+  
+  override var isHighlighted: Bool {
+    get {
+      
+      return super.isHighlighted
     }
-    
-    
-    // MARK: - Initializers
-    
-    init() {
-        super.init(frame: .zero)
+    set {
+      
+      super.isHighlighted = newValue
+      
+      UIView.animate(withDuration: 0.2, delay: 0, options: [.beginFromCurrentState, .allowUserInteraction], animations: {
         
-        addTarget(self, action: #selector(TapStackCell.tapSelf), for: .touchUpInside)
+        if newValue {
+
+          if #available(iOSApplicationExtension 13.0, *) {
+
+            self.backgroundColor = .systemFill
+          } else {
+
+            self.backgroundColor = .init(white: 0.95, alpha: 1)
+          }
+        } else {
+          
+          self.backgroundColor = .clear
+        }
+      }) { (finish) in
+      }
     }
+  }
+  
+  
+  // MARK: - Initializers
+  
+  init() {
+    super.init(frame: .zero)
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    addTarget(self, action: #selector(TapStackCell.tapSelf), for: .touchUpInside)
+  }
+  
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
+  // MARK: - Functions
+  
+  @objc
+  private func tapSelf() {
+    tapped()
+  }
+  
+  func tapped() {
     
-    // MARK: - Functions
-    
-    @objc
-    private func tapSelf() {
-        tapped()
-    }
-    
-    func tapped() {
-        
-    }
+  }
 }

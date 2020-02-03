@@ -15,15 +15,19 @@ final class SeparatorView : CodeBasedView {
   init(
     leftMargin: CGFloat = 0,
     rightMargin: CGFloat = 0,
-    backgroundColor: UIColor = UIColor.white,
-    separatorColor: UIColor = UIColor(white: 0, alpha: 0.2)) {
+    backgroundColor: UIColor = .clear,
+    separatorColor: UIColor? = nil) {
     
     super.init(frame: .zero)
     
     self.backgroundColor = backgroundColor
     let borderView = UIView()
     
-    borderView.backgroundColor = separatorColor
+    if #available(iOSApplicationExtension 13.0, *) {
+      borderView.backgroundColor = separatorColor ?? .separator
+    } else {
+      borderView.backgroundColor = separatorColor ?? .init(white: 0, alpha: 0.1)
+    }
     borderView.translatesAutoresizingMaskIntoConstraints = false
     addSubview(borderView)
     

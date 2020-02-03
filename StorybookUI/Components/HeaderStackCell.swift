@@ -27,7 +27,11 @@ final class HeaderStackCell : CodeBasedView {
     titleLabel.numberOfLines = 0
     
     detailLabel.font = UIFont.preferredFont(forTextStyle: .headline)
-    detailLabel.textColor = UIColor(white: 0, alpha: 0.4)
+    if #available(iOSApplicationExtension 13.0, *) {
+      detailLabel.textColor = .secondaryLabel
+    } else {
+      detailLabel.textColor = .init(white: 0, alpha: 0.4)
+    }
     detailLabel.numberOfLines = 0
 
     NSLayoutConstraint.activate([
