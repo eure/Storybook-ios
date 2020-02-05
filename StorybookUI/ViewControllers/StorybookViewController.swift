@@ -84,14 +84,14 @@ public final class StorybookViewController : UISplitViewController {
   
   public override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
     
-    if #available(iOSApplicationExtension 13.0, *) {
+    if #available(iOS 13.0, *) {
       if motion == .motionShake {
         didShake()
       }
     }
   }
   
-  @available(iOSApplicationExtension 13.0, *)
+  @available(iOS 13.0, *)
   private func didShake() {
 
     let currentStyle: String = {      
