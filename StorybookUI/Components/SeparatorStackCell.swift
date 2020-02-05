@@ -23,7 +23,7 @@ final class SeparatorView : CodeBasedView {
     self.backgroundColor = backgroundColor
     let borderView = UIView()
     
-    if #available(iOSApplicationExtension 13.0, *) {
+    if #available(iOS 13.0, *) {
       borderView.backgroundColor = separatorColor ?? .separator
     } else {
       borderView.backgroundColor = separatorColor ?? .init(white: 0, alpha: 0.1)

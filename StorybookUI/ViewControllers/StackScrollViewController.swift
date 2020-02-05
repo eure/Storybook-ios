@@ -22,7 +22,7 @@ final class StackScrollViewController : CodeBasedViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    if #available(iOSApplicationExtension 13.0, *) {
+    if #available(iOS 13.0, *) {
       view.backgroundColor = .systemBackground
     } else {
       view.backgroundColor = .white

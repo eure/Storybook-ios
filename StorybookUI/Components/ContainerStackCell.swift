@@ -34,7 +34,7 @@ final class ContainerStackCell : CodeBasedView, StackCellType {
     addSubview(contentView)
     
     titleLabel.numberOfLines = 0
-    if #available(iOSApplicationExtension 13.0, *) {
+    if #available(iOS 13.0, *) {
       titleLabel.textColor = .secondaryLabel
     } else {
       titleLabel.textColor = .init(white: 0, alpha: 0.6)
@@ -42,7 +42,7 @@ final class ContainerStackCell : CodeBasedView, StackCellType {
     titleLabel.font = UIFont.preferredFont(forTextStyle: .headline)
     
     descriptionLabel.numberOfLines = 0
-    if #available(iOSApplicationExtension 13.0, *) {
+    if #available(iOS 13.0, *) {
       descriptionLabel.textColor = .tertiaryLabel
     } else {
       titleLabel.textColor = .init(white: 0, alpha: 0.4)
@@ -114,7 +114,7 @@ extension ContainerStackCell {
     set(title: title)
     set(description: description)
 
-    if #available(iOSApplicationExtension 13.0, *) {
+    if #available(iOS 13.0, *) {
       set(backgroundColor: backgroundColor ?? .secondarySystemBackground)
     } else {
       set(backgroundColor: backgroundColor ?? .init(white: 0, alpha: 0.02))

@@ -25,7 +25,7 @@ class TapStackCell : UIControl, StackCellType {
         
         if newValue {
 
-          if #available(iOSApplicationExtension 13.0, *) {
+          if #available(iOS 13.0, *) {
 
             self.backgroundColor = .systemFill
           } else {
