@@ -50,6 +50,7 @@
 		957A898722266A1000CDD25D /* StackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957A898122266A1000CDD25D /* StackCell.swift */; };
 		957A898922266A1000CDD25D /* StackCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957A898322266A1000CDD25D /* StackCellType.swift */; };
 		957A898A22266A1000CDD25D /* StackScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957A898422266A1000CDD25D /* StackScrollView.swift */; };
+		95933FFA23DFFCB700C0CE04 /* FunctionBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95933FF923DFFCB700C0CE04 /* FunctionBuilder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -150,6 +151,7 @@
 		957A898122266A1000CDD25D /* StackCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackCell.swift; sourceTree = "<group>"; };
 		957A898322266A1000CDD25D /* StackCellType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackCellType.swift; sourceTree = "<group>"; };
 		957A898422266A1000CDD25D /* StackScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackScrollView.swift; sourceTree = "<group>"; };
+		95933FF923DFFCB700C0CE04 /* FunctionBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionBuilder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -279,6 +281,7 @@
 				957A895A2226661600CDD25D /* StorybookKit.swift */,
 				957A89622226673A00CDD25D /* StorybookMenuDescriptor.swift */,
 				957A895E2226673A00CDD25D /* StorybookSectionDescriptor.swift */,
+				95933FF923DFFCB700C0CE04 /* FunctionBuilder.swift */,
 			);
 			path = StorybookKit;
 			sourceTree = "<group>";
@@ -556,6 +559,7 @@
 				957A89672226673A00CDD25D /* StorybookMenuDescriptor.swift in Sources */,
 				957A89632226673A00CDD25D /* StorybookSectionDescriptor.swift in Sources */,
 				957A89652226673A00CDD25D /* StorybookComponent.swift in Sources */,
+				95933FFA23DFFCB700C0CE04 /* FunctionBuilder.swift in Sources */,
 				4B1E456D231CC2420020D738 /* StorybookComponentView.swift in Sources */,
 				957A895B2226661600CDD25D /* StorybookKit.swift in Sources */,
 			);
