@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4B126886246D8F3D00F5DA51 /* Next.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B126885246D8F3D00F5DA51 /* Next.swift */; };
 		4B1E456D231CC2420020D738 /* StorybookComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E456B231CC2420020D738 /* StorybookComponentView.swift */; };
 		4B1E456E231CC2420020D738 /* StorybookComponentInteractiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1E456C231CC2420020D738 /* StorybookComponentInteractiveView.swift */; };
 		4BB03C0122266C1F006E9E49 /* TapStackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB03C0022266C1F006E9E49 /* TapStackCell.swift */; };
@@ -108,6 +109,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4B126885246D8F3D00F5DA51 /* Next.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Next.swift; sourceTree = "<group>"; };
 		4B1E456B231CC2420020D738 /* StorybookComponentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorybookComponentView.swift; sourceTree = "<group>"; };
 		4B1E456C231CC2420020D738 /* StorybookComponentInteractiveView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorybookComponentInteractiveView.swift; sourceTree = "<group>"; };
 		4BB03C0022266C1F006E9E49 /* TapStackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapStackCell.swift; sourceTree = "<group>"; };
@@ -282,6 +284,7 @@
 				957A89622226673A00CDD25D /* StorybookMenuDescriptor.swift */,
 				957A895E2226673A00CDD25D /* StorybookSectionDescriptor.swift */,
 				95933FF923DFFCB700C0CE04 /* FunctionBuilder.swift */,
+				4B126885246D8F3D00F5DA51 /* Next.swift */,
 			);
 			path = StorybookKit;
 			sourceTree = "<group>";
@@ -557,6 +560,7 @@
 				957A89642226673A00CDD25D /* StorybookItemDescriptor.swift in Sources */,
 				4B1E456E231CC2420020D738 /* StorybookComponentInteractiveView.swift in Sources */,
 				957A89672226673A00CDD25D /* StorybookMenuDescriptor.swift in Sources */,
+				4B126886246D8F3D00F5DA51 /* Next.swift in Sources */,
 				957A89632226673A00CDD25D /* StorybookSectionDescriptor.swift in Sources */,
 				957A89652226673A00CDD25D /* StorybookComponent.swift in Sources */,
 				95933FFA23DFFCB700C0CE04 /* FunctionBuilder.swift in Sources */,
