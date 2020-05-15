@@ -59,6 +59,27 @@ public final class StorybookViewController : UISplitViewController {
     ]
     
   }
+
+  public init(book: Book, dismissHandler: DismissHandler?) {
+
+    let menuController = ComponentListViewController(component: book.component)
+    self.mainViewController = UINavigationController(rootViewController: menuController)
+
+    self.dismissHandler = dismissHandler
+
+    super.init(nibName: nil, bundle: nil)
+
+    if dismissHandler != nil {
+      let dismissButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(didTapDismissButton))
+      menuController.navigationItem.leftBarButtonItem = dismissButton
+    }
+
+    viewControllers = [
+      mainViewController,
+      secondaryViewController,
+    ]
+
+  }
   
   @available(*, deprecated, message: "Use init(menuDescriptor: StorybookMenuDescriptor, dismissHandler: DismissHandler?) instead")
   public convenience init(menuDescriptor: StorybookMenuDescriptor, showDismissButton: Bool) {

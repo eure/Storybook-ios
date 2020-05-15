@@ -20,10 +20,10 @@ final class LightLabel: MyLabel {
     fatalError("init(coder:) has not been implemented")
   }
   
-  override class func makeStorybookComponents() -> [StorybookComponent] {
-    return [
-      .init(element: self.init(title: "Hello"),
-            backgroundColor: .black)
-    ]
-  }
+//  override class func makeStorybookComponents() -> [StorybookComponent] {
+//    return [
+//      .init(element: self.init(title: "Hello"),
+//            backgroundColor: .black)
+//    ]
+//  }
 }

@@ -19,136 +19,25 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-enum SyntaxCheck {
-
-  static func run() {
-
-    Book {
-      BookSection("A") {
-
-        Elements.Interactive {
-          UIButton()
-        }
-        .addButton("") { (b) in
-          b.isEnabled = false
-        }
-        .addButton("") { (b) in
-          b.isEnabled = false
-        }
-
-        BookSection("A") {
-          Elements.Display {
-            UIView()
-          }
-        }
-      }
-    }
-
-
-    Book {
-      BookSection("A") {
-        Elements.Display {
-          UIView()
-        }
-
-        Elements.Display {
-          UIView()
-        }
-        .backgroundColor(.white)
-
-        BookForEach(data: [1,2,3]) { (i) in
-          Elements.Display {
-            UIView()
-          }
-        }
-
-        BookForEach(data: [1,2,3]) { (i) in
-          BookSection("\(i)") {
-            Elements.Display {
-              UIView()
-            }
-            Elements.Display {
-              UIView()
-            }
-          }
-        }
-      }
-
-      BookSection("A") {
-
-        Elements.Display {
-          UIView()
-        }
-
-        BookSection("A") {
-          Elements.Display {
-            UIView()
-          }
-
-          BookSection("A") {
-            Elements.Display {
-              UIView()
-            }
-            Elements.Display {
-              UIView()
-            }
-          }
-        }
-      }
-    }
-
-  }
-}
-
 import Foundation
 
-public struct BookSection: ComponentType {
+public struct Book {
 
-  public let title: String
-  public let component: Component
+  public let component: BookTree
 
-  public init(_ title: String, @ComponentBuilder closure: () -> ComponentType) {
-    self.title = title
-    self.component = closure().asComponent()
+  public init(@ComponentBuilder closure: () -> BookViewType) {
+    self.component = closure().asTree()
   }
 
-  public func asComponent() -> Component {
-    .section(self)
-  }
 }
 
-public protocol ElementBodyViewBuildable {
-  func make() -> UIView
+
+public protocol BookViewType {
+
+  func asTree() -> BookTree
 }
 
-public struct ElementBodyViewBuilderRoot {
-  public func basic() -> BasicElementBodyViewBuilder {
-    .init()
-  }
-
-  public func controllable() -> ControllableElementBodyViewBuilder {
-    .init()
-  }
-}
-
-public struct BasicElementBodyViewBuilder: ElementBodyViewBuildable {
-  public func make() -> UIView {
-    fatalError()
-  }
-}
-
-public struct ControllableElementBodyViewBuilder: ElementBodyViewBuildable {
-  public func make() -> UIView {
-    fatalError()
-  }
-}
-
-public protocol ComponentType {
-
-  func asComponent() -> Component
-}
-
-extension ComponentType {
+extension BookViewType {
 
   func modified(_ modify: (inout Self) -> Void) -> Self {
     var s = self
@@ -158,7 +47,7 @@ extension ComponentType {
 
 }
 
-public protocol BookElementType: ComponentType {
+public protocol BookElementType: BookViewType {
   var title: String { get set }
   var description: String { get set }
   var backgroundColor: UIColor { get set }
@@ -186,7 +75,7 @@ extension BookElementType {
   }
 }
 
-public struct AnyBookElement: ComponentType, BookElementType {
+public struct AnyBookElement: BookViewType, BookElementType {
 
   public var title: String
 
@@ -204,174 +93,11 @@ public struct AnyBookElement: ComponentType, BookElementType {
     self._makeView = element.makeView
   }
 
-  public func asComponent() -> Component {
+  public func asTree() -> BookTree {
     return .element(self)
   }
 
   public func makeView() -> UIView {
     _makeView()
-  }
-}
-
-public enum Elements {
-
-}
-
-extension Elements {
-
-  /// A component descriptor that just displays UI-Component
-  public struct Display: ComponentType, BookElementType {
-
-    public let viewBlock: () -> UIView
-
-    public var title: String = ""
-    public var description: String = ""
-    public var backgroundColor: UIColor = .white
-
-    public init(viewBlock: @escaping () -> UIView) {
-      self.viewBlock = viewBlock
-    }
-
-    public func asComponent() -> Component {
-      .element(AnyBookElement(self))
-    }
-
-    public func makeView() -> UIView {
-      StorybookComponentBasicView(stretchableElement: viewBlock())
-    }
-  }
-
-  /// A component descriptor that can control a UI-Component with specified button.
-  public struct Interactive<View: UIView>: ComponentType, BookElementType {
-
-    public let viewBlock: () -> View
-
-    public var title: String = ""
-    public var description: String = ""
-    public var backgroundColor: UIColor = .white
-
-    private var buttons: ContiguousArray<(title: String, handler: (View) -> Void)> = .init()
-
-    public init(viewBlock: @escaping () -> View) {
-      self.viewBlock = viewBlock
-    }
-
-    public func asComponent() -> Component {
-      .element(AnyBookElement(self))
-    }
-
-    public func addButton(_ title: String, handler: @escaping (View) -> Void) -> Self {
-      modified {
-        $0.buttons.append((title: title, handler: handler))
-      }
-    }
-
-    public func makeView() -> UIView {
-      StorybookComponentInteractiveView(
-        element: viewBlock(),
-        actionDiscriptors: buttons.map {
-          StorybookComponentInteractiveView.ActionDescriptor(title: $0.title, action: $0.handler)
-      })
-    }
-  }
-
-  /// A component descriptor that just displays UI-Component
-  public struct Present: ComponentType, BookElementType {
-
-    public let presentingViewControllerBlock: () -> UIViewController
-
-    public var title: String = ""
-    public var description: String = ""
-    public var backgroundColor: UIColor = .white
-
-    public init(
-      title: String,
-      presentingViewControllerBlock: @escaping () -> UIViewController
-    ) {
-      self.presentingViewControllerBlock = presentingViewControllerBlock
-    }
-
-    public func asComponent() -> Component {
-      .element(AnyBookElement(self))
-    }
-
-    public func makeView() -> UIView {
-      StorybookComponentBasicView(stretchableElement: viewBlock())
-    }
-  }
-
-}
-
-public struct BookForEach<Content: ComponentType>: ComponentType {
-
-  private let components: [Content]
-
-  public init<S: Sequence>(data: S, @ComponentBuilder make: (S.Element) -> Content) {
-    let components = data.map {
-      make($0)
-    }
-    self.components = components
-  }
-
-  public func asComponent() -> Component {
-    .array(components.map { $0.asComponent() })
-  }
-}
-
-public struct Book {
-
-  public let component: Component
-
-  public init(@ComponentBuilder closure: () -> ComponentType) {
-    self.component = closure().asComponent()
-  }
-
-}
-
-public indirect enum Component: ComponentType {
-
-  case section(BookSection)
-  case element(AnyBookElement)
-  case optional(Component?)
-  case array([Component])
-
-  public func asComponent() -> Component {
-    self
-  }
-}
-
-@_functionBuilder
-struct ComponentBuilder {
-
-//  static func buildExpression(_ element: BookElementType) -> Component {
-//    return .element(element)
-//  }
-//
-//  static func buildExpression(_ element: ComponentType) -> Component {
-//    return element.asComponent()
-//  }
-//
-//  static func buildExpression(_ section: BookSection) -> Component {
-//    return .section(section)
-//  }
-
-  static func buildBlock<E: BookElementType>(_ element: E) -> Component {
-    return .element(.init(element))
-  }
-
-  static func buildBlock(_ component: ComponentType) -> Component {
-    return component.asComponent()
-  }
-
-  static func buildBlock(_ components: ComponentType...) -> Component {
-    return .array(components.map { $0.asComponent() })
-  }
-
-  static func buildBlock(_ components: [ComponentType]) -> Component {
-    return .array(components.map { $0.asComponent() })
-  }
-
-  static func buildIf(_ value: Component?) -> Component {
-    return .optional(value)
   }
 }

@@ -21,46 +21,18 @@
 
 import Foundation
 
-import StorybookKit
+public struct BookForEach<Content: BookViewType>: BookViewType {
 
-class StackScrollViewController : CodeBasedViewController {
-  
-  private let stackScrollView = StackScrollView()
-  
-  init(views: [UIView]) {
-    super.init()
-    stackScrollView.append(views: views)
-  }
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    
-    if #available(iOS 13.0, *) {
-      view.backgroundColor = .systemBackground
-    } else {
-      view.backgroundColor = .white
+  private let components: [Content]
+
+  public init<S: Sequence>(data: S, @ComponentBuilder make: (S.Element) -> Content) {
+    let components = data.map {
+      make($0)
     }
-    
-    view.addSubview(stackScrollView)
-    stackScrollView.frame = view.bounds
-    stackScrollView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-    
+    self.components = components
   }
-  
-}
 
-extension StackScrollViewController {
-  
-  convenience init(descriptor: StorybookItemDescriptor) {
-    
-    self.init(views: [
-      {
-        let view = HeaderStackCell()
-        view.set(title: descriptor.title)
-        view.set(detail: descriptor.detail)
-        return view
-      }(),
-      ] + descriptor.makeCells()
-    )
+  public func asTree() -> BookTree {
+    .array(components.map { $0.asTree() })
   }
 }

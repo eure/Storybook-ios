@@ -21,41 +21,37 @@
 
 import Foundation
 
-public struct StorybookSectionDescriptor {
+@available(*, deprecated)
+public struct StorybookMenuDescriptor {
   
-  public let title: String
-  public let items: [StorybookItemDescriptor]
+  public let sections: [StorybookSectionDescriptor]
   public let identifier: String
   
   public init(
-    title: String,
-    items: [StorybookItemDescriptor],
+    sections: [StorybookSectionDescriptor],
     file: StaticString = #file,
     line: UInt = #line,
     column: UInt = #column
   ) {
-    self.title = title
-    self.items = items
+    self.sections = sections
     self.identifier = "\(file)|\(line)|\(column)"
   }
-
+  
   public init(
-    _ title: String,
     file: StaticString = #file,
     line: UInt = #line,
     column: UInt = #column,
-    @StorybookBuilder<StorybookItemDescriptor> _ item: () -> StorybookItemDescriptor
+    @StorybookBuilder<StorybookSectionDescriptor> _ section: () -> StorybookSectionDescriptor
   ) {
-    self.init(title: title, items: [item()], file: file, line: line, column: column)
+    self.init(sections: [section()], file: file, line: line, column: column)
   }
-
+  
   public init(
-    _ title: String,
     file: StaticString = #file,
     line: UInt = #line,
     column: UInt = #column,
-    @StorybookBuilder<StorybookItemDescriptor> _ items: () -> [StorybookItemDescriptor]
+    @StorybookBuilder<StorybookSectionDescriptor> _ sections: () -> [StorybookSectionDescriptor]
   ) {
-    self.init(title: title, items: items(), file: file, line: line, column: column)
+    self.init(sections: sections(), file: file, line: line, column: column)
   }
 }

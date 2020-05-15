@@ -21,6 +21,7 @@
 
 import UIKit
 
+@available(*, deprecated)
 public struct StorybookComponent {
   
   public let title: String

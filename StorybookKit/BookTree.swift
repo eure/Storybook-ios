@@ -19,48 +19,39 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
+/// A structure of Book
+public indirect enum BookTree: BookViewType {
 
-import StorybookKit
+  case folder(BookFolder)
+  case element(AnyBookElement)
+  case optional(BookTree?)
+  case array([BookTree])
 
-class StackScrollViewController : CodeBasedViewController {
-  
-  private let stackScrollView = StackScrollView()
-  
-  init(views: [UIView]) {
-    super.init()
-    stackScrollView.append(views: views)
+  public func asTree() -> BookTree {
+    self
   }
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    
-    if #available(iOS 13.0, *) {
-      view.backgroundColor = .systemBackground
-    } else {
-      view.backgroundColor = .white
-    }
-    
-    view.addSubview(stackScrollView)
-    stackScrollView.frame = view.bounds
-    stackScrollView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-    
-  }
-  
 }
 
-extension StackScrollViewController {
-  
-  convenience init(descriptor: StorybookItemDescriptor) {
-    
-    self.init(views: [
-      {
-        let view = HeaderStackCell()
-        view.set(title: descriptor.title)
-        view.set(detail: descriptor.detail)
-        return view
-      }(),
-      ] + descriptor.makeCells()
-    )
+@_functionBuilder
+public enum ComponentBuilder {
+
+  public static func buildBlock<E: BookElementType>(_ element: E) -> BookTree {
+    return .element(.init(element))
+  }
+
+  public static func buildBlock(_ component: BookViewType) -> BookTree {
+    return component.asTree()
+  }
+
+  public static func buildBlock(_ components: BookViewType...) -> BookTree {
+    return .array(components.map { $0.asTree() })
+  }
+
+  public static func buildBlock(_ components: [BookViewType]) -> BookTree {
+    return .array(components.map { $0.asTree() })
+  }
+
+  public static func buildIf(_ value: BookTree?) -> BookTree {
+    return .optional(value)
   }
 }

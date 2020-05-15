@@ -21,46 +21,19 @@
 
 import Foundation
 
-import StorybookKit
+/// A component that displays a disclosure view.
+public struct BookFolder: BookViewType {
 
-class StackScrollViewController : CodeBasedViewController {
-  
-  private let stackScrollView = StackScrollView()
-  
-  init(views: [UIView]) {
-    super.init()
-    stackScrollView.append(views: views)
+  public let title: String
+  public let component: BookTree
+
+  public init(_ title: String, @ComponentBuilder closure: () -> BookViewType) {
+    self.title = title
+    self.component = closure().asTree()
   }
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    
-    if #available(iOS 13.0, *) {
-      view.backgroundColor = .systemBackground
-    } else {
-      view.backgroundColor = .white
-    }
-    
-    view.addSubview(stackScrollView)
-    stackScrollView.frame = view.bounds
-    stackScrollView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-    
+
+  public func asTree() -> BookTree {
+    .folder(self)
   }
-  
 }
 
-extension StackScrollViewController {
-  
-  convenience init(descriptor: StorybookItemDescriptor) {
-    
-    self.init(views: [
-      {
-        let view = HeaderStackCell()
-        view.set(title: descriptor.title)
-        view.set(detail: descriptor.detail)
-        return view
-      }(),
-      ] + descriptor.makeCells()
-    )
-  }
-}

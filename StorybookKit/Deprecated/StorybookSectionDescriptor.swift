@@ -21,46 +21,42 @@
 
 import Foundation
 
-import StorybookKit
-
-class StackScrollViewController : CodeBasedViewController {
+@available(*, deprecated)
+public struct StorybookSectionDescriptor {
   
-  private let stackScrollView = StackScrollView()
+  public let title: String
+  public let items: [StorybookItemDescriptor]
+  public let identifier: String
   
-  init(views: [UIView]) {
-    super.init()
-    stackScrollView.append(views: views)
+  public init(
+    title: String,
+    items: [StorybookItemDescriptor],
+    file: StaticString = #file,
+    line: UInt = #line,
+    column: UInt = #column
+  ) {
+    self.title = title
+    self.items = items
+    self.identifier = "\(file)|\(line)|\(column)"
   }
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    
-    if #available(iOS 13.0, *) {
-      view.backgroundColor = .systemBackground
-    } else {
-      view.backgroundColor = .white
-    }
-    
-    view.addSubview(stackScrollView)
-    stackScrollView.frame = view.bounds
-    stackScrollView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-    
-  }
-  
-}
 
-extension StackScrollViewController {
-  
-  convenience init(descriptor: StorybookItemDescriptor) {
-    
-    self.init(views: [
-      {
-        let view = HeaderStackCell()
-        view.set(title: descriptor.title)
-        view.set(detail: descriptor.detail)
-        return view
-      }(),
-      ] + descriptor.makeCells()
-    )
+  public init(
+    _ title: String,
+    file: StaticString = #file,
+    line: UInt = #line,
+    column: UInt = #column,
+    @StorybookBuilder<StorybookItemDescriptor> _ item: () -> StorybookItemDescriptor
+  ) {
+    self.init(title: title, items: [item()], file: file, line: line, column: column)
+  }
+
+  public init(
+    _ title: String,
+    file: StaticString = #file,
+    line: UInt = #line,
+    column: UInt = #column,
+    @StorybookBuilder<StorybookItemDescriptor> _ items: () -> [StorybookItemDescriptor]
+  ) {
+    self.init(title: title, items: items(), file: file, line: line, column: column)
   }
 }

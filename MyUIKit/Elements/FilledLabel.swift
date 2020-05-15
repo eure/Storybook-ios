@@ -23,16 +23,16 @@ final class FilledLabel: MyLabel {
     fatalError("init(coder:) has not been implemented")
   }
   
-  override class func makeStorybookComponents() -> [StorybookComponent] {
-    return [
-      .init(
-        title: "",
-        description: String(reflecting: self),
-        bodyView: StorybookComponentBasicView(
-          stretchableElement: self.init(title: "HelloHello"),
-          insets: .init(top: 32, left: 0, bottom: 32, right: 0)
-        )
-      )
-    ]
-  }
+//  override class func makeStorybookComponents() -> [StorybookComponent] {
+//    return [
+//      .init(
+//        title: "",
+//        description: String(reflecting: self),
+//        bodyView: StorybookComponentBasicView(
+//          stretchableElement: self.init(title: "HelloHello"),
+//          insets: .init(top: 32, left: 0, bottom: 32, right: 0)
+//        )
+//      )
+//    ]
+//  }
 }

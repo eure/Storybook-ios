@@ -1,4 +1,4 @@
-//
+////
 // Copyright (c) 2020 Eureka, Inc.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -20,47 +20,3 @@
 // THE SOFTWARE.
 
 import Foundation
-
-import StorybookKit
-
-class StackScrollViewController : CodeBasedViewController {
-  
-  private let stackScrollView = StackScrollView()
-  
-  init(views: [UIView]) {
-    super.init()
-    stackScrollView.append(views: views)
-  }
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    
-    if #available(iOS 13.0, *) {
-      view.backgroundColor = .systemBackground
-    } else {
-      view.backgroundColor = .white
-    }
-    
-    view.addSubview(stackScrollView)
-    stackScrollView.frame = view.bounds
-    stackScrollView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-    
-  }
-  
-}
-
-extension StackScrollViewController {
-  
-  convenience init(descriptor: StorybookItemDescriptor) {
-    
-    self.init(views: [
-      {
-        let view = HeaderStackCell()
-        view.set(title: descriptor.title)
-        view.set(detail: descriptor.detail)
-        return view
-      }(),
-      ] + descriptor.makeCells()
-    )
-  }
-}
