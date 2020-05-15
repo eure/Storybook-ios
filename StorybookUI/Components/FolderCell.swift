@@ -39,7 +39,8 @@ final class FolderCell : HighlightStackCell {
     addTarget(self, action: #selector(_didTap), for: .touchUpInside)
 
     titleLabel.numberOfLines = 0
-    titleLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
+    titleLabel.font = UIFont.preferredFont(forTextStyle: .headline)
+    titleLabel.textColor = .systemBlue
 
     titleLabel.translatesAutoresizingMaskIntoConstraints = false
     addSubview(titleLabel)

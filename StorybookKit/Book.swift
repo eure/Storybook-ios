@@ -21,18 +21,12 @@
 
 import Foundation
 
-public struct BookForEach<Content: BookView>: BookView {
+public struct Book {
 
-  private let components: [Content]
+  public let component: BookTree
 
-  public init<S: Sequence>(data: S, @ComponentBuilder make: (S.Element) -> Content) {
-    let components = data.map {
-      make($0)
-    }
-    self.components = components
+  public init(@ComponentBuilder closure: () -> BookView) {
+    self.component = closure().asTree()
   }
 
-  public func asTree() -> BookTree {
-    .array(components.map { $0.asTree() })
-  }
 }

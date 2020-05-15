@@ -21,18 +21,15 @@
 
 import Foundation
 
-public struct BookForEach<Content: BookView>: BookView {
+public protocol BookViewPresentableType: BookView {
+  func makeView() -> UIView
+}
 
-  private let components: [Content]
-
-  public init<S: Sequence>(data: S, @ComponentBuilder make: (S.Element) -> Content) {
-    let components = data.map {
-      make($0)
-    }
-    self.components = components
-  }
+extension BookViewPresentableType {
 
   public func asTree() -> BookTree {
-    .array(components.map { $0.asTree() })
+    .element(AnyBookView(self))
   }
 }
+
+

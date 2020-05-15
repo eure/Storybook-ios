@@ -21,23 +21,12 @@
 
 import Foundation
 
-public struct Book {
-
-  public let component: BookTree
-
-  public init(@ComponentBuilder closure: () -> BookViewType) {
-    self.component = closure().asTree()
-  }
-
-}
-
-
-public protocol BookViewType {
+public protocol BookView {
 
   func asTree() -> BookTree
 }
 
-extension BookViewType {
+extension BookView {
 
   func modified(_ modify: (inout Self) -> Void) -> Self {
     var s = self
@@ -47,49 +36,12 @@ extension BookViewType {
 
 }
 
-public protocol BookElementType: BookViewType {
-  var title: String { get set }
-  var description: String { get set }
-  var backgroundColor: UIColor { get set }
-
-  func makeView() -> UIView
-}
-
-extension BookElementType {
-  public func title(_ title: String) -> Self {
-    modified {
-      $0.title = title
-    }
-  }
-
-  public func description(_ description: String) -> Self {
-    modified {
-      $0.description = description
-    }
-  }
-
-  public func backgroundColor(_ color: UIColor) -> Self {
-    modified {
-      $0.backgroundColor = color
-    }
-  }
-}
-
-public struct AnyBookElement: BookViewType, BookElementType {
-
-  public var title: String
-
-  public var description: String
-
-  public var backgroundColor: UIColor
+public struct AnyBookView: BookView, BookViewPresentableType {
 
   private let _makeView: () -> UIView
 
-  public init<E: BookElementType>(_ element: E) {
+  public init<E: BookViewPresentableType>(_ element: E) {
 
-    self.title = element.title
-    self.description = element.description
-    self.backgroundColor = element.backgroundColor
     self._makeView = element.makeView
   }
 

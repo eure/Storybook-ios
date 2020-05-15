@@ -20,10 +20,10 @@
 // THE SOFTWARE.
 
 /// A structure of Book
-public indirect enum BookTree: BookViewType {
+public indirect enum BookTree: BookView {
 
   case folder(BookFolder)
-  case element(AnyBookElement)
+  case element(AnyBookView)
   case optional(BookTree?)
   case array([BookTree])
 
@@ -35,19 +35,19 @@ public indirect enum BookTree: BookViewType {
 @_functionBuilder
 public enum ComponentBuilder {
 
-  public static func buildBlock<E: BookElementType>(_ element: E) -> BookTree {
+  public static func buildBlock<E: BookViewPresentableType>(_ element: E) -> BookTree {
     return .element(.init(element))
   }
 
-  public static func buildBlock(_ component: BookViewType) -> BookTree {
+  public static func buildBlock(_ component: BookView) -> BookTree {
     return component.asTree()
   }
 
-  public static func buildBlock(_ components: BookViewType...) -> BookTree {
+  public static func buildBlock(_ components: BookView...) -> BookTree {
     return .array(components.map { $0.asTree() })
   }
 
-  public static func buildBlock(_ components: [BookViewType]) -> BookTree {
+  public static func buildBlock(_ components: [BookView]) -> BookTree {
     return .array(components.map { $0.asTree() })
   }
 

@@ -22,11 +22,11 @@
 import Foundation
 
 /// An affordance for grouping view content.
-public struct BookGroup: BookViewType {
+public struct BookGroup: BookView {
 
   public let component: BookTree
 
-  public init(@ComponentBuilder closure: () -> BookViewType) {
+  public init(@ComponentBuilder closure: () -> BookView) {
     self.component = closure().asTree()
   }
 

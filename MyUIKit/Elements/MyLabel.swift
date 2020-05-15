@@ -32,25 +32,5 @@ class MyLabel: UIView {
   public required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
-  class func makeStorybookComponents() -> BookViewType {
-    BookGroup {
-      BookDisplay { () -> UIView in
-        self.init(title: "Hello")
-      }
-      .title("Short Text")
-
-      BookDisplay { () -> UIView in
-        self.init(title: "HelloHelloHelloHello")
-      }
-      .title("Long Text")
-
-      BookForEach(data: 0..<10) { (i) in
-        BookDisplay {
-          self.init(title: "\(i)")
-        }
-      }
-    }
-  }
 
 }

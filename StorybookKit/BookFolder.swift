@@ -22,12 +22,12 @@
 import Foundation
 
 /// A component that displays a disclosure view.
-public struct BookFolder: BookViewType {
+public struct BookFolder: BookView {
 
   public let title: String
   public let component: BookTree
 
-  public init(_ title: String, @ComponentBuilder closure: () -> BookViewType) {
+  public init(_ title: String, @ComponentBuilder closure: () -> BookView) {
     self.title = title
     self.component = closure().asTree()
   }
