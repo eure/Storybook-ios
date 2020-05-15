@@ -75,18 +75,3 @@ extension StorybookComponentBasicView {
   }
 }
 
-#if canImport(AsyncDisplayKit)
-
-import AsyncDisplayKit
-
-extension StorybookComponentBasicView {
-  
-  public convenience init(
-    element: ASDisplayNode,
-    insets: UIEdgeInsets = .init(top: 32, left: 16, bottom: 32, right: 16)
-  ) {
-    self.init(element: NodeView(embedNode: element), insets: insets)
-  }
-}
-
-#endif

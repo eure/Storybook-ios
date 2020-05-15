@@ -25,17 +25,20 @@ enum SyntaxCheck {
 
     Book {
       BookSection("A") {
-        BookElement {
-          $0.basic()
-        }
 
-        BookElement {
-          $0.basic()
+        Elements.Interactive {
+          UIButton()
+        }
+        .addButton("") { (b) in
+          b.isEnabled = false
+        }
+        .addButton("") { (b) in
+          b.isEnabled = false
         }
 
         BookSection("A") {
-          BookElement {
-            $0.basic()
+          Elements.Display {
+            UIView()
           }
         }
       }
@@ -44,27 +47,28 @@ enum SyntaxCheck {
 
     Book {
       BookSection("A") {
-        BookElement {
-          $0.basic()
+        Elements.Display {
+          UIView()
         }
 
-        BookElement {
-          $0.basic()
+        Elements.Display {
+          UIView()
         }
+        .backgroundColor(.white)
 
         BookForEach(data: [1,2,3]) { (i) in
-          BookElement {
-            $0.basic()
+          Elements.Display {
+            UIView()
           }
         }
 
         BookForEach(data: [1,2,3]) { (i) in
           BookSection("\(i)") {
-            BookElement {
-              $0.basic()
+            Elements.Display {
+              UIView()
             }
-            BookElement {
-              $0.basic()
+            Elements.Display {
+              UIView()
             }
           }
         }
@@ -72,21 +76,21 @@ enum SyntaxCheck {
 
       BookSection("A") {
 
-        BookElement {
-          $0.controllable()
+        Elements.Display {
+          UIView()
         }
 
         BookSection("A") {
-          BookElement {
-            $0.basic()
+          Elements.Display {
+            UIView()
           }
 
           BookSection("A") {
-            BookElement {
-              $0.basic()
+            Elements.Display {
+              UIView()
             }
-            BookElement {
-              $0.basic()
+            Elements.Display {
+              UIView()
             }
           }
         }
@@ -144,21 +148,158 @@ public protocol ComponentType {
   func asComponent() -> Component
 }
 
-public struct BookElement: ComponentType {
+extension ComponentType {
 
-  public let bodyViewFactory: () -> UIView
+  func modified(_ modify: (inout Self) -> Void) -> Self {
+    var s = self
+    modify(&s)
+    return s
+  }
 
-  public var title: String = ""
-  public var description: String = ""
-  public var backgroundColor: UIColor = .white
+}
 
-  public init(factory: @escaping (ElementBodyViewBuilderRoot) -> ElementBodyViewBuildable) {
-    self.bodyViewFactory = factory(ElementBodyViewBuilderRoot()).make
+public protocol BookElementType: ComponentType {
+  var title: String { get set }
+  var description: String { get set }
+  var backgroundColor: UIColor { get set }
+
+  func makeView() -> UIView
+}
+
+extension BookElementType {
+  public func title(_ title: String) -> Self {
+    modified {
+      $0.title = title
+    }
+  }
+
+  public func description(_ description: String) -> Self {
+    modified {
+      $0.description = description
+    }
+  }
+
+  public func backgroundColor(_ color: UIColor) -> Self {
+    modified {
+      $0.backgroundColor = color
+    }
+  }
+}
+
+public struct AnyBookElement: ComponentType, BookElementType {
+
+  public var title: String
+
+  public var description: String
+
+  public var backgroundColor: UIColor
+
+  private let _makeView: () -> UIView
+
+  public init<E: BookElementType>(_ element: E) {
+
+    self.title = element.title
+    self.description = element.description
+    self.backgroundColor = element.backgroundColor
+    self._makeView = element.makeView
   }
 
   public func asComponent() -> Component {
-    .element(self)
+    return .element(self)
   }
+
+  public func makeView() -> UIView {
+    _makeView()
+  }
+}
+
+public enum Elements {
+
+}
+
+extension Elements {
+
+  /// A component descriptor that just displays UI-Component
+  public struct Display: ComponentType, BookElementType {
+
+    public let viewBlock: () -> UIView
+
+    public var title: String = ""
+    public var description: String = ""
+    public var backgroundColor: UIColor = .white
+
+    public init(viewBlock: @escaping () -> UIView) {
+      self.viewBlock = viewBlock
+    }
+
+    public func asComponent() -> Component {
+      .element(AnyBookElement(self))
+    }
+
+    public func makeView() -> UIView {
+      StorybookComponentBasicView(stretchableElement: viewBlock())
+    }
+  }
+
+  /// A component descriptor that can control a UI-Component with specified button.
+  public struct Interactive<View: UIView>: ComponentType, BookElementType {
+
+    public let viewBlock: () -> View
+
+    public var title: String = ""
+    public var description: String = ""
+    public var backgroundColor: UIColor = .white
+
+    private var buttons: ContiguousArray<(title: String, handler: (View) -> Void)> = .init()
+
+    public init(viewBlock: @escaping () -> View) {
+      self.viewBlock = viewBlock
+    }
+
+    public func asComponent() -> Component {
+      .element(AnyBookElement(self))
+    }
+
+    public func addButton(_ title: String, handler: @escaping (View) -> Void) -> Self {
+      modified {
+        $0.buttons.append((title: title, handler: handler))
+      }
+    }
+
+    public func makeView() -> UIView {
+      StorybookComponentInteractiveView(
+        element: viewBlock(),
+        actionDiscriptors: buttons.map {
+          StorybookComponentInteractiveView.ActionDescriptor(title: $0.title, action: $0.handler)
+      })
+    }
+  }
+
+  /// A component descriptor that just displays UI-Component
+  public struct Present: ComponentType, BookElementType {
+
+    public let presentingViewControllerBlock: () -> UIViewController
+
+    public var title: String = ""
+    public var description: String = ""
+    public var backgroundColor: UIColor = .white
+
+    public init(
+      title: String,
+      presentingViewControllerBlock: @escaping () -> UIViewController
+    ) {
+      self.presentingViewControllerBlock = presentingViewControllerBlock
+    }
+
+    public func asComponent() -> Component {
+      .element(AnyBookElement(self))
+    }
+
+    public func makeView() -> UIView {
+      StorybookComponentBasicView(stretchableElement: viewBlock())
+    }
+  }
+
 }
 
 public struct BookForEach<Content: ComponentType>: ComponentType {
@@ -177,34 +318,6 @@ public struct BookForEach<Content: ComponentType>: ComponentType {
   }
 }
 
-extension BookElement {
-
-  private func modified(_ modify: (inout Self) -> Void) -> Self {
-    var s = self
-    modify(&s)
-    return s
-  }
-
-  public func title(_ title: String) -> Self {
-    modified {
-      $0.title = title
-    }
-  }
-
-  public func description(_ description: String) -> Self {
-    modified {
-      $0.description = description
-    }
-  }
-
-  public func backgroundColor(_ color: UIColor) -> Self {
-    modified {
-      $0.backgroundColor = color
-    }
-  }
-
-}
-
 public struct Book {
 
   public let component: Component
@@ -218,7 +331,7 @@ public struct Book {
 public indirect enum Component: ComponentType {
 
   case section(BookSection)
-  case element(BookElement)
+  case element(AnyBookElement)
   case optional(Component?)
   case array([Component])
 
@@ -230,16 +343,20 @@ public indirect enum Component: ComponentType {
 @_functionBuilder
 struct ComponentBuilder {
 
-  static func buildExpression(_ element: BookElement) -> Component {
-    return .element(element)
-  }
+//  static func buildExpression(_ element: BookElementType) -> Component {
+//    return .element(element)
+//  }
+//
+//  static func buildExpression(_ element: ComponentType) -> Component {
+//    return element.asComponent()
+//  }
+//
+//  static func buildExpression(_ section: BookSection) -> Component {
+//    return .section(section)
+//  }
 
-  static func buildExpression(_ element: ComponentType) -> Component {
-    return element.asComponent()
-  }
-
-  static func buildExpression(_ section: BookSection) -> Component {
-    return .section(section)
+  static func buildBlock<E: BookElementType>(_ element: E) -> Component {
+    return .element(.init(element))
   }
 
   static func buildBlock(_ component: ComponentType) -> Component {
