@@ -72,7 +72,8 @@ public struct BookPresent: BookViewPresentableType {
         presentButton.topAnchor.constraint(equalTo: topAnchor, constant: 32.0),
         presentButton.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -layoutMargins.right),
         presentButton.leftAnchor.constraint(greaterThanOrEqualTo: leftAnchor, constant: layoutMargins.left),
-        presentButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 32.0),
+        presentButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -32.0),
+        presentButton.centerXAnchor.constraint(equalTo: centerXAnchor),
 
       ])
     }

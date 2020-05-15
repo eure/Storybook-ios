@@ -21,6 +21,7 @@ public let myBook = Book {
   }
 
   BookFolder("MyLabel") {
+
     MyLabel.makeBookView()
 
     BookFolder("Variations") {
@@ -42,6 +43,30 @@ public let myBook = Book {
       LightLabel.init(title: "Hello")
     }
     .backgroundColor(.black)
+  }
+
+  BookFolder("AlertController") {
+
+    BookPresent(title: "Pop") {
+      let alert = UIAlertController(
+        title: "Hi Storybook",
+        message: "As like this, you can present any view controller to check the behavior.",
+        preferredStyle: .alert
+      )
+      alert.addAction(.init(title: "Got it", style: .default, handler: { _ in }))
+      return alert
+    }
+
+    BookPresent(title: "Another Pop") {
+      let alert = UIAlertController(
+        title: "Hi Storybook",
+        message: "As like this, you can present any view controller to check the behavior.",
+        preferredStyle: .alert
+      )
+      alert.addAction(.init(title: "Got it", style: .default, handler: { _ in }))
+      return alert
+    }
+
   }
   
 }
