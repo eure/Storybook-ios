@@ -43,7 +43,7 @@ class TapStackCell : UIControl, StackCellType {
             self.backgroundColor = .systemFill
           } else {
 
-            self.backgroundColor = .init(white: 0.95, alpha: 1)
+            self.backgroundColor = .init(white: 0.98, alpha: 1)
           }
         } else {
           

@@ -22,7 +22,7 @@
 import Foundation
 
 /// A component descriptor that can control a UI-Component with specified button.
-public struct BookInteractive<View: UIView>: BookViewPresentableType {
+public struct BookInteractive<View: UIView>: BookViewRepresentableType {
 
   public let viewBlock: () -> View
 
@@ -40,10 +40,6 @@ public struct BookInteractive<View: UIView>: BookViewPresentableType {
     self.viewBlock = viewBlock
   }
 
-  public func asTree() -> BookTree {
-    .element(AnyBookView(self))
-  }
-
   public func addButton(_ title: String, handler: @escaping (View) -> Void) -> Self {
     modified {
       $0.buttons.append((title: title, handler: handler))
@@ -58,6 +54,13 @@ public struct BookInteractive<View: UIView>: BookViewPresentableType {
     })
     view.backgroundColor = backgroundColor
     return view
+  }
+
+  public func title(_ text: String) -> BookGroup {
+    .init {
+      BookText(text)
+      self
+    }
   }
 
 }

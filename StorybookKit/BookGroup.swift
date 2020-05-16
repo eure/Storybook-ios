@@ -24,13 +24,10 @@ import Foundation
 /// An affordance for grouping view content.
 public struct BookGroup: BookView {
 
-  public let component: BookTree
+  public let body: BookView
 
   public init(@ComponentBuilder closure: () -> BookView) {
-    self.component = closure().asTree()
+    self.body = closure()
   }
 
-  public func asTree() -> BookTree {
-    component
-  }
 }

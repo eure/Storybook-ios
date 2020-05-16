@@ -21,7 +21,7 @@
 
 import Foundation
 
-public struct BookForEach<Content: BookView>: BookView {
+public struct BookForEach<Content: _BookView>: BookView {
 
   private let components: [Content]
 
@@ -30,6 +30,10 @@ public struct BookForEach<Content: BookView>: BookView {
       make($0)
     }
     self.components = components
+  }
+
+  public var body: BookView {
+    self
   }
 
   public func asTree() -> BookTree {

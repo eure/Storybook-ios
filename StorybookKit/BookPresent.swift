@@ -22,7 +22,7 @@
 import Foundation
 
 /// A component descriptor that just displays UI-Component
-public struct BookPresent: BookViewPresentableType {
+public struct BookPresent: BookViewRepresentableType {
 
   public let presentedViewControllerBlock: () -> UIViewController
 
@@ -34,10 +34,6 @@ public struct BookPresent: BookViewPresentableType {
   ) {
     self.title = title
     self.presentedViewControllerBlock = presentingViewControllerBlock
-  }
-
-  public func asTree() -> BookTree {
-    .element(AnyBookView(self))
   }
 
   public func makeView() -> UIView {

@@ -48,7 +48,7 @@ final class FolderCell : HighlightStackCell {
     NSLayoutConstraint.activate([
       titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16.0),
       titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.0),
-      titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: layoutMargins.left),
+      titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: layoutMargins.left + 8),
       titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16.0),
       titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 16.0)
     ])

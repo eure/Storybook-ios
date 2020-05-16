@@ -21,14 +21,25 @@
 
 import Foundation
 
-public protocol BookView {
+public protocol _BookView {
 
   func asTree() -> BookTree
 }
 
-extension BookView {
+public protocol BookView: _BookView {
 
-  func modified(_ modify: (inout Self) -> Void) -> Self {
+  var body: BookView { get }
+}
+
+extension BookView {
+  public func asTree() -> BookTree {
+    return .single(body)
+  }
+}
+
+extension _BookView {
+
+  public func modified(_ modify: (inout Self) -> Void) -> Self {
     var s = self
     modify(&s)
     return s
@@ -36,17 +47,17 @@ extension BookView {
 
 }
 
-public struct AnyBookView: BookView, BookViewPresentableType {
+public struct AnyBookViewRepresentable: BookViewRepresentableType {
 
   private let _makeView: () -> UIView
 
-  public init<E: BookViewPresentableType>(_ element: E) {
+  public init<E: BookViewRepresentableType>(_ element: E) {
 
     self._makeView = element.makeView
   }
 
   public func asTree() -> BookTree {
-    return .element(self)
+    return .viewRepresentable(self)
   }
 
   public func makeView() -> UIView {

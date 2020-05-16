@@ -25,7 +25,7 @@ public struct Book {
 
   public let component: BookTree
 
-  public init(@ComponentBuilder closure: () -> BookView) {
+  public init(@ComponentBuilder closure: () -> _BookView) {
     self.component = closure().asTree()
   }
 

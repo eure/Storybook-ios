@@ -22,7 +22,7 @@
 import Foundation
 
 /// A component descriptor that just displays UI-Component
-public struct BookDisplay: BookViewPresentableType {
+public struct BookDisplay: BookViewRepresentableType {
 
   public let viewBlock: () -> UIView
 
@@ -36,10 +36,6 @@ public struct BookDisplay: BookViewPresentableType {
 
   public init(viewBlock: @escaping () -> UIView) {
     self.viewBlock = viewBlock
-  }
-
-  public func asTree() -> BookTree {
-    .element(AnyBookView(self))
   }
 
   public func title(_ text: String) -> BookGroup {

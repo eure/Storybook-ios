@@ -73,7 +73,7 @@ public let myBook = Book {
 
 extension MyLabel {
 
-  fileprivate static func makeBookView() -> BookView {
+  fileprivate static func makeBookView() -> _BookView {
     BookGroup {
       BookDisplay {
         self.init(title: "Hello")

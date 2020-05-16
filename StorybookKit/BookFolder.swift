@@ -27,9 +27,13 @@ public struct BookFolder: BookView {
   public let title: String
   public let component: BookTree
 
-  public init(_ title: String, @ComponentBuilder closure: () -> BookView) {
+  public init(_ title: String, @ComponentBuilder closure: () -> _BookView) {
     self.title = title
     self.component = closure().asTree()
+  }
+
+  public var body: BookView {
+    self
   }
 
   public func asTree() -> BookTree {

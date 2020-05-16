@@ -21,14 +21,18 @@
 
 import Foundation
 
-public protocol BookViewPresentableType: BookView {
+public protocol BookViewRepresentableType: BookView {
   func makeView() -> UIView
 }
 
-extension BookViewPresentableType {
+extension BookViewRepresentableType {
+
+  public var body: BookView {
+    fatalError()
+  }
 
   public func asTree() -> BookTree {
-    .element(AnyBookView(self))
+    .viewRepresentable(AnyBookViewRepresentable(self))
   }
 }
 

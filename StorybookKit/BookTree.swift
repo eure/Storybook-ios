@@ -23,9 +23,13 @@
 public indirect enum BookTree: BookView {
 
   case folder(BookFolder)
-  case element(AnyBookView)
-  case optional(BookTree?)
+  case viewRepresentable(AnyBookViewRepresentable)
+  case single(_BookView?)
   case array([BookTree])
+
+  public var body: BookView {
+    self
+  }
 
   public func asTree() -> BookTree {
     self
@@ -35,23 +39,23 @@ public indirect enum BookTree: BookView {
 @_functionBuilder
 public enum ComponentBuilder {
 
-  public static func buildBlock<E: BookViewPresentableType>(_ element: E) -> BookTree {
-    return .element(.init(element))
+  public static func buildBlock<E: BookViewRepresentableType>(_ element: E) -> BookTree {
+    return .viewRepresentable(.init(element))
   }
 
-  public static func buildBlock(_ component: BookView) -> BookTree {
+  public static func buildBlock(_ component: _BookView) -> BookTree {
     return component.asTree()
   }
 
-  public static func buildBlock(_ components: BookView...) -> BookTree {
+  public static func buildBlock(_ components: _BookView...) -> BookTree {
     return .array(components.map { $0.asTree() })
   }
 
-  public static func buildBlock(_ components: [BookView]) -> BookTree {
+  public static func buildBlock(_ components: [_BookView]) -> BookTree {
     return .array(components.map { $0.asTree() })
   }
 
-  public static func buildIf(_ value: BookTree?) -> BookTree {
-    return .optional(value)
+  public static func buildIf(_ value: _BookView?) -> BookTree {
+    return .single(value)
   }
 }

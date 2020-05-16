@@ -21,7 +21,7 @@
 
 import Foundation
 
-public struct BookPadding<Content: BookViewPresentableType>: BookViewPresentableType {
+public struct BookPadding<Content: BookViewRepresentableType>: BookViewRepresentableType {
 
   public let padding: UIEdgeInsets
   private let content: Content
@@ -34,6 +34,14 @@ public struct BookPadding<Content: BookViewPresentableType>: BookViewPresentable
   public func makeView() -> UIView {
     PaddingView(padding: padding, bodyView: content.makeView())
   }
+}
+
+extension BookViewRepresentableType {
+
+  public func padding(_ insets: UIEdgeInsets) -> BookPadding<Self> {
+    .init(padding: insets, content: { self })
+  }
+
 }
 
 final class PaddingView<Body: UIView>: UIView {

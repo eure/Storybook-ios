@@ -95,10 +95,10 @@ import AsyncDisplayKit
 
 extension StorybookComponent {
   
-  public init(title: String? = nil, element: ASDisplayNode) {
+  public init(title: String? = nil, viewRepresentable: ASDisplayNode) {
     self.title = title ?? ""
-    self.description = String(reflecting: type(of: element))
-    self.bodyView = StorybookComponentView(element: element)
+    self.description = String(reflecting: type(of: viewRepresentable))
+    self.bodyView = StorybookComponentView(viewRepresentable: viewRepresentable)
     self.backgroundColor = nil
   }
   

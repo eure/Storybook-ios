@@ -21,7 +21,7 @@
 
 import Foundation
 
-public struct BookText: BookViewPresentableType {
+public struct BookText: BookViewRepresentableType {
 
   public let text: String
   public var foregroundColor: UIColor = {

@@ -22,15 +22,18 @@ final class ComponentListViewController: StackScrollViewController {
         buffer.append(
           FolderCell(title: v.title, didTap: {
             let nextController = ComponentListViewController(component: v.component)
-            _indirectSelf?.show(nextController, sender: _indirectSelf)
+            nextController.title = v.title
+            _indirectSelf?.showDetailViewController(nextController, sender: _indirectSelf)
           })
         )
-      case .element(let v):
+      case .single(let v):
+        if let v = v {
+          makeCells(buffer: &buffer, component: v.asTree())
+        }
+      case .viewRepresentable(let v):
         buffer.append(
           v.makeView()
         )
-      case .optional(let v):
-        v.map { makeCells(buffer: &buffer, component: $0) }
       case .array(let v):
         v.forEach {
           makeCells(buffer: &buffer, component: $0)
