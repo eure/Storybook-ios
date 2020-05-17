@@ -39,21 +39,25 @@ final class FolderCell : HighlightStackCell {
     addTarget(self, action: #selector(_didTap), for: .touchUpInside)
 
     titleLabel.numberOfLines = 0
-    titleLabel.font = UIFont.preferredFont(forTextStyle: .headline)
-    titleLabel.textColor = .systemBlue
+    titleLabel.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
+    if #available(iOS 13.0, *) {
+      titleLabel.textColor = .darkText
+    } else {
+      titleLabel.textColor = .systemGray
+    }
 
     titleLabel.translatesAutoresizingMaskIntoConstraints = false
     addSubview(titleLabel)
 
     NSLayoutConstraint.activate([
-      titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16.0),
-      titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.0),
-      titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: layoutMargins.left + 8),
-      titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16.0),
-      titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 16.0)
+      titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 8),
+      titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24.0),
+      titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
+      titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
+      titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 12.0)
     ])
 
-    set(title: "📔 " + title)
+    set(title: title + " ›")
 
   }
 

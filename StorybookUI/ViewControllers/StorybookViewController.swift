@@ -120,15 +120,20 @@ public final class StorybookViewController : UISplitViewController {
     }
 
     let root = BookGroup {
-      BookSection(title: "History") {
-        BookTree.array(history.map { $0.asTree() })
+      BookPage(title: "Storybook") {
+        BookSection(title: "History") {
+          BookTree.array(history.map { $0.asTree() })
+        }
+        BookSection(title: "All") {
+          BookNavigationLink(title: "View all") {
+            flatten(book.component)
+          }
+        }
+        BookSection(title: "Pages") {
+          book.component
+        }
       }
-      BookNavigationLink(title: "all") {
-        flatten(book.component)
-      }
-      BookNavigationLink(title: "tree") {
-        book.component
-      }
+
     }
 
     let menuController = ComponentListViewController(

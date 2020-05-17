@@ -40,6 +40,7 @@ public struct BookSection: BookView {
       BookSpacer(height: 8)
       BookText(title)
         .font(.systemFont(ofSize: 24, weight: .bold))
+      BookSpacer(height: 16)
       content
       BookSpacer(height: 24)
     }
