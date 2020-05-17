@@ -21,7 +21,7 @@
 
 import Foundation
 
-public struct BookDisplay<View: UIView>: BookView {
+public struct BookPreview<View: UIView>: BookView {
 
   public var backgroundColor: UIColor = {
     if #available(iOS 13.0, *) {
