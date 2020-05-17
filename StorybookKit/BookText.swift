@@ -80,10 +80,10 @@ public struct BookText: BookViewRepresentableType {
 
       NSLayoutConstraint.activate([
 
-        label.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+        label.topAnchor.constraint(equalTo: topAnchor, constant: 8),
         label.rightAnchor.constraint(equalTo: rightAnchor, constant: -layoutMargins.right),
         label.leftAnchor.constraint(equalTo: leftAnchor, constant: layoutMargins.left),
-        label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
+        label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
 
       ])
 

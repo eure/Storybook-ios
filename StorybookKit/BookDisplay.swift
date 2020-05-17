@@ -74,6 +74,7 @@ public struct BookDisplay<View: UIView>: BookView {
 
   public func title(_ text: String) -> BookGroup {
     .init {
+      BookSpacer(height: 8)
       BookText(text)
       self
     }
@@ -111,7 +112,7 @@ fileprivate struct _BookDisplay<View: UIView>: BookViewRepresentableType {
 
     public convenience init(
       element: UIView,
-      insets: UIEdgeInsets = .init(top: 32, left: 16, bottom: 32, right: 16)
+      insets: UIEdgeInsets = .init(top: 16, left: 16, bottom: 16, right: 16)
     ) {
       self.init()
 
@@ -129,7 +130,7 @@ fileprivate struct _BookDisplay<View: UIView>: BookViewRepresentableType {
 
     public convenience init(
       stretchableElement element: UIView,
-      insets: UIEdgeInsets = .init(top: 32, left: 16, bottom: 32, right: 16)
+      insets: UIEdgeInsets = .init(top: 20, left: 16, bottom: 20, right: 16)
     ) {
       self.init()
 
