@@ -11,19 +11,27 @@ import StorybookKit
 
 final class ComponentListViewController: StackScrollViewController {
 
-  init(component: BookTree) {
+  var onSelectedLink: (BookNavigationLink) -> Void = { _ in }
 
-    weak var _indirectSelf: ComponentListViewController?
+  init(component: BookTree, onSelectedLink: @escaping (BookNavigationLink) -> Void) {
+
+    super.init()
 
     func makeCells(buffer: inout [UIView], component: BookTree) {
 
       switch component {
       case .folder(let v):
         buffer.append(
-          FolderCell(title: v.title, didTap: {
-            let nextController = ComponentListViewController(component: v.component)
+          FolderCell(title: v.title, didTap: { [weak self] in
+
+            onSelectedLink(v)
+
+            let nextController = ComponentListViewController(
+              component: v.component,
+              onSelectedLink: onSelectedLink
+            )
             nextController.title = v.title
-            _indirectSelf?.showDetailViewController(nextController, sender: _indirectSelf)
+            self?.showDetailViewController(nextController, sender: self)
           })
         )
       case .single(let v):
@@ -44,9 +52,8 @@ final class ComponentListViewController: StackScrollViewController {
 
     var buffer = [UIView]()
     makeCells(buffer: &buffer, component: component)
-    super.init(views: buffer)
 
-    _indirectSelf = self
+    setViews(buffer)
 
   }
 

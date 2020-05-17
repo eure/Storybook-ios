@@ -43,6 +43,10 @@ public enum ComponentBuilder {
     return .viewRepresentable(.init(element))
   }
 
+  public static func buildExpression(_ component: _BookView) -> BookTree {
+    return component.asTree()
+  }
+
   public static func buildBlock(_ component: _BookView) -> BookTree {
     return component.asTree()
   }
@@ -51,7 +55,11 @@ public enum ComponentBuilder {
     return .array(components.map { $0.asTree() })
   }
 
-  public static func buildBlock(_ components: [_BookView]) -> BookTree {
+  public static func buildExpression(_ components: [_BookView]) -> BookTree {
+    return .array(components.map { $0.asTree() })
+  }
+
+  public static func buildExpression<BookView: _BookView>(_ components: [BookView]) -> BookTree {
     return .array(components.map { $0.asTree() })
   }
 
