@@ -62,7 +62,16 @@ public final class StorybookViewController : UISplitViewController {
 
   public init(book: Book, dismissHandler: DismissHandler?) {
 
-    let menuController = ComponentListViewController(component: book.component)
+    let root = BookGroup {
+      BookNavigationLink("all") {
+        flatten(book.component)
+      }
+      BookNavigationLink("tree") {
+        book.component
+      }
+    }
+
+    let menuController = ComponentListViewController(component: root.asTree())
     self.mainViewController = UINavigationController(rootViewController: menuController)
 
     self.dismissHandler = dismissHandler
@@ -195,4 +204,29 @@ extension StorybookViewController : UISplitViewControllerDelegate {
   public func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
     return true
   }
+}
+
+fileprivate func flatten(_ tree: BookTree) -> BookTree {
+
+  func _flatten(buffer: inout [BookTree], tree: BookTree) {
+    switch tree {
+    case .folder(let v):
+      _flatten(buffer: &buffer, tree: v.component)
+    case .viewRepresentable:
+      buffer.append(tree)
+    case .single(let v?):
+      _flatten(buffer: &buffer, tree: v.asTree())
+    case .single(.none):
+      break
+    case .array(let v):
+      v.forEach {
+        _flatten(buffer: &buffer, tree: $0)
+      }
+    }
+  }
+
+  var buffer = [BookTree]()
+  _flatten(buffer: &buffer, tree: tree)
+
+  return .array(buffer)
 }

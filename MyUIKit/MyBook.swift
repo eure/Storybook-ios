@@ -20,11 +20,11 @@ public let myBook = Book {
     BookText("Repeats with BookForEatch \(i)")
   }
 
-  BookFolder("MyLabel") {
+  BookNavigationLink("MyLabel") {
 
     MyLabel.makeBookView()
 
-    BookFolder("Variations") {
+    BookNavigationLink("Variations") {
       BookForEach(data: [
         UIColor.systemBlue,
         UIColor.systemRed,
@@ -38,14 +38,14 @@ public let myBook = Book {
     }
   }
 
-  BookFolder("LightLabel") {
+  BookNavigationLink("LightLabel") {
     BookDisplay {
       LightLabel.init(title: "Hello")
     }
     .backgroundColor(.black)
   }
 
-  BookFolder("AlertController") {
+  BookNavigationLink("AlertController") {
 
     BookPresent(title: "Pop") {
       let alert = UIAlertController(
@@ -86,7 +86,7 @@ extension MyLabel {
       }
       .title("Long Text")
 
-      BookInteractive {
+      BookDisplay {
         self.init(title: "HelloHelloHelloHello")
       }
       .addButton("Delete") { (label) in
