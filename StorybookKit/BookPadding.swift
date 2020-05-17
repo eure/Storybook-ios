@@ -21,6 +21,36 @@
 
 import Foundation
 
+public struct BookSpacer: BookViewRepresentableType {
+
+  private let height: CGFloat
+
+  public init(height: CGFloat) {
+    self.height = height
+  }
+
+  public func makeView() -> UIView {
+    _View(height: height)
+  }
+
+  private final class _View: UIView {
+
+    init(height: CGFloat) {
+      super.init(frame: .zero)
+
+      self.translatesAutoresizingMaskIntoConstraints = false
+
+      heightAnchor.constraint(equalToConstant: height).isActive = true
+    }
+
+    required init?(coder: NSCoder) {
+      fatalError("init(coder:) has not been implemented")
+    }
+
+  }
+
+}
+
 public struct BookPadding<Content: BookViewRepresentableType>: BookViewRepresentableType {
 
   public let padding: UIEdgeInsets

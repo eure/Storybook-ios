@@ -21,10 +21,7 @@
 
 import Foundation
 
-/// A component descriptor that just displays UI-Component
-public struct BookDisplay: BookViewRepresentableType {
-
-  public let viewBlock: () -> UIView
+public struct BookDisplay<View: UIView>: BookView {
 
   public var backgroundColor: UIColor = {
     if #available(iOS 13.0, *) {
@@ -34,14 +31,32 @@ public struct BookDisplay: BookViewRepresentableType {
     }
   }()
 
-  public init(viewBlock: @escaping () -> UIView) {
+  public let viewBlock: () -> View
+
+  private var buttons: ContiguousArray<(title: String, handler: (View) -> Void)> = .init()
+
+  public init(viewBlock: @escaping () -> View) {
     self.viewBlock = viewBlock
   }
 
-  public func title(_ text: String) -> BookGroup {
-    .init {
-      BookText(text)
-      self
+  public var body: BookView {
+
+    weak var createdView: View?
+
+    return BookGroup {
+      _BookDisplay(backgroundColor: backgroundColor, viewBlock: {
+        let view = self.viewBlock()
+        createdView = view
+        return view
+      })
+      if buttons.isEmpty == false {
+        BookSpacer(height: 8)
+        BookPadding(padding: .init(top: 0, left: 20, bottom: 0, right: 20)) {
+          _BookButtons(buttons: ContiguousArray(buttons.map { args in
+            (args.0, { args.1(createdView!) })
+          }))
+        }
+      }
     }
   }
 
@@ -51,8 +66,34 @@ public struct BookDisplay: BookViewRepresentableType {
     }
   }
 
-  public func makeView() -> UIView {
-    let view = _View(stretchableElement: viewBlock())
+  public func addButton(_ title: String, handler: @escaping (View) -> Void) -> Self {
+    modified {
+      $0.buttons.append((title: title, handler: handler))
+    }
+  }
+
+  public func title(_ text: String) -> BookGroup {
+    .init {
+      BookText(text)
+      self
+    }
+  }
+}
+
+/// A component descriptor that just displays UI-Component
+fileprivate struct _BookDisplay<View: UIView>: BookViewRepresentableType {
+
+  let viewBlock: () -> View
+
+  let backgroundColor: UIColor
+
+  init(backgroundColor: UIColor, viewBlock: @escaping () -> View) {
+    self.backgroundColor = backgroundColor
+    self.viewBlock = viewBlock
+  }
+
+  func makeView() -> UIView {
+    let view = _View(element: viewBlock())
     view.backgroundColor = backgroundColor
     return view
   }

@@ -19,43 +19,28 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-/// A structure of Book
-public indirect enum BookTree: BookView {
+import Foundation
 
-  case folder(BookNavigationLink)
-  case viewRepresentable(AnyBookViewRepresentable)
-  case single(_BookView?)
-  case array([BookTree])
+public struct BookPage: BookView {
+
+  public let title: String
+  public let content: BookView
+
+  public init(
+    title: String,
+    @ComponentBuilder content: () -> BookView
+  ) {
+    self.title = title
+    self.content = content()
+  }
 
   public var body: BookView {
-    self
+    return BookGroup {
+      BookText(title)
+        .font(.systemFont(ofSize: 32, weight: .bold))
+      content
+    }
+
   }
 
-  public func asTree() -> BookTree {
-    self
-  }
-}
-
-@_functionBuilder
-public enum ComponentBuilder {
-
-  public static func buildBlock<E: BookViewRepresentableType>(_ element: E) -> BookTree {
-    return .viewRepresentable(.init(element))
-  }
-
-  public static func buildBlock(_ component: _BookView) -> BookTree {
-    return component.asTree()
-  }
-
-  public static func buildBlock(_ components: _BookView...) -> BookTree {
-    return .array(components.map { $0.asTree() })
-  }
-
-  public static func buildBlock(_ components: [_BookView]) -> BookTree {
-    return .array(components.map { $0.asTree() })
-  }
-
-  public static func buildIf(_ value: _BookView?) -> BookTree {
-    return .single(value)
-  }
 }

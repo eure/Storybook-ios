@@ -22,7 +22,7 @@
 import Foundation
 
 /// A component that displays a disclosure view.
-public struct BookFolder: BookView {
+public struct BookNavigationLink: BookView {
 
   public let title: String
   public let component: BookTree

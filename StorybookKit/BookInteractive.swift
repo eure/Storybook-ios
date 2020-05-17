@@ -22,45 +22,21 @@
 import Foundation
 
 /// A component descriptor that can control a UI-Component with specified button.
-public struct BookInteractive<View: UIView>: BookViewRepresentableType {
+// TODO: Integrate BookDisplay
+struct _BookButtons: BookViewRepresentableType {
 
-  public let viewBlock: () -> View
+  private var buttons: ContiguousArray<(title: String, handler: () -> Void)> = .init()
 
-  public var backgroundColor: UIColor = {
-    if #available(iOS 13.0, *) {
-      return .systemBackground
-    } else {
-      return .white
-    }
-  }()
-  
-  private var buttons: ContiguousArray<(title: String, handler: (View) -> Void)> = .init()
-
-  public init(viewBlock: @escaping () -> View) {
-    self.viewBlock = viewBlock
+  init(buttons: ContiguousArray<(title: String, handler: () -> Void)>) {
+    self.buttons = buttons
   }
 
-  public func addButton(_ title: String, handler: @escaping (View) -> Void) -> Self {
-    modified {
-      $0.buttons.append((title: title, handler: handler))
-    }
-  }
-
-  public func makeView() -> UIView {
+  func makeView() -> UIView {
     let view = _View(
-      element: viewBlock(),
       actionDiscriptors: buttons.map {
         _View.ActionDescriptor(title: $0.title, action: $0.handler)
     })
-    view.backgroundColor = backgroundColor
     return view
-  }
-
-  public func title(_ text: String) -> BookGroup {
-    .init {
-      BookText(text)
-      self
-    }
   }
 
 }
@@ -73,7 +49,7 @@ fileprivate final class _View : UIView {
 
   // MARK: - Initializers
 
-  public init<T: UIView>(element: T, actionDiscriptors: [ActionDescriptor<T>]) {
+  public init(actionDiscriptors: [ActionDescriptor]) {
 
     super.init(frame: .zero)
 
@@ -91,9 +67,8 @@ fileprivate final class _View : UIView {
 
         button.setTitle(descriptor.title, for: .normal)
         button.addTarget(self, action: #selector(actionButtonTouchUpInside), for: .touchUpInside)
-        button.action = { [weak element] in
-          guard let element = element else { return }
-          descriptor.action(element)
+        button.action = {
+          descriptor.action()
         }
 
         stackView.addArrangedSubview(button)
@@ -102,23 +77,15 @@ fileprivate final class _View : UIView {
 
     }
 
-    addSubview(element)
     addSubview(stackView)
 
     stackView.translatesAutoresizingMaskIntoConstraints = false
-    element.translatesAutoresizingMaskIntoConstraints = false
 
     NSLayoutConstraint.activate([
-
-      element.topAnchor.constraint(equalTo: topAnchor, constant: 32.0),
-      element.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -16.0),
-      element.leftAnchor.constraint(greaterThanOrEqualTo: leftAnchor, constant: 16.0),
-      element.centerXAnchor.constraint(equalTo: centerXAnchor),
-
-      stackView.topAnchor.constraint(equalTo: element.bottomAnchor, constant: 32.0),
-      stackView.rightAnchor.constraint(equalTo: rightAnchor, constant: -16.0),
-      stackView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16.0),
-      stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
+      stackView.topAnchor.constraint(equalTo: topAnchor),
+      stackView.rightAnchor.constraint(equalTo: rightAnchor),
+      stackView.leftAnchor.constraint(equalTo: leftAnchor),
+      stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
     ])
 
   }
@@ -143,16 +110,16 @@ fileprivate final class _View : UIView {
 
 extension _View {
 
-  public struct ActionDescriptor<T> {
+  struct ActionDescriptor {
 
     // MARK: - Properties
-    public let title: String
+    let title: String
 
-    public let action: (T) -> Void
+    let action: () -> Void
 
     // MARK: - Initializers
 
-    public init(title: String, action: @escaping (T) -> Void) {
+    init(title: String, action: @escaping () -> Void) {
 
       self.title = title
       self.action = action
