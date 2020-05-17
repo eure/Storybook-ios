@@ -160,4 +160,50 @@ extension MyLabel {
       }
     }
   }
+
+  fileprivate static func makeBookView_1() -> BookView {
+    BookDisplay {
+      self.init(title: "")
+    }
+  }
+
+  fileprivate static func makeBookView_2() -> BookView {
+    BookGroup {
+      BookDisplay {
+        self.init(title: "")
+      }
+      BookDisplay {
+        self.init(title: "")
+      }
+    }
+  }
+
+  fileprivate static func makeBookView_3() -> BookView {
+    BookGroup {
+      BookDisplay {
+        self.init(title: "")
+      }
+      BookDisplay {
+        self.init(title: "")
+      }
+      BookFolder("Nested") {
+        BookDisplay {
+          self.init(title: "")
+        }
+        BookFolder("Nested") {
+          BookDisplay {
+            self.init(title: "")
+          }
+          BookDisplay {
+            self.init(title: "")
+          }
+          BookFolder("Nested") {
+            BookDisplay {
+              self.init(title: "")
+            }
+          }
+        }
+      }
+    }
+  }
 }
