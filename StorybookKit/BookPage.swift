@@ -35,9 +35,11 @@ public struct BookPage: BookView {
   }
 
   public var body: BookView {
-    return BookGroup {
+    BookGroup {
+      BookSpacer(height: 24)
       BookText(title)
-        .font(.systemFont(ofSize: 32, weight: .bold))
+        .font(.systemFont(ofSize: 40, weight: .bold))
+      BookSpacer(height: 18)
       content
     }
 

@@ -68,12 +68,78 @@ public let myBook = Book {
     }
 
   }
+
+  BookNavigationLink(title: "Typography") {
+    BookPage(title: "Typography") {
+
+      BookHeadline("""
+Here is `BookHeadline`, It allows us to describe something big picture.
+""")
+
+      BookParagraph("""
+Here is `BookParagpraph`
+It allows us to display multiple lines.
+
+Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+""")
+
+      BookParagraph("""
+Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+""")
+
+      BookSection(title: "Section") {
+
+        BookParagraph("""
+Something description about this section.
+""")
+
+        BookDisplay {
+          let view = UIView(frame: .init(x: 0, y: 0, width: 80, height: 80))
+          view.backgroundColor = .systemPurple
+          NSLayoutConstraint.activate([
+            view.widthAnchor.constraint(equalToConstant: 80),
+            view.heightAnchor.constraint(equalToConstant: 80),
+          ])
+          return view
+        }
+
+        BookDisplay {
+          let view = UIView(frame: .init(x: 0, y: 0, width: 80, height: 80))
+          view.backgroundColor = .systemPurple
+          NSLayoutConstraint.activate([
+            view.widthAnchor.constraint(equalToConstant: 80),
+            view.heightAnchor.constraint(equalToConstant: 80),
+          ])
+          return view
+        }
+        .title("A component")
+
+      }
+
+      BookSection(title: "Section") { () -> BookView in
+
+        BookDisplay {
+          let view = UIView(frame: .init(x: 0, y: 0, width: 80, height: 80))
+          view.backgroundColor = .systemPurple
+          NSLayoutConstraint.activate([
+            view.widthAnchor.constraint(equalToConstant: 80),
+            view.heightAnchor.constraint(equalToConstant: 80),
+          ])
+          return view
+        }
+
+      }
+
+    }
+
+  }
   
 }
 
 extension MyLabel {
 
-  fileprivate static func makeBookView() -> _BookView {
+
+  fileprivate static func makeBookView() -> BookView {
     BookGroup {
       BookDisplay {
         self.init(title: "Hello")

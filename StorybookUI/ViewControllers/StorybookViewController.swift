@@ -119,8 +119,10 @@ public final class StorybookViewController : UISplitViewController {
       findLink(by: $0, tree: book.component)
     }
 
-    let root = BookGroup {      
-      history
+    let root = BookGroup {
+      BookSection(title: "History") {
+        BookTree.array(history.map { $0.asTree() })
+      }
       BookNavigationLink(title: "all") {
         flatten(book.component)
       }

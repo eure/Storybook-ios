@@ -39,8 +39,9 @@ public struct BookSection: BookView {
     BookGroup {
       BookSpacer(height: 8)
       BookText(title)
-        .font(.preferredFont(forTextStyle: .title3))
+        .font(.systemFont(ofSize: 24, weight: .bold))
       content
+      BookSpacer(height: 24)
     }
   }
 

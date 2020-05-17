@@ -57,6 +57,7 @@ public struct BookDisplay<View: UIView>: BookView {
           }))
         }
       }
+      BookSpacer(height: 16)
     }
   }
 
@@ -76,6 +77,14 @@ public struct BookDisplay<View: UIView>: BookView {
     .init {
       BookSpacer(height: 8)
       BookText(text)
+        .font(
+          {
+            if #available(iOS 13, *) {
+              return .monospacedSystemFont(ofSize: 17, weight: .semibold)
+            } else {
+              return .systemFont(ofSize: 17, weight: .semibold)
+            }
+          }())
       self
     }
   }
