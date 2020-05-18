@@ -24,8 +24,10 @@ import Foundation
 public struct Book {
 
   public let component: BookTree
+  public let title: String
 
-  public init(@ComponentBuilder closure: () -> _BookView) {
+  public init(title: String, @ComponentBuilder closure: () -> _BookView) {
+    self.title = title
     self.component = closure().asTree()
   }
 

@@ -118,18 +118,21 @@ public final class StorybookViewController : UISplitViewController {
     let history = historyManager.history.loadSelected().compactMap {
       findLink(by: $0, tree: book.component)
     }
+    .prefix(8)
 
     let root = BookGroup {
-      BookPage(title: "Storybook") {
-        BookSection(title: "History") {
-          BookTree.array(history.map { $0.asTree() })
+      BookPage(title: book.title) {
+        if !history.isEmpty {
+          BookSection(title: "History") {
+            BookTree.array(history.map { $0.asTree() })
+          }
         }
         BookSection(title: "All") {
           BookNavigationLink(title: "View all") {
             flatten(book.component)
           }
         }
-        BookSection(title: "Pages") {
+        BookSection(title: "Contents") {
           book.component
         }
       }

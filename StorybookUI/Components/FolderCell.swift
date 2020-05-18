@@ -43,7 +43,7 @@ final class FolderCell : HighlightStackCell {
     if #available(iOS 13.0, *) {
       titleLabel.textColor = .darkText
     } else {
-      titleLabel.textColor = .systemGray
+      titleLabel.textColor = .darkText
     }
 
     titleLabel.translatesAutoresizingMaskIntoConstraints = false

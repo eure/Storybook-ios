@@ -64,7 +64,7 @@ public struct BookText: BookViewRepresentableType {
     if #available(iOS 13.0, *) {
       return .label
     } else {
-      return .gray
+      return .darkText
     }
   }()
 
