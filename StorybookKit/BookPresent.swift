@@ -55,8 +55,13 @@ public struct BookPresent: BookViewRepresentableType {
 
       super.init(frame: .zero)
 
-      self.presentButton.setTitle(title, for: .normal)
+      self.presentButton.setTitle(title + " ⤴︎", for: .normal)
       self.presentButton.titleLabel?.font = .boldSystemFont(ofSize: 18)
+      if #available(iOS 13.0, *) {
+        self.presentButton.tintColor = .label
+      } else {
+        self.presentButton.tintColor = .darkText
+      }
       self.presentButton.addTarget(self, action: #selector(onTapPresentButton), for: .touchUpInside)
 
       addSubview(presentButton)
@@ -65,10 +70,10 @@ public struct BookPresent: BookViewRepresentableType {
 
       NSLayoutConstraint.activate([
 
-        presentButton.topAnchor.constraint(equalTo: topAnchor, constant: 32.0),
+        presentButton.topAnchor.constraint(equalTo: topAnchor, constant: 16),
         presentButton.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -layoutMargins.right),
         presentButton.leftAnchor.constraint(greaterThanOrEqualTo: leftAnchor, constant: layoutMargins.left),
-        presentButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -32.0),
+        presentButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16.0),
         presentButton.centerXAnchor.constraint(equalTo: centerXAnchor),
 
       ])

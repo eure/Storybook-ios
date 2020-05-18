@@ -26,9 +26,9 @@ import StorybookKit
 
 public let myBook = Book(title: "MyUI") {
 
-  BookText("MyBook")
+  BookParagraph("MyBook")
 
-  BookText("This is BookText")
+  BookParagraph("This is BookText")
 
   BookSection(title: "Features") {
 
