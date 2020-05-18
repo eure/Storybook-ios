@@ -1,16 +1,30 @@
 //
-//  Book.swift
-//  MyUIKit
+// Copyright (c) 2020 Eureka, Inc.
 //
-//  Created by muukii on 2020/05/16.
-//  Copyright © 2020 eureka, Inc. All rights reserved.
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
 //
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+
 
 import Foundation
 
 import StorybookKit
 
-public let myBook = Book {
+public let myBook = Book(title: "MyUI") {
 
   BookText("MyBook")
 
@@ -30,7 +44,7 @@ public let myBook = Book {
         UIColor.systemRed,
         UIColor.systemPink
       ]) { color in
-        BookDisplay {
+        BookPreview {
           LightLabel.init(title: "Hello")
         }
         .backgroundColor(color)
@@ -39,7 +53,7 @@ public let myBook = Book {
   }
 
   BookNavigationLink(title: "LightLabel") {
-    BookDisplay {
+    BookPreview {
       LightLabel.init(title: "Hello")
     }
     .backgroundColor(.black)
@@ -93,7 +107,7 @@ Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
 Something description about this section.
 """)
 
-        BookDisplay {
+        BookPreview {
           let view = UIView(frame: .init(x: 0, y: 0, width: 80, height: 80))
           view.backgroundColor = .systemPurple
           NSLayoutConstraint.activate([
@@ -103,7 +117,7 @@ Something description about this section.
           return view
         }
 
-        BookDisplay {
+        BookPreview {
           let view = UIView(frame: .init(x: 0, y: 0, width: 80, height: 80))
           view.backgroundColor = .systemPurple
           NSLayoutConstraint.activate([
@@ -118,7 +132,7 @@ Something description about this section.
 
       BookSection(title: "Section") { () -> BookView in
 
-        BookDisplay {
+        BookPreview {
           let view = UIView(frame: .init(x: 0, y: 0, width: 80, height: 80))
           view.backgroundColor = .systemPurple
           NSLayoutConstraint.activate([
@@ -141,18 +155,18 @@ extension MyLabel {
 
   fileprivate static func makeBookView() -> BookView {
     BookGroup {
-      BookDisplay {
+      BookPreview {
         self.init(title: "Hello")
       }
       .backgroundColor(.orange)
       .title("Short Text")
 
-      BookDisplay {
+      BookPreview {
         self.init(title: "HelloHelloHelloHello")
       }
       .title("Long Text")
 
-      BookDisplay {
+      BookPreview {
         self.init(title: "HelloHelloHelloHello")
       }
       .addButton("Delete") { (label) in
@@ -162,17 +176,17 @@ extension MyLabel {
   }
 
   fileprivate static func makeBookView_1() -> BookView {
-    BookDisplay {
+    BookPreview {
       self.init(title: "")
     }
   }
 
   fileprivate static func makeBookView_2() -> BookView {
     BookGroup {
-      BookDisplay {
+      BookPreview {
         self.init(title: "")
       }
-      BookDisplay {
+      BookPreview {
         self.init(title: "")
       }
     }
@@ -180,25 +194,25 @@ extension MyLabel {
 
   fileprivate static func makeBookView_3() -> BookView {
     BookGroup {
-      BookDisplay {
+      BookPreview {
         self.init(title: "")
       }
-      BookDisplay {
+      BookPreview {
         self.init(title: "")
       }
-      BookFolder("Nested") {
-        BookDisplay {
+      BookNavigationLink(title: "Nested") {
+        BookPreview {
           self.init(title: "")
         }
-        BookFolder("Nested") {
-          BookDisplay {
+        BookNavigationLink(title: "Nested") {
+          BookPreview {
             self.init(title: "")
           }
-          BookDisplay {
+          BookPreview {
             self.init(title: "")
           }
-          BookFolder("Nested") {
-            BookDisplay {
+          BookNavigationLink(title: "Nested") {
+            BookPreview {
               self.init(title: "")
             }
           }

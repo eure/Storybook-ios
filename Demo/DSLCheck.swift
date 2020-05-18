@@ -27,10 +27,10 @@ enum DSLCheck {
 
   static func run() {
 
-    Book {
+    Book(title: "MyBook") {
       BookNavigationLink(title: "A") {
 
-        BookDisplay {
+        BookPreview {
           UIButton()
         }
         .addButton("") { (b) in
@@ -41,36 +41,36 @@ enum DSLCheck {
         }
 
         BookNavigationLink(title: "A") {
-          BookDisplay {
+          BookPreview {
             UIView()
           }
         }
       }
     }
 
-    Book {
+    Book(title: "MyBook") {
       BookNavigationLink(title: "A") {
-        BookDisplay {
+        BookPreview {
           UIView()
         }
 
-        BookDisplay {
+        BookPreview {
           UIView()
         }
         .backgroundColor(.white)
 
         BookForEach(data: [1,2,3]) { (i) in
-          BookDisplay {
+          BookPreview {
             UIView()
           }
         }
 
         BookForEach(data: [1,2,3]) { (i) in
           BookNavigationLink(title: "\(i)") {
-            BookDisplay {
+            BookPreview {
               UIView()
             }
-            BookDisplay {
+            BookPreview {
               UIView()
             }
           }
@@ -79,20 +79,20 @@ enum DSLCheck {
 
       BookNavigationLink(title: "A") {
 
-        BookDisplay {
+        BookPreview {
           UIView()
         }
 
         BookNavigationLink(title: "A") {
-          BookDisplay {
+          BookPreview {
             UIView()
           }
 
           BookNavigationLink(title: "A") {
-            BookDisplay {
+            BookPreview {
               UIView()
             }
-            BookDisplay {
+            BookPreview {
               UIView()
             }
           }
