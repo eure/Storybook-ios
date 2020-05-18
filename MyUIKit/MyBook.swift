@@ -30,122 +30,125 @@ public let myBook = Book(title: "MyUI") {
 
   BookText("This is BookText")
 
-  BookForEach(data: 0..<3) { (i) in
-    BookText("Repeats with BookForEatch \(i)")
-  }
+  BookSection(title: "Features") {
 
-  BookNavigationLink(title: "MyLabel") {
+    BookNavigationLink(title: "Preview UI") {
+      BookPage(title: "Typography") {
 
-    MyLabel.makeBookView()
-
-    BookNavigationLink(title: "Variations") {
-      BookForEach(data: [
-        UIColor.systemBlue,
-        UIColor.systemRed,
-        UIColor.systemPink
-      ]) { color in
-        BookPreview {
-          LightLabel.init(title: "Hello")
-        }
-        .backgroundColor(color)
-      }
-    }
-  }
-
-  BookNavigationLink(title: "LightLabel") {
-    BookPreview {
-      LightLabel.init(title: "Hello")
-    }
-    .backgroundColor(.black)
-  }
-
-  BookNavigationLink(title: "AlertController") {
-
-    BookPresent(title: "Pop") {
-      let alert = UIAlertController(
-        title: "Hi Storybook",
-        message: "As like this, you can present any view controller to check the behavior.",
-        preferredStyle: .alert
-      )
-      alert.addAction(.init(title: "Got it", style: .default, handler: { _ in }))
-      return alert
-    }
-
-    BookPresent(title: "Another Pop") {
-      let alert = UIAlertController(
-        title: "Hi Storybook",
-        message: "As like this, you can present any view controller to check the behavior.",
-        preferredStyle: .alert
-      )
-      alert.addAction(.init(title: "Got it", style: .default, handler: { _ in }))
-      return alert
-    }
-
-  }
-
-  BookNavigationLink(title: "Typography") {
-    BookPage(title: "Typography") {
-
-      BookHeadline("""
+        BookHeadline("""
 Here is `BookHeadline`, It allows us to describe something big picture.
 """)
 
-      BookParagraph("""
+        BookParagraph("""
 Here is `BookParagpraph`
 It allows us to display multiple lines.
 
 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
 """)
 
-      BookParagraph("""
+        BookParagraph("""
 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
 """)
 
-      BookSection(title: "Section") {
+        BookSection(title: "Section") {
 
-        BookParagraph("""
+          BookParagraph("""
 Something description about this section.
 """)
 
-        BookPreview {
-          let view = UIView(frame: .init(x: 0, y: 0, width: 80, height: 80))
-          view.backgroundColor = .systemPurple
-          NSLayoutConstraint.activate([
-            view.widthAnchor.constraint(equalToConstant: 80),
-            view.heightAnchor.constraint(equalToConstant: 80),
-          ])
-          return view
+          BookPreview {
+            let view = UIView(frame: .init(x: 0, y: 0, width: 80, height: 80))
+            view.backgroundColor = .systemPurple
+            NSLayoutConstraint.activate([
+              view.widthAnchor.constraint(equalToConstant: 80),
+              view.heightAnchor.constraint(equalToConstant: 80),
+            ])
+            return view
+          }
+
+          BookPreview {
+            let view = UIView(frame: .init(x: 0, y: 0, width: 80, height: 80))
+            view.backgroundColor = .systemPurple
+            NSLayoutConstraint.activate([
+              view.widthAnchor.constraint(equalToConstant: 80),
+              view.heightAnchor.constraint(equalToConstant: 80),
+            ])
+            return view
+          }
+          .title("A component")
+
         }
 
-        BookPreview {
-          let view = UIView(frame: .init(x: 0, y: 0, width: 80, height: 80))
-          view.backgroundColor = .systemPurple
-          NSLayoutConstraint.activate([
-            view.widthAnchor.constraint(equalToConstant: 80),
-            view.heightAnchor.constraint(equalToConstant: 80),
-          ])
-          return view
-        }
-        .title("A component")
+        BookSection(title: "Section") { () -> BookView in
 
-      }
+          BookPreview {
+            let view = UIView(frame: .init(x: 0, y: 0, width: 80, height: 80))
+            view.backgroundColor = .systemPurple
+            NSLayoutConstraint.activate([
+              view.widthAnchor.constraint(equalToConstant: 80),
+              view.heightAnchor.constraint(equalToConstant: 80),
+            ])
+            return view
+          }
 
-      BookSection(title: "Section") { () -> BookView in
-
-        BookPreview {
-          let view = UIView(frame: .init(x: 0, y: 0, width: 80, height: 80))
-          view.backgroundColor = .systemPurple
-          NSLayoutConstraint.activate([
-            view.widthAnchor.constraint(equalToConstant: 80),
-            view.heightAnchor.constraint(equalToConstant: 80),
-          ])
-          return view
         }
 
       }
 
     }
 
+    BookNavigationLink(title: "AlertController") {
+
+      BookPresent(title: "Pop") {
+        let alert = UIAlertController(
+          title: "Hi Storybook",
+          message: "As like this, you can present any view controller to check the behavior.",
+          preferredStyle: .alert
+        )
+        alert.addAction(.init(title: "Got it", style: .default, handler: { _ in }))
+        return alert
+      }
+
+      BookPresent(title: "Another Pop") {
+        let alert = UIAlertController(
+          title: "Hi Storybook",
+          message: "As like this, you can present any view controller to check the behavior.",
+          preferredStyle: .alert
+        )
+        alert.addAction(.init(title: "Got it", style: .default, handler: { _ in }))
+        return alert
+      }
+
+    }
+
+  }
+
+  BookSection(title: "Examples") {
+
+    BookNavigationLink(title: "MyLabel") {
+
+      MyLabel.makeBookView()
+
+      BookNavigationLink(title: "Variations") {
+        BookForEach(data: [
+          UIColor.systemBlue,
+          UIColor.systemRed,
+          UIColor.systemPink
+        ]) { color in
+          BookPreview {
+            LightLabel.init(title: "Hello")
+          }
+          .backgroundColor(color)
+        }
+      }
+    }
+
+    BookNavigationLink(title: "LightLabel") {
+      BookPreview {
+        LightLabel.init(title: "Hello")
+      }
+      .backgroundColor(.black)
+    }
   }
   
 }
