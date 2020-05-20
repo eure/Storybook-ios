@@ -281,6 +281,19 @@ func uiswitchPage() -> BookView {
 }
 ```
 
+## Project structure to get faster developing UI
+
+Especially, in UIKit based application, it takes many times to build to check the changes for UI.<br>
+The best way to reduce that time, create a separated module that contains UI components only which are used by the application.<br>
+And create a new application target for running Storybook only.<br>
+Finally, link the main app and the storybook app with that separated module.
+
+While you're tuning them up, you can only build with the storybook app.
+
+- UIComponent (Dynamic or Static library/framework)
+  - MainApp (Executable)
+  - StorybookApp (Executable)
+
 ## Requirements
 
 - iOS 10.0+
