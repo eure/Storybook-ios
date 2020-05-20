@@ -34,7 +34,12 @@ public final class MyComponent: UIView {
 `Book` indicates a root of Storybook.<br>
 Book can have a name describes itself, and we can declare the contents inside trailing closure.
 
+💡You need to import `StorybookKit` module.<br>
+This module only provides the symbol to describe a book.
+
 ```swift
+import StorybookKit
+
 let myBook = Book(title: "MyBook") {
   ...
 }
@@ -53,7 +58,12 @@ let myBook = Book(title: "MyBook") {
 
 To display this book, present StorybookViewController on any view controller.
 
+💡You need to import `StorybookUI` module.<br>
+This module provides the feature to display the book.
+
 ```swift
+import StorybookUI
+
 let controller = StorybookViewController(book: myBook) {
   $0.dismiss(animated: true, completion: nil)
 }
@@ -128,6 +138,34 @@ BookPreview<UILabel> {
 
 <img width=320 src="https://user-images.githubusercontent.com/1888355/82447850-d16c2280-9ae3-11ea-9186-bb1c1509a94d.gif" />
 
+**Present ViewController**
+
+When we need to check a popup, we use `BookPresent` declaration.
+
+```swift
+BookPresent(title: "Pop") {
+  let alert = UIAlertController(
+    title: "Hi Storybook",
+    message: "As like this, you can present any view controller to check the behavior.",
+    preferredStyle: .alert
+  )
+  alert.addAction(.init(title: "Got it", style: .default, handler: { _ in }))
+  return alert
+}
+
+BookPresent(title: "Another Pop") {
+  let alert = UIAlertController(
+    title: "Hi Storybook",
+    message: "As like this, you can present any view controller to check the behavior.",
+    preferredStyle: .alert
+  )
+  alert.addAction(.init(title: "Got it", style: .default, handler: { _ in }))
+  return alert
+}
+```
+
+<img width=320 src="https://user-images.githubusercontent.com/1888355/82449728-a20ae500-9ae6-11ea-9ca0-1d93f7d45faf.gif" />
+
 ## Advanced Usage
 
 **Creating a link to another pages for organizing**
@@ -156,6 +194,80 @@ let myBook = Book(title: "MyBook") {
 ```
 
 <img width=320 src="https://user-images.githubusercontent.com/1888355/82448459-b3eb8880-9ae4-11ea-80f3-e663339ad5e6.gif" />
+
+**Markup**
+
+We can add some descriptions and headlines to clarify what the component is for.
+
+```swift
+let myBook = Book(title: "MyBook") {
+  BookNavigationLink(title: "UISwitch") {
+    BookPage(title: "UISwitch variations") {
+
+      BookHeadline("This page previews UISwitch's state.")
+
+      BookParagraph("""
+Mainly, UISwitch has 2 states that are `on` or `off`.
+This page shows you how it presents appearances in each state.
+""")
+
+      BookPreview {
+        let button = UISwitch()
+        button.isOn = true
+        return button
+      }
+      .title("UISwitch on")
+
+      BookPreview {
+        let button = UISwitch()
+        button.isOn = false
+        return button
+      }
+      .title("UISwitch off")
+    }
+  }
+}
+```
+
+<img width=320 src="https://user-images.githubusercontent.com/1888355/82449189-cca86e00-9ae5-11ea-8e54-d1e43bb276f6.gif" />
+
+You can use following declarations to mark up.
+
+- `BookPage`
+- `BookSection`
+- `BookParagraph`
+- `BookHeadline`
+- `BookText`
+
+
+**Separates the declarations**
+
+With increasing the number of the components and many descriptions, the declarations of the Book also have many lines of the code.<br>
+In this case, we can separate the code with several functions.
+
+```swift
+let myBook = Book(title: "MyBook") {
+  uiswitchPage()
+}
+
+func uiswitchPage() -> BookView {
+  BookNavigationLink(title: "UISwitch") {
+    BookPreview {
+      let button = UISwitch()
+      button.isOn = true
+      return button
+    }
+    .title("UISwitch on")
+
+    BookPreview {
+      let button = UISwitch()
+      button.isOn = false
+      return button
+    }
+    .title("UISwitch off")
+  }
+}
+```
 
 ## Requirements
 
