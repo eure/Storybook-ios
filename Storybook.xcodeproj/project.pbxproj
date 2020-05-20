@@ -40,6 +40,7 @@
 		4BB13674246F29D400A2DFFE /* ComponentListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB13673246F29D400A2DFFE /* ComponentListViewController.swift */; };
 		4BB13676246F2A0F00A2DFFE /* Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB13675246F2A0F00A2DFFE /* Cells.swift */; };
 		4BB13678246F2DC700A2DFFE /* MyBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB13677246F2DC700A2DFFE /* MyBook.swift */; };
+		4BBE1109247557CB009E401C /* MyComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BBE1108247557CB009E401C /* MyComponent.swift */; };
 		4BBFBC0D2470DDE400509E69 /* BookNavigationLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BBFBC0C2470DDE400509E69 /* BookNavigationLink.swift */; };
 		4BF6F4B2246F3349001830D5 /* BookInteractive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF6F4B1246F3349001830D5 /* BookInteractive.swift */; };
 		9523242A23D1C76C00677D5A /* MyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9523242923D1C76C00677D5A /* MyLabel.swift */; };
@@ -156,6 +157,7 @@
 		4BB13673246F29D400A2DFFE /* ComponentListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentListViewController.swift; sourceTree = "<group>"; };
 		4BB13675246F2A0F00A2DFFE /* Cells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cells.swift; sourceTree = "<group>"; };
 		4BB13677246F2DC700A2DFFE /* MyBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBook.swift; sourceTree = "<group>"; };
+		4BBE1108247557CB009E401C /* MyComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyComponent.swift; sourceTree = "<group>"; };
 		4BBFBC0C2470DDE400509E69 /* BookNavigationLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookNavigationLink.swift; sourceTree = "<group>"; };
 		4BF6F4B1246F3349001830D5 /* BookInteractive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookInteractive.swift; sourceTree = "<group>"; };
 		9523242923D1C76C00677D5A /* MyLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyLabel.swift; sourceTree = "<group>"; };
@@ -290,6 +292,7 @@
 				9523242D23D1E8D200677D5A /* FilledLabel.swift */,
 				9523242B23D1C81A00677D5A /* LightLabel.swift */,
 				9523242923D1C76C00677D5A /* MyLabel.swift */,
+				4BBE1108247557CB009E401C /* MyComponent.swift */,
 			);
 			path = Elements;
 			sourceTree = "<group>";
@@ -617,6 +620,7 @@
 				9523242E23D1E8D200677D5A /* FilledLabel.swift in Sources */,
 				9523242A23D1C76C00677D5A /* MyLabel.swift in Sources */,
 				4BB13678246F2DC700A2DFFE /* MyBook.swift in Sources */,
+				4BBE1109247557CB009E401C /* MyComponent.swift in Sources */,
 				9523242C23D1C81A00677D5A /* LightLabel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

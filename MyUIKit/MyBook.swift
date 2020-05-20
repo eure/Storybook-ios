@@ -24,6 +24,30 @@ import Foundation
 
 import StorybookKit
 
+public let _book = Book(title: "MyBook") {
+
+  BookPresent(title: "Pop") {
+    let alert = UIAlertController(
+      title: "Hi Storybook",
+      message: "As like this, you can present any view controller to check the behavior.",
+      preferredStyle: .alert
+    )
+    alert.addAction(.init(title: "Got it", style: .default, handler: { _ in }))
+    return alert
+  }
+
+  BookPresent(title: "Another Pop") {
+    let alert = UIAlertController(
+      title: "Hi Storybook",
+      message: "As like this, you can present any view controller to check the behavior.",
+      preferredStyle: .alert
+    )
+    alert.addAction(.init(title: "Got it", style: .default, handler: { _ in }))
+    return alert
+  }
+}
+
+
 public let myBook = Book(title: "MyUI") {
 
   BookParagraph("MyBook")

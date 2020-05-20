@@ -19,28 +19,17 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import UIKit
+import Foundation
 
-import MyUIKit
-import StorybookUI
+public final class MyComponent: UIView {
 
-class ViewController: UIViewController {
+  public override func layoutSubviews() {
+    super.layoutSubviews()
 
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    
+    backgroundColor = .systemPurple
   }
 
-  @IBAction private func didTapPresentButton(_ sender: Any) {
-
-    let controller = StorybookViewController(book: myBook) {
-      $0.dismiss(animated: true, completion: nil)
-    }
-
-    controller.modalPresentationStyle = .fullScreen
-    
-    present(controller, animated: true, completion: nil)
+  public override var intrinsicContentSize: CGSize {
+    .init(width: 60, height: 60)
   }
-  
 }
-
