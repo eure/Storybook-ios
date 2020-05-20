@@ -5,7 +5,13 @@ It brings us to preview the component independently each state that UI can displ
 
 This library enables us to develop the UI without many times to rebuild in a big application and we could build them fully without missing an exception case.
 
-<sub>✨This library is inspired by [Storybook](https://storybook.js.org/) for Web application development.<sub>
+<sub>✨This library is inspired by [Storybook](https://storybook.js.org/) for Web application development.</sub>
+  
+  <p>
+<img width=250 src="https://user-images.githubusercontent.com/1888355/82451356-d7183700-9ae8-11ea-89b2-0012ac946e1c.gif" />
+<img width=250 src="https://user-images.githubusercontent.com/1888355/82452853-c072df80-9aea-11ea-9d83-e41077c61b28.png" />
+  <img width=250 src="https://user-images.githubusercontent.com/1888355/82452872-c5d02a00-9aea-11ea-9866-f57c30ff1fbe.gif" />
+  </p>
 
 ## Features
 
