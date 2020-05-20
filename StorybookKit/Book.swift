@@ -19,26 +19,16 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import UIKit
+import Foundation
 
-import MyUIKit
-import StorybookUI
+public struct Book {
 
-class ViewController: UIViewController {
+  public let component: BookTree
+  public let title: String
 
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    
+  public init(title: String, @ComponentBuilder closure: () -> _BookView) {
+    self.title = title
+    self.component = closure().asTree()
   }
 
-  @IBAction private func didTapPresentButton(_ sender: Any) {
-  
-    let controller = StorybookViewController(book: myBook) {
-        $0.dismiss(animated: true, completion: nil)
-    }
-    
-    present(controller, animated: true, completion: nil)
-  }
-  
 }
-

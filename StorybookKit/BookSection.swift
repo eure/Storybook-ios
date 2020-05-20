@@ -21,41 +21,29 @@
 
 import Foundation
 
-public struct StorybookSectionDescriptor {
-  
+public struct BookSection: BookView {
+
   public let title: String
-  public let items: [StorybookItemDescriptor]
-  public let identifier: String
-  
+  public let content: BookView
+
   public init(
     title: String,
-    items: [StorybookItemDescriptor],
-    file: StaticString = #file,
-    line: UInt = #line,
-    column: UInt = #column
+    @ComponentBuilder content: () -> BookView
   ) {
     self.title = title
-    self.items = items
-    self.identifier = "\(file)|\(line)|\(column)"
+    self.content = content()
+
   }
 
-  public init(
-    _ title: String,
-    file: StaticString = #file,
-    line: UInt = #line,
-    column: UInt = #column,
-    @StorybookBuilder<StorybookItemDescriptor> _ item: () -> StorybookItemDescriptor
-  ) {
-    self.init(title: title, items: [item()], file: file, line: line, column: column)
+  public var body: BookView {
+    BookGroup {
+      BookSpacer(height: 8)
+      BookText(title)
+        .font(.systemFont(ofSize: 24, weight: .bold))
+      BookSpacer(height: 16)
+      content
+      BookSpacer(height: 24)
+    }
   }
 
-  public init(
-    _ title: String,
-    file: StaticString = #file,
-    line: UInt = #line,
-    column: UInt = #column,
-    @StorybookBuilder<StorybookItemDescriptor> _ items: () -> [StorybookItemDescriptor]
-  ) {
-    self.init(title: title, items: items(), file: file, line: line, column: column)
-  }
 }

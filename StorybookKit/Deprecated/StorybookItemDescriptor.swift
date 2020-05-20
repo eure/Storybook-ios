@@ -21,6 +21,7 @@
 
 import Foundation
 
+@available(*, deprecated)
 public struct StorybookItemDescriptor {
   
   public let title: String

@@ -19,62 +19,60 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import UIKit
+import Foundation
 
-class TapStackCell : UIControl, StackCellType {
-  
-  // MARK: - Properties
-  
-  override var isHighlighted: Bool {
-    get {
-      
-      return super.isHighlighted
-    }
-    set {
-      
-      super.isHighlighted = newValue
-      
-      UIView.animate(withDuration: 0.2, delay: 0, options: [.beginFromCurrentState, .allowUserInteraction], animations: {
-        
-        if newValue {
+final class FolderCell : HighlightStackCell {
 
-          if #available(iOS 13.0, *) {
+  // MARK: Properties
 
-            self.backgroundColor = .systemFill
-          } else {
+  private let titleLabel = UILabel()
 
-            self.backgroundColor = .init(white: 0.98, alpha: 1)
-          }
-        } else {
-          
-          self.backgroundColor = .clear
-        }
-      }) { (finish) in
-      }
-    }
-  }
-  
-  
+  private let didTapAction: () -> Void
+
   // MARK: - Initializers
-  
-  init() {
-    super.init(frame: .zero)
-    
-    addTarget(self, action: #selector(TapStackCell.tapSelf), for: .touchUpInside)
+
+  init(title: String, didTap: @escaping () -> Void = {}) {
+
+    self.didTapAction = didTap
+    super.init()
+
+    addTarget(self, action: #selector(_didTap), for: .touchUpInside)
+
+    titleLabel.numberOfLines = 0
+    titleLabel.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
+    if #available(iOS 13.0, *) {
+      titleLabel.textColor = .darkText
+    } else {
+      titleLabel.textColor = .darkText
+    }
+
+    titleLabel.translatesAutoresizingMaskIntoConstraints = false
+    addSubview(titleLabel)
+
+    NSLayoutConstraint.activate([
+      titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 8),
+      titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24.0),
+      titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
+      titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
+      titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 12.0)
+    ])
+
+    set(title: title + " ›")
+
   }
-  
+
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
+
   // MARK: - Functions
-  
-  @objc
-  private func tapSelf() {
-    tapped()
+
+  func set(title: String) {
+    titleLabel.text = title
   }
-  
-  func tapped() {
-    
+
+  @objc private dynamic func _didTap() {
+    didTapAction()
   }
+
 }

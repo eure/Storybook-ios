@@ -23,11 +23,60 @@ import UIKit
 
 import StorybookKit
 
+final class HistoryManager {
+
+  private let userDefaults = UserDefaults(suiteName: "jp.eure.storybook")!
+
+  private let decoder = JSONDecoder()
+  private let encoder = JSONEncoder()
+
+  var history: History = .init()
+
+  init() {
+    loadHistory()
+  }
+
+  func updateHistory(_ update: (inout History) -> Void) {
+    update(&history)
+    do {
+      let data = try encoder.encode(history)
+      userDefaults.set(data, forKey: "history")
+    } catch {
+      print("Warning: Failed to encode a history to store UserDefaults")
+    }
+  }
+
+  private func loadHistory() {
+    guard let data = userDefaults.data(forKey: "history") else { return }
+    do {
+      let instance = try decoder.decode(History.self, from: data)
+      self.history = instance
+    } catch {
+      print("Warning: failed to load a history instance")
+    }
+  }
+}
+
+struct History: Codable {
+
+  private var selectedLinks: [DeclarationIdentifier : Date] = [:]
+
+  func loadSelected() -> [DeclarationIdentifier] {
+    selectedLinks.sorted(by: { $0.value > $1.value }).map { $0.key }
+  }
+
+  mutating func addLink(_ identifier: DeclarationIdentifier) {
+    selectedLinks[identifier] = .init()
+  }
+}
+
 public final class StorybookViewController : UISplitViewController {
+
+  private let historyManager = HistoryManager()
   
   public typealias DismissHandler = (StorybookViewController) -> Void
   
-  private let mainViewController: UINavigationController
+  private var mainViewController: UINavigationController!
   
   private let secondaryViewController = UINavigationController()
   
@@ -58,6 +107,58 @@ public final class StorybookViewController : UISplitViewController {
       secondaryViewController,
     ]
     
+  }
+
+  public init(book: Book, dismissHandler: DismissHandler?) {
+
+    self.dismissHandler = dismissHandler
+
+    super.init(nibName: nil, bundle: nil)
+
+    let history = historyManager.history.loadSelected().compactMap {
+      findLink(by: $0, tree: book.component)
+    }
+    .prefix(8)
+
+    let root = BookGroup {
+      BookPage(title: book.title) {
+        if !history.isEmpty {
+          BookSection(title: "History") {
+            BookTree.array(history.map { $0.asTree() })
+          }
+        }
+        BookSection(title: "All") {
+          BookNavigationLink(title: "View all") {
+            flatten(book.component)
+          }
+        }
+        BookSection(title: "Contents") {
+          book.component
+        }
+      }
+
+    }
+
+    let menuController = ComponentListViewController(
+      component: root.asTree(),
+      onSelectedLink: { [weak self] link in
+        self?.historyManager.updateHistory { (history) in
+          history.addLink(link.declarationIdentifier)
+        }
+    })
+
+    self.mainViewController = UINavigationController(rootViewController: menuController)
+
+    if dismissHandler != nil {
+      let dismissButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(didTapDismissButton))
+      menuController.navigationItem.leftBarButtonItem = dismissButton
+    }
+
+    viewControllers = [
+      mainViewController,
+      secondaryViewController,
+    ]
+
   }
   
   @available(*, deprecated, message: "Use init(menuDescriptor: StorybookMenuDescriptor, dismissHandler: DismissHandler?) instead")
@@ -123,9 +224,11 @@ public final class StorybookViewController : UISplitViewController {
       }
     }()
 
-    let c = UIAlertController(title: "User Interface Style",
-                              message: "current: \(currentStyle)",
-                              preferredStyle: .actionSheet)
+    let c = UIAlertController(
+      title: "User Interface Style",
+      message: "current: \(currentStyle)",
+      preferredStyle: .actionSheet
+    )
     
     c.addAction(.init(
       title: "System",
@@ -174,4 +277,59 @@ extension StorybookViewController : UISplitViewControllerDelegate {
   public func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
     return true
   }
+}
+
+fileprivate func findLink(by identifier: DeclarationIdentifier, tree: BookTree) -> BookNavigationLink? {
+
+  func findLink(_ tree: BookTree) -> BookNavigationLink? {
+    switch tree {
+    case .folder(let v):
+      if v.declarationIdentifier == identifier {
+        return v
+      } else {
+        return findLink(v.component.asTree())
+      }
+    case .viewRepresentable:
+      return nil
+    case .single(let v?):
+      return findLink(v.asTree())
+    case .single(.none):
+      return nil
+    case .array(let v):
+      for i in v {
+        if let result = findLink(i) {
+          return result
+        }
+      }
+      return nil
+    }
+  }
+
+  return findLink(tree)
+
+}
+
+fileprivate func flatten(_ tree: BookTree) -> BookTree {
+
+  func _flatten(buffer: inout [BookTree], tree: BookTree) {
+    switch tree {
+    case .folder(let v):
+      _flatten(buffer: &buffer, tree: v.component)
+    case .viewRepresentable:
+      buffer.append(tree)
+    case .single(let v?):
+      _flatten(buffer: &buffer, tree: v.asTree())
+    case .single(.none):
+      break
+    case .array(let v):
+      v.forEach {
+        _flatten(buffer: &buffer, tree: $0)
+      }
+    }
+  }
+
+  var buffer = [BookTree]()
+  _flatten(buffer: &buffer, tree: tree)
+
+  return .array(buffer)
 }

@@ -19,26 +19,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import UIKit
+import Foundation
 
-import MyUIKit
-import StorybookUI
+/// An affordance for grouping view content.
+public struct BookGroup: BookView {
 
-class ViewController: UIViewController {
+  public let body: BookView
 
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    
+  public init(@ComponentBuilder closure: () -> BookView) {
+    self.body = closure()
   }
 
-  @IBAction private func didTapPresentButton(_ sender: Any) {
-  
-    let controller = StorybookViewController(book: myBook) {
-        $0.dismiss(animated: true, completion: nil)
-    }
-    
-    present(controller, animated: true, completion: nil)
-  }
-  
 }
-

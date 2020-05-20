@@ -19,26 +19,44 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import UIKit
+import Foundation
 
-import MyUIKit
-import StorybookUI
-
-class ViewController: UIViewController {
-
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    
+@available(*, deprecated)
+public struct StorybookSectionDescriptor {
+  
+  public let title: String
+  public let items: [StorybookItemDescriptor]
+  public let identifier: String
+  
+  public init(
+    title: String,
+    items: [StorybookItemDescriptor],
+    file: StaticString = #file,
+    line: UInt = #line,
+    column: UInt = #column
+  ) {
+    self.title = title
+    self.items = items
+    self.identifier = "\(file)|\(line)|\(column)"
   }
 
-  @IBAction private func didTapPresentButton(_ sender: Any) {
-  
-    let controller = StorybookViewController(book: myBook) {
-        $0.dismiss(animated: true, completion: nil)
-    }
-    
-    present(controller, animated: true, completion: nil)
+  public init(
+    _ title: String,
+    file: StaticString = #file,
+    line: UInt = #line,
+    column: UInt = #column,
+    @StorybookBuilder<StorybookItemDescriptor> _ item: () -> StorybookItemDescriptor
+  ) {
+    self.init(title: title, items: [item()], file: file, line: line, column: column)
   }
-  
+
+  public init(
+    _ title: String,
+    file: StaticString = #file,
+    line: UInt = #line,
+    column: UInt = #column,
+    @StorybookBuilder<StorybookItemDescriptor> _ items: () -> [StorybookItemDescriptor]
+  ) {
+    self.init(title: title, items: items(), file: file, line: line, column: column)
+  }
 }
-

@@ -19,26 +19,48 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import UIKit
+import Foundation
 
-import MyUIKit
-import StorybookUI
+public protocol _BookView {
 
-class ViewController: UIViewController {
-
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    
-  }
-
-  @IBAction private func didTapPresentButton(_ sender: Any) {
-  
-    let controller = StorybookViewController(book: myBook) {
-        $0.dismiss(animated: true, completion: nil)
-    }
-    
-    present(controller, animated: true, completion: nil)
-  }
-  
+  func asTree() -> BookTree
 }
 
+public protocol BookView: _BookView {
+
+  var body: BookView { get }
+}
+
+extension BookView {
+  public func asTree() -> BookTree {
+    return .single(body)
+  }
+}
+
+extension _BookView {
+
+  public func modified(_ modify: (inout Self) -> Void) -> Self {
+    var s = self
+    modify(&s)
+    return s
+  }
+
+}
+
+public struct AnyBookViewRepresentable: BookViewRepresentableType {
+
+  private let _makeView: () -> UIView
+
+  public init<E: BookViewRepresentableType>(_ element: E) {
+
+    self._makeView = element.makeView
+  }
+
+  public func asTree() -> BookTree {
+    return .viewRepresentable(self)
+  }
+
+  public func makeView() -> UIView {
+    _makeView()
+  }
+}

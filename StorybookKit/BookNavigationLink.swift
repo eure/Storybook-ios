@@ -19,26 +19,46 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import UIKit
+import Foundation
 
-import MyUIKit
-import StorybookUI
+public struct DeclarationIdentifier: Hashable, Codable {
 
-class ViewController: UIViewController {
+  public let file: String
+  public let function: String
+  public let line: UInt
+  public let typeName: String
+}
 
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    
+/// A component that displays a disclosure view.
+public struct BookNavigationLink: BookView {
+
+  public let title: String
+  public let component: BookTree
+  public let declarationIdentifier: DeclarationIdentifier
+
+  public init(
+    title: String,
+    _ file: StaticString = #file,
+    _ function: StaticString = #function,
+    _ line: UInt = #line,
+    @ComponentBuilder closure: () -> _BookView
+  ) {
+    self.title = title
+    self.component = closure().asTree()
+    self.declarationIdentifier = .init(
+      file: file.description,
+      function: function.description,
+      line: line,
+      typeName: _typeName(type(of: self))
+    )
   }
 
-  @IBAction private func didTapPresentButton(_ sender: Any) {
-  
-    let controller = StorybookViewController(book: myBook) {
-        $0.dismiss(animated: true, completion: nil)
-    }
-    
-    present(controller, animated: true, completion: nil)
+  public var body: BookView {
+    self
   }
-  
+
+  public func asTree() -> BookTree {
+    .folder(self)
+  }
 }
 

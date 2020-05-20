@@ -23,12 +23,15 @@ import Foundation
 
 import StorybookKit
 
-final class StackScrollViewController : CodeBasedViewController {
+class StackScrollViewController : CodeBasedViewController {
   
   private let stackScrollView = StackScrollView()
   
-  init(views: [UIView]) {
+  override init() {
     super.init()
+  }
+
+  func setViews(_ views: [UIView]) {
     stackScrollView.append(views: views)
   }
   
@@ -52,15 +55,14 @@ final class StackScrollViewController : CodeBasedViewController {
 extension StackScrollViewController {
   
   convenience init(descriptor: StorybookItemDescriptor) {
-    
-    self.init(views: [
+    self.init()
+    setViews([
       {
         let view = HeaderStackCell()
         view.set(title: descriptor.title)
         view.set(detail: descriptor.detail)
         return view
       }(),
-      ] + descriptor.makeCells()
-    )
+      ] + descriptor.makeCells())
   }
 }

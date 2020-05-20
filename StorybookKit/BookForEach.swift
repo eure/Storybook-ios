@@ -19,26 +19,24 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import UIKit
+import Foundation
 
-import MyUIKit
-import StorybookUI
+public struct BookForEach<Content: _BookView>: BookView {
 
-class ViewController: UIViewController {
+  private let components: [Content]
 
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    
-  }
-
-  @IBAction private func didTapPresentButton(_ sender: Any) {
-  
-    let controller = StorybookViewController(book: myBook) {
-        $0.dismiss(animated: true, completion: nil)
+  public init<S: Sequence>(data: S, @ComponentBuilder make: (S.Element) -> Content) {
+    let components = data.map {
+      make($0)
     }
-    
-    present(controller, animated: true, completion: nil)
+    self.components = components
   }
-  
-}
 
+  public var body: BookView {
+    self
+  }
+
+  public func asTree() -> BookTree {
+    .array(components.map { $0.asTree() })
+  }
+}

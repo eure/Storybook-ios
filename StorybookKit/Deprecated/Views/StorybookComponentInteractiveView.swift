@@ -21,6 +21,7 @@
 
 import Foundation
 
+@available(*, deprecated)
 open class StorybookComponentInteractiveView : UIView {
   
   // MARK: - Properties
