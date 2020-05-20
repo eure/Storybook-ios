@@ -19,6 +19,7 @@ This library enables us to develop the UI without many times to rebuild in a big
 - Presenting any view controller
 - Creating nested pages infinitely
 - Mark the components up with organized typography
+- Declarative syntax like SwiftUI
 
 ## Basic Usage
 
