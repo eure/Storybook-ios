@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = "StorybookKit"
-  s.version = '0.1.0'
+  s.version = '1.0.0'
   s.summary = "StorybookKit"
 
   s.homepage = "https://github.com/eure/Storybook"
@@ -14,5 +14,6 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.ios.deployment_target = '10.0'
   s.ios.frameworks = ['UIKit']
+  s.swift_version = '5.2'
 end
 
