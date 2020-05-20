@@ -15,6 +15,11 @@ This library enables us to develop the UI without many times to rebuild in a big
 
 ## Features
 
+- Previewing any component each state and dynamically updates
+- Presenting any view controller
+- Creating nested pages infinitely
+- Mark up the components with organized typography
+
 ## Basic Usage
 
 *Setting up your book**
