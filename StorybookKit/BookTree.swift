@@ -21,16 +21,16 @@
 
 /// A structure of Book
 public indirect enum BookTree: BookView {
-
+  
   case folder(BookNavigationLink)
   case viewRepresentable(AnyBookViewRepresentable)
   case single(_BookView?)
   case array([BookTree])
-
+  
   public var body: BookView {
     self
   }
-
+  
   public func asTree() -> BookTree {
     self
   }
@@ -38,32 +38,47 @@ public indirect enum BookTree: BookView {
 
 @_functionBuilder
 public enum ComponentBuilder {
-
+  
   public static func buildBlock<E: BookViewRepresentableType>(_ element: E) -> BookTree {
     return .viewRepresentable(.init(element))
   }
-
+  
   public static func buildExpression(_ component: _BookView) -> BookTree {
     return component.asTree()
   }
-
+  
   public static func buildBlock(_ component: _BookView) -> BookTree {
     return component.asTree()
   }
-
+  
   public static func buildBlock(_ components: _BookView...) -> BookTree {
     return .array(components.map { $0.asTree() })
   }
-
+  
   public static func buildExpression(_ components: [_BookView]) -> BookTree {
     return .array(components.map { $0.asTree() })
   }
-
+  
   public static func buildExpression<BookView: _BookView>(_ components: [BookView]) -> BookTree {
     return .array(components.map { $0.asTree() })
   }
-
+  
   public static func buildIf(_ value: _BookView?) -> BookTree {
     return .single(value)
+  }
+}
+
+@_functionBuilder
+public enum AlphabeticalNavigationLinkBuilder {
+  
+  public static func buildBlock(_ component: BookNavigationLink) -> BookTree {
+    return component.asTree()
+  }
+  
+  public static func buildBlock(_ components: BookNavigationLink...) -> BookTree {
+    let sortedComponents = components.sorted {
+      $0.title.lowercased() < $1.title.lowercased()
+    }
+    return .array(sortedComponents.map { $0.asTree() })
   }
 }

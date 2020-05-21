@@ -147,7 +147,7 @@ Something description about this section.
 
   }
 
-  BookSection(title: "Examples") {
+  BookAlphabeticalNavigationLinkSection(title: "Examples") {
 
     BookNavigationLink(title: "MyLabel") {
 
