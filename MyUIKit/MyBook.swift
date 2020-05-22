@@ -24,30 +24,6 @@ import Foundation
 
 import StorybookKit
 
-public let _book = Book(title: "MyBook") {
-
-  BookPresent(title: "Pop") {
-    let alert = UIAlertController(
-      title: "Hi Storybook",
-      message: "As like this, you can present any view controller to check the behavior.",
-      preferredStyle: .alert
-    )
-    alert.addAction(.init(title: "Got it", style: .default, handler: { _ in }))
-    return alert
-  }
-
-  BookPresent(title: "Another Pop") {
-    let alert = UIAlertController(
-      title: "Hi Storybook",
-      message: "As like this, you can present any view controller to check the behavior.",
-      preferredStyle: .alert
-    )
-    alert.addAction(.init(title: "Got it", style: .default, handler: { _ in }))
-    return alert
-  }
-}
-
-
 public let myBook = Book(title: "MyUI") {
 
   BookParagraph("MyBook")
@@ -173,12 +149,35 @@ Something description about this section.
       }
       .backgroundColor(.black)
     }
+
   }
+
+  labelExpandingTestBook()
   
 }
 
-extension MyLabel {
+fileprivate func labelExpandingTestBook() -> BookView {
 
+  BookSection(title: "UILabel updating text") {
+    BookPreview<UILabel> {
+      let label = UILabel()
+      label.text = "--"
+      return label
+    }
+    .addButton("empty") { (label) in
+      label.text = ""
+    }
+    .addButton("short text") { (label) in
+      label.text = "Hello"
+    }
+    .addButton("long text") { (label) in
+      label.text = "Hello, Hello,"
+    }
+  }
+
+}
+
+extension MyLabel {
 
   fileprivate static func makeBookView() -> BookView {
     BookGroup {

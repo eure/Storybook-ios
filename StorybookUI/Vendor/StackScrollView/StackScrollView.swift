@@ -21,51 +21,53 @@
 
 import UIKit
 
-class StackScrollView: UICollectionView, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-  
-  private enum LayoutKeys {
-    static let top = "me.muukii.StackScrollView.top"
-    static let right = "me.muukii.StackScrollView.right"
-    static let left = "me.muukii.StackScrollView.left"
-    static let bottom = "me.muukii.StackScrollView.bottom"
-    static let width = "me.muukii.StackScrollView.width"
+fileprivate final class _ScrollView: UIScrollView {
+  override func touchesShouldCancel(in view: UIView) -> Bool {
+    true
   }
-  
-  private static func defaultLayout() -> UICollectionViewFlowLayout {
-    let layout = UICollectionViewFlowLayout()
-    layout.minimumLineSpacing = 0
-    layout.minimumInteritemSpacing = 0
-    layout.sectionInset = .zero
-    return layout
-  }
-  
-  @available(*, unavailable)
-  override var dataSource: UICollectionViewDataSource? {
-    didSet {
-    }
-  }
-  
-  @available(*, unavailable)
-  override var delegate: UICollectionViewDelegate? {
-    didSet {
-    }
-  }
-  
+}
+
+class StackScrollView: UIView {
+
+  private let innerScrollView = _ScrollView()
+  private let bodyStackView = UIStackView()
+
   // MARK: - Initializers
-  
-  override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
-    super.init(frame: frame, collectionViewLayout: layout)
-    setup()
+
+  init() {
+    super.init(frame: .zero)
+
+    backgroundColor = .white
+
+    bodyStackView.distribution = .fill
+    bodyStackView.axis = .vertical
+    bodyStackView.alignment = .fill
+
+    innerScrollView.alwaysBounceVertical = true
+    innerScrollView.delaysContentTouches = false
+    innerScrollView.keyboardDismissMode = .interactive
+    backgroundColor = .clear
+
+    addSubview(innerScrollView)
+    innerScrollView.frame = bounds
+    innerScrollView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+
+    innerScrollView.addSubview(bodyStackView)
+
+    bodyStackView.translatesAutoresizingMaskIntoConstraints = false
+    bodyStackView.topAnchor.constraint(equalTo: innerScrollView.topAnchor).isActive = true
+    let bottom = bodyStackView.bottomAnchor.constraint(equalTo: innerScrollView.bottomAnchor)
+    bottom.priority = .defaultLow
+    bottom.isActive = true
+    bodyStackView.leftAnchor.constraint(equalTo: innerScrollView.leftAnchor).isActive = true
+    bodyStackView.rightAnchor.constraint(equalTo: innerScrollView.rightAnchor).isActive = true
+    bodyStackView.widthAnchor.constraint(equalTo: innerScrollView.widthAnchor).isActive = true
+
   }
-  
-  convenience init(frame: CGRect) {
-    self.init(frame: frame, collectionViewLayout: StackScrollView.defaultLayout())
-    setup()
-  }
-  
+
+  @available(*, unavailable)
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
-    setup()
   }
   
   private(set) public var views: [UIView] = []
@@ -73,260 +75,16 @@ class StackScrollView: UICollectionView, UICollectionViewDataSource, UICollectio
   private func identifier(_ v: UIView) -> String {
     return v.hashValue.description
   }
-  
-  private func setup() {
-    
-    backgroundColor = .white
-    
-    alwaysBounceVertical = true
-    delaysContentTouches = false
-    keyboardDismissMode = .interactive
-    backgroundColor = .clear
-    
-    super.delegate = self
-    super.dataSource = self
-  }
-  
-  override func touchesShouldCancel(in view: UIView) -> Bool {
-    return true
-  }
 
-  func append(view: UIView) {
-    
-    views.append(view)
-    register(Cell.self, forCellWithReuseIdentifier: identifier(view))
-    reloadData()
-  }  
-  
-  func append(views _views: [UIView]) {
-    
-    views += _views
-    _views.forEach { view in
-      register(Cell.self, forCellWithReuseIdentifier: identifier(view))
-    }
-    reloadData()
-  }
-  
-  @available(*, unavailable, message: "Unimplemented")
-  func append(lazy: @escaping () -> UIView) {
-    
-  }
-  
-  func remove(view: UIView, animated: Bool) {
-    
-    if let index = views.firstIndex(of: view) {
-      views.remove(at: index)
-      if animated {
-        UIView.animate(
-          withDuration: 0.5,
-          delay: 0,
-          usingSpringWithDamping: 1,
-          initialSpringVelocity: 0,
-          options: [
-            .beginFromCurrentState,
-            .allowUserInteraction,
-            .overrideInheritedCurve,
-            .overrideInheritedOptions,
-            .overrideInheritedDuration
-          ],
-          animations: {
-            self.performBatchUpdates({
-              self.deleteItems(at: [IndexPath(item: index, section: 0)])
-            }, completion: nil)
-        }) { (finish) in
-          
-        }
-        
-      } else {
-        UIView.performWithoutAnimation {
-          performBatchUpdates({
-            self.deleteItems(at: [IndexPath(item: index, section: 0)])
-          }, completion: nil)
-        }
-      }
-    }
-  }
-  
-  func remove(views: [UIView], animated: Bool) {
+  func setViews(_ _views: [UIView]) {
 
-    var indicesForRemove: [Int] = []
-
-    for view in views {
-      if let index = self.views.firstIndex(of: view) {
-        indicesForRemove.append(index)
-      }
+    bodyStackView.arrangedSubviews.forEach {
+      $0.removeFromSuperview()
     }
 
-    // It seems that the layout is not updated properly unless the order is aligned.
-    indicesForRemove.sort(by: >)
-
-    for index in indicesForRemove {
-      self.views.remove(at: index)
-    }
-
-    if animated {
-      UIView.animate(
-        withDuration: 0.5,
-        delay: 0,
-        usingSpringWithDamping: 1,
-        initialSpringVelocity: 0,
-        options: [
-          .beginFromCurrentState,
-          .allowUserInteraction,
-          .overrideInheritedCurve,
-          .overrideInheritedOptions,
-          .overrideInheritedDuration
-        ],
-        animations: {
-          self.performBatchUpdates({
-            self.deleteItems(at: indicesForRemove.map { IndexPath.init(item: $0, section: 0) })
-          }, completion: nil)
-        })
-    } else {
-      UIView.performWithoutAnimation {
-        performBatchUpdates({
-          self.deleteItems(at: indicesForRemove.map { IndexPath.init(item: $0, section: 0) })
-        }, completion: nil)
-      }
+    _views.forEach {
+      bodyStackView.addArrangedSubview($0)
     }
   }
 
-  func scroll(to view: UIView, animated: Bool) {
-    
-    let targetRect = view.convert(view.bounds, to: self)
-    scrollRectToVisible(targetRect, animated: true)
-  }
-  
-  func scroll(to view: UIView, at position: UICollectionView.ScrollPosition, animated: Bool) {
-    if let index = views.firstIndex(of: view) {
-      scrollToItem(at: IndexPath(item: index, section: 0), at: position, animated: animated)
-    }
-  }
-  
-  func numberOfSections(in collectionView: UICollectionView) -> Int {
-    return 1
-  }
-  
-  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return views.count
-  }
-  
-  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    
-    let view = views[indexPath.item]
-    let _identifier = identifier(view)
-    
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: _identifier, for: indexPath)
-    
-    if view.superview == cell.contentView {
-      return cell
-    }
-    
-    precondition(cell.contentView.subviews.isEmpty)
-
-    if view is ManualLayoutStackCellType {
-
-      cell.contentView.addSubview(view)
-      
-    } else {
-
-      view.translatesAutoresizingMaskIntoConstraints = false
-      cell.contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-
-      cell.contentView.addSubview(view)
-
-      let top = view.topAnchor.constraint(equalTo: cell.contentView.topAnchor)
-      let right = view.rightAnchor.constraint(equalTo: cell.contentView.rightAnchor)
-      let bottom = view.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor)
-      let left = view.leftAnchor.constraint(equalTo: cell.contentView.leftAnchor)
-
-      top.identifier = LayoutKeys.top
-      right.identifier = LayoutKeys.right
-      bottom.identifier = LayoutKeys.bottom
-      left.identifier = LayoutKeys.left
-
-      NSLayoutConstraint.activate([
-        top,
-        right,
-        bottom,
-        left,
-        ])
-    }
-    
-    return cell
-  }
-  
-  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    
-    let view = views[indexPath.item]
-
-    if let view = view as? ManualLayoutStackCellType {
-
-      return view.size(maxWidth: collectionView.bounds.width, maxHeight: nil)
-
-    } else {
-
-      let width: NSLayoutConstraint = {
-
-        guard let c = view.constraints.filter({ $0.identifier == LayoutKeys.width }).first else {
-          let width = view.widthAnchor.constraint(equalToConstant: collectionView.bounds.width)
-          width.identifier = LayoutKeys.width
-          width.isActive = true
-          return width
-        }
-
-        return c
-      }()
-
-      width.constant = collectionView.bounds.width
-
-      let size = view.superview?.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize) ?? view.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
-
-      if #available(iOS 11, *) {
-        assert(
-          size.width == collectionView.bounds.width,
-          "Calculated width(\(size.width)) of view<\(view)> was different width(\(collectionView.bounds.width)) of CollectionView."
-        )
-      }
-      
-      return size
-
-    }
-  }
-  
-  func updateLayout(animated: Bool) {
-    
-    if animated {
-      UIView.animate(
-        withDuration: 0.5,
-        delay: 0,
-        usingSpringWithDamping: 1,
-        initialSpringVelocity: 0,
-        options: [
-          .beginFromCurrentState,
-          .allowUserInteraction,
-          .overrideInheritedCurve,
-          .overrideInheritedOptions,
-          .overrideInheritedDuration
-        ],
-        animations: {
-          self.performBatchUpdates(nil, completion: nil)
-          self.layoutIfNeeded()
-      }) { (finish) in
-        
-      }
-    } else {
-      UIView.performWithoutAnimation {
-        self.performBatchUpdates(nil, completion: nil)
-        self.layoutIfNeeded()
-      }
-    }
-  }
-  
-  final class Cell: UICollectionViewCell {
-    
-    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
-      return layoutAttributes
-    }
-  }
 }

@@ -21,7 +21,7 @@
 
 import UIKit
 
-class TapStackCell : UIControl, StackCellType {
+class TapStackCell : UIControl {
   
   // MARK: - Properties
   

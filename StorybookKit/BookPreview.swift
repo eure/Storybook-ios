@@ -44,7 +44,7 @@ public struct BookPreview<View: UIView>: BookView {
     weak var createdView: View?
 
     return BookGroup {
-      _BookDisplay(backgroundColor: backgroundColor, viewBlock: {
+      _BookPreview(backgroundColor: backgroundColor, viewBlock: {
         let view = self.viewBlock()
         createdView = view
         return view
@@ -91,7 +91,7 @@ public struct BookPreview<View: UIView>: BookView {
 }
 
 /// A component descriptor that just displays UI-Component
-fileprivate struct _BookDisplay<View: UIView>: BookViewRepresentableType {
+fileprivate struct _BookPreview<View: UIView>: BookViewRepresentableType {
 
   let viewBlock: () -> View
 

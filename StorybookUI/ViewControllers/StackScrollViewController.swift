@@ -32,7 +32,7 @@ class StackScrollViewController : CodeBasedViewController {
   }
 
   func setViews(_ views: [UIView]) {
-    stackScrollView.append(views: views)
+    stackScrollView.setViews(views)
   }
   
   override func viewDidLoad() {
@@ -50,19 +50,4 @@ class StackScrollViewController : CodeBasedViewController {
     
   }
   
-}
-
-extension StackScrollViewController {
-  
-  convenience init(descriptor: StorybookItemDescriptor) {
-    self.init()
-    setViews([
-      {
-        let view = HeaderStackCell()
-        view.set(title: descriptor.title)
-        view.set(detail: descriptor.detail)
-        return view
-      }(),
-      ] + descriptor.makeCells())
-  }
 }
