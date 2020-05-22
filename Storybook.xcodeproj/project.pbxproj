@@ -299,9 +299,9 @@
 				957A89512226621400CDD25D /* Info.plist */,
 				957A89682226695A00CDD25D /* CodeBased.swift */,
 				957A895C2226662500CDD25D /* StorybookUI.swift */,
+				957A898422266A1000CDD25D /* StackScrollView.swift */,
 				9523243123D2002200677D5A /* ViewControllers */,
 				957A89762226699E00CDD25D /* Components */,
-				957A897F222669B400CDD25D /* Vendor */,
 			);
 			path = StorybookUI;
 			sourceTree = "<group>";
@@ -322,22 +322,6 @@
 				4B81173D246F31F10054BDFC /* FolderCell.swift */,
 			);
 			path = Components;
-			sourceTree = "<group>";
-		};
-		957A897F222669B400CDD25D /* Vendor */ = {
-			isa = PBXGroup;
-			children = (
-				957A898022266A1000CDD25D /* StackScrollView */,
-			);
-			path = Vendor;
-			sourceTree = "<group>";
-		};
-		957A898022266A1000CDD25D /* StackScrollView */ = {
-			isa = PBXGroup;
-			children = (
-				957A898422266A1000CDD25D /* StackScrollView.swift */,
-			);
-			path = StackScrollView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
