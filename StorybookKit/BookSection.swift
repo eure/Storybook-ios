@@ -47,3 +47,29 @@ public struct BookSection: BookView {
   }
 
 }
+
+public struct BookAlphabeticalNavigationLinkSection: BookView {
+
+  public let title: String
+  public let content: BookView
+
+  public init(
+    title: String,
+    @AlphabeticalNavigationLinkBuilder content: () -> BookView
+  ) {
+    self.title = title
+    self.content = content()
+  }
+
+  public var body: BookView {
+    BookGroup {
+      BookSpacer(height: 8)
+      BookText(title)
+        .font(.systemFont(ofSize: 24, weight: .bold))
+      BookSpacer(height: 16)
+      content
+      BookSpacer(height: 24)
+    }
+  }
+
+}
