@@ -1,3 +1,7 @@
+[![Swift 5.2](https://img.shields.io/badge/swift-5.2-ED523F.svg?style=flat)](https://swift.org/download/)
+![cocoapods](https://img.shields.io/cocoapods/v/StorybookKit)
+![cocoapods](https://img.shields.io/cocoapods/v/StorybookUI)
+
 # Storybook for iOS
 
 Storybook for iOS is a library to gains the speed of UI development.<br>
