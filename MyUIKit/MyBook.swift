@@ -153,6 +153,23 @@ Something description about this section.
   }
 
   labelExpandingTestBook()
+
+  BookNavigationLink(title: "State") {
+    BookPreview {
+      MySuccessView()
+    }
+    .title("State: Success")
+
+    BookPreview {
+      MyLoadingView()
+    }
+    .title("State: Loading")
+
+    BookPreview {
+      MyErrorView()
+    }
+    .title("State: Error")
+  }
   
 }
 

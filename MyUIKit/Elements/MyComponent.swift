@@ -33,3 +33,90 @@ public final class MyComponent: UIView {
     .init(width: 60, height: 60)
   }
 }
+
+final class MySuccessView: UIView {
+
+  private let label: UILabel = .init()
+
+  init() {
+    super.init(frame: .zero)
+    backgroundColor = .systemTeal
+    label.text = "Success"
+    label.font = .systemFont(ofSize: 22, weight: .bold)
+    label.textColor = .white
+
+    label.translatesAutoresizingMaskIntoConstraints = false
+    addSubview(label)
+
+    NSLayoutConstraint.activate([
+      label.topAnchor.constraint(equalTo: topAnchor, constant: 16.0),
+      label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.0),
+      label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.0),
+      label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16.0)
+    ])
+
+  }
+
+  public required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+
+}
+
+final class MyLoadingView: UIView {
+
+  private let label: UILabel = .init()
+
+  init() {
+    super.init(frame: .zero)
+    backgroundColor = .systemGray
+    label.text = "Loading"
+    label.font = .systemFont(ofSize: 22, weight: .bold)
+    label.textColor = .white
+
+    label.translatesAutoresizingMaskIntoConstraints = false
+    addSubview(label)
+
+    NSLayoutConstraint.activate([
+      label.topAnchor.constraint(equalTo: topAnchor, constant: 16.0),
+      label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.0),
+      label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.0),
+      label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16.0)
+    ])
+
+  }
+
+  public required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+
+}
+
+final class MyErrorView: UIView {
+
+  private let label: UILabel = .init()
+
+  init() {
+    super.init(frame: .zero)
+    backgroundColor = .systemRed
+    label.text = "Error"
+    label.font = .systemFont(ofSize: 22, weight: .bold)
+    label.textColor = .white
+
+    label.translatesAutoresizingMaskIntoConstraints = false
+    addSubview(label)
+
+    NSLayoutConstraint.activate([
+      label.topAnchor.constraint(equalTo: topAnchor, constant: 16.0),
+      label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.0),
+      label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.0),
+      label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16.0)
+    ])
+
+  }
+
+  public required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+
+}
