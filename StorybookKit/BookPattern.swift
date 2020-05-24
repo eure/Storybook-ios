@@ -21,7 +21,7 @@
 
 import Foundation
 
-public struct Pattern<Element>: Sequence {
+public struct BookPattern<Element>: Sequence {
 
   public typealias Iterator = PatternIterator
 
@@ -54,13 +54,13 @@ public struct Pattern<Element>: Sequence {
   }
 }
 
-extension Pattern where Element : Any {
+extension BookPattern where Element : Any {
 
-  public func make<P0: Sequence>(_ p0: P0) -> Pattern<(P0.Element)> {
+  public static func make<P0: Sequence>(_ p0: P0) -> BookPattern<(P0.Element)> {
     .init(p0.map { $0 })
   }
 
-  public func make<P0: Sequence, P1: Sequence>(_ p0: P0, _ p1: P1) -> Pattern<(P0.Element, P1.Element)> {
+  public static func make<P0: Sequence, P1: Sequence>(_ p0: P0, _ p1: P1) -> BookPattern<(P0.Element, P1.Element)> {
 
     var buffer: [(P0.Element, P1.Element)] = []
 
@@ -74,7 +74,7 @@ extension Pattern where Element : Any {
 
   }
 
-  public func make<P0: Sequence, P1: Sequence, P2: Sequence>(_ p0: P0, _ p1: P1, p2: P2) -> Pattern<(P0.Element, P1.Element, P2.Element)> {
+  public static func make<P0: Sequence, P1: Sequence, P2: Sequence>(_ p0: P0, _ p1: P1, p2: P2) -> BookPattern<(P0.Element, P1.Element, P2.Element)> {
 
     var buffer: [(P0.Element, P1.Element, P2.Element)] = []
 
