@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = "StorybookKit"
-  s.version = '1.0.0'
+  s.version = '1.1.0'
   s.summary = "StorybookKit"
 
   s.homepage = "https://github.com/eure/Storybook"
