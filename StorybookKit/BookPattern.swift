@@ -54,7 +54,7 @@ public struct BookPattern<Element>: Sequence {
   }
 }
 
-extension BookPattern where Element : Any {
+extension BookPattern where Element == Any {
 
   public static func make<P0: Sequence>(_ p0: P0) -> BookPattern<(P0.Element)> {
     .init(p0.map { $0 })
