@@ -74,7 +74,7 @@ extension BookPattern where Element == Any {
 
   }
 
-  public static func make<P0: Sequence, P1: Sequence, P2: Sequence>(_ p0: P0, _ p1: P1, p2: P2) -> BookPattern<(P0.Element, P1.Element, P2.Element)> {
+  public static func make<P0: Sequence, P1: Sequence, P2: Sequence>(_ p0: P0, _ p1: P1, _ p2: P2) -> BookPattern<(P0.Element, P1.Element, P2.Element)> {
 
     var buffer: [(P0.Element, P1.Element, P2.Element)] = []
 
