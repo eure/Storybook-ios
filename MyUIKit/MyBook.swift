@@ -170,6 +170,23 @@ Something description about this section.
     }
     .title("State: Error")
   }
+
+  BookNavigationLink(title: "Pattern") {
+
+    BookForEach(data: BookPattern.make(
+      ["A", "AAA", "AAAAAA"],
+      [UIColor.blue, UIColor.red, UIColor.orange]
+    )) { (args) in
+      BookPreview {
+        let (text, color) = args
+        let label = UILabel()
+        label.text = text
+        label.textColor = color
+        return label
+      }
+    }
+
+  }
   
 }
 
