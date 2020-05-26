@@ -285,6 +285,28 @@ func uiswitchPage() -> BookView {
 }
 ```
 
+**Make patterns of UI component**
+
+To check the appearance of UI component that changes depends on input parameters, we can generate that patterns with `BookForEach` and `BookPattern`.
+
+```swift
+BookForEach(data: BookPattern.make(
+  ["A", "AAA", "AAAAAA"],
+  [UIColor.blue, UIColor.red, UIColor.orange]
+)) { (args) in
+  BookPreview {
+    let (text, color) = args
+    let label = UILabel()
+    label.text = text
+    label.textColor = color
+    return label
+  }
+}
+```
+
+<img width=320 src="https://user-images.githubusercontent.com/1888355/82776162-f5818800-9e84-11ea-9505-8512dc6f8401.png" />
+
+
 ## Project structure to get faster developing UI
 
 Especially, in UIKit based application, it takes many times to build to check the changes for UI.<br>
