@@ -1,0 +1,13 @@
+name: Cocoapods
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: Force xcode 11.4
+        run: sudo xcode-select -switch /Applications/Xcode_11.4.app
+      - uses: actions/checkout@v2
+      - name: Lint Cocoapods
+        run: pod lib lint StorybookKit.podspec
