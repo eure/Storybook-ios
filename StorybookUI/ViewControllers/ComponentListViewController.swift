@@ -53,7 +53,7 @@ final class ComponentListViewController: StackScrollViewController {
         }
       case .viewRepresentable(let v):
         buffer.append(
-          ResizeDetectingView(v.makeView())
+          v.makeView()
         )
       case .array(let v):
         v.forEach {

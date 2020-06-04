@@ -63,10 +63,6 @@ final class ResizeDetectingView: CodeBasedView, StackCellType {
     heightConstraint = heightAnchor.constraint(equalToConstant: size.height)
     heightConstraint!.priority = .defaultHigh
     heightConstraint!.isActive = true
-
-    // TODO: it cause runtime-warning on Autolayout
-    layoutIfNeeded()
-
   }
 
 }
