@@ -70,11 +70,7 @@ final class StackScrollView: UICollectionView, UICollectionViewDataSource, UICol
   }
   
   private(set) var views: [UIView] = []
-  
-  private func identifier(_ v: UIView) -> String {
-    return v.hashValue.description
-  }
-  
+
   private func setup() {
     
     backgroundColor = .white
@@ -86,6 +82,10 @@ final class StackScrollView: UICollectionView, UICollectionViewDataSource, UICol
     
     super.delegate = self
     super.dataSource = self
+
+    register(Cell.self, forCellWithReuseIdentifier: "Cell")
+    isPrefetchingEnabled = false
+
   }
   
   override func touchesShouldCancel(in view: UIView) -> Bool {
@@ -95,16 +95,12 @@ final class StackScrollView: UICollectionView, UICollectionViewDataSource, UICol
   func append(view: UIView) {
     
     views.append(view)
-    register(Cell.self, forCellWithReuseIdentifier: identifier(view))
     reloadData()
   }  
   
   func append(views _views: [UIView]) {
     
     views += _views
-    _views.forEach { view in
-      register(Cell.self, forCellWithReuseIdentifier: identifier(view))
-    }
     reloadData()
   }
   
@@ -136,16 +132,17 @@ final class StackScrollView: UICollectionView, UICollectionViewDataSource, UICol
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     
     let view = views[indexPath.item]
-    let _identifier = identifier(view)
-    
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: _identifier, for: indexPath)
+
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath)
     
     if view.superview == cell.contentView {
       return cell
+    } else {
+      cell.contentView.subviews.forEach {
+        $0.removeFromSuperview()
+      }
     }
     
-    precondition(cell.contentView.subviews.isEmpty)
-
     view.translatesAutoresizingMaskIntoConstraints = false
     cell.contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
