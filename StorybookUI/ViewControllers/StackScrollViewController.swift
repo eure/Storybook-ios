@@ -32,7 +32,7 @@ class StackScrollViewController : CodeBasedViewController {
   }
 
   func setViews(_ views: [UIView]) {
-    stackScrollView.setViews(views)
+    stackScrollView.append(views: views)
   }
   
   override func viewDidLoad() {

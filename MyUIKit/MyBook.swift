@@ -195,7 +195,7 @@ fileprivate func labelExpandingTestBook() -> BookView {
   BookSection(title: "UILabel updating text") {
     BookPreview<UILabel> {
       let label = UILabel()
-      label.text = "--"
+      label.text = ""
       return label
     }
     .addButton("empty") { (label) in
