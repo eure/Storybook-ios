@@ -41,6 +41,17 @@ class ViewController: UIViewController {
     
     present(controller, animated: true, completion: nil)
   }
+
+  @IBAction private func didTapFilterButton(_ sender: Any) {
+
+    let controller = StorybookFilterViewController(book: myBook) {
+      $0.dismiss(animated: true, completion: nil)
+    }
+
+    controller.modalPresentationStyle = .fullScreen
+
+    present(controller, animated: true, completion: nil)
+  }
   
 }
 

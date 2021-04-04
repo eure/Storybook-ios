@@ -25,6 +25,8 @@ import StorybookKit
 
 final class HistoryManager {
 
+  static let shared = HistoryManager()
+
   private let userDefaults = UserDefaults(suiteName: "jp.eure.storybook")!
 
   private let decoder = JSONDecoder()
@@ -72,7 +74,7 @@ struct History: Codable {
 
 public final class StorybookViewController : UISplitViewController {
 
-  private let historyManager = HistoryManager()
+  private let historyManager = HistoryManager.shared
   
   public typealias DismissHandler = (StorybookViewController) -> Void
   
@@ -89,7 +91,7 @@ public final class StorybookViewController : UISplitViewController {
     super.init(nibName: nil, bundle: nil)
 
     let history = historyManager.history.loadSelected().compactMap {
-      findLink(by: $0, tree: book.component)
+      book.component.findLink(by: $0)
     }
     .prefix(8)
 
@@ -242,36 +244,6 @@ extension StorybookViewController : UISplitViewControllerDelegate {
   public func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
     return true
   }
-}
-
-fileprivate func findLink(by identifier: DeclarationIdentifier, tree: BookTree) -> BookNavigationLink? {
-
-  func findLink(_ tree: BookTree) -> BookNavigationLink? {
-    switch tree {
-    case .folder(let v):
-      if v.declarationIdentifier == identifier {
-        return v
-      } else {
-        return findLink(v.component.asTree())
-      }
-    case .viewRepresentable:
-      return nil
-    case .single(let v?):
-      return findLink(v.asTree())
-    case .single(.none):
-      return nil
-    case .array(let v):
-      for i in v {
-        if let result = findLink(i) {
-          return result
-        }
-      }
-      return nil
-    }
-  }
-
-  return findLink(tree)
-
 }
 
 fileprivate func flatten(_ tree: BookTree) -> BookTree {
