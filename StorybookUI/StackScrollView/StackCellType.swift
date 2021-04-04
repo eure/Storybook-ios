@@ -1,5 +1,6 @@
+// StackCellType.swift
 //
-// Copyright (c) 2020 Eureka, Inc.
+// Copyright (c) 2016 muukii
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -19,35 +20,36 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
+import UIKit
 
-import StorybookKit
+protocol StackCellType : class {
 
-class StackScrollViewController : CodeBasedViewController {
-  
-  private let stackScrollView = StackScrollView()
-  
-  override init() {
-    super.init()
-  }
+}
 
-  func setViews(_ views: [UIView]) {
-    stackScrollView.append(views: views)
-  }
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    
-    if #available(iOS 13.0, *) {
-      view.backgroundColor = .systemBackground
-    } else {
-      view.backgroundColor = .white
+extension StackCellType where Self : UIView {
+
+  var stackScrollView: StackScrollView? {
+    var superview: UIView? = self
+
+    while superview != nil && !(superview is StackScrollView) {
+      superview = superview?.superview
     }
-    
-    view.addSubview(stackScrollView)
-    stackScrollView.frame = view.bounds
-    stackScrollView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-    
+
+    return superview as? StackScrollView
   }
   
+  func scrollToSelf(animated: Bool) {
+
+    stackScrollView?.scroll(to: self, animated: animated)
+  }
+
+  func scrollToSelf(at position: UICollectionView.ScrollPosition, animated: Bool) {
+    stackScrollView?.scroll(to: self, at: position, animated: animated)
+  }
+
+  func updateLayout(animated: Bool) {
+    invalidateIntrinsicContentSize()
+    stackScrollView?.updateLayout(animated: animated)
+  }
+
 }
