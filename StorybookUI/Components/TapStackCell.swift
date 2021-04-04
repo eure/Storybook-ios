@@ -40,7 +40,7 @@ class TapStackCell : UIControl {
 
           if #available(iOS 13.0, *) {
 
-            self.backgroundColor = .systemFill
+            self.backgroundColor = .systemBackground
           } else {
 
             self.backgroundColor = .init(white: 0.98, alpha: 1)

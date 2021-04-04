@@ -11,6 +11,8 @@
 		4B1FE787248900C300C90F6A /* StackCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1FE783248900B300C90F6A /* StackCellType.swift */; };
 		4B1FE788248900C300C90F6A /* StackScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1FE785248900B300C90F6A /* StackScrollView.swift */; };
 		4B1FE78A248902A900C90F6A /* ResizeDetectingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1FE789248902A800C90F6A /* ResizeDetectingView.swift */; };
+		4B1582082619BC740072569A /* StorybookFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1582072619BC740072569A /* StorybookFilterViewController.swift */; };
+		4B1582132619C0C50072569A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1582122619C0C50072569A /* Extensions.swift */; };
 		4B2A664B247A91B100FEC120 /* BookLorem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2A664A247A91B100FEC120 /* BookLorem.swift */; };
 		4B2A664D247A925C00FEC120 /* BookPattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2A664C247A925C00FEC120 /* BookPattern.swift */; };
 		4B6DDB952470FD4000240EE8 /* BookPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6DDB942470FD4000240EE8 /* BookPreview.swift */; };
@@ -121,6 +123,8 @@
 		4B1FE783248900B300C90F6A /* StackCellType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackCellType.swift; sourceTree = "<group>"; };
 		4B1FE785248900B300C90F6A /* StackScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackScrollView.swift; sourceTree = "<group>"; };
 		4B1FE789248902A800C90F6A /* ResizeDetectingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResizeDetectingView.swift; sourceTree = "<group>"; };
+		4B1582072619BC740072569A /* StorybookFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorybookFilterViewController.swift; sourceTree = "<group>"; };
+		4B1582122619C0C50072569A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		4B2A664A247A91B100FEC120 /* BookLorem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookLorem.swift; sourceTree = "<group>"; };
 		4B2A664C247A925C00FEC120 /* BookPattern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookPattern.swift; sourceTree = "<group>"; };
 		4B6DDB942470FD4000240EE8 /* BookPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookPreview.swift; sourceTree = "<group>"; };
@@ -278,6 +282,7 @@
 				4BB13673246F29D400A2DFFE /* ComponentListViewController.swift */,
 				957A89722226697600CDD25D /* StackScrollViewController.swift */,
 				957A89712226697600CDD25D /* StorybookViewController.swift */,
+				4B1582072619BC740072569A /* StorybookFilterViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -344,6 +349,7 @@
 				957A895C2226662500CDD25D /* StorybookUI.swift */,
 				9523243123D2002200677D5A /* ViewControllers */,
 				957A89762226699E00CDD25D /* Components */,
+				4B1582122619C0C50072569A /* Extensions.swift */,
 			);
 			path = StorybookUI;
 			sourceTree = "<group>";
@@ -681,8 +687,10 @@
 				4B1FE787248900C300C90F6A /* StackCellType.swift in Sources */,
 				957A89742226697600CDD25D /* StorybookViewController.swift in Sources */,
 				4BB13674246F29D400A2DFFE /* ComponentListViewController.swift in Sources */,
+				4B1582082619BC740072569A /* StorybookFilterViewController.swift in Sources */,
 				957A89692226695A00CDD25D /* CodeBased.swift in Sources */,
 				957A895D2226662500CDD25D /* StorybookUI.swift in Sources */,
+				4B1582132619C0C50072569A /* Extensions.swift in Sources */,
 				957A897D2226699E00CDD25D /* SeparatorStackCell.swift in Sources */,
 				957A89752226697600CDD25D /* StackScrollViewController.swift in Sources */,
 				4B1FE78A248902A900C90F6A /* ResizeDetectingView.swift in Sources */,
@@ -893,7 +901,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -951,7 +959,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
