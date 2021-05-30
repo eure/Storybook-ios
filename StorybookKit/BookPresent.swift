@@ -55,7 +55,7 @@ public struct BookPresent: BookViewRepresentableType {
 
       super.init(frame: .zero)
 
-      self.presentButton.setTitle(title + " ⤴︎", for: .normal)
+      self.presentButton.setTitle(title + "⬆️", for: .normal)
       self.presentButton.titleLabel?.font = .boldSystemFont(ofSize: 18)
       if #available(iOS 13.0, *) {
         self.presentButton.tintColor = .label

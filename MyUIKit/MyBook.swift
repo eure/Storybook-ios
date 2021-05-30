@@ -121,6 +121,12 @@ Something description about this section.
 
     }
 
+    BookNavigationLink(title: "Test Push") {
+      BookPush(title: "Test") {
+        UIViewController()
+      }
+    }
+
   }
 
   BookAlphabeticalNavigationLinkSection(title: "Examples") {

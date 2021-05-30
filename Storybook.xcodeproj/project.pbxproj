@@ -53,6 +53,7 @@
 		4BBE1109247557CB009E401C /* MyComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BBE1108247557CB009E401C /* MyComponent.swift */; };
 		4BBFBC0D2470DDE400509E69 /* BookNavigationLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BBFBC0C2470DDE400509E69 /* BookNavigationLink.swift */; };
 		4BF6F4B2246F3349001830D5 /* BookInteractive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF6F4B1246F3349001830D5 /* BookInteractive.swift */; };
+		4BFE5FDF2663D8D500C5C032 /* BookPush.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFE5FDE2663D8D500C5C032 /* BookPush.swift */; };
 		9523242A23D1C76C00677D5A /* MyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9523242923D1C76C00677D5A /* MyLabel.swift */; };
 		9523242C23D1C81A00677D5A /* LightLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9523242B23D1C81A00677D5A /* LightLabel.swift */; };
 		9523242E23D1E8D200677D5A /* FilledLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9523242D23D1E8D200677D5A /* FilledLabel.swift */; };
@@ -182,6 +183,7 @@
 		4BBE1108247557CB009E401C /* MyComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyComponent.swift; sourceTree = "<group>"; };
 		4BBFBC0C2470DDE400509E69 /* BookNavigationLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookNavigationLink.swift; sourceTree = "<group>"; };
 		4BF6F4B1246F3349001830D5 /* BookInteractive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookInteractive.swift; sourceTree = "<group>"; };
+		4BFE5FDE2663D8D500C5C032 /* BookPush.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookPush.swift; sourceTree = "<group>"; };
 		5052075B875304A9736B62A6 /* Pods-Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Demo.release.xcconfig"; path = "Target Support Files/Pods-Demo/Pods-Demo.release.xcconfig"; sourceTree = "<group>"; };
 		6002FAA92E154DBC64C9C8A9 /* Pods_MyUIKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyUIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		61AFDB2F727562AAF6B14771 /* Pods-MyUIKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyUIKit.debug.xcconfig"; path = "Target Support Files/Pods-MyUIKit/Pods-MyUIKit.debug.xcconfig"; sourceTree = "<group>"; };
@@ -382,6 +384,7 @@
 				4B7F852D2470AAFB00CC4459 /* BookSection.swift */,
 				4BF6F4B1246F3349001830D5 /* BookInteractive.swift */,
 				4B81F7A2246F3D83009C7602 /* BookPresent.swift */,
+				4BFE5FDE2663D8D500C5C032 /* BookPush.swift */,
 				4B81F7A4246F41E5009C7602 /* BookPadding.swift */,
 				4B6DDB942470FD4000240EE8 /* BookPreview.swift */,
 				4B2A664A247A91B100FEC120 /* BookLorem.swift */,
@@ -786,6 +789,7 @@
 				4B81F793246F3512009C7602 /* BookTree.swift in Sources */,
 				4BBFBC0D2470DDE400509E69 /* BookNavigationLink.swift in Sources */,
 				4B81F7A5246F41E5009C7602 /* BookPadding.swift in Sources */,
+				4BFE5FDF2663D8D500C5C032 /* BookPush.swift in Sources */,
 				4B81F79F246F3A37009C7602 /* BookText.swift in Sources */,
 				4B2A664B247A91B100FEC120 /* BookLorem.swift in Sources */,
 				4B81F797246F356E009C7602 /* BookGroup.swift in Sources */,
