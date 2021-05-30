@@ -3,18 +3,24 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		22DA1534AF8BA1D734AE95F4 /* Pods_StorybookKitTextureSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 329D2AC3F14381E5B214D0AA /* Pods_StorybookKitTextureSupport.framework */; };
 		4B126886246D8F3D00F5DA51 /* BookViewPresentableType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B126885246D8F3D00F5DA51 /* BookViewPresentableType.swift */; };
+		4B1582082619BC740072569A /* StorybookFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1582072619BC740072569A /* StorybookFilterViewController.swift */; };
+		4B1582132619C0C50072569A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1582122619C0C50072569A /* Extensions.swift */; };
 		4B1FE787248900C300C90F6A /* StackCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1FE783248900B300C90F6A /* StackCellType.swift */; };
 		4B1FE788248900C300C90F6A /* StackScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1FE785248900B300C90F6A /* StackScrollView.swift */; };
 		4B1FE78A248902A900C90F6A /* ResizeDetectingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1FE789248902A800C90F6A /* ResizeDetectingView.swift */; };
-		4B1582082619BC740072569A /* StorybookFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1582072619BC740072569A /* StorybookFilterViewController.swift */; };
-		4B1582132619C0C50072569A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1582122619C0C50072569A /* Extensions.swift */; };
 		4B2A664B247A91B100FEC120 /* BookLorem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2A664A247A91B100FEC120 /* BookLorem.swift */; };
 		4B2A664D247A925C00FEC120 /* BookPattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2A664C247A925C00FEC120 /* BookPattern.swift */; };
+		4B3B4B622663C9AB0065E84E /* StorybookKitTextureSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B3B4B522663C9AB0065E84E /* StorybookKitTextureSupport.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4B3B4B652663C9AB0065E84E /* StorybookKitTextureSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B3B4B502663C9AB0065E84E /* StorybookKitTextureSupport.framework */; };
+		4B3B4B662663C9AB0065E84E /* StorybookKitTextureSupport.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4B3B4B502663C9AB0065E84E /* StorybookKitTextureSupport.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4B3B4B6E2663CA490065E84E /* BookNodePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3B4B6D2663CA490065E84E /* BookNodePreview.swift */; };
+		4B3B4B6F2663CA620065E84E /* StorybookKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 957A89412226620900CDD25D /* StorybookKit.framework */; };
 		4B6DDB952470FD4000240EE8 /* BookPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6DDB942470FD4000240EE8 /* BookPreview.swift */; };
 		4B7F852C2470AADD00CC4459 /* BookPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7F852B2470AADD00CC4459 /* BookPage.swift */; };
 		4B7F852E2470AAFB00CC4459 /* BookSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7F852D2470AAFB00CC4459 /* BookSection.swift */; };
@@ -65,6 +71,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		4B3B4B632663C9AB0065E84E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 957A89282226610200CDD25D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4B3B4B4F2663C9AB0065E84E;
+			remoteInfo = StorybookKitTextureSupport;
+		};
+		4B3B4B712663CA620065E84E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 957A89282226610200CDD25D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 957A89402226620900CDD25D;
+			remoteInfo = StorybookKit;
+		};
 		4BB03C1A22267075006E9E49 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 957A89282226610200CDD25D /* Project object */;
@@ -111,6 +131,7 @@
 			files = (
 				4BB03C2E2226709D006E9E49 /* MyUIKit.framework in Embed Frameworks */,
 				4BB03C1922267075006E9E49 /* StorybookKit.framework in Embed Frameworks */,
+				4B3B4B662663C9AB0065E84E /* StorybookKitTextureSupport.framework in Embed Frameworks */,
 				4BB03C1D22267075006E9E49 /* StorybookUI.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -119,14 +140,19 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		329D2AC3F14381E5B214D0AA /* Pods_StorybookKitTextureSupport.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StorybookKitTextureSupport.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B126885246D8F3D00F5DA51 /* BookViewPresentableType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookViewPresentableType.swift; sourceTree = "<group>"; };
+		4B1582072619BC740072569A /* StorybookFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorybookFilterViewController.swift; sourceTree = "<group>"; };
+		4B1582122619C0C50072569A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		4B1FE783248900B300C90F6A /* StackCellType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackCellType.swift; sourceTree = "<group>"; };
 		4B1FE785248900B300C90F6A /* StackScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackScrollView.swift; sourceTree = "<group>"; };
 		4B1FE789248902A800C90F6A /* ResizeDetectingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResizeDetectingView.swift; sourceTree = "<group>"; };
-		4B1582072619BC740072569A /* StorybookFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorybookFilterViewController.swift; sourceTree = "<group>"; };
-		4B1582122619C0C50072569A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		4B2A664A247A91B100FEC120 /* BookLorem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookLorem.swift; sourceTree = "<group>"; };
 		4B2A664C247A925C00FEC120 /* BookPattern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookPattern.swift; sourceTree = "<group>"; };
+		4B3B4B502663C9AB0065E84E /* StorybookKitTextureSupport.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorybookKitTextureSupport.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B3B4B522663C9AB0065E84E /* StorybookKitTextureSupport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorybookKitTextureSupport.h; sourceTree = "<group>"; };
+		4B3B4B532663C9AB0065E84E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4B3B4B6D2663CA490065E84E /* BookNodePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookNodePreview.swift; sourceTree = "<group>"; };
 		4B6DDB942470FD4000240EE8 /* BookPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookPreview.swift; sourceTree = "<group>"; };
 		4B7F852B2470AADD00CC4459 /* BookPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookPage.swift; sourceTree = "<group>"; };
 		4B7F852D2470AAFB00CC4459 /* BookSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSection.swift; sourceTree = "<group>"; };
@@ -175,17 +201,29 @@
 		957A89712226697600CDD25D /* StorybookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorybookViewController.swift; sourceTree = "<group>"; };
 		957A89722226697600CDD25D /* StackScrollViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackScrollViewController.swift; sourceTree = "<group>"; };
 		957A89792226699E00CDD25D /* SeparatorStackCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeparatorStackCell.swift; sourceTree = "<group>"; };
+		9A7D243771974D4FF205141D /* Pods-StorybookKitTextureSupport.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StorybookKitTextureSupport.release.xcconfig"; path = "Target Support Files/Pods-StorybookKitTextureSupport/Pods-StorybookKitTextureSupport.release.xcconfig"; sourceTree = "<group>"; };
+		9BBFF863B8AF50660B498506 /* Pods-StorybookKitTextureSupport.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StorybookKitTextureSupport.debug.xcconfig"; path = "Target Support Files/Pods-StorybookKitTextureSupport/Pods-StorybookKitTextureSupport.debug.xcconfig"; sourceTree = "<group>"; };
 		A8BB215BD78166AA0C914DC3 /* Pods-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Demo.debug.xcconfig"; path = "Target Support Files/Pods-Demo/Pods-Demo.debug.xcconfig"; sourceTree = "<group>"; };
 		C2C634BE1EFF2E937BA82C4C /* Pods_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC0D3EC766BF34CBEA56D083 /* Pods-MyUIKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyUIKit.release.xcconfig"; path = "Target Support Files/Pods-MyUIKit/Pods-MyUIKit.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4B3B4B4D2663C9AB0065E84E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B3B4B6F2663CA620065E84E /* StorybookKit.framework in Frameworks */,
+				22DA1534AF8BA1D734AE95F4 /* Pods_StorybookKitTextureSupport.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4BB03C0322267064006E9E49 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				4BB03C2D2226709D006E9E49 /* MyUIKit.framework in Frameworks */,
+				4B3B4B652663C9AB0065E84E /* StorybookKitTextureSupport.framework in Frameworks */,
 				4BB03C1822267075006E9E49 /* StorybookKit.framework in Frameworks */,
 				4BB03C1C22267075006E9E49 /* StorybookUI.framework in Frameworks */,
 				ACB75B33D364CFE6EF3D352D /* Pods_Demo.framework in Frameworks */,
@@ -226,8 +264,9 @@
 				5052075B875304A9736B62A6 /* Pods-Demo.release.xcconfig */,
 				61AFDB2F727562AAF6B14771 /* Pods-MyUIKit.debug.xcconfig */,
 				DC0D3EC766BF34CBEA56D083 /* Pods-MyUIKit.release.xcconfig */,
+				9BBFF863B8AF50660B498506 /* Pods-StorybookKitTextureSupport.debug.xcconfig */,
+				9A7D243771974D4FF205141D /* Pods-StorybookKitTextureSupport.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -238,6 +277,16 @@
 				4B1FE785248900B300C90F6A /* StackScrollView.swift */,
 			);
 			path = StackScrollView;
+			sourceTree = "<group>";
+		};
+		4B3B4B512663C9AB0065E84E /* StorybookKitTextureSupport */ = {
+			isa = PBXGroup;
+			children = (
+				4B3B4B522663C9AB0065E84E /* StorybookKitTextureSupport.h */,
+				4B3B4B532663C9AB0065E84E /* Info.plist */,
+				4B3B4B6D2663CA490065E84E /* BookNodePreview.swift */,
+			);
+			path = StorybookKitTextureSupport;
 			sourceTree = "<group>";
 		};
 		4BB03C0722267064006E9E49 /* Demo */ = {
@@ -290,6 +339,7 @@
 		957A89272226610200CDD25D = {
 			isa = PBXGroup;
 			children = (
+				4B3B4B512663C9AB0065E84E /* StorybookKitTextureSupport */,
 				957A89422226620900CDD25D /* StorybookKit */,
 				957A894F2226621400CDD25D /* StorybookUI */,
 				4BB03C0722267064006E9E49 /* Demo */,
@@ -309,6 +359,7 @@
 				957A894E2226621400CDD25D /* StorybookUI.framework */,
 				4BB03C0622267064006E9E49 /* Demo.app */,
 				4BB03C262226709D006E9E49 /* MyUIKit.framework */,
+				4B3B4B502663C9AB0065E84E /* StorybookKitTextureSupport.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -359,6 +410,7 @@
 			children = (
 				C2C634BE1EFF2E937BA82C4C /* Pods_Demo.framework */,
 				6002FAA92E154DBC64C9C8A9 /* Pods_MyUIKit.framework */,
+				329D2AC3F14381E5B214D0AA /* Pods_StorybookKitTextureSupport.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -378,6 +430,14 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		4B3B4B4B2663C9AB0065E84E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B3B4B622663C9AB0065E84E /* StorybookKitTextureSupport.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4BB03C212226709D006E9E49 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -405,6 +465,26 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		4B3B4B4F2663C9AB0065E84E /* StorybookKitTextureSupport */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4B3B4B6B2663C9AB0065E84E /* Build configuration list for PBXNativeTarget "StorybookKitTextureSupport" */;
+			buildPhases = (
+				576D6DAACE84048F6F13C701 /* [CP] Check Pods Manifest.lock */,
+				4B3B4B4B2663C9AB0065E84E /* Headers */,
+				4B3B4B4C2663C9AB0065E84E /* Sources */,
+				4B3B4B4D2663C9AB0065E84E /* Frameworks */,
+				4B3B4B4E2663C9AB0065E84E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4B3B4B722663CA620065E84E /* PBXTargetDependency */,
+			);
+			name = StorybookKitTextureSupport;
+			productName = StorybookKitTextureSupport;
+			productReference = 4B3B4B502663C9AB0065E84E /* StorybookKitTextureSupport.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		4BB03C0522267064006E9E49 /* Demo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4BB03C1522267065006E9E49 /* Build configuration list for PBXNativeTarget "Demo" */;
@@ -422,6 +502,7 @@
 				4BB03C1B22267075006E9E49 /* PBXTargetDependency */,
 				4BB03C1F22267075006E9E49 /* PBXTargetDependency */,
 				4BB03C2C2226709D006E9E49 /* PBXTargetDependency */,
+				4B3B4B642663C9AB0065E84E /* PBXTargetDependency */,
 			);
 			name = Demo;
 			productName = Demo;
@@ -491,10 +572,14 @@
 		957A89282226610200CDD25D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1010;
+				LastSwiftUpdateCheck = 1250;
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "eureka, Inc.";
 				TargetAttributes = {
+					4B3B4B4F2663C9AB0065E84E = {
+						CreatedOnToolsVersion = 12.5;
+						LastSwiftMigration = 1250;
+					};
 					4BB03C0522267064006E9E49 = {
 						CreatedOnToolsVersion = 10.1;
 						LastSwiftMigration = 1130;
@@ -530,11 +615,19 @@
 				957A894D2226621400CDD25D /* StorybookUI */,
 				4BB03C0522267064006E9E49 /* Demo */,
 				4BB03C252226709D006E9E49 /* MyUIKit */,
+				4B3B4B4F2663C9AB0065E84E /* StorybookKitTextureSupport */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		4B3B4B4E2663C9AB0065E84E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4BB03C0422267064006E9E49 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -608,6 +701,28 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		576D6DAACE84048F6F13C701 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-StorybookKitTextureSupport-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		9CD112178588C490430EC604 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -633,6 +748,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		4B3B4B4C2663C9AB0065E84E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B3B4B6E2663CA490065E84E /* BookNodePreview.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4BB03C0222267064006E9E49 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -703,6 +826,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		4B3B4B642663C9AB0065E84E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4B3B4B4F2663C9AB0065E84E /* StorybookKitTextureSupport */;
+			targetProxy = 4B3B4B632663C9AB0065E84E /* PBXContainerItemProxy */;
+		};
+		4B3B4B722663CA620065E84E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 957A89402226620900CDD25D /* StorybookKit */;
+			targetProxy = 4B3B4B712663CA620065E84E /* PBXContainerItemProxy */;
+		};
 		4BB03C1B22267075006E9E49 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 957A89402226620900CDD25D /* StorybookKit */;
@@ -750,6 +883,63 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		4B3B4B672663C9AB0065E84E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9BBFF863B8AF50660B498506 /* Pods-StorybookKitTextureSupport.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = StorybookKitTextureSupport/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = app.muukii.StorybookKitTextureSupport;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4B3B4B682663C9AB0065E84E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9A7D243771974D4FF205141D /* Pods-StorybookKitTextureSupport.release.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = StorybookKitTextureSupport/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = app.muukii.StorybookKitTextureSupport;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		4BB03C1622267065006E9E49 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A8BB215BD78166AA0C914DC3 /* Pods-Demo.debug.xcconfig */;
@@ -1084,6 +1274,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4B3B4B6B2663C9AB0065E84E /* Build configuration list for PBXNativeTarget "StorybookKitTextureSupport" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4B3B4B672663C9AB0065E84E /* Debug */,
+				4B3B4B682663C9AB0065E84E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		4BB03C1522267065006E9E49 /* Build configuration list for PBXNativeTarget "Demo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

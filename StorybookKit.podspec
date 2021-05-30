@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
   s.version = "1.3.0"
   s.summary = "StorybookKit"
 
-  s.homepage = "https://github.com/eure/Storybook"
+  s.homepage = "https://github.com/eure/Storybook-ios"
   s.license = "MIT"
   s.author = "Eureka, Inc."
   s.source = { :git => "https://github.com/eure/Storybook.git", :tag => s.version }

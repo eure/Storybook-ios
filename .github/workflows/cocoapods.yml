@@ -10,7 +10,7 @@ jobs:
         with:
           xcode-version: "12.4"
       - uses: actions/checkout@v2
-      - name: Lint Cocoapods StorybookKit
+      - name: Lint Cocoapods
         run: pod lib lint StorybookKit.podspec
   StorybookUI:
     runs-on: macos-latest
@@ -19,5 +19,14 @@ jobs:
         with:
           xcode-version: "12.4"
       - uses: actions/checkout@v2
-      - name: Lint Cocoapods StorybookUI
+      - name: Lint Cocoapods
         run: pod lib lint --include-podspecs=StorybookKit.podspec StorybookUI.podspec
+  StorybookKitTextureSupport:
+    runs-on: macos-latest
+    steps:
+      - uses: maxim-lobanov/setup-xcode@v1.2.3
+        with:
+          xcode-version: "12.4"
+      - uses: actions/checkout@v2
+      - name: Lint Cocoapods
+        run: pod lib lint --include-podspecs=StorybookKit.podspec StorybookKitTextureSupport.podspec
