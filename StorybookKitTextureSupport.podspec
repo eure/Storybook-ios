@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = "StorybookKitTextureSupport"
-  s.version = "1.3.0"
+  s.version = "1.4.0"
   s.summary = "StorybookKitTextureSupport"
 
   s.homepage = "https://github.com/eure/Storybook-ios"
