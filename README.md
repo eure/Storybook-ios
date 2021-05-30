@@ -340,6 +340,10 @@ pod 'StorybookKit'
 pod 'StorybookUI'
 ```
 
+```ruby
+pod 'StorybookKitTextureSupport'
+```
+
 ## License
 
 Storybook-ios is released under the MIT license.
