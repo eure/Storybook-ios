@@ -18,5 +18,5 @@ Pod::Spec.new do |s|
   s.dependency "StorybookKit"
   s.dependency "Texture/Core", ">= 3.0.0"
   s.dependency "TextureBridging", ">= 3.0.1"
-  s.dependency "TextureSwiftSupport", ">= 3.8.0"
+  s.dependency "TextureSwiftSupport", ">= 3.9.0"
 end
