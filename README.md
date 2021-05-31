@@ -320,6 +320,10 @@ While you're tuning them up, you can only build with the storybook app.
   - MainApp (Executable)
   - StorybookApp (Executable)
 
+## Template for creating libraries demo applications.
+
+https://gist.github.com/muukii/482d45d91afe4c362882e05082baa621
+
 ## Requirements
 
 - iOS 10.0+
