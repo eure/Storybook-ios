@@ -21,42 +21,6 @@
 
 import Foundation
 
-public struct BookParagraph: BookView {
-
-  public let text: String
-
-  public init(_ text: String) {
-    self.text = text
-  }
-
-  public var body: BookView {
-    BookGroup {
-      BookSpacer(height: 12)
-      BookText(text)
-        .font(.systemFont(ofSize: 16, weight: .medium))
-      BookSpacer(height: 12)
-    }
-  }
-}
-
-public struct BookHeadline: BookView {
-
-  public let text: String
-
-  public init(_ text: String) {
-    self.text = text
-  }
-
-  public var body: BookView {
-    BookGroup {
-      BookSpacer(height: 16)
-      BookText(text)
-        .font(.systemFont(ofSize: 26, weight: .medium))
-      BookSpacer(height: 16)
-    }
-  }
-}
-
 public struct BookText: BookViewRepresentableType {
 
   public let text: String

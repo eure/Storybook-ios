@@ -21,28 +21,21 @@
 
 import Foundation
 
-public struct BookPage: BookView {
+@available(*, deprecated, renamed: "BookHeading1")
+public struct BookHeadline: BookView {
 
-  public let title: String
-  public let content: BookView
+  public let text: String
 
-  public init(
-    title: String,
-    @ComponentBuilder content: () -> BookView
-  ) {
-    self.title = title
-    self.content = content()
+  public init(_ text: String) {
+    self.text = text
   }
 
   public var body: BookView {
     BookGroup {
-      BookSpacer(height: 24)
-      BookText(title)
-        .font(.systemFont(ofSize: 40, weight: .bold))
-      BookSpacer(height: 18)
-      content
+      BookSpacer(height: 16)
+      BookText(text)
+        .font(.systemFont(ofSize: 24, weight: .medium))
+      BookSpacer(height: 16)
     }
-
   }
-
 }
