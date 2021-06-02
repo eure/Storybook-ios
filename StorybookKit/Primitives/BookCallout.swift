@@ -96,7 +96,7 @@ public struct BookCallout: BookViewRepresentableType {
 
       backgroundView.backgroundColor = UIColor(white: 0.8, alpha: 0.3)
       backgroundView.layer.cornerRadius = 16
-      if #available(iOSApplicationExtension 13.0, *) {
+      if #available(iOS 13.0, *) {
         backgroundView.layer.cornerCurve = .continuous
       } else {
         // Fallback on earlier versions
