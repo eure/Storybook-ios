@@ -33,10 +33,26 @@ public struct BookPreview<View: UIView>: BookView {
 
   public let viewBlock: () -> View
 
+  public let declarationIdentifier: DeclarationIdentifier
+
   private var buttons: ContiguousArray<(title: String, handler: (View) -> Void)> = .init()
 
-  public init(viewBlock: @escaping () -> View) {
+  public init(
+    _ file: StaticString = #file,
+    _ line: UInt = #line,
+    _ column: UInt = #column,
+    viewBlock: @escaping () -> View
+  ) {
+    
     self.viewBlock = viewBlock
+
+    self.declarationIdentifier = .init(
+      file: file.description,
+      line: line,
+      column: column,
+      typeName: _typeName(type(of: self))
+    )
+
   }
 
   public var body: BookView {

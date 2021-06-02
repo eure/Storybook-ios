@@ -24,8 +24,8 @@ import Foundation
 public struct DeclarationIdentifier: Hashable, Codable {
 
   public let file: String
-  public let function: String
   public let line: UInt
+  public let column: UInt
   public let typeName: String
 }
 
@@ -39,16 +39,16 @@ public struct BookNavigationLink: BookView {
   public init(
     title: String,
     _ file: StaticString = #file,
-    _ function: StaticString = #function,
     _ line: UInt = #line,
+    _ column: UInt = #column,
     @ComponentBuilder closure: () -> _BookView
   ) {
     self.title = title
     self.component = closure().asTree()
     self.declarationIdentifier = .init(
       file: file.description,
-      function: function.description,
       line: line,
+      column: column,
       typeName: _typeName(type(of: self))
     )
   }

@@ -35,11 +35,17 @@ public struct BookNodePreview<Node: ASDisplayNode>: BookView {
   }
 
   public init(
+    _ file: StaticString = #file,
+    _ line: UInt = #line,
+    _ column: UInt = #column,
     expandsWidth: Bool = false,
     preservedHeight: CGFloat? = nil,
     nodeBlock: @escaping () -> Node
   ) {
-    self.backing = .init {
+
+    self.backing = .init(
+      file, line, column
+    ) {
 
       let body = nodeBlock()
 
