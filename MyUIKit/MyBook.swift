@@ -35,7 +35,7 @@ public let myBook = Book(title: "MyUI") {
     BookNavigationLink(title: "Preview UI") {
       BookPage(title: "Typography") {
 
-        BookHeadline("""
+        BookHeading1("""
 Here is `BookHeadline`, It allows us to describe something big picture.
 """)
 
@@ -49,6 +49,8 @@ Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
         BookParagraph("""
 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
 """)
+
+        BookCallout("Hello! Here is callout!")
 
         BookSection(title: "Section") {
 

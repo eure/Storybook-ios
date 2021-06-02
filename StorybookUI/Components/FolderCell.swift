@@ -41,9 +41,9 @@ final class FolderCell : HighlightStackCell {
     titleLabel.numberOfLines = 0
     titleLabel.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
     if #available(iOS 13.0, *) {
-      titleLabel.textColor = .systemGray
+      titleLabel.textColor = .link
     } else {
-      titleLabel.textColor = .darkText
+      titleLabel.textColor = .systemBlue
     }
 
     titleLabel.translatesAutoresizingMaskIntoConstraints = false

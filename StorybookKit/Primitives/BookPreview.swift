@@ -43,7 +43,7 @@ public struct BookPreview<View: UIView>: BookView {
     _ column: UInt = #column,
     viewBlock: @escaping () -> View
   ) {
-    
+
     self.viewBlock = viewBlock
 
     self.declarationIdentifier = .init(
@@ -73,6 +73,17 @@ public struct BookPreview<View: UIView>: BookView {
           }))
         }
       }
+      BookCallout("""
+        \(declarationIdentifier.file):\(declarationIdentifier.line)
+        """)
+        .font(
+          {
+            if #available(iOS 13, *) {
+              return .monospacedSystemFont(ofSize: 8, weight: .regular)
+            } else {
+              return .systemFont(ofSize: 8, weight: .regular)
+            }
+          }())
       BookSpacer(height: 16)
     }
   }
