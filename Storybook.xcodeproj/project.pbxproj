@@ -27,6 +27,7 @@
 		4B3B4B662663C9AB0065E84E /* StorybookKitTextureSupport.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4B3B4B502663C9AB0065E84E /* StorybookKitTextureSupport.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4B3B4B6E2663CA490065E84E /* BookNodePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3B4B6D2663CA490065E84E /* BookNodePreview.swift */; };
 		4B3B4B6F2663CA620065E84E /* StorybookKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 957A89412226620900CDD25D /* StorybookKit.framework */; };
+		4B6B83442668967D003DBF31 /* BookGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6B83432668967D003DBF31 /* BookGenerator.swift */; };
 		4B6DDB952470FD4000240EE8 /* BookPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6DDB942470FD4000240EE8 /* BookPreview.swift */; };
 		4B7F852C2470AADD00CC4459 /* BookPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7F852B2470AADD00CC4459 /* BookPage.swift */; };
 		4B7F852E2470AAFB00CC4459 /* BookSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7F852D2470AAFB00CC4459 /* BookSection.swift */; };
@@ -166,6 +167,7 @@
 		4B3B4B522663C9AB0065E84E /* StorybookKitTextureSupport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorybookKitTextureSupport.h; sourceTree = "<group>"; };
 		4B3B4B532663C9AB0065E84E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4B3B4B6D2663CA490065E84E /* BookNodePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookNodePreview.swift; sourceTree = "<group>"; };
+		4B6B83432668967D003DBF31 /* BookGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookGenerator.swift; sourceTree = "<group>"; };
 		4B6DDB942470FD4000240EE8 /* BookPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookPreview.swift; sourceTree = "<group>"; };
 		4B7F852B2470AADD00CC4459 /* BookPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookPage.swift; sourceTree = "<group>"; };
 		4B7F852D2470AAFB00CC4459 /* BookSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSection.swift; sourceTree = "<group>"; };
@@ -439,6 +441,7 @@
 				957A895A2226661600CDD25D /* StorybookKit.swift */,
 				4B15BB2E2667B1B3006A0D04 /* Deprecates */,
 				4B15BB252667B0E3006A0D04 /* Typography */,
+				4B6B83432668967D003DBF31 /* BookGenerator.swift */,
 			);
 			path = StorybookKit;
 			sourceTree = "<group>";
@@ -855,6 +858,7 @@
 				4BF6F4B2246F3349001830D5 /* BookInteractive.swift in Sources */,
 				4B6DDB952470FD4000240EE8 /* BookPreview.swift in Sources */,
 				957A895B2226661600CDD25D /* StorybookKit.swift in Sources */,
+				4B6B83442668967D003DBF31 /* BookGenerator.swift in Sources */,
 				4B15BB2D2667B172006A0D04 /* BookHeading3.swift in Sources */,
 				4B81F7A9246F4A45009C7602 /* BookView.swift in Sources */,
 				4B15BB302667B1BB006A0D04 /* BookHeadline.swift in Sources */,
