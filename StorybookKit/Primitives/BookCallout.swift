@@ -23,6 +23,23 @@ import Foundation
 
 public struct BookCallout: BookViewRepresentableType {
 
+  public static func info(text: String) -> Self {
+    return .init(symbol: "☝️", text: text)
+  }
+
+  public static func warning(text: String) -> Self {
+    return .init(symbol: "⚠️", text: text)
+  }
+
+  public static func danger(text: String) -> Self {
+    return .init(symbol: "🚨", text: text)
+  }
+
+  public static func success(text: String) -> Self {
+    return .init(symbol: "✅", text: text)
+  }
+
+  public let symbol: String?
   public let text: String
   public var foregroundColor: UIColor = {
     if #available(iOS 13.0, *) {
@@ -34,7 +51,11 @@ public struct BookCallout: BookViewRepresentableType {
 
   public var font: UIFont = .preferredFont(forTextStyle: .body)
 
-  public init(_ text: String) {
+  public init(
+    symbol: String? = nil,
+    text: String
+  ) {
+    self.symbol = symbol
     self.text = text
   }
 
@@ -51,24 +72,44 @@ public struct BookCallout: BookViewRepresentableType {
   }
 
   public func makeView() -> UIView {
-    _View(attributedString: .init(
-      string: text,
-      attributes: [
-        .font : font,
-        .foregroundColor : foregroundColor
-      ]
-    )
+    _View(
+      symbol: symbol.map {
+        .init(
+          string: $0,
+          attributes: [
+            .font: font,
+            .foregroundColor: foregroundColor,
+          ]
+        )
+      },
+      attributedString: .init(
+        string: text,
+        attributes: [
+          .font: font,
+          .foregroundColor: foregroundColor,
+        ]
+      )
     )
   }
 
   private final class _View: UIView {
 
+    private let symbolLabel: UILabel?
     private let label: UILabel
     private let backgroundView = UIView()
 
-    public init(attributedString: NSAttributedString) {
+    public init(
+      symbol: NSAttributedString?,
+      attributedString: NSAttributedString
+    ) {
 
       self.label = .init()
+
+      if symbol != nil {
+        symbolLabel = .init()
+      } else {
+        symbolLabel = nil
+      }
 
       super.init(frame: .zero)
 
@@ -80,22 +121,51 @@ public struct BookCallout: BookViewRepresentableType {
       addSubview(backgroundView)
       backgroundView.addSubview(label)
 
-      NSLayoutConstraint.activate([
+      if let symbolLabel = symbolLabel {
 
-        backgroundView.topAnchor.constraint(equalTo: topAnchor, constant: 0),
-        backgroundView.rightAnchor.constraint(equalTo: rightAnchor, constant: -22),
-        backgroundView.leftAnchor.constraint(equalTo: leftAnchor, constant: 22),
-        backgroundView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
+        symbolLabel.setContentHuggingPriority(.required, for: .horizontal)
+        symbolLabel.translatesAutoresizingMaskIntoConstraints = false
+        symbolLabel.attributedText = symbol
+        backgroundView.addSubview(symbolLabel)
 
-        label.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 12),
-        label.rightAnchor.constraint(equalTo: backgroundView.rightAnchor, constant: -12),
-        label.leftAnchor.constraint(equalTo: backgroundView.leftAnchor, constant: 12),
-        label.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -12),
+        NSLayoutConstraint.activate([
 
-      ])
+          backgroundView.topAnchor.constraint(equalTo: topAnchor, constant: 8),
+          backgroundView.rightAnchor.constraint(equalTo: rightAnchor, constant: -22),
+          backgroundView.leftAnchor.constraint(equalTo: leftAnchor, constant: 22),
+          backgroundView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
+
+          symbolLabel.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 12),
+          symbolLabel.leftAnchor.constraint(equalTo: backgroundView.leftAnchor, constant: 12),
+          symbolLabel.bottomAnchor.constraint(
+            lessThanOrEqualTo: backgroundView.bottomAnchor,
+            constant: -12
+          ),
+
+          label.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 12),
+          label.rightAnchor.constraint(equalTo: backgroundView.rightAnchor, constant: -12),
+          label.leftAnchor.constraint(equalTo: symbolLabel.rightAnchor, constant: 8),
+          label.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -12),
+
+        ])
+      } else {
+        NSLayoutConstraint.activate([
+
+          backgroundView.topAnchor.constraint(equalTo: topAnchor, constant: 0),
+          backgroundView.rightAnchor.constraint(equalTo: rightAnchor, constant: -22),
+          backgroundView.leftAnchor.constraint(equalTo: leftAnchor, constant: 22),
+          backgroundView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
+
+          label.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 12),
+          label.rightAnchor.constraint(equalTo: backgroundView.rightAnchor, constant: -12),
+          label.leftAnchor.constraint(equalTo: backgroundView.leftAnchor, constant: 12),
+          label.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -12),
+
+        ])
+      }
 
       backgroundView.backgroundColor = UIColor(white: 0.8, alpha: 0.3)
-      backgroundView.layer.cornerRadius = 16
+      backgroundView.layer.cornerRadius = 8
       if #available(iOS 13.0, *) {
         backgroundView.layer.cornerCurve = .continuous
       } else {
@@ -106,7 +176,9 @@ public struct BookCallout: BookViewRepresentableType {
 
     }
 
-    public required init?(coder: NSCoder) {
+    public required init?(
+      coder: NSCoder
+    ) {
       fatalError("init(coder:) has not been implemented")
     }
 
