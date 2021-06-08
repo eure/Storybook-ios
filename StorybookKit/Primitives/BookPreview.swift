@@ -73,7 +73,7 @@ public struct BookPreview<View: UIView>: BookView {
           }))
         }
       }
-      BookCallout("""
+      BookCallout(text: """
         \(declarationIdentifier.file):\(declarationIdentifier.line)
         """)
         .font(
