@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = "11.0"
   s.ios.frameworks = ["UIKit"]
   s.swift_version = "5.3"
-  s.dependency "StorybookKit"
+  s.dependency "StorybookKit", ">= 1.7.0"
   s.dependency "Texture/Core", ">= 3.0.0"
   s.dependency "TextureBridging", ">= 3.0.1"
   s.dependency "TextureSwiftSupport", ">= 3.9.0"
