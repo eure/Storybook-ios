@@ -148,7 +148,7 @@ fileprivate struct _BookPreview<View: UIView>: BookViewRepresentableType {
 
     public convenience init(
       element: UIView,
-      insets: UIEdgeInsets = .init(top: 16, left: 16, bottom: 16, right: 16)
+      insets: UIEdgeInsets = .init(top: 16, left: 0, bottom: 16, right: 0)
     ) {
       self.init()
 
@@ -164,23 +164,6 @@ fileprivate struct _BookPreview<View: UIView>: BookViewRepresentableType {
       ])
     }
 
-    public convenience init(
-      stretchableElement element: UIView,
-      insets: UIEdgeInsets = .init(top: 20, left: 16, bottom: 20, right: 16)
-    ) {
-      self.init()
-
-      element.translatesAutoresizingMaskIntoConstraints = false
-      addSubview(element)
-
-      NSLayoutConstraint.activate([
-        element.topAnchor.constraint(equalTo: topAnchor, constant: insets.top),
-        element.rightAnchor.constraint(equalTo: rightAnchor, constant: -insets.right),
-        element.leftAnchor.constraint(equalTo: leftAnchor, constant: insets.left),
-        element.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -insets.bottom),
-        element.centerXAnchor.constraint(equalTo: centerXAnchor)
-      ])
-    }
   }
 
 }
