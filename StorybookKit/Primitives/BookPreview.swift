@@ -35,6 +35,8 @@ public struct BookPreview<View: UIView>: BookView {
 
   public let declarationIdentifier: DeclarationIdentifier
   public let expandsWidth: Bool
+  public let maxHeight: CGFloat?
+  public let minHeight: CGFloat?
 
   private var buttons: ContiguousArray<(title: String, handler: (View) -> Void)> = .init()
 
@@ -43,9 +45,13 @@ public struct BookPreview<View: UIView>: BookView {
     _ line: UInt = #line,
     _ column: UInt = #column,
     expandsWidth: Bool = false,
+    maxHeight: CGFloat? = nil,
+    minHeight: CGFloat? = nil,
     viewBlock: @escaping () -> View
   ) {
 
+    self.maxHeight = maxHeight
+    self.minHeight = minHeight
     self.expandsWidth = expandsWidth
     self.viewBlock = viewBlock
 
@@ -63,30 +69,43 @@ public struct BookPreview<View: UIView>: BookView {
     weak var createdView: View?
 
     return BookGroup {
-      _BookPreview(expandsWidth: expandsWidth, backgroundColor: backgroundColor, viewBlock: {
-        let view = self.viewBlock()
-        createdView = view
-        return view
-      })
+      _BookPreview(
+        expandsWidth: expandsWidth,
+        maxHeight: maxHeight,
+        minHeight: minHeight,
+        backgroundColor: backgroundColor,
+        viewBlock: {
+          let view = self.viewBlock()
+          createdView = view
+          return view
+        }
+      )
       if buttons.isEmpty == false {
         BookSpacer(height: 8)
         BookPadding(padding: .init(top: 0, left: 20, bottom: 0, right: 20)) {
-          _BookButtons(buttons: ContiguousArray(buttons.map { args in
-            (args.0, { args.1(createdView!) })
-          }))
+          _BookButtons(
+            buttons: ContiguousArray(
+              buttons.map { args in
+                (args.0, { args.1(createdView!) })
+              }
+            )
+          )
         }
       }
-      BookCallout(text: """
-        \(declarationIdentifier.file):\(declarationIdentifier.line)
-        """)
-        .font(
-          {
-            if #available(iOS 13, *) {
-              return .monospacedSystemFont(ofSize: 8, weight: .regular)
-            } else {
-              return .systemFont(ofSize: 8, weight: .regular)
-            }
-          }())
+      BookCallout(
+        text: """
+          \(declarationIdentifier.file):\(declarationIdentifier.line)
+          """
+      )
+      .font(
+        {
+          if #available(iOS 13, *) {
+            return .monospacedSystemFont(ofSize: 8, weight: .regular)
+          } else {
+            return .systemFont(ofSize: 8, weight: .regular)
+          }
+        }()
+      )
       BookSpacer(height: 16)
     }
   }
@@ -114,46 +133,67 @@ public struct BookPreview<View: UIView>: BookView {
             } else {
               return .systemFont(ofSize: 17, weight: .semibold)
             }
-          }())
+          }()
+        )
       self
     }
   }
 }
 
 /// A component descriptor that just displays UI-Component
-fileprivate struct _BookPreview<View: UIView>: BookViewRepresentableType {
+private struct _BookPreview<View: UIView>: BookViewRepresentableType {
 
   let viewBlock: () -> View
 
   let backgroundColor: UIColor
   let expandsWidth: Bool
+  let maxHeight: CGFloat?
+  let minHeight: CGFloat?
 
-  init(expandsWidth: Bool, backgroundColor: UIColor, viewBlock: @escaping () -> View) {
+  init(
+    expandsWidth: Bool,
+    maxHeight: CGFloat?,
+    minHeight: CGFloat?,
+    backgroundColor: UIColor,
+    viewBlock: @escaping () -> View
+  ) {
+
+    self.minHeight = minHeight
+    self.maxHeight = maxHeight
     self.expandsWidth = expandsWidth
     self.backgroundColor = backgroundColor
     self.viewBlock = viewBlock
   }
 
   func makeView() -> UIView {
-    let view = _View(element: viewBlock(), expandsWidth: expandsWidth)
+    let view = _View(
+      element: viewBlock(),
+      expandsWidth: expandsWidth,
+      maxHeight: maxHeight,
+      minHeight: minHeight
+    )
     view.backgroundColor = backgroundColor
     return view
   }
 
-  private final class _View : UIView {
+  private final class _View: UIView {
 
     public init() {
       super.init(frame: .zero)
     }
 
     @available(*, unavailable)
-    public required init?(coder aDecoder: NSCoder) {
+    public required init?(
+      coder aDecoder: NSCoder
+    ) {
       fatalError("init(coder:) has not been implemented")
     }
 
     public convenience init(
       element: UIView,
       expandsWidth: Bool,
+      maxHeight: CGFloat?,
+      minHeight: CGFloat?,
       insets: UIEdgeInsets = .init(top: 16, left: 0, bottom: 16, right: 0)
     ) {
       self.init()
@@ -171,12 +211,25 @@ fileprivate struct _BookPreview<View: UIView>: BookViewRepresentableType {
         ])
 
       } else {
+
         NSLayoutConstraint.activate([
           element.topAnchor.constraint(equalTo: topAnchor, constant: insets.top),
           element.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -insets.right),
           element.leftAnchor.constraint(greaterThanOrEqualTo: leftAnchor, constant: insets.left),
           element.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -insets.bottom),
-          element.centerXAnchor.constraint(equalTo: centerXAnchor)
+          element.centerXAnchor.constraint(equalTo: centerXAnchor),
+        ])
+      }
+
+      if let maxHeight = maxHeight {
+        NSLayoutConstraint.activate([
+          element.heightAnchor.constraint(lessThanOrEqualToConstant: maxHeight),
+        ])
+      }
+
+      if let minHeight = minHeight {
+        NSLayoutConstraint.activate([
+          element.heightAnchor.constraint(greaterThanOrEqualToConstant: minHeight),
         ])
       }
     }
