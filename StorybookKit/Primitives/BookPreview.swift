@@ -34,6 +34,7 @@ public struct BookPreview<View: UIView>: BookView {
   public let viewBlock: () -> View
 
   public let declarationIdentifier: DeclarationIdentifier
+  public let expandsWidth: Bool
 
   private var buttons: ContiguousArray<(title: String, handler: (View) -> Void)> = .init()
 
@@ -41,9 +42,11 @@ public struct BookPreview<View: UIView>: BookView {
     _ file: StaticString = #file,
     _ line: UInt = #line,
     _ column: UInt = #column,
+    expandsWidth: Bool = false,
     viewBlock: @escaping () -> View
   ) {
 
+    self.expandsWidth = expandsWidth
     self.viewBlock = viewBlock
 
     self.declarationIdentifier = .init(
@@ -60,7 +63,7 @@ public struct BookPreview<View: UIView>: BookView {
     weak var createdView: View?
 
     return BookGroup {
-      _BookPreview(backgroundColor: backgroundColor, viewBlock: {
+      _BookPreview(expandsWidth: expandsWidth, backgroundColor: backgroundColor, viewBlock: {
         let view = self.viewBlock()
         createdView = view
         return view
@@ -123,14 +126,16 @@ fileprivate struct _BookPreview<View: UIView>: BookViewRepresentableType {
   let viewBlock: () -> View
 
   let backgroundColor: UIColor
+  let expandsWidth: Bool
 
-  init(backgroundColor: UIColor, viewBlock: @escaping () -> View) {
+  init(expandsWidth: Bool, backgroundColor: UIColor, viewBlock: @escaping () -> View) {
+    self.expandsWidth = expandsWidth
     self.backgroundColor = backgroundColor
     self.viewBlock = viewBlock
   }
 
   func makeView() -> UIView {
-    let view = _View(element: viewBlock())
+    let view = _View(element: viewBlock(), expandsWidth: expandsWidth)
     view.backgroundColor = backgroundColor
     return view
   }
@@ -148,6 +153,7 @@ fileprivate struct _BookPreview<View: UIView>: BookViewRepresentableType {
 
     public convenience init(
       element: UIView,
+      expandsWidth: Bool,
       insets: UIEdgeInsets = .init(top: 16, left: 0, bottom: 16, right: 0)
     ) {
       self.init()
@@ -155,13 +161,24 @@ fileprivate struct _BookPreview<View: UIView>: BookViewRepresentableType {
       element.translatesAutoresizingMaskIntoConstraints = false
       addSubview(element)
 
-      NSLayoutConstraint.activate([
-        element.topAnchor.constraint(equalTo: topAnchor, constant: insets.top),
-        element.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -insets.right),
-        element.leftAnchor.constraint(greaterThanOrEqualTo: leftAnchor, constant: insets.left),
-        element.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -insets.bottom),
-        element.centerXAnchor.constraint(equalTo: centerXAnchor)
-      ])
+      if expandsWidth {
+
+        NSLayoutConstraint.activate([
+          element.topAnchor.constraint(equalTo: topAnchor, constant: insets.top),
+          element.rightAnchor.constraint(equalTo: rightAnchor, constant: -insets.right),
+          element.leftAnchor.constraint(equalTo: leftAnchor, constant: insets.left),
+          element.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -insets.bottom),
+        ])
+
+      } else {
+        NSLayoutConstraint.activate([
+          element.topAnchor.constraint(equalTo: topAnchor, constant: insets.top),
+          element.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -insets.right),
+          element.leftAnchor.constraint(greaterThanOrEqualTo: leftAnchor, constant: insets.left),
+          element.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -insets.bottom),
+          element.centerXAnchor.constraint(equalTo: centerXAnchor)
+        ])
+      }
     }
 
   }
