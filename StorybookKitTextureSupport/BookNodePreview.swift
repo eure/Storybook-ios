@@ -54,6 +54,7 @@ public struct BookNodePreview<Node: ASDisplayNode>: BookView {
           return LayoutSpec {
             VStackLayout {
               body
+                .flexGrow(1)
                 .width(size.max.width)
             }
           }
@@ -66,6 +67,7 @@ public struct BookNodePreview<Node: ASDisplayNode>: BookView {
 
       if let preservedHeight = preservedHeight {
         node.style.height = .init(unit: .points, value: preservedHeight)
+        node.style.flexGrow = 1
       }
 
       return NodeView(node: node)
