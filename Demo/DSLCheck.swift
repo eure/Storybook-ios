@@ -46,6 +46,16 @@ enum DSLCheck {
           }
         }
       }
+
+      BookScope {
+
+        let text = "Scope"
+
+        return BookGroup {
+          BookText(text)
+          BookText(text)
+        }
+      }
     }
 
     Book(title: "MyBook") {

@@ -28,6 +28,16 @@ public let myBook = Book(title: "MyUI") {
 
   BookParagraph("MyBook")
 
+  BookScope {
+
+    let text = "Scope"
+
+    return BookGroup {
+      BookText(text)
+      BookText(text)
+    }
+  }
+
   BookParagraph("This is BookText")
 
   BookSection(title: "Features") {
