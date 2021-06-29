@@ -55,12 +55,13 @@ public struct BookNodePreview<Node: ASDisplayNode>: BookView {
             VStackLayout {
               body
                 .flexGrow(1)
+                .flexShrink(1)
                 .width(size.max.width)
             }
           }
         } else {
           return LayoutSpec {
-            VStackLayout { body }
+            VStackLayout { body.flexGrow(1).flexShrink(1) }
           }
         }
       }
