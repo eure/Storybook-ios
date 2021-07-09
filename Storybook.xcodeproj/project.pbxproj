@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -59,6 +59,10 @@
 		4BB13678246F2DC700A2DFFE /* MyBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB13677246F2DC700A2DFFE /* MyBook.swift */; };
 		4BBE1109247557CB009E401C /* MyComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BBE1108247557CB009E401C /* MyComponent.swift */; };
 		4BBFBC0D2470DDE400509E69 /* BookNavigationLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BBFBC0C2470DDE400509E69 /* BookNavigationLink.swift */; };
+		4BCB63E32697F4CA00847E88 /* MondrianLayoutDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 4BCB63E22697F4CA00847E88 /* MondrianLayoutDynamic */; };
+		4BCB63E72697F4E600847E88 /* MondrianLayoutDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 4BCB63E62697F4E600847E88 /* MondrianLayoutDynamic */; };
+		4BCB63EB2697F4FA00847E88 /* MondrianLayoutDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 4BCB63EA2697F4FA00847E88 /* MondrianLayoutDynamic */; };
+		4BCB63EC2697F4FA00847E88 /* MondrianLayoutDynamic in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 4BCB63EA2697F4FA00847E88 /* MondrianLayoutDynamic */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		4BF6F4B2246F3349001830D5 /* BookInteractive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF6F4B1246F3349001830D5 /* BookInteractive.swift */; };
 		4BFE5FDF2663D8D500C5C032 /* BookPush.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFE5FDE2663D8D500C5C032 /* BookPush.swift */; };
 		9523242A23D1C76C00677D5A /* MyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9523242923D1C76C00677D5A /* MyLabel.swift */; };
@@ -141,6 +145,27 @@
 				4BB03C1922267075006E9E49 /* StorybookKit.framework in Embed Frameworks */,
 				4B3B4B662663C9AB0065E84E /* StorybookKitTextureSupport.framework in Embed Frameworks */,
 				4BB03C1D22267075006E9E49 /* StorybookUI.framework in Embed Frameworks */,
+				4BCB63EC2697F4FA00847E88 /* MondrianLayoutDynamic in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4BCB63E52697F4CA00847E88 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4BCB63E92697F4E600847E88 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -242,6 +267,7 @@
 				4B3B4B652663C9AB0065E84E /* StorybookKitTextureSupport.framework in Frameworks */,
 				4BB03C1822267075006E9E49 /* StorybookKit.framework in Frameworks */,
 				4BB03C1C22267075006E9E49 /* StorybookUI.framework in Frameworks */,
+				4BCB63EB2697F4FA00847E88 /* MondrianLayoutDynamic in Frameworks */,
 				ACB75B33D364CFE6EF3D352D /* Pods_Demo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -259,6 +285,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BCB63E32697F4CA00847E88 /* MondrianLayoutDynamic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,6 +293,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BCB63E72697F4E600847E88 /* MondrianLayoutDynamic in Frameworks */,
 				957A89572226629900CDD25D /* StorybookKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -561,6 +589,9 @@
 				4B3B4B642663C9AB0065E84E /* PBXTargetDependency */,
 			);
 			name = Demo;
+			packageProductDependencies = (
+				4BCB63EA2697F4FA00847E88 /* MondrianLayoutDynamic */,
+			);
 			productName = Demo;
 			productReference = 4BB03C0622267064006E9E49 /* Demo.app */;
 			productType = "com.apple.product-type.application";
@@ -593,12 +624,16 @@
 				957A893D2226620900CDD25D /* Sources */,
 				957A893E2226620900CDD25D /* Frameworks */,
 				957A893F2226620900CDD25D /* Resources */,
+				4BCB63E52697F4CA00847E88 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = StorybookKit;
+			packageProductDependencies = (
+				4BCB63E22697F4CA00847E88 /* MondrianLayoutDynamic */,
+			);
 			productName = StorybookKit;
 			productReference = 957A89412226620900CDD25D /* StorybookKit.framework */;
 			productType = "com.apple.product-type.framework";
@@ -611,6 +646,7 @@
 				957A894A2226621400CDD25D /* Sources */,
 				957A894B2226621400CDD25D /* Frameworks */,
 				957A894C2226621400CDD25D /* Resources */,
+				4BCB63E92697F4E600847E88 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -618,6 +654,9 @@
 				957A89592226629F00CDD25D /* PBXTargetDependency */,
 			);
 			name = StorybookUI;
+			packageProductDependencies = (
+				4BCB63E62697F4E600847E88 /* MondrianLayoutDynamic */,
+			);
 			productName = StorybookUI;
 			productReference = 957A894E2226621400CDD25D /* StorybookUI.framework */;
 			productType = "com.apple.product-type.framework";
@@ -663,6 +702,9 @@
 				Base,
 			);
 			mainGroup = 957A89272226610200CDD25D;
+			packageReferences = (
+				4BCB63E12697F4CA00847E88 /* XCRemoteSwiftPackageReference "MondrianLayout" */,
+			);
 			productRefGroup = 957A89322226610200CDD25D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1393,6 +1435,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4BCB63E12697F4CA00847E88 /* XCRemoteSwiftPackageReference "MondrianLayout" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/muukii/MondrianLayout.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.10;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4BCB63E22697F4CA00847E88 /* MondrianLayoutDynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4BCB63E12697F4CA00847E88 /* XCRemoteSwiftPackageReference "MondrianLayout" */;
+			productName = MondrianLayoutDynamic;
+		};
+		4BCB63E62697F4E600847E88 /* MondrianLayoutDynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4BCB63E12697F4CA00847E88 /* XCRemoteSwiftPackageReference "MondrianLayout" */;
+			productName = MondrianLayoutDynamic;
+		};
+		4BCB63EA2697F4FA00847E88 /* MondrianLayoutDynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4BCB63E12697F4CA00847E88 /* XCRemoteSwiftPackageReference "MondrianLayout" */;
+			productName = MondrianLayoutDynamic;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 957A89282226610200CDD25D /* Project object */;
 }

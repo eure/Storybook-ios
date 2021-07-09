@@ -99,3 +99,9 @@ public struct BookNodePreview<Node: ASDisplayNode>: BookView {
   }
 
 }
+
+extension ComponentBuilder {
+  public static func buildExpression(_ node: ASDisplayNode) -> BookTree {
+    return BookNodePreview(nodeBlock: { node }).asTree()
+  }
+}

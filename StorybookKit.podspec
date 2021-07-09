@@ -12,7 +12,8 @@ Pod::Spec.new do |s|
 
   s.module_name = s.name
   s.requires_arc = true
-  s.ios.deployment_target = "10.0"
+  s.ios.deployment_target = "12.0"
   s.ios.frameworks = ["UIKit"]
   s.swift_version = "5.3"
+  s.dependency "MondrianLayout", ">=0.0.8"
 end
