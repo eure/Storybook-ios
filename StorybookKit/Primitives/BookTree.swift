@@ -36,39 +36,39 @@ public indirect enum BookTree: BookView {
   }
 }
 
-@_functionBuilder
+@resultBuilder
 public enum ComponentBuilder {
   
   public static func buildBlock<E: BookViewRepresentableType>(_ element: E) -> BookTree {
     return .viewRepresentable(.init(element))
   }
-  
-  public static func buildExpression(_ component: _BookView) -> BookTree {
-    return component.asTree()
-  }
-  
-  public static func buildBlock(_ component: _BookView) -> BookTree {
-    return component.asTree()
-  }
-  
-  public static func buildBlock(_ components: _BookView...) -> BookTree {
-    return .array(components.map { $0.asTree() })
-  }
-  
+
   public static func buildExpression(_ components: [_BookView]) -> BookTree {
     return .array(components.map { $0.asTree() })
   }
-  
+
   public static func buildExpression<BookView: _BookView>(_ components: [BookView]) -> BookTree {
     return .array(components.map { $0.asTree() })
   }
-  
+
+  public static func buildExpression(_ component: _BookView) -> BookTree {
+    return component.asTree()
+  }
+
+  public static func buildExpression(_ view: UIView) -> BookTree {
+    return BookPreview(viewBlock: { view }).asTree()
+  }
+
+  public static func buildBlock(_ components: _BookView...) -> BookTree {
+    return .array(components.map { $0.asTree() })
+  }
+
   public static func buildIf(_ value: _BookView?) -> BookTree {
     return .single(value)
   }
 }
 
-@_functionBuilder
+@resultBuilder
 public enum AlphabeticalNavigationLinkBuilder {
   
   public static func buildBlock(_ component: BookNavigationLink) -> BookTree {
