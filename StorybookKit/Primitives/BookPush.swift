@@ -57,6 +57,7 @@ public struct BookPush: BookViewRepresentableType {
 
       self.pushButton.setTitle(title + "➡️", for: .normal)
       self.pushButton.titleLabel?.font = .boldSystemFont(ofSize: 18)
+      self.pushButton.titleLabel?.numberOfLines = 0
       if #available(iOS 13.0, *) {
         self.pushButton.tintColor = .label
       } else {
