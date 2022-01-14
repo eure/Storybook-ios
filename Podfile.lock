@@ -1,4 +1,5 @@
 PODS:
+  - MondrianLayout (0.9.0)
   - PINCache (3.0.3):
     - PINCache/Arc-exception-safe (= 3.0.3)
     - PINCache/Core (= 3.0.3)
@@ -54,6 +55,7 @@ PODS:
     - Texture/Core (>= 3)
 
 DEPENDENCIES:
+  - MondrianLayout (>= 0.8.0)
   - Reveal-SDK
   - Texture (>= 3.0.0)
   - TextureBridging
@@ -61,6 +63,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - MondrianLayout
     - PINCache
     - PINOperation
     - PINRemoteImage
@@ -70,6 +73,7 @@ SPEC REPOS:
     - TextureSwiftSupport
 
 SPEC CHECKSUMS:
+  MondrianLayout: 9f16c5ddf0fd50f32a787987ca538677f1de5908
   PINCache: 7a8fc1a691173d21dbddbf86cd515de6efa55086
   PINOperation: 00c935935f1e8cf0d1e2d6b542e75b88fc3e5e20
   PINRemoteImage: f1295b29f8c5e640e25335a1b2bd9d805171bd01
@@ -78,6 +82,6 @@ SPEC CHECKSUMS:
   TextureBridging: b4035a6a9e64d061f3238f3dc08abd36b8eff8f7
   TextureSwiftSupport: 60449bfcf95cd5fc0c331f3f753810365172aa87
 
-PODFILE CHECKSUM: 18f39ddac861f17bc1d06581c1af84a900b7404a
+PODFILE CHECKSUM: 69ef530a523de9e7b39a6558721aed22c2aaaf16
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.11.2

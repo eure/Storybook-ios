@@ -77,6 +77,7 @@
 		957A897D2226699E00CDD25D /* SeparatorStackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957A89792226699E00CDD25D /* SeparatorStackCell.swift */; };
 		ACB75B33D364CFE6EF3D352D /* Pods_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2C634BE1EFF2E937BA82C4C /* Pods_Demo.framework */; };
 		C96EE36A50FD1F31311E8A0D /* Pods_MyUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6002FAA92E154DBC64C9C8A9 /* Pods_MyUIKit.framework */; };
+		F3B79E8AAFC1D5A6DE0D239D /* Pods_StorybookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C56F1917713F1CFD5F838FC8 /* Pods_StorybookUI.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -150,6 +151,7 @@
 
 /* Begin PBXFileReference section */
 		329D2AC3F14381E5B214D0AA /* Pods_StorybookKitTextureSupport.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StorybookKitTextureSupport.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		48D951622B9D94AEF939B4F8 /* Pods-StorybookUI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StorybookUI.debug.xcconfig"; path = "Target Support Files/Pods-StorybookUI/Pods-StorybookUI.debug.xcconfig"; sourceTree = "<group>"; };
 		4B126885246D8F3D00F5DA51 /* BookViewPresentableType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookViewPresentableType.swift; sourceTree = "<group>"; };
 		4B128FFF268A031C00CD1940 /* BookScope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookScope.swift; sourceTree = "<group>"; };
 		4B1582072619BC740072569A /* StorybookFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorybookFilterViewController.swift; sourceTree = "<group>"; };
@@ -223,7 +225,9 @@
 		9BBFF863B8AF50660B498506 /* Pods-StorybookKitTextureSupport.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StorybookKitTextureSupport.debug.xcconfig"; path = "Target Support Files/Pods-StorybookKitTextureSupport/Pods-StorybookKitTextureSupport.debug.xcconfig"; sourceTree = "<group>"; };
 		A8BB215BD78166AA0C914DC3 /* Pods-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Demo.debug.xcconfig"; path = "Target Support Files/Pods-Demo/Pods-Demo.debug.xcconfig"; sourceTree = "<group>"; };
 		C2C634BE1EFF2E937BA82C4C /* Pods_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C56F1917713F1CFD5F838FC8 /* Pods_StorybookUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StorybookUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC0D3EC766BF34CBEA56D083 /* Pods-MyUIKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyUIKit.release.xcconfig"; path = "Target Support Files/Pods-MyUIKit/Pods-MyUIKit.release.xcconfig"; sourceTree = "<group>"; };
+		E035FFEE8A4ECECC20C93952 /* Pods-StorybookUI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StorybookUI.release.xcconfig"; path = "Target Support Files/Pods-StorybookUI/Pods-StorybookUI.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -269,6 +273,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				957A89572226629900CDD25D /* StorybookKit.framework in Frameworks */,
+				F3B79E8AAFC1D5A6DE0D239D /* Pods_StorybookUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,6 +289,8 @@
 				DC0D3EC766BF34CBEA56D083 /* Pods-MyUIKit.release.xcconfig */,
 				9BBFF863B8AF50660B498506 /* Pods-StorybookKitTextureSupport.debug.xcconfig */,
 				9A7D243771974D4FF205141D /* Pods-StorybookKitTextureSupport.release.xcconfig */,
+				48D951622B9D94AEF939B4F8 /* Pods-StorybookUI.debug.xcconfig */,
+				E035FFEE8A4ECECC20C93952 /* Pods-StorybookUI.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -470,6 +477,7 @@
 				C2C634BE1EFF2E937BA82C4C /* Pods_Demo.framework */,
 				6002FAA92E154DBC64C9C8A9 /* Pods_MyUIKit.framework */,
 				329D2AC3F14381E5B214D0AA /* Pods_StorybookKitTextureSupport.framework */,
+				C56F1917713F1CFD5F838FC8 /* Pods_StorybookUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -610,6 +618,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 957A89532226621400CDD25D /* Build configuration list for PBXNativeTarget "StorybookUI" */;
 			buildPhases = (
+				EC984F53C77ECFDB0AB4B5A0 /* [CP] Check Pods Manifest.lock */,
 				957A89492226621400CDD25D /* Headers */,
 				957A894A2226621400CDD25D /* Sources */,
 				957A894B2226621400CDD25D /* Frameworks */,
@@ -798,6 +807,28 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-Demo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EC984F53C77ECFDB0AB4B5A0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-StorybookUI-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1017,6 +1048,7 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Demo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1038,6 +1070,7 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Demo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1286,6 +1319,7 @@
 		};
 		957A89542226621400CDD25D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 48D951622B9D94AEF939B4F8 /* Pods-StorybookUI.debug.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
@@ -1298,6 +1332,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = StorybookUI/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1314,6 +1349,7 @@
 		};
 		957A89552226621400CDD25D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E035FFEE8A4ECECC20C93952 /* Pods-StorybookUI.release.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
@@ -1326,6 +1362,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = StorybookUI/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

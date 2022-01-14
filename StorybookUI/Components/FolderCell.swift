@@ -20,6 +20,7 @@
 // THE SOFTWARE.
 
 import UIKit
+import MondrianLayout
 
 final class FolderCell : HighlightStackCell {
 
@@ -39,21 +40,18 @@ final class FolderCell : HighlightStackCell {
     addTarget(self, action: #selector(_didTap), for: .touchUpInside)
 
     titleLabel.numberOfLines = 0
-    titleLabel.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
+    titleLabel.font = UIFont.preferredFont(forTextStyle: .headline)
     titleLabel.textColor = tintColor
 
-    titleLabel.translatesAutoresizingMaskIntoConstraints = false
-    addSubview(titleLabel)
+    Mondrian.buildSubviews(on: self) {
+      titleLabel
+        .viewBlock
+        .padding(.vertical, 8)
+        .padding(.horizontal, 24)
+        .height(.min(12))
+    }
 
-    NSLayoutConstraint.activate([
-      titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 8),
-      titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24.0),
-      titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
-      titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
-      titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 12.0)
-    ])
-
-    set(title: title + " ›")
+    set(title: title + " ⇢")
 
   }
 
