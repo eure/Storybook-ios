@@ -36,7 +36,7 @@ public indirect enum BookTree: BookView {
   }
 }
 
-@_functionBuilder
+@resultBuilder
 public enum ComponentBuilder {
   
   public static func buildBlock<E: BookViewRepresentableType>(_ element: E) -> BookTree {
@@ -66,9 +66,18 @@ public enum ComponentBuilder {
   public static func buildIf(_ value: _BookView?) -> BookTree {
     return .single(value)
   }
+
+  public static func buildEither(first component: BookTree) -> BookTree {
+    return .single(component)
+  }
+
+  public static func buildEither(second component: BookTree) -> BookTree {
+    return .single(component)
+  }
+
 }
 
-@_functionBuilder
+@resultBuilder
 public enum AlphabeticalNavigationLinkBuilder {
   
   public static func buildBlock(_ component: BookNavigationLink) -> BookTree {

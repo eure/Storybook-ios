@@ -40,11 +40,7 @@ final class FolderCell : HighlightStackCell {
 
     titleLabel.numberOfLines = 0
     titleLabel.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
-    if #available(iOS 13.0, *) {
-      titleLabel.textColor = .link
-    } else {
-      titleLabel.textColor = .systemBlue
-    }
+    titleLabel.textColor = tintColor
 
     titleLabel.translatesAutoresizingMaskIntoConstraints = false
     addSubview(titleLabel)
@@ -73,6 +69,10 @@ final class FolderCell : HighlightStackCell {
 
   @objc private dynamic func _didTap() {
     didTapAction()
+  }
+
+  override func tintColorDidChange() {
+    titleLabel.textColor = tintColor
   }
 
 }
