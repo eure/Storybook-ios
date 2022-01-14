@@ -50,6 +50,8 @@ extension BookTree {
         for i in v {
           findLinks(i)
         }
+      case .present:
+        break
       }
     }
 
@@ -81,6 +83,8 @@ extension BookTree {
             return result
           }
         }
+        return nil
+      case .present:
         return nil
       }
     }

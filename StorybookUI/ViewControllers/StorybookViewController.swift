@@ -262,6 +262,8 @@ fileprivate func flatten(_ tree: BookTree) -> BookTree {
       v.forEach {
         _flatten(buffer: &buffer, tree: $0)
       }
+    case .present:
+      buffer.append(tree)
     }
   }
 

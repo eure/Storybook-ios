@@ -51,7 +51,7 @@ final class FolderCell : HighlightStackCell {
         .height(.min(12))
     }
 
-    set(title: title + " ⇢")
+    set(title: "\(title) ⇢")
 
   }
 

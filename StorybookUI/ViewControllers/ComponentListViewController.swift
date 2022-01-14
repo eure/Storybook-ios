@@ -59,6 +59,8 @@ final class ComponentListViewController: StackScrollViewController {
         v.forEach {
           makeCells(buffer: &buffer, component: $0)
         }
+      case .present(let v):
+        buffer.append(PresentCell(title: v.title, presentedViewControllerBlock: v.presentedViewControllerBlock))
       }
 
     }
@@ -71,5 +73,4 @@ final class ComponentListViewController: StackScrollViewController {
   }
 
 }
-
 
