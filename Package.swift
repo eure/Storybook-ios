@@ -1,4 +1,4 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.5
 import PackageDescription
 
 let package = Package(
@@ -10,7 +10,9 @@ let package = Package(
         .library(name: "StorybookKit", targets: ["StorybookKit"]),
         .library(name: "StorybookUI", targets: ["StorybookUI"])
     ],
-    dependencies: [],
+    dependencies: [
+        .package(url: "https://github.com/muukii/MondrianLayout.git", from: "0.8.0")
+    ],
     targets: [
         .target(
             name: "StorybookKit",
@@ -19,7 +21,7 @@ let package = Package(
         ),
         .target(
             name: "StorybookUI",
-            dependencies: ["StorybookKit"],
+            dependencies: ["StorybookKit", "MondrianLayout"],
             path: "StorybookUI"
         )
     ]
