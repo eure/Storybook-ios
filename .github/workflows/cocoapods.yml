@@ -11,13 +11,13 @@ jobs:
           xcode-version: "13.2"
       - uses: actions/checkout@v2
       - name: Lint Cocoapods
-        run: pod lib lint StorybookKit.podspec
+        run: pod lib lint StorybookKit.podspec --allow-warnings
   StorybookUI:
     runs-on: macos-latest
     steps:
       - uses: maxim-lobanov/setup-xcode@v1.2.3
         with:
-          xcode-version: "12.4"
+          xcode-version: "13.2"
       - uses: actions/checkout@v2
       - name: Lint Cocoapods
         run: pod lib lint --include-podspecs=StorybookKit.podspec StorybookUI.podspec --allow-warnings
