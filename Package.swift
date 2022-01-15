@@ -17,7 +17,8 @@ let package = Package(
         .target(
             name: "StorybookKit",
             dependencies: [],
-            path: "StorybookKit"
+            path: "StorybookKit",
+            excludes: ["Info.plist"]
         ),
         .target(
             name: "StorybookUI",
