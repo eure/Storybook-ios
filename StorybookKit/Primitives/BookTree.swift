@@ -25,6 +25,8 @@ public indirect enum BookTree: BookView {
   case folder(BookNavigationLink)
   case viewRepresentable(AnyBookViewRepresentable)
   case present(BookPresent)
+  case push(BookPush)
+  case spacer(BookSpacer)
   case single(_BookView?)
   case array([BookTree])
   

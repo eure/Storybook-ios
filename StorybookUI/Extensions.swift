@@ -52,6 +52,10 @@ extension BookTree {
         }
       case .present:
         break
+      case .push:
+        break
+      case .spacer:
+        break
       }
     }
 
@@ -85,6 +89,10 @@ extension BookTree {
         }
         return nil
       case .present:
+        return nil
+      case .push:
+        return nil
+      case .spacer:
         return nil
       }
     }

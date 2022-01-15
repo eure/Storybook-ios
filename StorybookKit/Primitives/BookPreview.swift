@@ -82,15 +82,13 @@ public struct BookPreview<View: UIView>: BookView {
       )
       if buttons.isEmpty == false {
         BookSpacer(height: 8)
-        BookPadding(padding: .init(top: 0, left: 20, bottom: 0, right: 20)) {
-          _BookButtons(
-            buttons: ContiguousArray(
-              buttons.map { args in
-                (args.0, { args.1(createdView!) })
-              }
-            )
+        _BookButtons(
+          buttons: ContiguousArray(
+            buttons.map { args in
+              (args.0, { args.1(createdView!) })
+            }
           )
-        }
+        )
       }
       BookCallout(
         text: """

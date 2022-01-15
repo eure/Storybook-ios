@@ -264,6 +264,10 @@ fileprivate func flatten(_ tree: BookTree) -> BookTree {
       }
     case .present:
       buffer.append(tree)
+    case .push:
+      buffer.append(tree)
+    case .spacer:
+      buffer.append(tree)
     }
   }
 

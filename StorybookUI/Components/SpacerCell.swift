@@ -22,55 +22,18 @@
 import UIKit
 import MondrianLayout
 
-final class FolderCell : HighlightStackCell {
+final class SpacerCell: UIView {
 
-  // MARK: Properties
+  init(height: CGFloat) {
+    super.init(frame: .zero)
 
-  private let titleLabel = UILabel()
-
-  private let didTapAction: () -> Void
-
-  // MARK: - Initializers
-
-  init(title: String, didTap: @escaping () -> Void = {}) {
-
-    self.didTapAction = didTap
-    super.init()
-
-    addTarget(self, action: #selector(_didTap), for: .touchUpInside)
-
-    titleLabel.numberOfLines = 0
-    titleLabel.font = UIFont.preferredFont(forTextStyle: .headline)
-    titleLabel.textColor = tintColor
-
-    Mondrian.buildSubviews(on: self) {
-      titleLabel
-        .viewBlock
-        .padding(.vertical, 8)
-        .padding(.horizontal, 24)
-        .height(.min(12))
+    Mondrian.layout {
+      mondrian.layout.height(height)
     }
-
-    set(title: "\(title) ↩︎")
-
   }
 
-  required init?(coder aDecoder: NSCoder) {
+  required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
-  }
-
-  // MARK: - Functions
-
-  func set(title: String) {
-    titleLabel.text = title
-  }
-
-  @objc private dynamic func _didTap() {
-    didTapAction()
-  }
-
-  override func tintColorDidChange() {
-    titleLabel.textColor = tintColor
   }
 
 }

@@ -22,11 +22,15 @@
 import UIKit
 
 /// A component descriptor that previewing with push presentation.
-public struct BookPush: BookViewRepresentableType {
+public struct BookPush: BookView {
 
   public let pushingViewControllerBlock: () -> UIViewController
 
   public let title: String
+
+  public var body: BookView {
+    fatalError()
+  }
 
   public init(
     title: String,
@@ -36,69 +40,8 @@ public struct BookPush: BookViewRepresentableType {
     self.pushingViewControllerBlock = pushingViewControllerBlock
   }
 
-  public func makeView() -> UIView {
-    _View(
-      title: title,
-      pushingViewControllerBlock: pushingViewControllerBlock
-    )
-  }
-
-  private final class _View: UIView {
-
-    private let pushButton: UIButton
-    private let pushingViewControllerBlock: () -> UIViewController
-
-    init(title: String, pushingViewControllerBlock: @escaping () -> UIViewController) {
-
-      self.pushButton = UIButton(type: .system)
-      self.pushingViewControllerBlock = pushingViewControllerBlock
-
-      super.init(frame: .zero)
-
-      self.pushButton.setTitle(title + "➡️", for: .normal)
-      self.pushButton.titleLabel?.font = .boldSystemFont(ofSize: 18)
-      self.pushButton.titleLabel?.numberOfLines = 0
-      if #available(iOS 13.0, *) {
-        self.pushButton.tintColor = .label
-      } else {
-        self.pushButton.tintColor = .darkText
-      }
-      self.pushButton.addTarget(self, action: #selector(onTapPushButton), for: .touchUpInside)
-
-      addSubview(pushButton)
-
-      pushButton.translatesAutoresizingMaskIntoConstraints = false
-
-      NSLayoutConstraint.activate([
-
-        pushButton.topAnchor.constraint(equalTo: topAnchor, constant: 16),
-        pushButton.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -layoutMargins.right),
-        pushButton.leftAnchor.constraint(greaterThanOrEqualTo: leftAnchor, constant: layoutMargins.left),
-        pushButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16.0),
-        pushButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-
-      ])
-    }
-
-    public required init?(coder: NSCoder) {
-      fatalError("init(coder:) has not been implemented")
-    }
-
-    @objc
-    private func onTapPushButton() {
-
-      let presentingViewControllerCandidate = sequence(first: next, next: { $0?.next }).first { $0 is UIViewController } as? UIViewController
-
-      guard let navigationController = presentingViewControllerCandidate?.navigationController else {
-        assertionFailure()
-        return
-      }
-
-      let viewController = pushingViewControllerBlock()
-
-      navigationController.pushViewController(viewController, animated: true)
-
-    }
+  public func asTree() -> BookTree {
+    return .push(self)
   }
 
 }
