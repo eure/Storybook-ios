@@ -221,10 +221,8 @@
 		9523243323D201F600677D5A /* HighlightStackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightStackCell.swift; sourceTree = "<group>"; };
 		957A89412226620900CDD25D /* StorybookKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorybookKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		957A89432226620900CDD25D /* StorybookKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorybookKit.h; sourceTree = "<group>"; };
-		957A89442226620900CDD25D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		957A894E2226621400CDD25D /* StorybookUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorybookUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		957A89502226621400CDD25D /* StorybookUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorybookUI.h; sourceTree = "<group>"; };
-		957A89512226621400CDD25D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		957A895A2226661600CDD25D /* StorybookKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorybookKit.swift; sourceTree = "<group>"; };
 		957A895C2226662500CDD25D /* StorybookUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorybookUI.swift; sourceTree = "<group>"; };
 		957A89682226695A00CDD25D /* CodeBased.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeBased.swift; sourceTree = "<group>"; };
@@ -465,7 +463,6 @@
 				4B15BB322667B274006A0D04 /* Compositions */,
 				4B15BB312667B217006A0D04 /* Primitives */,
 				957A89432226620900CDD25D /* StorybookKit.h */,
-				957A89442226620900CDD25D /* Info.plist */,
 				4B2A664A247A91B100FEC120 /* BookLorem.swift */,
 				4B126885246D8F3D00F5DA51 /* BookViewPresentableType.swift */,
 				957A895A2226661600CDD25D /* StorybookKit.swift */,
@@ -481,7 +478,6 @@
 			children = (
 				4B1FE7822489008200C90F6A /* StackScrollView */,
 				957A89502226621400CDD25D /* StorybookUI.h */,
-				957A89512226621400CDD25D /* Info.plist */,
 				957A89682226695A00CDD25D /* CodeBased.swift */,
 				957A895C2226662500CDD25D /* StorybookUI.swift */,
 				9523243123D2002200677D5A /* ViewControllers */,
