@@ -37,10 +37,10 @@ public struct BookNavigationLink: BookView {
   public let declarationIdentifier: DeclarationIdentifier
 
   public init(
-    title: String,
     _ file: StaticString = #file,
     _ line: UInt = #line,
     _ column: UInt = #column,
+    title: String,
     @ComponentBuilder closure: () -> _BookView
   ) {
     self.title = title

@@ -19,14 +19,19 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import UIKit
 import StorybookKit
+import UIKit
 
 final class ComponentListViewController: StackScrollViewController {
 
-  var onSelectedLink: (BookNavigationLink) -> Void = { _ in }
+  enum Action {
+    case onSelected(DeclarationIdentifier)
+  }
 
-  init(component: BookTree, onSelectedLink: @escaping (BookNavigationLink) -> Void) {
+  init(
+    component: BookTree,
+    actionHandler: @escaping (Action) -> Void
+  ) {
 
     super.init()
 
@@ -35,17 +40,20 @@ final class ComponentListViewController: StackScrollViewController {
       switch component {
       case .folder(let v):
         buffer.append(
-          FolderCell(title: v.title, didTap: { [weak self] in
+          FolderCell(
+            title: v.title,
+            didTap: { [weak self] in
 
-            onSelectedLink(v)
+              actionHandler(.onSelected(v.declarationIdentifier))
 
-            let nextController = ComponentListViewController(
-              component: v.component,
-              onSelectedLink: onSelectedLink
-            )
-            nextController.title = v.title
-            self?.showDetailViewController(nextController, sender: self)
-          })
+              let nextController = ComponentListViewController(
+                component: v.component,
+                actionHandler: actionHandler
+              )
+              nextController.title = v.title
+              self?.showDetailViewController(nextController, sender: self)
+            }
+          )
         )
       case .single(let v):
         if let v = v {
@@ -60,9 +68,31 @@ final class ComponentListViewController: StackScrollViewController {
           makeCells(buffer: &buffer, component: $0)
         }
       case .push(let push):
-        buffer.append(PushCell(title: push.title, pushingViewControllerBlock: push.pushingViewControllerBlock))
-      case .present(let v):
-        buffer.append(PresentCell(title: v.title, presentedViewControllerBlock: v.presentedViewControllerBlock))
+        buffer.append(
+          PushCell(
+            title: push.title,
+            actionHandler: { action in
+              switch action {
+              case .onSelected:
+                actionHandler(.onSelected(push.declarationIdentifier))
+              }
+            },
+            pushingViewControllerBlock: push.pushingViewControllerBlock
+          )
+        )
+      case .present(let present):
+        buffer.append(
+          PresentCell(
+            title: present.title,
+            actionHandler: { action in
+              switch action {
+              case .onSelected:
+                actionHandler(.onSelected(present.declarationIdentifier))
+              }
+            },
+            presentedViewControllerBlock: present.presentedViewControllerBlock
+          )
+        )
       case .spacer(let spacer):
         buffer.append(SpacerCell(height: spacer.height))
       }
@@ -77,4 +107,3 @@ final class ComponentListViewController: StackScrollViewController {
   }
 
 }
-

@@ -28,16 +28,26 @@ public struct BookPresent: BookView {
     return .present(self)
   }
 
+  public let declarationIdentifier: DeclarationIdentifier
   public let presentedViewControllerBlock: () -> UIViewController
 
   public let title: String
 
   public init(
+    _ file: StaticString = #file,
+    _ line: UInt = #line,
+    _ column: UInt = #column,
     title: String,
     presentingViewControllerBlock: @escaping () -> UIViewController
   ) {
     self.title = title
     self.presentedViewControllerBlock = presentingViewControllerBlock
+    self.declarationIdentifier = .init(
+      file: file.description,
+      line: line,
+      column: column,
+      typeName: _typeName(type(of: self))
+    )
   }
 
   public var body: BookView {

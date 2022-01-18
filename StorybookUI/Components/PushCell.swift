@@ -19,18 +19,29 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import UIKit
 import MondrianLayout
+import UIKit
 
 final class PushCell: UIView {
+
+  enum Action {
+    case onSelected
+  }
+
+  public let actionHandler: (Action) -> Void
 
   private let pushButton: UIButton
   private let pushingViewControllerBlock: () -> UIViewController
 
-  init(title: String, pushingViewControllerBlock: @escaping () -> UIViewController) {
+  init(
+    title: String,
+    actionHandler: @escaping (Action) -> Void,
+    pushingViewControllerBlock: @escaping () -> UIViewController
+  ) {
 
     self.pushButton = UIButton(type: .system)
     self.pushingViewControllerBlock = pushingViewControllerBlock
+    self.actionHandler = actionHandler
 
     super.init(frame: .zero)
 
@@ -50,19 +61,25 @@ final class PushCell: UIView {
 
   }
 
-  public required init?(coder: NSCoder) {
+  public required init?(
+    coder: NSCoder
+  ) {
     fatalError("init(coder:) has not been implemented")
   }
 
   @objc
   private func onTapPushButton() {
 
-    let presentingViewControllerCandidate = sequence(first: next, next: { $0?.next }).first { $0 is UIViewController } as? UIViewController
+    let presentingViewControllerCandidate =
+      sequence(first: next, next: { $0?.next }).first { $0 is UIViewController }
+      as? UIViewController
 
     guard let navigationController = presentingViewControllerCandidate?.navigationController else {
       assertionFailure()
       return
     }
+
+    actionHandler(.onSelected)
 
     let viewController = pushingViewControllerBlock()
 

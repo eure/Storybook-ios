@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "Storybook::StorybookKit"
+               BlueprintIdentifier = "957A89402226620900CDD25D"
                BuildableName = "StorybookKit.framework"
                BlueprintName = "StorybookKit"
                ReferencedContainer = "container:Storybook.xcodeproj">
@@ -28,7 +28,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "Storybook::StorybookUI"
+               BlueprintIdentifier = "957A894D2226621400CDD25D"
                BuildableName = "StorybookUI.framework"
                BlueprintName = "StorybookUI"
                ReferencedContainer = "container:Storybook.xcodeproj">

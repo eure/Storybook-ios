@@ -19,81 +19,37 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+import StorybookKit
 import UIKit
 
-import StorybookKit
-
-final class HistoryManager {
-
-  static let shared = HistoryManager()
-
-  private let userDefaults = UserDefaults(suiteName: "jp.eure.storybook")!
-
-  private let decoder = JSONDecoder()
-  private let encoder = JSONEncoder()
-
-  var history: History = .init()
-
-  init() {
-    loadHistory()
-  }
-
-  func updateHistory(_ update: (inout History) -> Void) {
-    update(&history)
-    do {
-      let data = try encoder.encode(history)
-      userDefaults.set(data, forKey: "history")
-    } catch {
-      print("Warning: Failed to encode a history to store UserDefaults")
-    }
-  }
-
-  private func loadHistory() {
-    guard let data = userDefaults.data(forKey: "history") else { return }
-    do {
-      let instance = try decoder.decode(History.self, from: data)
-      self.history = instance
-    } catch {
-      print("Warning: failed to load a history instance")
-    }
-  }
-}
-
-struct History: Codable {
-
-  private var selectedLinks: [DeclarationIdentifier : Date] = [:]
-
-  func loadSelected() -> [DeclarationIdentifier] {
-    selectedLinks.sorted(by: { $0.value > $1.value }).map { $0.key }
-  }
-
-  mutating func addLink(_ identifier: DeclarationIdentifier) {
-    selectedLinks[identifier] = .init()
-  }
-}
-
-public final class StorybookViewController : UISplitViewController {
+public final class StorybookViewController: UISplitViewController {
 
   private let historyManager = HistoryManager.shared
-  
+
   public typealias DismissHandler = (StorybookViewController) -> Void
-  
+
   private var mainViewController: UINavigationController!
-  
+
   private let secondaryViewController = UINavigationController()
-  
+
   private let dismissHandler: DismissHandler?
-  
-  public init(book: Book, dismissHandler: DismissHandler?) {
+
+  public init(
+    book: Book,
+    dismissHandler: DismissHandler?
+  ) {
 
     self.dismissHandler = dismissHandler
 
     super.init(nibName: nil, bundle: nil)
 
-    let history = historyManager.history.loadSelected().compactMap {
-      book.component.findLink(by: $0)
-    }
-    .prefix(8)
+    let history = historyManager
+      .history
+      .loadSelected()
+      .compactMap {
+        book.component.findLink(by: $0)
+      }
+      .prefix(8)
 
     let root = BookGroup {
       BookPage(title: book.title) {
@@ -116,16 +72,24 @@ public final class StorybookViewController : UISplitViewController {
 
     let menuController = ComponentListViewController(
       component: root.asTree(),
-      onSelectedLink: { [weak self] link in
-        self?.historyManager.updateHistory { (history) in
-          history.addLink(link.declarationIdentifier)
+      actionHandler: { [weak self] action in
+        switch action {
+        case .onSelected(let identifier):
+          self?.historyManager.updateHistory { (history) in
+            history.addLink(identifier)
+          }
         }
-    })
+      }
+    )
 
     self.mainViewController = UINavigationController(rootViewController: menuController)
 
     if dismissHandler != nil {
-      let dismissButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(didTapDismissButton))
+      let dismissButton = UIBarButtonItem(
+        barButtonSystemItem: .done,
+        target: self,
+        action: #selector(didTapDismissButton)
+      )
       menuController.navigationItem.leftBarButtonItem = dismissButton
     }
 
@@ -135,54 +99,56 @@ public final class StorybookViewController : UISplitViewController {
     ]
 
   }
-    
+
   @available(*, unavailable)
-  required init?(coder aDecoder: NSCoder) {
+  required init?(
+    coder aDecoder: NSCoder
+  ) {
     fatalError("init(coder:) has not been implemented")
   }
-  
+
   public override func viewDidLoad() {
     super.viewDidLoad()
-    
+
     delegate = self
     preferredDisplayMode = .allVisible
-    
+
   }
-  
+
   public override func showDetailViewController(_ vc: UIViewController, sender: Any?) {
-    
+
     if isCollapsed {
       super.showDetailViewController(vc, sender: sender)
     } else {
       super.showDetailViewController(UINavigationController(rootViewController: vc), sender: sender)
     }
-    
+
   }
-  
+
   @objc private func didTapDismissButton() {
     dismissHandler?(self)
   }
-  
+
   public override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
-    
+
     if #available(iOS 13.0, *) {
       if motion == .motionShake {
         didShake()
       }
     }
   }
-  
+
   @available(iOS 13.0, *)
   private func didShake() {
 
-    let currentStyle: String = {      
+    let currentStyle: String = {
       switch overrideUserInterfaceStyle {
       case .light: return "Light"
       case .dark: return "Dark"
       case .unspecified: break
       @unknown default: break
       }
-      
+
       switch traitCollection.userInterfaceStyle {
       case .light: return "System (Light)"
       case .dark: return "System (Dark)"
@@ -196,57 +162,83 @@ public final class StorybookViewController : UISplitViewController {
       message: "current: \(currentStyle)",
       preferredStyle: .actionSheet
     )
-    
-    c.addAction(.init(
-      title: "System",
-      style: .default,
-      handler: { _ in self.overrideUserInterfaceStyle = .unspecified }
-      ))
 
-    c.addAction(.init(
-      title: "Light",
-      style: .default,
-      handler: { _ in self.overrideUserInterfaceStyle = .light }
-      ))
+    c.addAction(
+      .init(
+        title: "System",
+        style: .default,
+        handler: { _ in self.overrideUserInterfaceStyle = .unspecified }
+      )
+    )
 
-    c.addAction(.init(
-      title: "Dark",
-      style: .default,
-      handler: { _ in self.overrideUserInterfaceStyle = .dark }
-      ))
+    c.addAction(
+      .init(
+        title: "Light",
+        style: .default,
+        handler: { _ in self.overrideUserInterfaceStyle = .light }
+      )
+    )
+
+    c.addAction(
+      .init(
+        title: "Dark",
+        style: .default,
+        handler: { _ in self.overrideUserInterfaceStyle = .dark }
+      )
+    )
 
     c.addAction(.init(title: "Cancel", style: .cancel))
     present(c, animated: true)
   }
 }
 
-extension StorybookViewController : UISplitViewControllerDelegate {
-  
-  public func splitViewController(_ svc: UISplitViewController, willChangeTo displayMode: UISplitViewController.DisplayMode) {
+extension StorybookViewController: UISplitViewControllerDelegate {
+
+  public func splitViewController(
+    _ svc: UISplitViewController,
+    willChangeTo displayMode: UISplitViewController.DisplayMode
+  ) {
   }
-  
-  public func splitViewController(_ splitViewController: UISplitViewController, show vc: UIViewController, sender: Any?) -> Bool {
+
+  public func splitViewController(
+    _ splitViewController: UISplitViewController,
+    show vc: UIViewController,
+    sender: Any?
+  ) -> Bool {
     return true
   }
-  
-  public func splitViewController(_ splitViewController: UISplitViewController, showDetail vc: UIViewController, sender: Any?) -> Bool {
+
+  public func splitViewController(
+    _ splitViewController: UISplitViewController,
+    showDetail vc: UIViewController,
+    sender: Any?
+  ) -> Bool {
     return false
   }
-  
-  public func splitViewControllerSupportedInterfaceOrientations(_ splitViewController: UISplitViewController) -> UIInterfaceOrientationMask {
+
+  public func splitViewControllerSupportedInterfaceOrientations(
+    _ splitViewController: UISplitViewController
+  ) -> UIInterfaceOrientationMask {
     return .all
   }
-  
-  public func splitViewController(_ splitViewController: UISplitViewController, separateSecondaryFrom primaryViewController: UIViewController) -> UIViewController? {
+
+  public func splitViewController(
+    _ splitViewController: UISplitViewController,
+    separateSecondaryFrom primaryViewController: UIViewController
+  ) -> UIViewController? {
     return secondaryViewController
   }
-  
-  public func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
+
+  public func splitViewController(
+    _ splitViewController: UISplitViewController,
+    collapseSecondary secondaryViewController: UIViewController,
+    onto primaryViewController: UIViewController
+  ) -> Bool {
     return true
   }
 }
 
-fileprivate func flatten(_ tree: BookTree) -> BookTree {
+private func flatten(_ tree: BookTree) -> BookTree {
 
   func _flatten(buffer: inout [BookTree], tree: BookTree) {
     switch tree {

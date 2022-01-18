@@ -43,6 +43,7 @@
 		4B81F7A5246F41E5009C7602 /* BookPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B81F7A4246F41E5009C7602 /* BookPadding.swift */; };
 		4B81F7A7246F49F5009C7602 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B81F7A6246F49F5009C7602 /* Book.swift */; };
 		4B81F7A9246F4A45009C7602 /* BookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B81F7A8246F4A45009C7602 /* BookView.swift */; };
+		4B9FF5DC2796AF7200EDCD77 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9FF5DB2796AF7200EDCD77 /* History.swift */; };
 		4BB03C0122266C1F006E9E49 /* TapStackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB03C0022266C1F006E9E49 /* TapStackCell.swift */; };
 		4BB03C0922267064006E9E49 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB03C0822267064006E9E49 /* AppDelegate.swift */; };
 		4BB03C0B22267064006E9E49 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB03C0A22267064006E9E49 /* ViewController.swift */; };
@@ -192,6 +193,7 @@
 		4B81F7A4246F41E5009C7602 /* BookPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookPadding.swift; sourceTree = "<group>"; };
 		4B81F7A6246F49F5009C7602 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		4B81F7A8246F4A45009C7602 /* BookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookView.swift; sourceTree = "<group>"; };
+		4B9FF5DB2796AF7200EDCD77 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		4BB03C0022266C1F006E9E49 /* TapStackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapStackCell.swift; sourceTree = "<group>"; };
 		4BB03C0622267064006E9E49 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BB03C0822267064006E9E49 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -425,6 +427,7 @@
 				957A89722226697600CDD25D /* StackScrollViewController.swift */,
 				957A89712226697600CDD25D /* StorybookViewController.swift */,
 				4B1582072619BC740072569A /* StorybookFilterViewController.swift */,
+				4B9FF5DB2796AF7200EDCD77 /* History.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -914,6 +917,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B9FF5DC2796AF7200EDCD77 /* History.swift in Sources */,
 				4BC54CC22791DDE600E91FE0 /* PresentCell.swift in Sources */,
 				9523243423D201F600677D5A /* HighlightStackCell.swift in Sources */,
 				4B1FE787248900C300C90F6A /* StackCellType.swift in Sources */,
@@ -1286,7 +1290,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = StorybookKit/Info.plist;
+				GENERATE_INFOPLIST_FILE = YES;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1314,7 +1318,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = StorybookKit/Info.plist;
+				GENERATE_INFOPLIST_FILE = YES;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1342,7 +1346,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = StorybookUI/Info.plist;
+				GENERATE_INFOPLIST_FILE = YES;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1372,7 +1376,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = StorybookUI/Info.plist;
+				GENERATE_INFOPLIST_FILE = YES;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
