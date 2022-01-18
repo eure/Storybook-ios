@@ -65,9 +65,9 @@ extension BookTree {
 
   }
 
-  func findLink(by identifier: DeclarationIdentifier) -> BookNavigationLink? {
+  func findLink(by identifier: DeclarationIdentifier) -> BookView? {
 
-    func findLink(_ tree: BookTree) -> BookNavigationLink? {
+    func findLink(_ tree: BookTree) -> BookView? {
       switch tree {
       case .folder(let v):
         if v.declarationIdentifier == identifier {
@@ -88,10 +88,18 @@ extension BookTree {
           }
         }
         return nil
-      case .present:
-        return nil
-      case .push:
-        return nil
+      case .present(let v):
+        if v.declarationIdentifier == identifier {
+          return v
+        } else {
+          return nil
+        }
+      case .push(let v):
+        if v.declarationIdentifier == identifier {
+          return v
+        } else {
+          return nil
+        }
       case .spacer:
         return nil
       }

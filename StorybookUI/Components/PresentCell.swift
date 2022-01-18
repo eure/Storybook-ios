@@ -23,16 +23,24 @@ import UIKit
 
 final class PresentCell: UIView {
 
+  enum Action {
+    case onSelected
+  }
+
+  public let actionHandler: (Action) -> Void
+
   private let presentButton: UIButton
   private let presentedViewControllerBlock: () -> UIViewController
 
   public init(
     title: String,
+    actionHandler: @escaping (Action) -> Void,
     presentedViewControllerBlock: @escaping () -> UIViewController
   ) {
 
     self.presentButton = UIButton(type: .system)
     self.presentedViewControllerBlock = presentedViewControllerBlock
+    self.actionHandler = actionHandler
 
     super.init(frame: .zero)
 
@@ -78,6 +86,8 @@ final class PresentCell: UIView {
       assertionFailure()
       return
     }
+
+    actionHandler(.onSelected)
 
     let viewController = presentedViewControllerBlock()
 

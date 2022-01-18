@@ -25,6 +25,7 @@ import UIKit
 public struct BookPush: BookView {
 
   public let pushingViewControllerBlock: () -> UIViewController
+  public let declarationIdentifier: DeclarationIdentifier
 
   public let title: String
 
@@ -33,11 +34,20 @@ public struct BookPush: BookView {
   }
 
   public init(
+    _ file: StaticString = #file,
+    _ line: UInt = #line,
+    _ column: UInt = #column,
     title: String,
     pushingViewControllerBlock: @escaping () -> UIViewController
   ) {
     self.title = title
     self.pushingViewControllerBlock = pushingViewControllerBlock
+    self.declarationIdentifier = .init(
+      file: file.description,
+      line: line,
+      column: column,
+      typeName: _typeName(type(of: self))
+    )
   }
 
   public func asTree() -> BookTree {

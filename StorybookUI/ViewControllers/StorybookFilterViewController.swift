@@ -97,9 +97,12 @@ public final class StorybookFilterViewController: UIViewController, UISearchBarD
 
     let resultController = ComponentListViewController(
       component: resultBook.component,
-      onSelectedLink: { [weak self] link in
-        self?.historyManager.updateHistory { (history) in
-          history.addLink(link.declarationIdentifier)
+      actionHandler: { [weak self] action in
+        switch action {
+        case .onSelected(let identifier):
+          self?.historyManager.updateHistory { (history) in
+            history.addLink(identifier)
+          }
         }
       }
     )
