@@ -29,6 +29,8 @@
 		4B3B4B662663C9AB0065E84E /* StorybookKitTextureSupport.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4B3B4B502663C9AB0065E84E /* StorybookKitTextureSupport.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4B3B4B6E2663CA490065E84E /* BookNodePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3B4B6D2663CA490065E84E /* BookNodePreview.swift */; };
 		4B3B4B6F2663CA620065E84E /* StorybookKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 957A89412226620900CDD25D /* StorybookKit.framework */; };
+		4B6847F727C8955400071544 /* BookAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6847F627C8955400071544 /* BookAction.swift */; };
+		4B6847F927C898D800071544 /* ActionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6847F827C898D800071544 /* ActionCell.swift */; };
 		4B6B83442668967D003DBF31 /* BookGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6B83432668967D003DBF31 /* BookGenerator.swift */; };
 		4B6DDB952470FD4000240EE8 /* BookPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6DDB942470FD4000240EE8 /* BookPreview.swift */; };
 		4B7F852C2470AADD00CC4459 /* BookPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7F852B2470AADD00CC4459 /* BookPage.swift */; };
@@ -179,6 +181,8 @@
 		4B3B4B522663C9AB0065E84E /* StorybookKitTextureSupport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorybookKitTextureSupport.h; sourceTree = "<group>"; };
 		4B3B4B532663C9AB0065E84E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4B3B4B6D2663CA490065E84E /* BookNodePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookNodePreview.swift; sourceTree = "<group>"; };
+		4B6847F627C8955400071544 /* BookAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookAction.swift; sourceTree = "<group>"; };
+		4B6847F827C898D800071544 /* ActionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionCell.swift; sourceTree = "<group>"; };
 		4B6B83432668967D003DBF31 /* BookGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookGenerator.swift; sourceTree = "<group>"; };
 		4B6DDB942470FD4000240EE8 /* BookPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookPreview.swift; sourceTree = "<group>"; };
 		4B7F852B2470AADD00CC4459 /* BookPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookPage.swift; sourceTree = "<group>"; };
@@ -348,6 +352,7 @@
 				4BF6F4B1246F3349001830D5 /* BookInteractive.swift */,
 				4B7F852B2470AADD00CC4459 /* BookPage.swift */,
 				4B15BB332667CF43006A0D04 /* BookCallout.swift */,
+				4B6847F627C8955400071544 /* BookAction.swift */,
 			);
 			path = Primitives;
 			sourceTree = "<group>";
@@ -499,6 +504,7 @@
 				4B81173D246F31F10054BDFC /* FolderCell.swift */,
 				4B1FE789248902A800C90F6A /* ResizeDetectingView.swift */,
 				4BC54CC12791DDE600E91FE0 /* PresentCell.swift */,
+				4B6847F827C898D800071544 /* ActionCell.swift */,
 				4BE726D9279291E4005BD094 /* SpacerCell.swift */,
 				4BE726DB27929423005BD094 /* PushCell.swift */,
 			);
@@ -899,6 +905,7 @@
 				4BC54CC02791DB6500E91FE0 /* ComponentBuilder.swift in Sources */,
 				4B81F795246F3546009C7602 /* BookForEach.swift in Sources */,
 				4B81F7A7246F49F5009C7602 /* Book.swift in Sources */,
+				4B6847F727C8955400071544 /* BookAction.swift in Sources */,
 				4B7F852E2470AAFB00CC4459 /* BookSection.swift in Sources */,
 				4B2A664D247A925C00FEC120 /* BookPattern.swift in Sources */,
 				4B81F7A3246F3D83009C7602 /* BookPresent.swift in Sources */,
@@ -933,6 +940,7 @@
 				957A89752226697600CDD25D /* StackScrollViewController.swift in Sources */,
 				4B1FE78A248902A900C90F6A /* ResizeDetectingView.swift in Sources */,
 				4BB03C0122266C1F006E9E49 /* TapStackCell.swift in Sources */,
+				4B6847F927C898D800071544 /* ActionCell.swift in Sources */,
 				4B1FE788248900C300C90F6A /* StackScrollView.swift in Sources */,
 				4B81173E246F31F10054BDFC /* FolderCell.swift in Sources */,
 			);
