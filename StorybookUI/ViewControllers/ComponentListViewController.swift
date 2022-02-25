@@ -95,6 +95,14 @@ final class ComponentListViewController: StackScrollViewController {
         )
       case .spacer(let spacer):
         buffer.append(SpacerCell(height: spacer.height))
+      case .action(let action):
+        buffer.append(
+          ActionCell(
+            title: action.title,
+            action: { viewController in
+              action.action(viewController)
+          })
+        )
       }
 
     }

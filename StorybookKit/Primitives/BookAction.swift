@@ -19,24 +19,39 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-/// A structure of Book
-public indirect enum BookTree: BookView {
-  
-  case folder(BookNavigationLink)
-  case viewRepresentable(AnyBookViewRepresentable)
-  case present(BookPresent)
-  case push(BookPush)
-  case spacer(BookSpacer)
-  case single(_BookView?)
-  case array([BookTree])
-  case action(BookAction)
-  
-  public var body: BookView {
-    self
-  }
-  
-  public func asTree() -> BookTree {
-    self
-  }
-}
+import Foundation
 
+public struct BookAction: BookView {
+  
+  public let declarationIdentifier: DeclarationIdentifier
+  
+  public let action: (UIViewController) -> Void
+
+  public let title: String
+
+  public var body: BookView {
+    fatalError()
+  }
+
+  public init(
+    _ file: StaticString = #file,
+    _ line: UInt = #line,
+    _ column: UInt = #column,
+    title: String,
+    action: @escaping (UIViewController) -> Void
+  ) {
+    self.title = title
+    self.action = action
+    self.declarationIdentifier = .init(
+      file: file.description,
+      line: line,
+      column: column,
+      typeName: _typeName(type(of: self))
+    )
+  }
+
+  public func asTree() -> BookTree {
+    return .action(self)
+  }
+  
+}

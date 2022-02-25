@@ -56,6 +56,8 @@ extension BookTree {
         break
       case .spacer:
         break
+      case .action:
+        break
       }
     }
 
@@ -102,6 +104,12 @@ extension BookTree {
         }
       case .spacer:
         return nil
+      case .action(let v):
+        if v.declarationIdentifier == identifier {
+          return v
+        } else {
+          return nil
+        }
       }
     }
 

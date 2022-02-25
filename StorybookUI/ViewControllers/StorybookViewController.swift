@@ -260,6 +260,8 @@ private func flatten(_ tree: BookTree) -> BookTree {
       buffer.append(tree)
     case .spacer:
       buffer.append(tree)
+    case .action:
+      buffer.append(tree)
     }
   }
 
