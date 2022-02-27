@@ -100,6 +100,7 @@ final class ComponentListViewController: StackScrollViewController {
           ActionCell(
             title: action.title,
             action: { viewController in
+              actionHandler(.onSelected(action.declarationIdentifier))
               action.action(viewController)
           })
         )
