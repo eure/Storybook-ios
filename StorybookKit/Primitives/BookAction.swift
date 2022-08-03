@@ -26,7 +26,7 @@ public struct BookAction: BookView {
   
   public let declarationIdentifier: DeclarationIdentifier
   
-  public let action: (UIViewController) -> Void
+  public let action: @MainActor (UIViewController) -> Void
 
   public let title: String
 
@@ -39,7 +39,7 @@ public struct BookAction: BookView {
     _ line: UInt = #line,
     _ column: UInt = #column,
     title: String,
-    action: @escaping (UIViewController) -> Void
+    action: @escaping @MainActor (UIViewController) -> Void
   ) {
     self.title = title
     self.action = action

@@ -24,11 +24,11 @@ import UIKit
 final class ActionCell: UIView {
 
   private let actionButton: UIButton
-  private let action: (UIViewController) -> Void
+  private let action: @MainActor (UIViewController) -> Void
 
   public init(
     title: String,
-    action: @escaping (UIViewController) -> Void
+    action: @escaping @MainActor (UIViewController) -> Void
   ) {
 
     self.actionButton = UIButton(type: .system)
@@ -67,6 +67,7 @@ final class ActionCell: UIView {
     fatalError("init(coder:) has not been implemented")
   }
 
+  @MainActor
   @objc
   private func onTapPresentButton() {
 
