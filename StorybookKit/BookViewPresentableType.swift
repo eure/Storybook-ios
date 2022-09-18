@@ -22,6 +22,7 @@
 import UIKit
 
 public protocol BookViewRepresentableType: BookView {
+  @MainActor
   func makeView() -> UIView
 }
 

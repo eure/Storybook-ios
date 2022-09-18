@@ -26,9 +26,10 @@ public struct BookSection: BookView {
   public let title: String
   public let content: BookView
 
+  @MainActor
   public init(
     title: String,
-    @ComponentBuilder content: () -> BookView
+    @ComponentBuilder content: @MainActor () -> BookView
   ) {
     self.title = title
     self.content = content()

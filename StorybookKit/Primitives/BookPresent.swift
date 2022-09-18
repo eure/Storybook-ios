@@ -29,7 +29,7 @@ public struct BookPresent: BookView {
   }
 
   public let declarationIdentifier: DeclarationIdentifier
-  public let presentedViewControllerBlock: () -> UIViewController
+  public let presentedViewControllerBlock: @MainActor () -> UIViewController
 
   public let title: String
 
@@ -38,7 +38,7 @@ public struct BookPresent: BookView {
     _ line: UInt = #line,
     _ column: UInt = #column,
     title: String,
-    presentingViewControllerBlock: @escaping () -> UIViewController
+    presentingViewControllerBlock: @escaping @MainActor () -> UIViewController
   ) {
     self.title = title
     self.presentedViewControllerBlock = presentingViewControllerBlock

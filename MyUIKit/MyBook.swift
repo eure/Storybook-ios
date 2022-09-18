@@ -24,6 +24,7 @@ import Foundation
 
 import StorybookKit
 
+@MainActor
 public let myBook = Book(title: "MyUI") {
 
   BookParagraph("MyBook")
@@ -215,6 +216,7 @@ Something description about this section.
   
 }
 
+@MainActor
 fileprivate func labelExpandingTestBook() -> BookView {
 
   BookSection(title: "UILabel updating text") {

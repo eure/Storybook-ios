@@ -24,7 +24,7 @@ import UIKit
 /// A component descriptor that previewing with push presentation.
 public struct BookPush: BookView {
 
-  public let pushingViewControllerBlock: () -> UIViewController
+  public let pushingViewControllerBlock: @MainActor () -> UIViewController
   public let declarationIdentifier: DeclarationIdentifier
 
   public let title: String
@@ -38,7 +38,7 @@ public struct BookPush: BookView {
     _ line: UInt = #line,
     _ column: UInt = #column,
     title: String,
-    pushingViewControllerBlock: @escaping () -> UIViewController
+    pushingViewControllerBlock: @escaping @MainActor () -> UIViewController
   ) {
     self.title = title
     self.pushingViewControllerBlock = pushingViewControllerBlock

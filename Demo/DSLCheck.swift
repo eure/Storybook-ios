@@ -25,9 +25,10 @@ import StorybookKit
 
 enum DSLCheck {
 
+  @MainActor
   static func run() {
 
-    Book(title: "MyBook") {
+    _ = Book(title: "MyBook") {
       BookNavigationLink(title: "A") {
 
         BookPreview {
@@ -58,7 +59,7 @@ enum DSLCheck {
       }
     }
 
-    Book(title: "MyBook") {
+    _ = Book(title: "MyBook") {
       BookNavigationLink(title: "A") {
         BookPreview {
           UIView()

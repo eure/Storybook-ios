@@ -49,7 +49,7 @@ extension _BookView {
 
 public struct AnyBookViewRepresentable: BookViewRepresentableType {
 
-  private let _makeView: () -> UIView
+  private let _makeView: @MainActor () -> UIView
 
   public init<E: BookViewRepresentableType>(_ element: E) {
 

@@ -36,12 +36,13 @@ public struct BookNavigationLink: BookView {
   public let component: BookTree
   public let declarationIdentifier: DeclarationIdentifier
 
+  @MainActor
   public init(
     _ file: StaticString = #file,
     _ line: UInt = #line,
     _ column: UInt = #column,
     title: String,
-    @ComponentBuilder closure: () -> _BookView
+    @ComponentBuilder closure: @MainActor () -> _BookView
   ) {
     self.title = title
     self.component = closure().asTree()

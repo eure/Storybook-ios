@@ -31,7 +31,7 @@ public struct BookPreview<View: UIView>: BookView {
     }
   }()
 
-  public let viewBlock: () -> View
+  public let viewBlock: @MainActor () -> View
 
   public let declarationIdentifier: DeclarationIdentifier
   public let expandsWidth: Bool
@@ -47,7 +47,7 @@ public struct BookPreview<View: UIView>: BookView {
     expandsWidth: Bool = false,
     maxHeight: CGFloat? = nil,
     minHeight: CGFloat? = nil,
-    viewBlock: @escaping () -> View
+    viewBlock: @escaping @MainActor () -> View
   ) {
 
     self.maxHeight = maxHeight
@@ -141,7 +141,7 @@ public struct BookPreview<View: UIView>: BookView {
 /// A component descriptor that just displays UI-Component
 private struct _BookPreview<View: UIView>: BookViewRepresentableType {
 
-  let viewBlock: () -> View
+  let viewBlock: @MainActor () -> View
 
   let backgroundColor: UIColor
   let expandsWidth: Bool
@@ -153,7 +153,7 @@ private struct _BookPreview<View: UIView>: BookViewRepresentableType {
     maxHeight: CGFloat?,
     minHeight: CGFloat?,
     backgroundColor: UIColor,
-    viewBlock: @escaping () -> View
+    viewBlock: @escaping @MainActor () -> View
   ) {
 
     self.minHeight = minHeight

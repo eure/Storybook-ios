@@ -25,8 +25,9 @@ public struct Book {
 
   public let component: BookTree
   public let title: String
-
-  public init(title: String, @ComponentBuilder closure: () -> _BookView) {
+  
+  @MainActor
+  public init(title: String, @ComponentBuilder closure: @MainActor () -> _BookView) {
     self.title = title
     self.component = closure().asTree()
   }

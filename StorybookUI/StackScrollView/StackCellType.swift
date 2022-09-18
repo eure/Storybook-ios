@@ -22,10 +22,11 @@
 
 import UIKit
 
-protocol StackCellType : class {
+protocol StackCellType : AnyObject {
 
 }
 
+@MainActor
 extension StackCellType where Self : UIView {
 
   var stackScrollView: StackScrollView? {
