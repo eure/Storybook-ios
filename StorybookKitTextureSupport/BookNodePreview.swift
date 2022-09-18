@@ -40,7 +40,7 @@ public struct BookNodePreview<Node: ASDisplayNode>: BookView {
     _ column: UInt = #column,
     expandsWidth: Bool = false,
     preservedHeight: CGFloat? = nil,
-    nodeBlock: @escaping () -> Node
+    nodeBlock: @escaping @MainActor () -> Node
   ) {
 
     self.backing = .init(
@@ -90,6 +90,7 @@ public struct BookNodePreview<Node: ASDisplayNode>: BookView {
     }
   }
 
+  @MainActor
   public func addButton(
     _ title: String,
     handler: @escaping (Node) -> Void

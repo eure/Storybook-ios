@@ -27,15 +27,15 @@ final class PresentCell: UIView {
     case onSelected
   }
 
-  public let actionHandler: (Action) -> Void
+  public let actionHandler: @MainActor (Action) -> Void
 
   private let presentButton: UIButton
-  private let presentedViewControllerBlock: () -> UIViewController
+  private let presentedViewControllerBlock: @MainActor () -> UIViewController
 
   public init(
     title: String,
-    actionHandler: @escaping (Action) -> Void,
-    presentedViewControllerBlock: @escaping () -> UIViewController
+    actionHandler: @escaping @MainActor (Action) -> Void,
+    presentedViewControllerBlock: @escaping @MainActor () -> UIViewController
   ) {
 
     self.presentButton = UIButton(type: .system)

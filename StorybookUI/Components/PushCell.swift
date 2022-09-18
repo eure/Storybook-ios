@@ -28,15 +28,15 @@ final class PushCell: UIView {
     case onSelected
   }
 
-  public let actionHandler: (Action) -> Void
+  public let actionHandler: @MainActor (Action) -> Void
 
   private let pushButton: UIButton
-  private let pushingViewControllerBlock: () -> UIViewController
+  private let pushingViewControllerBlock: @MainActor () -> UIViewController
 
   init(
     title: String,
-    actionHandler: @escaping (Action) -> Void,
-    pushingViewControllerBlock: @escaping () -> UIViewController
+    actionHandler: @escaping @MainActor (Action) -> Void,
+    pushingViewControllerBlock: @escaping @MainActor () -> UIViewController
   ) {
 
     self.pushButton = UIButton(type: .system)
