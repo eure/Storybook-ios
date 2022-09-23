@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/FluidGroup/Descriptors",
         "state": {
           "branch": null,
-          "revision": "6b4ae4b9a62bc7950cca9325515264412f37411a",
-          "version": "0.2.1"
+          "revision": "174dbbaff40b455614b62ea3ed16771adde25e65",
+          "version": "0.2.2"
         }
       },
       {
@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/SDWebImage/libwebp-Xcode",
         "state": {
           "branch": null,
-          "revision": "2b3b43faaef54d1b897482428428357b7f7cd08b",
-          "version": "1.2.1"
+          "revision": "0f3bdb28a1edc5e8e43876d3835d20c601ef331f",
+          "version": "1.2.3"
         }
       },
       {
@@ -33,8 +33,8 @@
         "repositoryURL": "https://github.com/muukii/MondrianLayout.git",
         "state": {
           "branch": null,
-          "revision": "239bc0b02b8abbc211720476d1554b736832bb9c",
-          "version": "0.9.0"
+          "revision": "5f00b13984fe08316fc5b5be06e2f41c14a3befa",
+          "version": "0.10.0"
         }
       },
       {
@@ -78,7 +78,7 @@
         "repositoryURL": "https://github.com/FluidGroup/TextureBridging.git",
         "state": {
           "branch": "main",
-          "revision": "c0cc0aecafdf9d93ac2754499ffaefe5182c20f9",
+          "revision": "ed8d3ac84c3fda90832c793fdeb8972154bd15fe",
           "version": null
         }
       },
@@ -87,7 +87,7 @@
         "repositoryURL": "https://github.com/FluidGroup/TextureSwiftSupport.git",
         "state": {
           "branch": "main",
-          "revision": "d554ba6835b92b427eef85a5ac2ae77a6f644d90",
+          "revision": "775e0336d096f3299caff9905a06c0ced40e687f",
           "version": null
         }
       }
