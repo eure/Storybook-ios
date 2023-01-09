@@ -20,6 +20,7 @@
 // THE SOFTWARE.
 
 import UIKit
+import Foundation
 
 public enum BookGenerator {
 
@@ -32,6 +33,18 @@ public enum BookGenerator {
 
   public static func loremIpsum(length: Int) -> String {
     BookLorem.ipsum(length)
+  }
+  
+  public static func randomEmoji() -> String {
+    let range = 0x1F601...0x1F64F
+    let ascii = range.lowerBound + Int(arc4random_uniform(UInt32(range.count)))
+    
+    var view = String.UnicodeScalarView()
+    view.append(UnicodeScalar(ascii)!)
+    
+    let emoji = String(view)
+    
+    return emoji
   }
 
 }
