@@ -34,21 +34,14 @@ public struct BookAction: BookView {
     fatalError()
   }
 
+  @MainActor
   public init(
-    _ file: StaticString = #file,
-    _ line: UInt = #line,
-    _ column: UInt = #column,
     title: String,
     action: @escaping @MainActor (UIViewController) -> Void
   ) {
     self.title = title
     self.action = action
-    self.declarationIdentifier = .init(
-      file: file.description,
-      line: line,
-      column: column,
-      typeName: _typeName(type(of: self))
-    )
+    self.declarationIdentifier = .init()
   }
 
   public func asTree() -> BookTree {
