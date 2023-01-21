@@ -23,11 +23,18 @@ import Foundation
 
 public struct DeclarationIdentifier: Hashable, Codable {
 
-  public let file: String
-  public let line: UInt
-  public let column: UInt
-  public let typeName: String
+  public let index: Int
+  
+  @MainActor
+  init() {
+    index = counter
+    counter += 1
+  }
 }
+
+//private var map: [String : Int] =
+@MainActor
+private var counter: Int = 0
 
 /// A component that displays a disclosure view.
 public struct BookNavigationLink: BookView {
@@ -38,20 +45,12 @@ public struct BookNavigationLink: BookView {
 
   @MainActor
   public init(
-    _ file: StaticString = #file,
-    _ line: UInt = #line,
-    _ column: UInt = #column,
     title: String,
     @ComponentBuilder closure: @MainActor () -> _BookView
   ) {
     self.title = title
     self.component = closure().asTree()
-    self.declarationIdentifier = .init(
-      file: file.description,
-      line: line,
-      column: column,
-      typeName: _typeName(type(of: self))
-    )
+    self.declarationIdentifier = .init()
   }
 
   public var body: BookView {

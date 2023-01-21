@@ -33,21 +33,14 @@ public struct BookPresent: BookView {
 
   public let title: String
 
+  @MainActor
   public init(
-    _ file: StaticString = #file,
-    _ line: UInt = #line,
-    _ column: UInt = #column,
     title: String,
     presentingViewControllerBlock: @escaping @MainActor () -> UIViewController
   ) {
     self.title = title
     self.presentedViewControllerBlock = presentingViewControllerBlock
-    self.declarationIdentifier = .init(
-      file: file.description,
-      line: line,
-      column: column,
-      typeName: _typeName(type(of: self))
-    )
+    self.declarationIdentifier = .init()
   }
 
   public var body: BookView {

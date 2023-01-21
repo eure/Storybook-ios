@@ -39,28 +39,28 @@ public struct BookPreview<View: UIView>: BookView {
   public let minHeight: CGFloat?
 
   private var buttons: ContiguousArray<(title: String, handler: (View) -> Void)> = .init()
+  
+  private let file: StaticString
+  private let line: UInt
 
+  @MainActor
   public init(
     _ file: StaticString = #file,
     _ line: UInt = #line,
-    _ column: UInt = #column,
     expandsWidth: Bool = false,
     maxHeight: CGFloat? = nil,
     minHeight: CGFloat? = nil,
     viewBlock: @escaping @MainActor () -> View
   ) {
-
+    
+    self.file = file
+    self.line = line
     self.maxHeight = maxHeight
     self.minHeight = minHeight
     self.expandsWidth = expandsWidth
     self.viewBlock = viewBlock
 
-    self.declarationIdentifier = .init(
-      file: file.description,
-      line: line,
-      column: column,
-      typeName: _typeName(type(of: self))
-    )
+    self.declarationIdentifier = .init()
 
   }
 
@@ -92,7 +92,7 @@ public struct BookPreview<View: UIView>: BookView {
       }
       BookCallout(
         text: """
-          \(declarationIdentifier.file):\(declarationIdentifier.line)
+          \(file):\(line)
           """
       )
       .font(

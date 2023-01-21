@@ -34,18 +34,14 @@ public struct BookNodePreview<Node: ASDisplayNode>: BookView {
     backing.backgroundColor
   }
 
+  @MainActor
   public init(
-    _ file: StaticString = #file,
-    _ line: UInt = #line,
-    _ column: UInt = #column,
     expandsWidth: Bool = false,
     preservedHeight: CGFloat? = nil,
     nodeBlock: @escaping @MainActor () -> Node
   ) {
 
-    self.backing = .init(
-      file, line, column
-    ) {
+    self.backing = .init {
 
       let body = nodeBlock()
 

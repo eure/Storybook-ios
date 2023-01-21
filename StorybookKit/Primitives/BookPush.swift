@@ -33,21 +33,14 @@ public struct BookPush: BookView {
     fatalError()
   }
 
+  @MainActor
   public init(
-    _ file: StaticString = #file,
-    _ line: UInt = #line,
-    _ column: UInt = #column,
     title: String,
     pushingViewControllerBlock: @escaping @MainActor () -> UIViewController
   ) {
     self.title = title
     self.pushingViewControllerBlock = pushingViewControllerBlock
-    self.declarationIdentifier = .init(
-      file: file.description,
-      line: line,
-      column: column,
-      typeName: _typeName(type(of: self))
-    )
+    self.declarationIdentifier = .init()
   }
 
   public func asTree() -> BookTree {
