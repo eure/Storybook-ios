@@ -139,8 +139,8 @@ public struct BookPreview<View: UIView>: BookView {
   }
 
   public func previewFrame(
-    width: CGFloat,
-    height: CGFloat
+    width: CGFloat?,
+    height: CGFloat?
   ) -> Self {
     modified {
       $0.frameConstraint.idealWidth = width

@@ -99,8 +99,8 @@ public struct BookNodePreview<Node: ASDisplayNode>: BookView {
   }
 
   public func previewFrame(
-    width: CGFloat,
-    height: CGFloat
+    width: CGFloat?,
+    height: CGFloat?
   ) -> Self {
     modified {
       $0.backing = $0.backing.previewFrame(width: width, height: height)
