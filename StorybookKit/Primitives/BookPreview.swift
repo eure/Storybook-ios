@@ -21,6 +21,15 @@
 
 import UIKit
 
+private struct FrameConstraint {
+  var minWidth: CGFloat? = nil
+  var idealWidth: CGFloat? = nil
+  var maxWidth: CGFloat? = nil
+  var minHeight: CGFloat? = nil
+  var idealHeight: CGFloat? = nil
+  var maxHeight: CGFloat? = nil
+}
+
 public struct BookPreview<View: UIView>: BookView {
 
   public var backgroundColor: UIColor = {
@@ -34,15 +43,15 @@ public struct BookPreview<View: UIView>: BookView {
   public let viewBlock: @MainActor () -> View
 
   public let declarationIdentifier: DeclarationIdentifier
-  public let expandsWidth: Bool
-  public let maxHeight: CGFloat?
-  public let minHeight: CGFloat?
 
   private var buttons: ContiguousArray<(title: String, handler: (View) -> Void)> = .init()
-  
+
   private let file: StaticString
   private let line: UInt
+  private var name: String?
+  private var frameConstraint: FrameConstraint = .init()
 
+  @available(*, deprecated, message: "Use .previewFrame() to specify content frame")
   @MainActor
   public init(
     _ file: StaticString = #file,
@@ -52,12 +61,31 @@ public struct BookPreview<View: UIView>: BookView {
     minHeight: CGFloat? = nil,
     viewBlock: @escaping @MainActor () -> View
   ) {
-    
+
     self.file = file
     self.line = line
-    self.maxHeight = maxHeight
-    self.minHeight = minHeight
-    self.expandsWidth = expandsWidth
+
+    self.frameConstraint = .init(
+      maxWidth: expandsWidth ? .infinity : nil,
+      minHeight: minHeight,
+      maxHeight: maxHeight
+    )
+
+    self.viewBlock = viewBlock
+
+    self.declarationIdentifier = .init()
+
+  }
+
+  @MainActor
+  public init(
+    _ file: StaticString = #file,
+    _ line: UInt = #line,
+    viewBlock: @escaping @MainActor () -> View
+  ) {
+
+    self.file = file
+    self.line = line
     self.viewBlock = viewBlock
 
     self.declarationIdentifier = .init()
@@ -70,9 +98,7 @@ public struct BookPreview<View: UIView>: BookView {
 
     return BookGroup {
       _BookPreview(
-        expandsWidth: expandsWidth,
-        maxHeight: maxHeight,
-        minHeight: minHeight,
+        frameConstraint: frameConstraint,
         backgroundColor: backgroundColor,
         viewBlock: {
           let view = self.viewBlock()
@@ -105,6 +131,39 @@ public struct BookPreview<View: UIView>: BookView {
         }()
       )
       BookSpacer(height: 16)
+    }
+  }
+
+  public func foo() {
+
+  }
+
+  public func previewFrame(
+    width: CGFloat,
+    height: CGFloat
+  ) -> Self {
+    modified {
+      $0.frameConstraint.idealWidth = width
+      $0.frameConstraint.idealHeight = height
+    }
+  }
+
+  public func previewFrame(
+    minWidth: CGFloat? = nil,
+    idealWidth: CGFloat? = nil,
+    maxWidth: CGFloat? = nil,
+    minHeight: CGFloat? = nil,
+    idealHeight: CGFloat? = nil,
+    maxHeight: CGFloat? = nil
+  ) -> Self {
+    modified {
+      $0.frameConstraint.minWidth = minWidth
+      $0.frameConstraint.maxWidth = maxWidth
+      $0.frameConstraint.minHeight = minHeight
+      $0.frameConstraint.maxHeight = maxHeight
+
+      $0.frameConstraint.idealWidth = idealWidth
+      $0.frameConstraint.idealHeight = idealHeight
     }
   }
 
@@ -144,21 +203,15 @@ private struct _BookPreview<View: UIView>: BookViewRepresentableType {
   let viewBlock: @MainActor () -> View
 
   let backgroundColor: UIColor
-  let expandsWidth: Bool
-  let maxHeight: CGFloat?
-  let minHeight: CGFloat?
+  let frameConstraint: FrameConstraint
 
   init(
-    expandsWidth: Bool,
-    maxHeight: CGFloat?,
-    minHeight: CGFloat?,
+    frameConstraint: FrameConstraint,
     backgroundColor: UIColor,
     viewBlock: @escaping @MainActor () -> View
   ) {
 
-    self.minHeight = minHeight
-    self.maxHeight = maxHeight
-    self.expandsWidth = expandsWidth
+    self.frameConstraint = frameConstraint
     self.backgroundColor = backgroundColor
     self.viewBlock = viewBlock
   }
@@ -166,9 +219,7 @@ private struct _BookPreview<View: UIView>: BookViewRepresentableType {
   func makeView() -> UIView {
     let view = _View(
       element: viewBlock(),
-      expandsWidth: expandsWidth,
-      maxHeight: maxHeight,
-      minHeight: minHeight
+      frameConstraint: frameConstraint
     )
     view.backgroundColor = backgroundColor
     return view
@@ -176,60 +227,101 @@ private struct _BookPreview<View: UIView>: BookViewRepresentableType {
 
   private final class _View: UIView {
 
-    public init() {
+    init() {
       super.init(frame: .zero)
     }
 
     @available(*, unavailable)
-    public required init?(
+    required init?(
       coder aDecoder: NSCoder
     ) {
       fatalError("init(coder:) has not been implemented")
     }
 
-    public convenience init(
+    convenience init(
       element: UIView,
-      expandsWidth: Bool,
-      maxHeight: CGFloat?,
-      minHeight: CGFloat?,
-      insets: UIEdgeInsets = .init(top: 16, left: 0, bottom: 16, right: 0)
+      frameConstraint: FrameConstraint
     ) {
+
       self.init()
 
       element.translatesAutoresizingMaskIntoConstraints = false
+      element.setContentHuggingPriority(.defaultLow, for: .horizontal)
+      element.setContentHuggingPriority(.defaultLow, for: .vertical)
+
       addSubview(element)
 
-      if expandsWidth {
+      var constraints: [NSLayoutConstraint] = []
 
-        NSLayoutConstraint.activate([
-          element.topAnchor.constraint(equalTo: topAnchor, constant: insets.top),
-          element.rightAnchor.constraint(equalTo: rightAnchor, constant: -insets.right),
-          element.leftAnchor.constraint(equalTo: leftAnchor, constant: insets.left),
-          element.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -insets.bottom),
-        ])
-
-      } else {
-
-        NSLayoutConstraint.activate([
-          element.topAnchor.constraint(equalTo: topAnchor, constant: insets.top),
-          element.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -insets.right),
-          element.leftAnchor.constraint(greaterThanOrEqualTo: leftAnchor, constant: insets.left),
-          element.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -insets.bottom),
-          element.centerXAnchor.constraint(equalTo: centerXAnchor),
-        ])
+      if let maxWidth = frameConstraint.maxWidth {
+        if (maxWidth == .infinity) || (maxWidth == .greatestFiniteMagnitude) {
+          let c = element.widthAnchor.constraint(equalToConstant: 5000)
+          c.priority = .fittingSizeLevel
+          constraints.append(
+            c
+          )
+        } else {
+          constraints.append(
+            element.widthAnchor.constraint(lessThanOrEqualToConstant: maxWidth)
+          )
+        }
       }
 
-      if let maxHeight = maxHeight {
-        NSLayoutConstraint.activate([
-          element.heightAnchor.constraint(lessThanOrEqualToConstant: maxHeight),
-        ])
+      if let maxHeight = frameConstraint.minHeight {
+
+        if (maxHeight == .infinity) || (maxHeight == .greatestFiniteMagnitude) {
+          let c = element.heightAnchor.constraint(equalToConstant: 5000)
+          c.priority = .fittingSizeLevel
+          constraints.append(
+            c
+          )
+        } else {
+
+          constraints.append(
+            element.heightAnchor.constraint(lessThanOrEqualToConstant: maxHeight)
+          )
+        }
       }
 
-      if let minHeight = minHeight {
-        NSLayoutConstraint.activate([
-          element.heightAnchor.constraint(greaterThanOrEqualToConstant: minHeight),
-        ])
+      if let minWidth = frameConstraint.minWidth {
+        constraints.append(
+          element.widthAnchor.constraint(greaterThanOrEqualToConstant: minWidth)
+        )
       }
+
+      if let minHeight = frameConstraint.minHeight {
+
+        constraints.append(
+          element.heightAnchor.constraint(greaterThanOrEqualToConstant: minHeight)
+        )
+      }
+
+      if let idealWidth = frameConstraint.idealWidth {
+        constraints.append(
+          element.widthAnchor.constraint(equalToConstant: idealWidth)
+        )
+      }
+
+      if let idealHeight = frameConstraint.idealHeight {
+        constraints.append(
+          element.heightAnchor.constraint(equalToConstant: idealHeight)
+        )
+      }
+
+      constraints.append(contentsOf: [
+
+        element.centerXAnchor.constraint(equalTo: centerXAnchor),
+        element.centerYAnchor.constraint(equalTo: centerYAnchor),
+
+        element.topAnchor.constraint(greaterThanOrEqualTo: topAnchor),
+        element.leftAnchor.constraint(greaterThanOrEqualTo: leftAnchor),
+        element.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor),
+        element.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor),
+
+      ])
+
+      NSLayoutConstraint.activate(constraints)
+
     }
 
   }
