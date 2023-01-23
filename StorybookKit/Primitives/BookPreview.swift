@@ -134,10 +134,6 @@ public struct BookPreview<View: UIView>: BookView {
     }
   }
 
-  public func foo() {
-
-  }
-
   public func previewFrame(
     width: CGFloat?,
     height: CGFloat?
