@@ -87,16 +87,20 @@ Something description about this section.
           }
 
           BookPreview {
-            let view = UIView(frame: .init(x: 0, y: 0, width: 80, height: 80))
+            let view = UIView(frame: .null)
             view.backgroundColor = .systemPurple
-            NSLayoutConstraint.activate([
-              view.widthAnchor.constraint(equalToConstant: 80),
-              view.heightAnchor.constraint(equalToConstant: 80),
-            ])
             return view
           }
+          .previewFrame(width: 80, height: 80)
           .title("A component")
-
+          
+          BookPreview {
+            let view = UIView(frame: .init(x: 0, y: 0, width: 80, height: 80))
+            view.backgroundColor = .systemPurple
+            return view
+          }
+          .previewFrame(maxWidth: .greatestFiniteMagnitude, idealHeight: 10)
+          
         }
 
         BookSection(title: "Section") { () -> BookView in

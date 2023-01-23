@@ -19,11 +19,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
-
 import AsyncDisplayKit
-import TextureBridging
+import Foundation
 import StorybookKit
+import TextureBridging
 import TextureSwiftSupport
 
 public struct BookNodePreview<Node: ASDisplayNode>: BookView {
@@ -36,12 +35,14 @@ public struct BookNodePreview<Node: ASDisplayNode>: BookView {
 
   @MainActor
   public init(
+    _ file: StaticString = #file,
+    _ line: UInt = #line,
     expandsWidth: Bool = false,
     preservedHeight: CGFloat? = nil,
     nodeBlock: @escaping @MainActor () -> Node
   ) {
 
-    self.backing = .init {
+    self.backing = .init(file, line) {
 
       let body = nodeBlock()
 
@@ -70,10 +71,60 @@ public struct BookNodePreview<Node: ASDisplayNode>: BookView {
       return NodeView(node: node)
     }
   }
+  
+  @MainActor
+  public init(
+    _ file: StaticString = #file,
+    _ line: UInt = #line,
+    nodeBlock: @escaping @MainActor () -> Node
+  ) {
+    
+    self.backing = .init(file, line) {
+      let body = nodeBlock()
+      
+      let node = AnyDisplayNode { _, size in
+        return LayoutSpec {
+          VStackLayout { body.flexGrow(1).flexShrink(1) }
+        }
+      }
+      return NodeView(node: node)
+    }
+    
+  }
+
 
   public var body: BookView {
     backing
       .backgroundColor(backgroundColor)
+  }
+
+  public func previewFrame(
+    width: CGFloat?,
+    height: CGFloat?
+  ) -> Self {
+    modified {
+      $0.backing = $0.backing.previewFrame(width: width, height: height)
+    }
+  }
+
+  public func previewFrame(
+    minWidth: CGFloat? = nil,
+    idealWidth: CGFloat? = nil,
+    maxWidth: CGFloat? = nil,
+    minHeight: CGFloat? = nil,
+    idealHeight: CGFloat? = nil,
+    maxHeight: CGFloat? = nil
+  ) -> Self {
+    modified {
+      $0.backing = $0.backing.previewFrame(
+        minWidth: minWidth,
+        idealWidth: idealWidth,
+        maxWidth: maxWidth,
+        minHeight: minHeight,
+        idealHeight: idealHeight,
+        maxHeight: maxHeight
+      )
+    }
   }
 
   public func title(_ text: String) -> BookGroup {
