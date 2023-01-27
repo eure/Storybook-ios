@@ -252,7 +252,7 @@ private struct _BookPreview<View: UIView>: BookViewRepresentableType {
       if let maxWidth = frameConstraint.maxWidth {
         if (maxWidth == .infinity) || (maxWidth == .greatestFiniteMagnitude) {
           let c = element.widthAnchor.constraint(equalToConstant: 5000)
-          c.priority = .fittingSizeLevel
+          c.priority = .defaultHigh + 1
           constraints.append(
             c
           )
@@ -267,7 +267,7 @@ private struct _BookPreview<View: UIView>: BookViewRepresentableType {
 
         if (maxHeight == .infinity) || (maxHeight == .greatestFiniteMagnitude) {
           let c = element.heightAnchor.constraint(equalToConstant: 5000)
-          c.priority = .fittingSizeLevel
+          c.priority = .defaultHigh + 1
           constraints.append(
             c
           )
