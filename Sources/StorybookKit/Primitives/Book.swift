@@ -19,17 +19,30 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
+import SwiftUI
 
-public struct Book {
+public struct Book<Content: View>: View {
 
-  public let component: BookTree
+  public let content: Content
   public let title: String
-  
-  @MainActor
-  public init(title: String, @ComponentBuilder closure: @MainActor () -> _BookView) {
+
+  public init(
+    title: String,
+    @ViewBuilder content: () -> Content
+  ) {
     self.title = title
-    self.component = closure().asTree()
+    self.content = content()
+  }
+
+  public var body: some View {
+    NavigationView {
+      ScrollView {
+        VStack {
+          content
+        }
+      }
+    }
+    .navigationTitle(title)
   }
 
 }

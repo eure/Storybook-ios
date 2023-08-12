@@ -19,13 +19,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import UIKit
+import SwiftUI
 
 public struct BookSpacer: BookView {
-
-  public func asTree() -> BookTree {
-    return .spacer(self)
-  }
 
   public let height: CGFloat
 
@@ -33,8 +29,13 @@ public struct BookSpacer: BookView {
     self.height = height
   }
 
-  public var body: BookView {
+  public var bookBody: any BookView {
     fatalError()
+  }
+
+  public var body: some View {
+    Spacer(minLength: 0)
+      .frame(height: height)
   }
 
 }

@@ -19,7 +19,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import UIKit
+import SwiftUI
 
 /// A component descriptor that previewing with push presentation.
 public struct BookPush: BookView {
@@ -29,11 +29,6 @@ public struct BookPush: BookView {
 
   public let title: String
 
-  public var body: BookView {
-    fatalError()
-  }
-
-  @MainActor
   public init(
     title: String,
     pushingViewControllerBlock: @escaping @MainActor () -> UIViewController
@@ -43,8 +38,11 @@ public struct BookPush: BookView {
     self.declarationIdentifier = .init()
   }
 
-  public func asTree() -> BookTree {
-    return .push(self)
-  }
+  public var body: some View {
 
+    NavigationLink(title, destination: {
+      _ViewControllerHost(instantiate: pushingViewControllerBlock)
+    })
+
+  }
 }

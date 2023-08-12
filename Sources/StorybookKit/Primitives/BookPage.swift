@@ -20,29 +20,27 @@
 // THE SOFTWARE.
 
 import Foundation
+import SwiftUI
 
-public struct BookPage: BookView {
+public struct BookPage<Content: View>: BookView {
 
   public let title: String
-  public let content: BookView
+  public let content: Content
 
   public init(
     title: String,
-    @ComponentBuilder content: () -> BookView
+    @ViewBuilder content: () -> Content
   ) {
     self.title = title
     self.content = content()
   }
 
-  public var body: BookView {
-    BookGroup {
-      BookSpacer(height: 24)
-      BookText(title)
-        .font(.systemFont(ofSize: 32, weight: .bold))
-      BookSpacer(height: 18)
-      content
-    }
-
+  public var body: some View {
+    BookSpacer(height: 24)
+    BookText(title)
+      .font(.system(size: 32, weight: .bold))
+    BookSpacer(height: 18)
+    content
   }
 
 }

@@ -19,9 +19,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import UIKit
+import SwiftUI
 
-public struct BookText: BookViewRepresentableType {
+public struct BookText: View {
 
   public let text: String
   public var foregroundColor: UIColor = {
@@ -38,62 +38,8 @@ public struct BookText: BookViewRepresentableType {
     self.text = text
   }
 
-  public func foregroundColor(_ color: UIColor) -> Self {
-    modified {
-      $0.foregroundColor = color
-    }
-  }
-
-  public func font(_ font: UIFont) -> Self {
-    modified {
-      $0.font = font
-    }
-  }
-
-  public func makeView() -> UIView {
-    _View(attributedString: .init(
-      string: text,
-      attributes: [
-        .font : font,
-        .foregroundColor : foregroundColor
-      ]
-      )
-    )
-  }
-
-  private final class _View: UIView {
-
-    private let label: UILabel
-
-    public init(attributedString: NSAttributedString) {
-
-      self.label = .init()
-
-      super.init(frame: .zero)
-
-      label.numberOfLines = 0
-
-      label.translatesAutoresizingMaskIntoConstraints = false
-
-      addSubview(label)
-
-      NSLayoutConstraint.activate([
-
-        label.topAnchor.constraint(equalTo: topAnchor, constant: 0),
-        label.rightAnchor.constraint(equalTo: rightAnchor, constant: -24),
-        label.leftAnchor.constraint(equalTo: leftAnchor, constant: 24),
-        label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
-
-      ])
-
-      label.attributedText = attributedString
-
-    }
-
-    public required init?(coder: NSCoder) {
-      fatalError("init(coder:) has not been implemented")
-    }
-
+  public var body: some View {
+    Text(text)
   }
 
 }

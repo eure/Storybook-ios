@@ -9,11 +9,9 @@
 /* Begin PBXBuildFile section */
 		4B0BDD7F2A87A4C800CF2633 /* StorybookKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4B0BDD7E2A87A4C800CF2633 /* StorybookKit */; };
 		4B0BDD812A87A4C800CF2633 /* StorybookKitTextureSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 4B0BDD802A87A4C800CF2633 /* StorybookKitTextureSupport */; };
-		4B0BDD832A87A4C800CF2633 /* StorybookUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4B0BDD822A87A4C800CF2633 /* StorybookUI */; };
 		4B0BDD852A87A4DA00CF2633 /* StorybookKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4B0BDD842A87A4DA00CF2633 /* StorybookKit */; };
 		4B81F791246F34BE009C7602 /* DSLCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B81F790246F34BE009C7602 /* DSLCheck.swift */; };
 		4BB03C0922267064006E9E49 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB03C0822267064006E9E49 /* AppDelegate.swift */; };
-		4BB03C0B22267064006E9E49 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB03C0A22267064006E9E49 /* ViewController.swift */; };
 		4BB03C1022267065006E9E49 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4BB03C0F22267065006E9E49 /* Assets.xcassets */; };
 		4BB03C1322267065006E9E49 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4BB03C1122267065006E9E49 /* LaunchScreen.storyboard */; };
 		4BB03C2A2226709D006E9E49 /* MyUIKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BB03C282226709D006E9E49 /* MyUIKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -57,7 +55,6 @@
 		4B81F790246F34BE009C7602 /* DSLCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSLCheck.swift; sourceTree = "<group>"; };
 		4BB03C0622267064006E9E49 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BB03C0822267064006E9E49 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4BB03C0A22267064006E9E49 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		4BB03C0F22267065006E9E49 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4BB03C1222267065006E9E49 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4BB03C1422267065006E9E49 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -79,7 +76,6 @@
 			files = (
 				4BB655BA2A87B0C200F2E2D7 /* SwiftUISupport in Frameworks */,
 				4B0BDD812A87A4C800CF2633 /* StorybookKitTextureSupport in Frameworks */,
-				4B0BDD832A87A4C800CF2633 /* StorybookUI in Frameworks */,
 				4B0BDD7F2A87A4C800CF2633 /* StorybookKit in Frameworks */,
 				4BB03C2D2226709D006E9E49 /* MyUIKit.framework in Frameworks */,
 			);
@@ -107,7 +103,6 @@
 			isa = PBXGroup;
 			children = (
 				4BB03C0822267064006E9E49 /* AppDelegate.swift */,
-				4BB03C0A22267064006E9E49 /* ViewController.swift */,
 				4BB03C0F22267065006E9E49 /* Assets.xcassets */,
 				4BB03C1122267065006E9E49 /* LaunchScreen.storyboard */,
 				4BB03C1422267065006E9E49 /* Info.plist */,
@@ -193,7 +188,6 @@
 			packageProductDependencies = (
 				4B0BDD7E2A87A4C800CF2633 /* StorybookKit */,
 				4B0BDD802A87A4C800CF2633 /* StorybookKitTextureSupport */,
-				4B0BDD822A87A4C800CF2633 /* StorybookUI */,
 				4BB655B92A87B0C200F2E2D7 /* SwiftUISupport */,
 			);
 			productName = Demo;
@@ -288,7 +282,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4BB655B72A87B01000F2E2D7 /* RootView.swift in Sources */,
-				4BB03C0B22267064006E9E49 /* ViewController.swift in Sources */,
 				4BB03C0922267064006E9E49 /* AppDelegate.swift in Sources */,
 				4B81F791246F34BE009C7602 /* DSLCheck.swift in Sources */,
 			);
@@ -602,10 +595,6 @@
 		4B0BDD802A87A4C800CF2633 /* StorybookKitTextureSupport */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = StorybookKitTextureSupport;
-		};
-		4B0BDD822A87A4C800CF2633 /* StorybookUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = StorybookUI;
 		};
 		4B0BDD842A87A4DA00CF2633 /* StorybookKit */ = {
 			isa = XCSwiftPackageProductDependency;

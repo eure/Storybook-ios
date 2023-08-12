@@ -19,14 +19,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import UIKit
+import SwiftUI
 
 /// A component descriptor that just displays UI-Component
 public struct BookPresent: BookView {
 
-  public func asTree() -> BookTree {
-    return .present(self)
-  }
+  @Environment(\._targetViewController) private var targetViewController
 
   public let declarationIdentifier: DeclarationIdentifier
   public let presentedViewControllerBlock: @MainActor () -> UIViewController
@@ -43,8 +41,11 @@ public struct BookPresent: BookView {
     self.declarationIdentifier = .init()
   }
 
-  public var body: BookView {
-    fatalError()
+  public var body: some View {
+    Button(title) {
+      let viewController = presentedViewControllerBlock()
+      targetViewController?.present(viewController, animated: true)
+    }
   }
 
 }

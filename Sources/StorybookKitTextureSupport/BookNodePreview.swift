@@ -20,7 +20,7 @@
 // THE SOFTWARE.
 
 import AsyncDisplayKit
-import Foundation
+import SwiftUI
 import StorybookKit
 import TextureBridging
 import TextureSwiftSupport
@@ -92,8 +92,7 @@ public struct BookNodePreview<Node: ASDisplayNode>: BookView {
     
   }
 
-
-  public var body: BookView {
+  public var body: some View {
     backing
       .backgroundColor(backgroundColor)
   }
@@ -127,7 +126,7 @@ public struct BookNodePreview<Node: ASDisplayNode>: BookView {
     }
   }
 
-  public func title(_ text: String) -> BookGroup {
+  public func title(_ text: String) -> some View {
     backing.title(text)
   }
 

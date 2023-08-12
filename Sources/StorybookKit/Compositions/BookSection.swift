@@ -19,58 +19,28 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import UIKit
+import SwiftUI
 
-public struct BookSection: BookView {
-
-  public let title: String
-  public let content: BookView
-
-  @MainActor
-  public init(
-    title: String,
-    @ComponentBuilder content: @MainActor () -> BookView
-  ) {
-    self.title = title
-    self.content = content()
-
-  }
-
-  public var body: BookView {
-    BookGroup {
-      BookSpacer(height: 8)
-      BookText(title)
-        .font(.systemFont(ofSize: 24, weight: .bold))
-      BookSpacer(height: 16)
-      content
-      BookSpacer(height: 24)
-    }
-  }
-
-}
-
-public struct BookAlphabeticalNavigationLinkSection: BookView {
+public struct BookSection<Content: View>: BookView {
 
   public let title: String
-  public let content: BookView
+  public let content: Content
 
   public init(
     title: String,
-    @AlphabeticalNavigationLinkBuilder content: () -> BookView
+    @ViewBuilder content: () -> Content
   ) {
     self.title = title
     self.content = content()
   }
 
-  public var body: BookView {
-    BookGroup {
-      BookSpacer(height: 8)
-      BookText(title)
-        .font(.systemFont(ofSize: 24, weight: .bold))
-      BookSpacer(height: 16)
-      content
-      BookSpacer(height: 24)
-    }
+  public var body: some View {
+    BookSpacer(height: 8)
+    BookText(title)
+      .font(.system(size: 24, weight: .bold))
+    BookSpacer(height: 16)
+    content
+    BookSpacer(height: 24)
   }
 
 }

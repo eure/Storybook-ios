@@ -19,7 +19,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import UIKit
+import SwiftUI
 
 private struct FrameConstraint {
   var minWidth: CGFloat? = nil
@@ -30,7 +30,7 @@ private struct FrameConstraint {
   var maxHeight: CGFloat? = nil
 }
 
-public struct BookPreview<View: UIView>: BookView {
+public struct BookPreview<PlatformView: UIView>: BookView {
 
   public var backgroundColor: UIColor = {
     if #available(iOS 13.0, *) {
@@ -40,11 +40,11 @@ public struct BookPreview<View: UIView>: BookView {
     }
   }()
 
-  public let viewBlock: @MainActor () -> View
+  public let viewBlock: @MainActor () -> PlatformView
 
   public let declarationIdentifier: DeclarationIdentifier
 
-  private var buttons: ContiguousArray<(title: String, handler: (View) -> Void)> = .init()
+  private var buttons: ContiguousArray<(title: String, handler: (PlatformView) -> Void)> = .init()
 
   private let file: StaticString
   private let line: UInt
@@ -59,7 +59,7 @@ public struct BookPreview<View: UIView>: BookView {
     expandsWidth: Bool = false,
     maxHeight: CGFloat? = nil,
     minHeight: CGFloat? = nil,
-    viewBlock: @escaping @MainActor () -> View
+    viewBlock: @escaping @MainActor () -> PlatformView
   ) {
 
     self.file = file
@@ -81,7 +81,7 @@ public struct BookPreview<View: UIView>: BookView {
   public init(
     _ file: StaticString = #file,
     _ line: UInt = #line,
-    viewBlock: @escaping @MainActor () -> View
+    viewBlock: @escaping @MainActor () -> PlatformView
   ) {
 
     self.file = file
@@ -92,46 +92,25 @@ public struct BookPreview<View: UIView>: BookView {
 
   }
 
-  public var body: BookView {
+  public var body: some View {
 
-    weak var createdView: View?
+    _ViewHost(instantiate: {
+      _View(element: viewBlock(), frameConstraint: frameConstraint)
+    }, update: { _, _  in })
 
-    return BookGroup {
-      _BookPreview(
-        frameConstraint: frameConstraint,
-        backgroundColor: backgroundColor,
-        viewBlock: {
-          let view = self.viewBlock()
-          createdView = view
-          return view
-        }
-      )
-      if buttons.isEmpty == false {
-        BookSpacer(height: 8)
-        _BookButtons(
-          buttons: ContiguousArray(
-            buttons.map { args in
-              (args.0, { args.1(createdView!) })
-            }
-          )
-        )
-      }
-      BookCallout(
-        text: """
-          \(file):\(line)
-          """
-      )
-      .font(
-        {
-          if #available(iOS 13, *) {
-            return .monospacedSystemFont(ofSize: 8, weight: .regular)
-          } else {
-            return .systemFont(ofSize: 8, weight: .regular)
-          }
-        }()
-      )
-      BookSpacer(height: 16)
+    if buttons.isEmpty == false {
+//      BookSpacer(height: 8)
+//      _BookButtons(
+//        buttons: ContiguousArray(
+//          buttons.map { args in
+//            (args.0, { args.1(createdView!) })
+//          }
+//        )
+//      )
     }
+    Text("\(file.description):\(line.description)")
+      .font(.body.monospacedDigit())
+    BookSpacer(height: 16)
   }
 
   public func previewFrame(
@@ -169,157 +148,151 @@ public struct BookPreview<View: UIView>: BookView {
     }
   }
 
-  public func addButton(_ title: String, handler: @escaping (View) -> Void) -> Self {
+  public func addButton(_ title: String, handler: @escaping (PlatformView) -> Void) -> Self {
     modified {
       $0.buttons.append((title: title, handler: handler))
     }
   }
 
-  public func title(_ text: String) -> BookGroup {
-    .init {
+  public func title(_ text: String) -> some View {
+    Group {
       BookSpacer(height: 8)
       BookText(text)
-        .font(
-          {
-            if #available(iOS 13, *) {
-              return .monospacedSystemFont(ofSize: 17, weight: .semibold)
-            } else {
-              return .systemFont(ofSize: 17, weight: .semibold)
-            }
-          }()
-        )
+        .font(.system(size: 17, weight: .semibold))
       self
     }
   }
 }
 
-/// A component descriptor that just displays UI-Component
-private struct _BookPreview<View: UIView>: BookViewRepresentableType {
+///// A component descriptor that just displays UI-Component
+//private struct _BookPreview<View: UIView>: BookViewRepresentableType {
+//
+//  let viewBlock: @MainActor () -> View
+//
+//  let backgroundColor: UIColor
+//  let frameConstraint: FrameConstraint
+//
+//  init(
+//    frameConstraint: FrameConstraint,
+//    backgroundColor: UIColor,
+//    viewBlock: @escaping @MainActor () -> View
+//  ) {
+//
+//    self.frameConstraint = frameConstraint
+//    self.backgroundColor = backgroundColor
+//    self.viewBlock = viewBlock
+//  }
+//
+//  func makeView() -> UIView {
+//    let view = _View(
+//      element: viewBlock(),
+//      frameConstraint: frameConstraint
+//    )
+//    view.backgroundColor = backgroundColor
+//    return view
+//  }
+//
+//
+//
+//}
 
-  let viewBlock: @MainActor () -> View
+private final class _View: UIView {
 
-  let backgroundColor: UIColor
-  let frameConstraint: FrameConstraint
+  init() {
+    super.init(frame: .zero)
+  }
 
-  init(
-    frameConstraint: FrameConstraint,
-    backgroundColor: UIColor,
-    viewBlock: @escaping @MainActor () -> View
+  @available(*, unavailable)
+  required init?(
+    coder aDecoder: NSCoder
+  ) {
+    fatalError("init(coder:) has not been implemented")
+  }
+
+  convenience init(
+    element: UIView,
+    frameConstraint: FrameConstraint
   ) {
 
-    self.frameConstraint = frameConstraint
-    self.backgroundColor = backgroundColor
-    self.viewBlock = viewBlock
-  }
+    self.init()
 
-  func makeView() -> UIView {
-    let view = _View(
-      element: viewBlock(),
-      frameConstraint: frameConstraint
-    )
-    view.backgroundColor = backgroundColor
-    return view
-  }
+    element.translatesAutoresizingMaskIntoConstraints = false
+    element.setContentHuggingPriority(.defaultLow, for: .horizontal)
+    element.setContentHuggingPriority(.defaultLow, for: .vertical)
 
-  private final class _View: UIView {
+    addSubview(element)
 
-    init() {
-      super.init(frame: .zero)
+    var constraints: [NSLayoutConstraint] = []
+
+    if let maxWidth = frameConstraint.maxWidth {
+      if (maxWidth == .infinity) || (maxWidth == .greatestFiniteMagnitude) {
+        let c = element.widthAnchor.constraint(equalToConstant: 5000)
+        c.priority = .defaultHigh + 1
+        constraints.append(
+          c
+        )
+      } else {
+        constraints.append(
+          element.widthAnchor.constraint(lessThanOrEqualToConstant: maxWidth)
+        )
+      }
     }
 
-    @available(*, unavailable)
-    required init?(
-      coder aDecoder: NSCoder
-    ) {
-      fatalError("init(coder:) has not been implemented")
+    if let maxHeight = frameConstraint.minHeight {
+
+      if (maxHeight == .infinity) || (maxHeight == .greatestFiniteMagnitude) {
+        let c = element.heightAnchor.constraint(equalToConstant: 5000)
+        c.priority = .defaultHigh + 1
+        constraints.append(
+          c
+        )
+      } else {
+
+        constraints.append(
+          element.heightAnchor.constraint(lessThanOrEqualToConstant: maxHeight)
+        )
+      }
     }
 
-    convenience init(
-      element: UIView,
-      frameConstraint: FrameConstraint
-    ) {
-
-      self.init()
-
-      element.translatesAutoresizingMaskIntoConstraints = false
-      element.setContentHuggingPriority(.defaultLow, for: .horizontal)
-      element.setContentHuggingPriority(.defaultLow, for: .vertical)
-
-      addSubview(element)
-
-      var constraints: [NSLayoutConstraint] = []
-
-      if let maxWidth = frameConstraint.maxWidth {
-        if (maxWidth == .infinity) || (maxWidth == .greatestFiniteMagnitude) {
-          let c = element.widthAnchor.constraint(equalToConstant: 5000)
-          c.priority = .defaultHigh + 1
-          constraints.append(
-            c
-          )
-        } else {
-          constraints.append(
-            element.widthAnchor.constraint(lessThanOrEqualToConstant: maxWidth)
-          )
-        }
-      }
-
-      if let maxHeight = frameConstraint.minHeight {
-
-        if (maxHeight == .infinity) || (maxHeight == .greatestFiniteMagnitude) {
-          let c = element.heightAnchor.constraint(equalToConstant: 5000)
-          c.priority = .defaultHigh + 1
-          constraints.append(
-            c
-          )
-        } else {
-
-          constraints.append(
-            element.heightAnchor.constraint(lessThanOrEqualToConstant: maxHeight)
-          )
-        }
-      }
-
-      if let minWidth = frameConstraint.minWidth {
-        constraints.append(
-          element.widthAnchor.constraint(greaterThanOrEqualToConstant: minWidth)
-        )
-      }
-
-      if let minHeight = frameConstraint.minHeight {
-
-        constraints.append(
-          element.heightAnchor.constraint(greaterThanOrEqualToConstant: minHeight)
-        )
-      }
-
-      if let idealWidth = frameConstraint.idealWidth {
-        constraints.append(
-          element.widthAnchor.constraint(equalToConstant: idealWidth)
-        )
-      }
-
-      if let idealHeight = frameConstraint.idealHeight {
-        constraints.append(
-          element.heightAnchor.constraint(equalToConstant: idealHeight)
-        )
-      }
-
-      constraints.append(contentsOf: [
-
-        element.centerXAnchor.constraint(equalTo: centerXAnchor),
-        element.centerYAnchor.constraint(equalTo: centerYAnchor),
-
-        element.topAnchor.constraint(greaterThanOrEqualTo: topAnchor),
-        element.leftAnchor.constraint(greaterThanOrEqualTo: leftAnchor),
-        element.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor),
-        element.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor),
-
-      ])
-
-      NSLayoutConstraint.activate(constraints)
-
+    if let minWidth = frameConstraint.minWidth {
+      constraints.append(
+        element.widthAnchor.constraint(greaterThanOrEqualToConstant: minWidth)
+      )
     }
+
+    if let minHeight = frameConstraint.minHeight {
+
+      constraints.append(
+        element.heightAnchor.constraint(greaterThanOrEqualToConstant: minHeight)
+      )
+    }
+
+    if let idealWidth = frameConstraint.idealWidth {
+      constraints.append(
+        element.widthAnchor.constraint(equalToConstant: idealWidth)
+      )
+    }
+
+    if let idealHeight = frameConstraint.idealHeight {
+      constraints.append(
+        element.heightAnchor.constraint(equalToConstant: idealHeight)
+      )
+    }
+
+    constraints.append(contentsOf: [
+
+      element.centerXAnchor.constraint(equalTo: centerXAnchor),
+      element.centerYAnchor.constraint(equalTo: centerYAnchor),
+
+      element.topAnchor.constraint(greaterThanOrEqualTo: topAnchor),
+      element.leftAnchor.constraint(greaterThanOrEqualTo: leftAnchor),
+      element.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor),
+      element.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor),
+
+    ])
+
+    NSLayoutConstraint.activate(constraints)
 
   }
 
-}
+  }

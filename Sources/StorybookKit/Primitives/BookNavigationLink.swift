@@ -20,45 +20,49 @@
 // THE SOFTWARE.
 
 import Foundation
+import SwiftUI
 
 public struct DeclarationIdentifier: Hashable, Codable {
 
   public let index: Int
   
-  @MainActor
-  init() {
-    index = counter
-    counter += 1
+  nonisolated init() {
+    index = issueUniqueNumber()
   }
 }
 
-//private var map: [String : Int] =
-@MainActor
-private var counter: Int = 0
+private let _lock = NSLock()
+private var _counter: Int = 0
+private func issueUniqueNumber() -> Int {
+  _lock.lock()
+  defer {
+    _lock.unlock()
+  }
+  _counter += 1
+  return _counter
+}
 
 /// A component that displays a disclosure view.
-public struct BookNavigationLink: BookView {
+public struct BookNavigationLink<Destination: View>: BookView {
 
   public let title: String
-  public let component: BookTree
+  public let destination: Destination
   public let declarationIdentifier: DeclarationIdentifier
 
   @MainActor
   public init(
     title: String,
-    @ComponentBuilder closure: @MainActor () -> _BookView
+    @ViewBuilder destination: () -> Destination
   ) {
     self.title = title
-    self.component = closure().asTree()
+    self.destination = destination()
     self.declarationIdentifier = .init()
   }
 
-  public var body: BookView {
-    self
-  }
-
-  public func asTree() -> BookTree {
-    .folder(self)
+  public var body: some View {
+    NavigationLink(title, destination: {
+      destination
+    })
   }
 }
 

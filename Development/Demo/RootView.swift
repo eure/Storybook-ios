@@ -21,8 +21,8 @@
 
 import Foundation
 import MyUIKit
-import StorybookUI
 import SwiftUI
+import StorybookKit
 import SwiftUISupport
 
 struct RootView: View {
@@ -38,27 +38,27 @@ struct RootView: View {
           )
         }
 
-        NavigationLink("Open classic") {
-          ViewControllerHost(
-            instantiated: {
-              let controller = StorybookViewController(book: myBook) {
-                $0.dismiss(animated: true, completion: nil)
-              }
-              return controller
-            }()
-          )
-        }
-
-        NavigationLink("Open filter") {
-          ViewControllerHost(
-            instantiated: {
-              let controller = StorybookFilterViewController(book: myBook) {
-                $0.dismiss(animated: true, completion: nil)
-              }
-              return controller
-            }()
-          )
-        }
+//        NavigationLink("Open classic") {
+//          ViewControllerHost(
+//            instantiated: {
+//              let controller = StorybookViewController(book: myBook) {
+//                $0.dismiss(animated: true, completion: nil)
+//              }
+//              return controller
+//            }()
+//          )
+//        }
+//
+//        NavigationLink("Open filter") {
+//          ViewControllerHost(
+//            instantiated: {
+//              let controller = StorybookFilterViewController(book: myBook) {
+//                $0.dismiss(animated: true, completion: nil)
+//              }
+//              return controller
+//            }()
+//          )
+//        }
 
       }
     }
