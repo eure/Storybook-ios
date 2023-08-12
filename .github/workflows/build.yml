@@ -1,4 +1,4 @@
-name: Cocoapods
+name: Build
 
 on: [push]
 
