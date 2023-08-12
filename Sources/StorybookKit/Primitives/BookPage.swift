@@ -36,10 +36,10 @@ public struct BookPage<Content: View>: BookView {
   }
 
   public var body: some View {
-    BookSpacer(height: 24)
     BookText(title)
       .font(.system(size: 32, weight: .bold))
-    BookSpacer(height: 18)
+      .padding(.top, 24)
+      .padding(.bottom, 18)
     content
   }
 

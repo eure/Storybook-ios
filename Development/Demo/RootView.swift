@@ -20,47 +20,19 @@
 // THE SOFTWARE.
 
 import Foundation
-import MyUIKit
-import SwiftUI
 import StorybookKit
+import SwiftUI
 import SwiftUISupport
 
 struct RootView: View {
 
   var body: some View {
-    NavigationView {
-      VStack {
+    VStack {
 
-        NavigationLink("Open swiftui") {
-          StorybookDisplayRootView(
-            book: myBook,
-            targetViewController: UIViewController()
-          )
-        }
+      StorybookDisplayRootView(
+        book: myBook
+      )
 
-//        NavigationLink("Open classic") {
-//          ViewControllerHost(
-//            instantiated: {
-//              let controller = StorybookViewController(book: myBook) {
-//                $0.dismiss(animated: true, completion: nil)
-//              }
-//              return controller
-//            }()
-//          )
-//        }
-//
-//        NavigationLink("Open filter") {
-//          ViewControllerHost(
-//            instantiated: {
-//              let controller = StorybookFilterViewController(book: myBook) {
-//                $0.dismiss(animated: true, completion: nil)
-//              }
-//              return controller
-//            }()
-//          )
-//        }
-
-      }
     }
   }
 }

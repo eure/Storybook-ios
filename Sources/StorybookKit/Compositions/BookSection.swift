@@ -35,12 +35,9 @@ public struct BookSection<Content: View>: BookView {
   }
 
   public var body: some View {
-    BookSpacer(height: 8)
     BookText(title)
       .font(.system(size: 24, weight: .bold))
-    BookSpacer(height: 16)
     content
-    BookSpacer(height: 24)
   }
 
 }

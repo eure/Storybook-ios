@@ -21,7 +21,11 @@
 
 import SwiftUI
 
-public struct Book<Content: View>: View {
+public protocol BookType: View {
+
+}
+
+public struct Book<Content: View>: BookType {
 
   public let content: Content
   public let title: String
@@ -36,13 +40,34 @@ public struct Book<Content: View>: View {
 
   public var body: some View {
     NavigationView {
-      ScrollView {
-        VStack {
-          content
-        }
+      ScrollView(.vertical) {
+        content
       }
     }
     .navigationTitle(title)
+    .environment(\.bookContext, BookContext())
+
+  }
+
+}
+
+public final class BookContext {
+
+}
+
+private enum BookContextKey: EnvironmentKey {
+  static var defaultValue: BookContext?
+}
+
+extension EnvironmentValues {
+
+  public var bookContext: BookContext? {
+    get {
+      self[BookContextKey.self]
+    }
+    set {
+      self[BookContextKey.self] = newValue
+    }
   }
 
 }

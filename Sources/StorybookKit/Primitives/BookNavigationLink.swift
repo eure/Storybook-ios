@@ -25,7 +25,7 @@ import SwiftUI
 public struct DeclarationIdentifier: Hashable, Codable {
 
   public let index: Int
-  
+
   nonisolated init() {
     index = issueUniqueNumber()
   }
@@ -59,9 +59,19 @@ public struct BookNavigationLink<Destination: View>: BookView {
   }
 
   public var body: some View {
-    NavigationLink(title, destination: {
-      destination
-    })
+
+    NavigationLink(
+      title,
+      destination: {
+        GeometryReader(content: { geometry in
+
+          ScrollView {
+            destination
+              .frame(width: geometry.size.width)
+          }
+        })
+      }
+    )
+
   }
 }
-

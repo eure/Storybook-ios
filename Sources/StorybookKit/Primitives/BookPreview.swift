@@ -32,84 +32,75 @@ private struct FrameConstraint {
 
 public struct BookPreview<PlatformView: UIView>: BookView {
 
-  public var backgroundColor: UIColor = {
-    if #available(iOS 13.0, *) {
-      return .systemBackground
-    } else {
-      return .white
-    }
-  }()
+  public struct Context {
 
-  public let viewBlock: @MainActor () -> PlatformView
+    var controlView: AnyView?
+
+    public mutating func control<Content: View>(_ content: () -> Content) {
+      controlView = AnyView(content())
+    }
+
+  }
+
+  public let viewBlock: @MainActor (inout Context) -> PlatformView
 
   public let declarationIdentifier: DeclarationIdentifier
 
-  private var buttons: ContiguousArray<(title: String, handler: (PlatformView) -> Void)> = .init()
-
   private let file: StaticString
   private let line: UInt
-  private var name: String?
+  private let title: String?
   private var frameConstraint: FrameConstraint = .init()
 
-  @available(*, deprecated, message: "Use .previewFrame() to specify content frame")
-  @MainActor
   public init(
     _ file: StaticString = #file,
     _ line: UInt = #line,
-    expandsWidth: Bool = false,
-    maxHeight: CGFloat? = nil,
-    minHeight: CGFloat? = nil,
-    viewBlock: @escaping @MainActor () -> PlatformView
+    title: String? = nil,
+    viewBlock: @escaping @MainActor (inout Context) -> PlatformView
   ) {
 
-    self.file = file
-    self.line = line
-
-    self.frameConstraint = .init(
-      maxWidth: expandsWidth ? .infinity : nil,
-      minHeight: minHeight,
-      maxHeight: maxHeight
-    )
-
-    self.viewBlock = viewBlock
-
-    self.declarationIdentifier = .init()
-
-  }
-
-  public init(
-    _ file: StaticString = #file,
-    _ line: UInt = #line,
-    viewBlock: @escaping @MainActor () -> PlatformView
-  ) {
-
+    self.title = title
     self.file = file
     self.line = line
     self.viewBlock = viewBlock
 
     self.declarationIdentifier = .init()
-
   }
+
+  @State var controlView: AnyView?
 
   public var body: some View {
 
-    _ViewHost(instantiate: {
-      _View(element: viewBlock(), frameConstraint: frameConstraint)
-    }, update: { _, _  in })
+    Group {
+      VStack {
+        if let title {
+          Text(title)
+            .font(.system(size: 17, weight: .semibold))
+        }
+        _ViewHost(
+          instantiate: {
 
-    if buttons.isEmpty == false {
-//      BookSpacer(height: 8)
-//      _BookButtons(
-//        buttons: ContiguousArray(
-//          buttons.map { args in
-//            (args.0, { args.1(createdView!) })
-//          }
-//        )
-//      )
+            var context: Context = .init()
+            let view = viewBlock(&context)
+
+            // TODO: currently using workaround
+            Task {
+              controlView = context.controlView
+            }
+
+            return _View(element: view, frameConstraint: frameConstraint)
+          },
+          update: { _, _ in }
+        )
+
+        controlView
+      }
+
+      Text("\(file.description):\(line.description)")
+        .font(.body.monospacedDigit())
+
+      BookSpacer(height: 16)
     }
-    Text("\(file.description):\(line.description)")
-      .font(.body.monospacedDigit())
-    BookSpacer(height: 16)
+
   }
 
   public func previewFrame(
@@ -141,64 +132,15 @@ public struct BookPreview<PlatformView: UIView>: BookView {
     }
   }
 
-  public func backgroundColor(_ color: UIColor) -> Self {
-    modified {
-      $0.backgroundColor = color
-    }
-  }
-
-  public func addButton(_ title: String, handler: @escaping @MainActor (PlatformView) -> Void) -> Self {
-    modified {
-      $0.buttons.append((title: title, handler: handler))
-    }
-  }
-
-  public func title(_ text: String) -> some View {
-    Group {
-      BookSpacer(height: 8)
-      BookText(text)
-        .font(.system(size: 17, weight: .semibold))
-      self
-    }
-  }
 }
-
-///// A component descriptor that just displays UI-Component
-//private struct _BookPreview<View: UIView>: BookViewRepresentableType {
-//
-//  let viewBlock: @MainActor () -> View
-//
-//  let backgroundColor: UIColor
-//  let frameConstraint: FrameConstraint
-//
-//  init(
-//    frameConstraint: FrameConstraint,
-//    backgroundColor: UIColor,
-//    viewBlock: @escaping @MainActor () -> View
-//  ) {
-//
-//    self.frameConstraint = frameConstraint
-//    self.backgroundColor = backgroundColor
-//    self.viewBlock = viewBlock
-//  }
-//
-//  func makeView() -> UIView {
-//    let view = _View(
-//      element: viewBlock(),
-//      frameConstraint: frameConstraint
-//    )
-//    view.backgroundColor = backgroundColor
-//    return view
-//  }
-//
-//
-//
-//}
 
 private final class _View: UIView {
 
+  override class var requiresConstraintBasedLayout: Bool { true }
+
   init() {
     super.init(frame: .zero)
+
   }
 
   @available(*, unavailable)
@@ -294,4 +236,4 @@ private final class _View: UIView {
 
   }
 
-  }
+}

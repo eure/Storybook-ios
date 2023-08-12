@@ -24,6 +24,8 @@ import SwiftUI
 /// A component descriptor that previewing with push presentation.
 public struct BookPush: BookView {
 
+  @Environment(\._targetViewController) var targetViewController
+
   public let pushingViewControllerBlock: @MainActor () -> UIViewController
   public let declarationIdentifier: DeclarationIdentifier
 
@@ -42,6 +44,7 @@ public struct BookPush: BookView {
 
     NavigationLink(title, destination: {
       _ViewControllerHost(instantiate: pushingViewControllerBlock)
+        .environment(\._targetViewController, targetViewController)
     })
 
   }
