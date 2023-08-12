@@ -22,6 +22,7 @@
 import Foundation
 
 import StorybookKit
+import UIKit
 
 enum DSLCheck {
 

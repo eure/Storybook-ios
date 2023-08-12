@@ -1,10 +1,10 @@
-// swift-tools-version:5.5
+// swift-tools-version:5.8
 import PackageDescription
 
 let package = Package(
   name: "Storybook",
   platforms: [
-    .iOS(.v13)
+    .iOS(.v14)
   ],
   products: [
     .library(name: "StorybookKit", targets: ["StorybookKit"]),
@@ -19,8 +19,7 @@ let package = Package(
   targets: [
     .target(
       name: "StorybookKit",
-      dependencies: [],
-      path: "StorybookKit"
+      dependencies: []
     ),
     .target(
       name: "StorybookKitTextureSupport",
@@ -28,13 +27,11 @@ let package = Package(
         .product(name: "TextureSwiftSupport", package: "TextureSwiftSupport"),
         .product(name: "TextureBridging", package: "TextureBridging"),
         "StorybookKit",
-      ],
-      path: "StorybookKitTextureSupport"
+      ]
     ),
     .target(
       name: "StorybookUI",
-      dependencies: ["StorybookKit", "MondrianLayout"],
-      path: "StorybookUI"
-    ),
+      dependencies: ["StorybookKit", "MondrianLayout"]
+    )
   ]
 )
