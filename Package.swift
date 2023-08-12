@@ -20,7 +20,9 @@ let package = Package(
   targets: [
     .target(
       name: "StorybookKit",
-      dependencies: []
+      dependencies: [
+        .product(name: "SwiftUISupport", package: "swiftui-support")
+      ]
     ),
     .target(
       name: "StorybookKitTextureSupport",

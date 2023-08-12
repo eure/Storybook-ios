@@ -31,7 +31,6 @@ public struct BookPresent: BookView {
 
   public let title: String
 
-  @MainActor
   public init(
     title: String,
     presentingViewControllerBlock: @escaping @MainActor () -> UIViewController

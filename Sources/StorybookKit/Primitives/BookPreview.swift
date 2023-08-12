@@ -77,7 +77,6 @@ public struct BookPreview<PlatformView: UIView>: BookView {
 
   }
 
-  @MainActor
   public init(
     _ file: StaticString = #file,
     _ line: UInt = #line,
@@ -148,7 +147,7 @@ public struct BookPreview<PlatformView: UIView>: BookView {
     }
   }
 
-  public func addButton(_ title: String, handler: @escaping (PlatformView) -> Void) -> Self {
+  public func addButton(_ title: String, handler: @escaping @MainActor (PlatformView) -> Void) -> Self {
     modified {
       $0.buttons.append((title: title, handler: handler))
     }

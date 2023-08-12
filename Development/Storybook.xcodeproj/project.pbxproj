@@ -10,7 +10,6 @@
 		4B0BDD7F2A87A4C800CF2633 /* StorybookKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4B0BDD7E2A87A4C800CF2633 /* StorybookKit */; };
 		4B0BDD812A87A4C800CF2633 /* StorybookKitTextureSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 4B0BDD802A87A4C800CF2633 /* StorybookKitTextureSupport */; };
 		4B0BDD852A87A4DA00CF2633 /* StorybookKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4B0BDD842A87A4DA00CF2633 /* StorybookKit */; };
-		4B81F791246F34BE009C7602 /* DSLCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B81F790246F34BE009C7602 /* DSLCheck.swift */; };
 		4BB03C0922267064006E9E49 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB03C0822267064006E9E49 /* AppDelegate.swift */; };
 		4BB03C1022267065006E9E49 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4BB03C0F22267065006E9E49 /* Assets.xcassets */; };
 		4BB03C1322267065006E9E49 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4BB03C1122267065006E9E49 /* LaunchScreen.storyboard */; };
@@ -52,7 +51,6 @@
 
 /* Begin PBXFileReference section */
 		4B0BDD7C2A87A4A200CF2633 /* Storybook-ios */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "Storybook-ios"; path = ..; sourceTree = "<group>"; };
-		4B81F790246F34BE009C7602 /* DSLCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSLCheck.swift; sourceTree = "<group>"; };
 		4BB03C0622267064006E9E49 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BB03C0822267064006E9E49 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4BB03C0F22267065006E9E49 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -106,7 +104,6 @@
 				4BB03C0F22267065006E9E49 /* Assets.xcassets */,
 				4BB03C1122267065006E9E49 /* LaunchScreen.storyboard */,
 				4BB03C1422267065006E9E49 /* Info.plist */,
-				4B81F790246F34BE009C7602 /* DSLCheck.swift */,
 				4BB655B62A87B01000F2E2D7 /* RootView.swift */,
 			);
 			path = Demo;
@@ -283,7 +280,6 @@
 			files = (
 				4BB655B72A87B01000F2E2D7 /* RootView.swift in Sources */,
 				4BB03C0922267064006E9E49 /* AppDelegate.swift in Sources */,
-				4B81F791246F34BE009C7602 /* DSLCheck.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

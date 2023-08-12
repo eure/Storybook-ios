@@ -20,36 +20,20 @@
 // THE SOFTWARE.
 
 import Foundation
+import SwiftUI
+import SwiftUISupport
 
-public struct BookPattern<Element>: Sequence {
+public struct BookPattern<Element> {
 
-  public typealias Iterator = PatternIterator
-
-  var _makeIterator: () -> AnyIterator<Element>
+  public let patterns: [Element]
 
   init(_ source: [Element]) {
-    self._makeIterator = {
-      var s = source.makeIterator()
-      return AnyIterator.init {
-        s.next()
-      }
-    }
+    self.patterns = source
   }
 
-  public __consuming func makeIterator() -> PatternIterator {
-    PatternIterator.init(source: _makeIterator())
-  }
-
-  public struct PatternIterator: IteratorProtocol {
-
-    var source: AnyIterator<Element>
-
-    init(source: AnyIterator<Element>) {
-      self.source = source
-    }
-
-    public mutating func next() -> Element? {
-      source.next()
+  public func makeBody<Content: View>(@ViewBuilder _ content: @escaping (Element) -> Content) -> some View {
+    ForEach.inefficient(items: patterns) { pattern in
+      content(pattern)
     }
   }
 }

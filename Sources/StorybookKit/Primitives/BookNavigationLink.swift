@@ -49,7 +49,6 @@ public struct BookNavigationLink<Destination: View>: BookView {
   public let destination: Destination
   public let declarationIdentifier: DeclarationIdentifier
 
-  @MainActor
   public init(
     title: String,
     @ViewBuilder destination: () -> Destination

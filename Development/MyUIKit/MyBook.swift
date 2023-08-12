@@ -23,56 +23,48 @@
 import Foundation
 
 import StorybookKit
+import SwiftUISupport
 
-@MainActor
-public let myBook = Book(title: "MyUI") {
+public let myBook: Book<some View> = Book(title: "MyUI") {
 
-  BookParagraph("MyBook")
+  Text("MyBook")
 
-  BookScope {
+  Group {
 
     let text = "Scope"
 
-    return BookGroup {
+    Group {
       BookText(text)
       BookText(text)
     }
   }
 
-  BookParagraph("This is BookText")
+  Text("This is BookText")
 
   BookSection(title: "Features") {
 
     BookNavigationLink(title: "Preview UI") {
       BookPage(title: "Typography") {
 
-        BookHeading1("""
+        Text("""
 Here is `BookHeadline`, It allows us to describe something big picture.
 """)
 
-        BookParagraph("""
+        Text("""
 Here is `BookParagpraph`
 It allows us to display multiple lines.
 
 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
 """)
 
-        BookParagraph("""
+        Text("""
 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
 """)
-
-        BookCallout(text: "Hello! Here is callout!")
-        BookCallout(symbol: "✅", text: "Hello! Here is callout!")
-
-        BookCallout.info(text: "Info")
-        BookCallout.warning(text: "Warning")
-        BookCallout.danger(text: "Danger")
-        BookCallout.success(text: "Success")
 
 
         BookSection(title: "Section") {
 
-          BookParagraph("""
+          Text("""
 Something description about this section.
 """)
 
@@ -103,7 +95,7 @@ Something description about this section.
           
         }
 
-        BookSection(title: "Section") { () -> BookView in
+        BookSection(title: "Section") {
 
           BookPreview {
             let view = UIView(frame: .init(x: 0, y: 0, width: 80, height: 80))
@@ -153,35 +145,6 @@ Something description about this section.
 
   }
 
-  BookAlphabeticalNavigationLinkSection(title: "Examples") {
-
-    BookNavigationLink(title: "MyLabel") {
-
-      MyLabel.makeBookView()
-
-      BookNavigationLink(title: "Variations") {
-        BookForEach(data: [
-          UIColor.systemBlue,
-          UIColor.systemRed,
-          UIColor.systemPink
-        ]) { color in
-          BookPreview {
-            LightLabel.init(title: "Hello")
-          }
-          .backgroundColor(color)
-        }
-      }
-    }
-
-    BookNavigationLink(title: "LightLabel") {
-      BookPreview {
-        LightLabel.init(title: "Hello")
-      }
-      .backgroundColor(.black)
-    }
-
-  }
-
   labelExpandingTestBook()
 
   BookNavigationLink(title: "State") {
@@ -203,10 +166,11 @@ Something description about this section.
 
   BookNavigationLink(title: "Pattern") {
 
-    BookForEach(data: BookPattern.make(
+    BookPattern.make(
       ["A", "AAA", "AAAAAA"],
       [UIColor.blue, UIColor.red, UIColor.orange]
-    )) { (args) in
+    )
+    .makeBody { args in
       BookPreview {
         let (text, color) = args
         let label = UILabel()
@@ -220,8 +184,7 @@ Something description about this section.
   
 }
 
-@MainActor
-fileprivate func labelExpandingTestBook() -> BookView {
+fileprivate func labelExpandingTestBook() -> some View {
 
   BookSection(title: "UILabel updating text") {
     BookPreview<UILabel> {
@@ -244,8 +207,8 @@ fileprivate func labelExpandingTestBook() -> BookView {
 
 extension MyLabel {
 
-  fileprivate static func makeBookView() -> BookView {
-    BookGroup {
+  fileprivate static func makeBookView() -> some View {
+    Group {
       BookPreview {
         self.init(title: "Hello")
       }
@@ -266,14 +229,14 @@ extension MyLabel {
     }
   }
 
-  fileprivate static func makeBookView_1() -> BookView {
+  fileprivate static func makeBookView_1() -> some View {
     BookPreview {
       self.init(title: "")
     }
   }
 
-  fileprivate static func makeBookView_2() -> BookView {
-    BookGroup {
+  fileprivate static func makeBookView_2() -> some View {
+    Group {
       BookPreview {
         self.init(title: "")
       }
@@ -283,8 +246,8 @@ extension MyLabel {
     }
   }
 
-  fileprivate static func makeBookView_3() -> BookView {
-    BookGroup {
+  fileprivate static func makeBookView_3() -> some View {
+    Group {
       BookPreview {
         self.init(title: "")
       }
