@@ -14,13 +14,14 @@
 		4B81F791246F34BE009C7602 /* DSLCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B81F790246F34BE009C7602 /* DSLCheck.swift */; };
 		4BB03C0922267064006E9E49 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB03C0822267064006E9E49 /* AppDelegate.swift */; };
 		4BB03C0B22267064006E9E49 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB03C0A22267064006E9E49 /* ViewController.swift */; };
-		4BB03C0E22267064006E9E49 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4BB03C0C22267064006E9E49 /* Main.storyboard */; };
 		4BB03C1022267065006E9E49 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4BB03C0F22267065006E9E49 /* Assets.xcassets */; };
 		4BB03C1322267065006E9E49 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4BB03C1122267065006E9E49 /* LaunchScreen.storyboard */; };
 		4BB03C2A2226709D006E9E49 /* MyUIKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BB03C282226709D006E9E49 /* MyUIKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4BB03C2D2226709D006E9E49 /* MyUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BB03C262226709D006E9E49 /* MyUIKit.framework */; };
 		4BB03C2E2226709D006E9E49 /* MyUIKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4BB03C262226709D006E9E49 /* MyUIKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4BB13678246F2DC700A2DFFE /* MyBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB13677246F2DC700A2DFFE /* MyBook.swift */; };
+		4BB655B72A87B01000F2E2D7 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB655B62A87B01000F2E2D7 /* RootView.swift */; };
+		4BB655BA2A87B0C200F2E2D7 /* SwiftUISupport in Frameworks */ = {isa = PBXBuildFile; productRef = 4BB655B92A87B0C200F2E2D7 /* SwiftUISupport */; };
 		4BBE1109247557CB009E401C /* MyComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BBE1108247557CB009E401C /* MyComponent.swift */; };
 		9523242A23D1C76C00677D5A /* MyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9523242923D1C76C00677D5A /* MyLabel.swift */; };
 		9523242C23D1C81A00677D5A /* LightLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9523242B23D1C81A00677D5A /* LightLabel.swift */; };
@@ -57,7 +58,6 @@
 		4BB03C0622267064006E9E49 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BB03C0822267064006E9E49 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4BB03C0A22267064006E9E49 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		4BB03C0D22267064006E9E49 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4BB03C0F22267065006E9E49 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4BB03C1222267065006E9E49 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4BB03C1422267065006E9E49 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -65,6 +65,7 @@
 		4BB03C282226709D006E9E49 /* MyUIKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyUIKit.h; sourceTree = "<group>"; };
 		4BB03C292226709D006E9E49 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4BB13677246F2DC700A2DFFE /* MyBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBook.swift; sourceTree = "<group>"; };
+		4BB655B62A87B01000F2E2D7 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		4BBE1108247557CB009E401C /* MyComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyComponent.swift; sourceTree = "<group>"; };
 		9523242923D1C76C00677D5A /* MyLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyLabel.swift; sourceTree = "<group>"; };
 		9523242B23D1C81A00677D5A /* LightLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightLabel.swift; sourceTree = "<group>"; };
@@ -76,6 +77,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BB655BA2A87B0C200F2E2D7 /* SwiftUISupport in Frameworks */,
 				4B0BDD812A87A4C800CF2633 /* StorybookKitTextureSupport in Frameworks */,
 				4B0BDD832A87A4C800CF2633 /* StorybookUI in Frameworks */,
 				4B0BDD7F2A87A4C800CF2633 /* StorybookKit in Frameworks */,
@@ -106,11 +108,11 @@
 			children = (
 				4BB03C0822267064006E9E49 /* AppDelegate.swift */,
 				4BB03C0A22267064006E9E49 /* ViewController.swift */,
-				4BB03C0C22267064006E9E49 /* Main.storyboard */,
 				4BB03C0F22267065006E9E49 /* Assets.xcassets */,
 				4BB03C1122267065006E9E49 /* LaunchScreen.storyboard */,
 				4BB03C1422267065006E9E49 /* Info.plist */,
 				4B81F790246F34BE009C7602 /* DSLCheck.swift */,
+				4BB655B62A87B01000F2E2D7 /* RootView.swift */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -192,6 +194,7 @@
 				4B0BDD7E2A87A4C800CF2633 /* StorybookKit */,
 				4B0BDD802A87A4C800CF2633 /* StorybookKitTextureSupport */,
 				4B0BDD822A87A4C800CF2633 /* StorybookUI */,
+				4BB655B92A87B0C200F2E2D7 /* SwiftUISupport */,
 			);
 			productName = Demo;
 			productReference = 4BB03C0622267064006E9E49 /* Demo.app */;
@@ -247,6 +250,9 @@
 				Base,
 			);
 			mainGroup = 957A89272226610200CDD25D;
+			packageReferences = (
+				4BB655B82A87B0C200F2E2D7 /* XCRemoteSwiftPackageReference "swiftui-support" */,
+			);
 			productRefGroup = 957A89322226610200CDD25D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -264,7 +270,6 @@
 			files = (
 				4BB03C1322267065006E9E49 /* LaunchScreen.storyboard in Resources */,
 				4BB03C1022267065006E9E49 /* Assets.xcassets in Resources */,
-				4BB03C0E22267064006E9E49 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,6 +287,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BB655B72A87B01000F2E2D7 /* RootView.swift in Sources */,
 				4BB03C0B22267064006E9E49 /* ViewController.swift in Sources */,
 				4BB03C0922267064006E9E49 /* AppDelegate.swift in Sources */,
 				4B81F791246F34BE009C7602 /* DSLCheck.swift in Sources */,
@@ -311,14 +317,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		4BB03C0C22267064006E9E49 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4BB03C0D22267064006E9E49 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		4BB03C1122267065006E9E49 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -585,6 +583,17 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		4BB655B82A87B0C200F2E2D7 /* XCRemoteSwiftPackageReference "swiftui-support" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/FluidGroup/swiftui-support/";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.4.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		4B0BDD7E2A87A4C800CF2633 /* StorybookKit */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -601,6 +610,11 @@
 		4B0BDD842A87A4DA00CF2633 /* StorybookKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = StorybookKit;
+		};
+		4BB655B92A87B0C200F2E2D7 /* SwiftUISupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4BB655B82A87B0C200F2E2D7 /* XCRemoteSwiftPackageReference "swiftui-support" */;
+			productName = SwiftUISupport;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

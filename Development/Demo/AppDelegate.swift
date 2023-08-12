@@ -20,14 +20,23 @@
 // THE SOFTWARE.
 
 import UIKit
+import SwiftUI
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
 
-
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+
+    let controller = UIHostingController(rootView: RootView())
+
+    let newWindow = UIWindow()
+    self.window = newWindow
+
+    newWindow.makeKeyAndVisible()
+    newWindow.rootViewController = controller
+
     // Override point for customization after application launch.
     window?.tintColor = .systemRed
     return true

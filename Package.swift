@@ -15,6 +15,7 @@ let package = Package(
     .package(url: "https://github.com/muukii/MondrianLayout.git", from: "0.8.0"),
     .package(url: "https://github.com/FluidGroup/TextureBridging.git", branch: "main"),
     .package(url: "https://github.com/FluidGroup/TextureSwiftSupport.git", branch: "main"),
+    .package(url: "https://github.com/FluidGroup/swiftui-support", from: "0.4.1"),
   ],
   targets: [
     .target(
@@ -31,7 +32,10 @@ let package = Package(
     ),
     .target(
       name: "StorybookUI",
-      dependencies: ["StorybookKit", "MondrianLayout"]
-    )
+      dependencies: [
+        "StorybookKit", "MondrianLayout",
+        .product(name: "SwiftUISupport", package: "swiftui-support"),
+      ]
+    ),
   ]
 )
