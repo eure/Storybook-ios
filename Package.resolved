@@ -1,97 +1,50 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "Descriptors",
-        "repositoryURL": "https://github.com/FluidGroup/Descriptors",
-        "state": {
-          "branch": null,
-          "revision": "174dbbaff40b455614b62ea3ed16771adde25e65",
-          "version": "0.2.2"
-        }
-      },
-      {
-        "package": "IGListKit",
-        "repositoryURL": "https://github.com/3a4oT/IGListKit",
-        "state": {
-          "branch": "spmNumber10",
-          "revision": "979eca9b2da15e35af36f4613452dd6e07641969",
-          "version": null
-        }
-      },
-      {
-        "package": "libwebp",
-        "repositoryURL": "https://github.com/SDWebImage/libwebp-Xcode",
-        "state": {
-          "branch": null,
-          "revision": "0f3bdb28a1edc5e8e43876d3835d20c601ef331f",
-          "version": "1.2.3"
-        }
-      },
-      {
-        "package": "MondrianLayout",
-        "repositoryURL": "https://github.com/muukii/MondrianLayout.git",
-        "state": {
-          "branch": null,
-          "revision": "5f00b13984fe08316fc5b5be06e2f41c14a3befa",
-          "version": "0.10.0"
-        }
-      },
-      {
-        "package": "PINCache",
-        "repositoryURL": "https://github.com/pinterest/PINCache.git",
-        "state": {
-          "branch": null,
-          "revision": "875c654984fb52b47ca65ae70d24852b0003ccd9",
-          "version": "3.0.3"
-        }
-      },
-      {
-        "package": "PINOperation",
-        "repositoryURL": "https://github.com/pinterest/PINOperation.git",
-        "state": {
-          "branch": null,
-          "revision": "44d8ca154a4e75a028a5548c31ff3a53b90cef15",
-          "version": "1.2.1"
-        }
-      },
-      {
-        "package": "PINRemoteImage",
-        "repositoryURL": "https://github.com/pinterest/PINRemoteImage.git",
-        "state": {
-          "branch": "master",
-          "revision": "18637e4414d77fbc95cd7d499179a9880e9a78d8",
-          "version": null
-        }
-      },
-      {
-        "package": "Texture",
-        "repositoryURL": "https://github.com/FluidGroup/Texture.git",
-        "state": {
-          "branch": "spm",
-          "revision": "5d03875bcfb0d87f8057ebeb5f2f6e4527e18128",
-          "version": null
-        }
-      },
-      {
-        "package": "TextureBridging",
-        "repositoryURL": "https://github.com/FluidGroup/TextureBridging.git",
-        "state": {
-          "branch": "main",
-          "revision": "ed8d3ac84c3fda90832c793fdeb8972154bd15fe",
-          "version": null
-        }
-      },
-      {
-        "package": "TextureSwiftSupport",
-        "repositoryURL": "https://github.com/FluidGroup/TextureSwiftSupport.git",
-        "state": {
-          "branch": "main",
-          "revision": "775e0336d096f3299caff9905a06c0ced40e687f",
-          "version": null
-        }
+  "pins" : [
+    {
+      "identity" : "descriptors",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/FluidGroup/Descriptors",
+      "state" : {
+        "revision" : "f41ce2605a76c5d378fe8c5e8c5c98b544dfd108",
+        "version" : "0.2.3"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "mondrianlayout",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/muukii/MondrianLayout.git",
+      "state" : {
+        "revision" : "5f00b13984fe08316fc5b5be06e2f41c14a3befa",
+        "version" : "0.10.0"
+      }
+    },
+    {
+      "identity" : "texture",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/FluidGroup/Texture.git",
+      "state" : {
+        "branch" : "spm",
+        "revision" : "17e0b467fe7360cfb29f2612785acf60e86775e9"
+      }
+    },
+    {
+      "identity" : "texturebridging",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/FluidGroup/TextureBridging.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "ed8d3ac84c3fda90832c793fdeb8972154bd15fe"
+      }
+    },
+    {
+      "identity" : "textureswiftsupport",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/FluidGroup/TextureSwiftSupport.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "5ebbc98ddfdac136620a95b7cf01894f4863f811"
+      }
+    }
+  ],
+  "version" : 2
 }
