@@ -1,0 +1,32 @@
+name: Cocoapods
+
+on: [push]
+
+jobs:
+  build-storybook-kit:
+    runs-on: macos-13
+    steps:
+      - uses: maxim-lobanov/setup-xcode@v1.1
+        with:
+          xcode-version: "14.3"
+      - uses: actions/checkout@v2
+      - name: xcodebuild
+        run: xcodebuild -scheme StorybookKit -sdk iphoneos
+  build-storybook-ui:
+    runs-on: macos-13
+    steps:
+      - uses: maxim-lobanov/setup-xcode@v1.1
+        with:
+          xcode-version: "14.3"
+      - uses: actions/checkout@v2
+      - name: xcodebuild
+        run: xcodebuild -scheme StorybookUI -sdk iphoneos
+  build-storybook-kit-texture-support:
+    runs-on: macos-13
+    steps:
+      - uses: maxim-lobanov/setup-xcode@v1.1
+        with:
+          xcode-version: "14.3"
+      - uses: actions/checkout@v2
+      - name: xcodebuild
+        run: xcodebuild -scheme StorybookKitTextureSupport -sdk iphoneos
