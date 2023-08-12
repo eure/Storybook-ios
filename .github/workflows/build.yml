@@ -11,7 +11,7 @@ jobs:
           xcode-version: "14.3"
       - uses: actions/checkout@v2
       - name: xcodebuild
-        run: xcodebuild -scheme StorybookKit -sdk iphoneos
+        run: xcodebuild -scheme StorybookKit -sdk iphoneos -destination 'platform=iOS Simulator,name=iPhone 8,OS=16.2'
   build-storybook-ui:
     runs-on: macos-13
     steps:
@@ -20,7 +20,7 @@ jobs:
           xcode-version: "14.3"
       - uses: actions/checkout@v2
       - name: xcodebuild
-        run: xcodebuild -scheme StorybookUI -sdk iphoneos
+        run: xcodebuild -scheme StorybookUI -sdk iphoneos -destination 'platform=iOS Simulator,name=iPhone 8,OS=16.2'
   build-storybook-kit-texture-support:
     runs-on: macos-13
     steps:
@@ -29,4 +29,4 @@ jobs:
           xcode-version: "14.3"
       - uses: actions/checkout@v2
       - name: xcodebuild
-        run: xcodebuild -scheme StorybookKitTextureSupport -sdk iphoneos
+        run: xcodebuild -scheme StorybookKitTextureSupport -sdk iphoneos -destination 'platform=iOS Simulator,name=iPhone 8,OS=16.2'
