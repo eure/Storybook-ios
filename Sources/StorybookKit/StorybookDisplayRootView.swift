@@ -20,6 +20,25 @@ public struct StorybookDisplayRootView<Book: BookType>: View {
   }
 }
 
+public struct StorybookDisplayRootView2: View {
+
+  public let book: BookContainer
+
+  public init(book: BookContainer) {
+    self.book = book
+  }
+
+  public var body: some View {
+
+    _ViewControllerHost {
+      let controller = _ViewController(book: book)
+      return controller
+    }
+
+  }
+}
+
+
 final class _ViewController<Book: BookType>: UIViewController {
 
   private let book: Book

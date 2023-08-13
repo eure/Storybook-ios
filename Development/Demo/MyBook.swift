@@ -19,44 +19,24 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-
 import Foundation
-
 import StorybookKit
 import SwiftUISupport
 
-let myBook: some BookType = Book(title: "MyUI") {
+@MainActor
+let myBook2 = BookContainer(
+  store: .init(
+    title: "MyUI",
+    links: {
 
-  Text("MyBook")
-
-  Text("This is BookText")
-
-  BookSection(title: "Features") {
-
-    BookNavigationLink(title: "Preview UI") {
-      BookPage(title: "Typography") {
-
-        Text("""
-Here is `BookHeadline`, It allows us to describe something big picture.
-""")
-
-        Text("""
-Here is `BookParagpraph`
-It allows us to display multiple lines.
-
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-""")
-
-        Text("""
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-""")
-
-
+      BookNavigationLink(title: "Preview UI") {
         BookSection(title: "Section") {
 
-          Text("""
-Something description about this section.
-""")
+          Text(
+            """
+            Something description about this section.
+            """
+          )
 
           BookPreview { _ in
             let view = UIView(frame: .init(x: 0, y: 0, width: 80, height: 80))
@@ -81,7 +61,79 @@ Something description about this section.
             return view
           }
           .previewFrame(maxWidth: .greatestFiniteMagnitude, idealHeight: 10)
-          
+
+        }
+
+      }
+
+    }
+  )
+)
+
+let myBook: some BookType = Book(title: "MyUI") {
+
+  Text("MyBook")
+
+  Text("This is BookText")
+
+  BookSection(title: "Features") {
+
+    BookNavigationLink(title: "Preview UI") {
+      BookPage(title: "Typography") {
+
+        Text(
+          """
+          Here is `BookHeadline`, It allows us to describe something big picture.
+          """
+        )
+
+        Text(
+          """
+          Here is `BookParagpraph`
+          It allows us to display multiple lines.
+
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+          """
+        )
+
+        Text(
+          """
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+          """
+        )
+
+        BookSection(title: "Section") {
+
+          Text(
+            """
+            Something description about this section.
+            """
+          )
+
+          BookPreview { _ in
+            let view = UIView(frame: .init(x: 0, y: 0, width: 80, height: 80))
+            view.backgroundColor = .systemPurple
+            NSLayoutConstraint.activate([
+              view.widthAnchor.constraint(equalToConstant: 80),
+              view.heightAnchor.constraint(equalToConstant: 80),
+            ])
+            return view
+          }
+
+          BookPreview(title: "A component") { _ in
+            let view = UIView(frame: .null)
+            view.backgroundColor = .systemPurple
+            return view
+          }
+          .previewFrame(width: 80, height: 80)
+
+          BookPreview { _ in
+            let view = UIView(frame: .init(x: 0, y: 0, width: 80, height: 80))
+            view.backgroundColor = .systemPurple
+            return view
+          }
+          .previewFrame(maxWidth: .greatestFiniteMagnitude, idealHeight: 10)
+
         }
 
         BookSection(title: "Section") {
@@ -167,10 +219,10 @@ Something description about this section.
     }
 
   }
-  
+
 }
 
-fileprivate func labelExpandingTestBook() -> some View {
+private func labelExpandingTestBook() -> some View {
 
   BookSection(title: "UILabel updating text") {
     BookPreview { context in

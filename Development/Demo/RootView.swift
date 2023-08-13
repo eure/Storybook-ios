@@ -29,10 +29,12 @@ struct RootView: View {
   var body: some View {
     VStack {
 
-      StorybookDisplayRootView(
-        book: myBook
-      )
+//      StorybookDisplayRootView(
+//        book: myBook
+//      )
 
+      StorybookDisplayRootView2(book: myBook2)
+      
     }
   }
 }

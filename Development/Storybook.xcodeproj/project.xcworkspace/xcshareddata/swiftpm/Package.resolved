@@ -19,6 +19,15 @@
       }
     },
     {
+      "identity" : "resultbuilderkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/FluidGroup/ResultBuilderKit",
+      "state" : {
+        "revision" : "34aa57fcee5ec3ee0f368b05cb53c7919c188ab2",
+        "version" : "1.3.0"
+      }
+    },
+    {
       "identity" : "swiftui-gesture-velocity",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/FluidGroup/swiftui-gesture-velocity",

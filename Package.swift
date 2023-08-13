@@ -15,12 +15,14 @@ let package = Package(
     .package(url: "https://github.com/FluidGroup/TextureBridging.git", branch: "main"),
     .package(url: "https://github.com/FluidGroup/TextureSwiftSupport.git", branch: "main"),
     .package(url: "https://github.com/FluidGroup/swiftui-support", from: "0.4.1"),
+    .package(url: "https://github.com/FluidGroup/ResultBuilderKit", from: "1.3.0")
   ],
   targets: [
     .target(
       name: "StorybookKit",
       dependencies: [
-        .product(name: "SwiftUISupport", package: "swiftui-support")
+        .product(name: "SwiftUISupport", package: "swiftui-support"),
+        "ResultBuilderKit"
       ]
     ),
     .target(

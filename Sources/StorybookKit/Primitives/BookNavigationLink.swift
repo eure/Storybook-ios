@@ -43,18 +43,24 @@ private func issueUniqueNumber() -> Int {
 }
 
 /// A component that displays a disclosure view.
-public struct BookNavigationLink<Destination: View>: BookView {
+public struct BookNavigationLink: BookView, Identifiable {
+
+  @Environment(\.bookContext) var context
+
+  public var id: DeclarationIdentifier {
+    declarationIdentifier
+  }
 
   public let title: String
-  public let destination: Destination
+  public let destination: AnyView
   public let declarationIdentifier: DeclarationIdentifier
 
-  public init(
+  public init<Destination: View>(
     title: String,
     @ViewBuilder destination: () -> Destination
   ) {
     self.title = title
-    self.destination = destination()
+    self.destination = AnyView(destination())
     self.declarationIdentifier = .init()
   }
 
@@ -64,11 +70,13 @@ public struct BookNavigationLink<Destination: View>: BookView {
       title,
       destination: {
         GeometryReader(content: { geometry in
-
           ScrollView {
             destination
               .frame(width: geometry.size.width)
           }
+        })
+        .onAppear(perform: {
+          context?.onOpen(link: self)
         })
       }
     )
