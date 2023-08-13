@@ -33,7 +33,7 @@ public struct BookAction: BookView {
 
   public init(
     title: String,
-    action: @escaping (UIViewController) -> Void
+    action: @escaping @MainActor (UIViewController) -> Void
   ) {
     self.title = title
     self.action = action
