@@ -66,161 +66,72 @@ let myBook2 = BookContainer(
 
       }
 
+      BookNavigationLink(title: "AlertController") {
+
+        BookPresent(title: "Pop") {
+          let alert = UIAlertController(
+            title: "Hi Storybook",
+            message: "As like this, you can present any view controller to check the behavior.",
+            preferredStyle: .alert
+          )
+          alert.addAction(.init(title: "Got it", style: .default, handler: { _ in }))
+          return alert
+        }
+
+        BookPresent(title: "Another Pop") {
+          let alert = UIAlertController(
+            title: "Hi Storybook",
+            message: "As like this, you can present any view controller to check the behavior.",
+            preferredStyle: .alert
+          )
+          alert.addAction(.init(title: "Got it", style: .default, handler: { _ in }))
+          return alert
+        }
+
+      }
+
+      BookNavigationLink(title: "Test Push") {
+        BookPush(title: "Test") {
+          UIViewController()
+        }
+      }
+
+      BookNavigationLink(title: "State") {
+        BookPreview(title: "State: Success") { _ in
+          MySuccessView()
+        }
+
+        BookPreview(title: "State: Loading") { _ in
+          MyLoadingView()
+        }
+
+        BookPreview(title: "State: Error") { _ in
+          MyErrorView()
+        }
+      }
+
+      BookNavigationLink(title: "Pattern") {
+
+        BookPattern.make(
+          ["A", "AAA", "AAAAAA"],
+          [UIColor.blue, UIColor.red, UIColor.orange]
+        )
+        .makeBody { args in
+          BookPreview { _ in
+            let (text, color) = args
+            let label = UILabel()
+            label.text = text
+            label.textColor = color
+            return label
+          }
+        }
+
+      }
+
+
     }
   )
 )
-
-let myBook: some BookType = Book(title: "MyUI") {
-
-  Text("MyBook")
-
-  Text("This is BookText")
-
-  BookSection(title: "Features") {
-
-    BookNavigationLink(title: "Preview UI") {
-      BookPage(title: "Typography") {
-
-        Text(
-          """
-          Here is `BookHeadline`, It allows us to describe something big picture.
-          """
-        )
-
-        Text(
-          """
-          Here is `BookParagpraph`
-          It allows us to display multiple lines.
-
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-          """
-        )
-
-        Text(
-          """
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-          """
-        )
-
-        BookSection(title: "Section") {
-
-          Text(
-            """
-            Something description about this section.
-            """
-          )
-
-          BookPreview { _ in
-            let view = UIView(frame: .init(x: 0, y: 0, width: 80, height: 80))
-            view.backgroundColor = .systemPurple
-            NSLayoutConstraint.activate([
-              view.widthAnchor.constraint(equalToConstant: 80),
-              view.heightAnchor.constraint(equalToConstant: 80),
-            ])
-            return view
-          }
-
-          BookPreview(title: "A component") { _ in
-            let view = UIView(frame: .null)
-            view.backgroundColor = .systemPurple
-            return view
-          }
-          .previewFrame(width: 80, height: 80)
-
-          BookPreview { _ in
-            let view = UIView(frame: .init(x: 0, y: 0, width: 80, height: 80))
-            view.backgroundColor = .systemPurple
-            return view
-          }
-          .previewFrame(maxWidth: .greatestFiniteMagnitude, idealHeight: 10)
-
-        }
-
-        BookSection(title: "Section") {
-
-          BookPreview { _ in
-            let view = UIView(frame: .init(x: 0, y: 0, width: 80, height: 80))
-            view.backgroundColor = .systemPurple
-            NSLayoutConstraint.activate([
-              view.widthAnchor.constraint(equalToConstant: 80),
-              view.heightAnchor.constraint(equalToConstant: 80),
-            ])
-            return view
-          }
-
-        }
-
-      }
-
-    }
-
-    BookNavigationLink(title: "AlertController") {
-
-      BookPresent(title: "Pop") {
-        let alert = UIAlertController(
-          title: "Hi Storybook",
-          message: "As like this, you can present any view controller to check the behavior.",
-          preferredStyle: .alert
-        )
-        alert.addAction(.init(title: "Got it", style: .default, handler: { _ in }))
-        return alert
-      }
-
-      BookPresent(title: "Another Pop") {
-        let alert = UIAlertController(
-          title: "Hi Storybook",
-          message: "As like this, you can present any view controller to check the behavior.",
-          preferredStyle: .alert
-        )
-        alert.addAction(.init(title: "Got it", style: .default, handler: { _ in }))
-        return alert
-      }
-
-    }
-
-    BookNavigationLink(title: "Test Push") {
-      BookPush(title: "Test") {
-        UIViewController()
-      }
-    }
-
-  }
-
-  labelExpandingTestBook()
-
-  BookNavigationLink(title: "State") {
-    BookPreview(title: "State: Success") { _ in
-      MySuccessView()
-    }
-
-    BookPreview(title: "State: Loading") { _ in
-      MyLoadingView()
-    }
-
-    BookPreview(title: "State: Error") { _ in
-      MyErrorView()
-    }
-  }
-
-  BookNavigationLink(title: "Pattern") {
-
-    BookPattern.make(
-      ["A", "AAA", "AAAAAA"],
-      [UIColor.blue, UIColor.red, UIColor.orange]
-    )
-    .makeBody { args in
-      BookPreview { _ in
-        let (text, color) = args
-        let label = UILabel()
-        label.text = text
-        label.textColor = color
-        return label
-      }
-    }
-
-  }
-
-}
 
 private func labelExpandingTestBook() -> some View {
 

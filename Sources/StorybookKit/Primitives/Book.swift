@@ -26,31 +26,6 @@ public protocol BookType: View {
 
 }
 
-public struct Book<Content: View>: BookType {
-
-  public let content: Content
-  public let title: String
-
-  public init(
-    title: String,
-    @ViewBuilder content: () -> Content
-  ) {
-    self.title = title
-    self.content = content()
-  }
-
-  public var body: some View {
-    NavigationView {
-      ScrollView(.vertical) {
-        content
-      }
-    }
-    .navigationTitle(title)
-
-  }
-
-}
-
 public final class BookStore: ObservableObject {
 
   @Published var historyLinks: [BookNavigationLink] = []
