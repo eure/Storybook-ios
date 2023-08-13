@@ -21,6 +21,7 @@
 
 import Foundation
 import SwiftUI
+import ResultBuilderKit
 
 public struct DeclarationIdentifier: Hashable, Codable {
 
@@ -40,6 +41,29 @@ private func issueUniqueNumber() -> Int {
   }
   _counter += 1
   return _counter
+}
+
+public struct BookPageGroup: BookView, Identifiable {
+
+  public var id: UUID = .init()
+
+  public let title: String
+  public let pages: [BookPage]
+
+  public init(
+    title: String,
+    @ArrayBuilder<BookNavigationLink> pages: () -> [BookPage]
+  ) {
+    self.title = title
+    self.pages = pages().sorted(by: { $0.title < $1.title })
+  }
+
+  public var body: some View {
+    ForEach(pages) { page in
+      page
+    }
+  }
+
 }
 
 /// A component that displays a disclosure view.
@@ -69,12 +93,10 @@ public struct BookNavigationLink: BookView, Identifiable {
     NavigationLink(
       title,
       destination: {
-        GeometryReader(content: { geometry in
-          ScrollView {
-            destination
-              .frame(width: geometry.size.width)
-          }
-        })
+        List {
+          destination
+        }
+        .listStyle(.plain)
         .onAppear(perform: {
           context?.onOpen(link: self)
         })

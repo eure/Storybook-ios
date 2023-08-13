@@ -30,7 +30,7 @@ private struct FrameConstraint {
   var maxHeight: CGFloat? = nil
 }
 
-public struct BookPreview<PlatformView: UIView>: BookView {
+public struct BookPreview: BookView {
 
   public struct Context {
 
@@ -42,7 +42,7 @@ public struct BookPreview<PlatformView: UIView>: BookView {
 
   }
 
-  public let viewBlock: @MainActor (inout Context) -> PlatformView
+  public let viewBlock: @MainActor (inout Context) -> UIView
 
   public let declarationIdentifier: DeclarationIdentifier
 
@@ -55,7 +55,7 @@ public struct BookPreview<PlatformView: UIView>: BookView {
     _ file: StaticString = #file,
     _ line: UInt = #line,
     title: String? = nil,
-    viewBlock: @escaping @MainActor (inout Context) -> PlatformView
+    viewBlock: @escaping @MainActor (inout Context) -> UIView
   ) {
 
     self.title = title
@@ -70,35 +70,36 @@ public struct BookPreview<PlatformView: UIView>: BookView {
 
   public var body: some View {
 
-    Group {
-      VStack {
-        if let title {
-          Text(title)
-            .font(.system(size: 17, weight: .semibold))
-        }
-        _ViewHost(
-          instantiate: {
-
-            var context: Context = .init()
-            let view = viewBlock(&context)
-
-            // TODO: currently using workaround
-            Task {
-              controlView = context.controlView
-            }
-
-            return _View(element: view, frameConstraint: frameConstraint)
-          },
-          update: { _, _ in }
-        )
-
-        controlView
+    VStack {
+      if let title {
+        Text(title)
+          .font(.system(size: 17, weight: .semibold))
       }
+
+      _ViewHost(
+        maxWidth: UIScreen.main.bounds.size.width /* so bad but it's for sizing with autolayout */,
+        instantiate: {
+
+          var context: Context = .init()
+          let view = viewBlock(&context)
+
+          // TODO: currently using workaround
+          Task {
+            controlView = context.controlView
+          }
+
+          return _View(element: view, frameConstraint: frameConstraint)
+        },
+        update: { _, _ in }
+      )
+
+      controlView
 
       Text("\(file.description):\(line.description)")
         .font(.body.monospacedDigit())
 
       BookSpacer(height: 16)
+
     }
 
   }

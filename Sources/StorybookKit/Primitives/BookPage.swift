@@ -22,25 +22,4 @@
 import Foundation
 import SwiftUI
 
-public struct BookPage<Content: View>: BookView {
-
-  public let title: String
-  public let content: Content
-
-  public init(
-    title: String,
-    @ViewBuilder content: () -> Content
-  ) {
-    self.title = title
-    self.content = content()
-  }
-
-  public var body: some View {
-    BookText(title)
-      .font(.system(size: 32, weight: .bold))
-      .padding(.top, 24)
-      .padding(.bottom, 18)
-    content
-  }
-
-}
+public typealias BookPage = BookNavigationLink

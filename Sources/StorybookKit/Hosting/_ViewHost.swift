@@ -5,21 +5,23 @@ struct _ViewHost<ContentView: UIView>:
 {
 
   private let instantiate: @MainActor () -> ContentView
-  private let _update:
-  @MainActor (_ uiView: ContentView, _ context: Context) -> Void
+  private let _update: @MainActor (_ uiView: ContentView, _ context: Context) -> Void
+  private let maxWidth: Double
 
   init(
+    maxWidth: Double,
     instantiate: @escaping @MainActor () -> ContentView,
     update: @escaping @MainActor (_ uiViewController: ContentView, _ context: Context) ->
-    Void = { _, _ in }
+      Void = { _, _ in }
   ) {
+    self.maxWidth = maxWidth
     self.instantiate = instantiate
     self._update = update
   }
 
   func makeUIView(context: Context) -> _Label<ContentView> {
     let instantiated = instantiate()
-    return .init(contentView: instantiated)
+    return .init(maxWidth: maxWidth, contentView: instantiated)
   }
 
   func updateUIView(_ uiView: _Label<ContentView>, context: Context) {
@@ -31,8 +33,13 @@ struct _ViewHost<ContentView: UIView>:
 final class _Label<ContentView: UIView>: UILabel {
 
   let contentView: ContentView
+  let maxWidth: Double
 
-  init(contentView: ContentView) {
+  init(
+    maxWidth: Double,
+    contentView: ContentView
+  ) {
+    self.maxWidth = maxWidth
     self.contentView = contentView
     super.init(frame: .null)
     addSubview(contentView)
@@ -44,7 +51,9 @@ final class _Label<ContentView: UIView>: UILabel {
     fatalError("init(coder:) has not been implemented")
   }
 
-  override func textRect(forBounds bounds: CGRect, limitedToNumberOfLines numberOfLines: Int) -> CGRect {
+  override func textRect(forBounds bounds: CGRect, limitedToNumberOfLines numberOfLines: Int)
+    -> CGRect
+  {
 
     var targetSize = bounds.size
 
@@ -56,7 +65,17 @@ final class _Label<ContentView: UIView>: UILabel {
       targetSize.height = UIView.layoutFittingCompressedSize.height
     }
 
-    let size = contentView.systemLayoutSizeFitting(targetSize)
+    var size = contentView.systemLayoutSizeFitting(targetSize)
+
+    if size.width > maxWidth {
+      targetSize.width = maxWidth
+      size = contentView.systemLayoutSizeFitting(
+        targetSize,
+        withHorizontalFittingPriority: .required,
+        verticalFittingPriority: .fittingSizeLevel
+      )
+    }
+
     return .init(origin: .zero, size: size)
   }
 

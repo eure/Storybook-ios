@@ -22,25 +22,32 @@
 import ResultBuilderKit
 import SwiftUI
 
+public protocol BookProvider {
+  static var body: BookNavigationLink { get }
+}
+
 public protocol BookType: View {
 
 }
 
 public final class BookStore: ObservableObject {
 
-  @Published var historyLinks: [BookNavigationLink] = []
+  @Published var historyPages: [BookNavigationLink] = []
 
   public let title: String
-  public let links: [BookNavigationLink]
+  public let groups: [BookPageGroup]
+
+  private let allPages: [BookNavigationLink]
 
   private let userDefaults = UserDefaults(suiteName: "jp.eure.storybook2") ?? .standard
 
   public init(
     title: String,
-    @ArrayBuilder<BookNavigationLink> links: () -> [BookNavigationLink]
+    @ArrayBuilder<BookPageGroup> groups: () -> [BookPageGroup]
   ) {
     self.title = title
-    self.links = links().sorted(by: { $0.title < $1.title })
+    self.groups = groups().sorted(by: { $0.title < $1.title })
+    self.allPages = self.groups.flatMap { $0.pages }
 
     updateHistory()
   }
@@ -50,17 +57,21 @@ public final class BookStore: ObservableObject {
     let indexes = userDefaults.array(forKey: "history") as? [Int] ?? []
 
     let _links = indexes.compactMap { index -> BookNavigationLink? in
-      guard let link = links.first(where: { $0.declarationIdentifier.index == index }) else {
+      guard let page = allPages.first(where: { $0.declarationIdentifier.index == index }) else {
         return nil
       }
-      return link
+      return page
     }
 
-    historyLinks = _links
+    historyPages = _links
 
   }
 
   func onOpen(link: BookNavigationLink) {
+
+    guard allPages.contains(where: { $0.id == link.id }) else {
+      return
+    }
 
     let index = link.declarationIdentifier.index
 
@@ -68,10 +79,13 @@ public final class BookStore: ObservableObject {
     if let index = current.firstIndex(of: index) {
       current.remove(at: index)
     }
+
     current.insert(index, at: 0)
     current = Array(current.prefix(5))
 
     userDefaults.set(current, forKey: "history")
+
+    print("Update history", current)
 
     updateHistory()
   }
@@ -93,18 +107,19 @@ public struct BookContainer: BookType {
     NavigationView {
       List {
         Section {
-          ForEach(store.historyLinks) { link in
+          ForEach(store.historyPages) { link in
             link
           }
         } header: {
           Text("History")
         }
-        Section {
-          ForEach(store.links) { link in
-            link
+
+        ForEach(store.groups) { group in
+          Section {
+            group
+          } header: {
+            Text(group.title)
           }
-        } header: {
-          Text("Contents")
         }
       }
       .listStyle(.grouped)

@@ -25,20 +25,19 @@ import StorybookKit
 import TextureBridging
 import TextureSwiftSupport
 
-public struct BookNodePreview<Node: ASDisplayNode>: BookView {
+public struct BookNodePreview: BookView {
 
-  private var backing: BookPreview<NodeView<AnyDisplayNode>>
+  private var backing: BookPreview
 
-  @MainActor
   public init(
     _ file: StaticString = #file,
     _ line: UInt = #line,
     title: String? = nil,
-    nodeBlock: @escaping @MainActor (BookPreview<NodeView<AnyDisplayNode>>.Context) -> Node
+    nodeBlock: @escaping @MainActor (inout BookPreview.Context) -> ASDisplayNode
   ) {
     
     self.backing = .init(file, line, title: title) { context in
-      let body = nodeBlock(context)
+      let body = nodeBlock(&context)
 
       let node = AnyDisplayNode { _, size in
         return LayoutSpec {
