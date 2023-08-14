@@ -43,12 +43,16 @@ struct BookContainer: BookType {
           Text("History")
         }
 
-        store.book
-        
+        Section {
+          store.book
+        } header: {
+          Text("Contents")
+        }
+
       }
-      .listStyle(.grouped)
+      .navigationTitle(store.title)
     }
-    .navigationTitle(store.title)
+
     .environment(\.bookContext, store)
   }
 
