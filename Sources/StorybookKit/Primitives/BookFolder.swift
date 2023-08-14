@@ -35,7 +35,10 @@ public struct Book: BookView, Identifiable {
       switch node {
       case .folder(let folder):
         NavigationLink {
-          folder
+          List {
+            folder
+          }
+          .navigationTitle(folder.title)
         } label: {
           HStack {
             Image.init(systemName: "folder")

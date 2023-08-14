@@ -64,7 +64,7 @@ public final class BookStore: ObservableObject {
 
     print("Update history", current)
 
-    updateHistory()
+//    updateHistory()
   }
 
 }
