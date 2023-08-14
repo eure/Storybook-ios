@@ -47,29 +47,6 @@ private func issueUniqueNumber() -> Int {
   return _counter
 }
 
-public struct BookPageGroup: BookView, Identifiable {
-
-  public var id: UUID = .init()
-
-  public let title: String
-  public let pages: [BookPage]
-
-  public init(
-    title: String,
-    @ArrayBuilder<BookNavigationLink> pages: () -> [BookPage]
-  ) {
-    self.title = title
-    self.pages = pages().sorted(by: { $0.title < $1.title })
-  }
-
-  public var body: some View {
-    ForEach(pages) { page in
-      page
-    }
-  }
-
-}
-
 /// A component that displays a disclosure view.
 public struct BookNavigationLink: BookView, Identifiable {
 

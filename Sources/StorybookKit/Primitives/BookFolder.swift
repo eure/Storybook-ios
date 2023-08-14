@@ -1,18 +1,18 @@
 import SwiftUI
 
-public struct BookFolder: BookView, Identifiable {
+public struct Book: BookView, Identifiable {
 
   public enum Node: Identifiable {
 
     public var id: String {
       switch self {
-      case .folder(let v): return "folder.\(v.id.uuidString)"
-      case .group(let v): return "group.\(v.id.uuidString)"
+      case .folder(let v): return "folder.\(v.id)"
+      case .page(let v): return "page.\(v.id)"
       }
     }
 
-    case folder(BookFolder)
-    case group(BookPageGroup)
+    case folder(Book)
+    case page(BookPage)
   }
 
   public var id: UUID = .init()
@@ -42,8 +42,8 @@ public struct BookFolder: BookView, Identifiable {
             Text(folder.title)
           }
         }
-      case .group(let group):
-        group
+      case .page(let page):
+        page
       }
     }
   }
@@ -53,8 +53,8 @@ public struct BookFolder: BookView, Identifiable {
       switch node {
       case .folder(let folder):
         return folder.allPages()
-      case .group(let group):
-        return group.pages
+      case .page(let page):
+        return [page]
       }
     }
   }
@@ -64,14 +64,22 @@ public struct BookFolder: BookView, Identifiable {
 @resultBuilder
 public struct FolderBuilder {
 
-  public typealias Element = BookFolder.Node
+  public typealias Element = Book.Node
 
-  public static func buildExpression(_ expression: BookPageGroup) -> [FolderBuilder.Element] {
-    return [.group(expression)]
+  public static func buildExpression(_ expression: BookPage) -> [FolderBuilder.Element] {
+    return [.page(expression)]
   }
 
-  public static func buildExpression(_ expression: BookFolder) -> [FolderBuilder.Element] {
+  public static func buildExpression(_ expression: [BookPage]) -> [FolderBuilder.Element] {
+    return expression.map { .page($0) }
+  }
+
+  public static func buildExpression(_ expression: Book) -> [FolderBuilder.Element] {
     return [.folder(expression)]
+  }
+
+  public static func buildExpression(_ expression: [Book]) -> [FolderBuilder.Element] {
+    return expression.map { .folder($0) }
   }
 
   public static func buildBlock() -> [Element] {

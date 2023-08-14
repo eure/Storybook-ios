@@ -30,23 +30,6 @@ public protocol BookType: View {
 
 }
 
-public struct Book {
-
-  public let title: String
-  public let folders: [BookFolder]
-
-  public init(
-    title: String,
-    @ArrayBuilder<BookFolder> folders: () -> [BookFolder]
-  ) {
-    self.title = title
-    self.folders = folders()
-  }
-
-}
-
-
-
 private enum BookContextKey: EnvironmentKey {
   static var defaultValue: BookStore?
 }

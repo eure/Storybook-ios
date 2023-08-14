@@ -43,13 +43,8 @@ struct BookContainer: BookType {
           Text("History")
         }
 
-        ForEach(store.folders) { folder in
-          Section {
-            folder
-          } header: {
-            Text("Contents")
-          }
-        }
+        store.book
+        
       }
       .listStyle(.grouped)
     }

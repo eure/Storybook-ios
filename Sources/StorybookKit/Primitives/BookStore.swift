@@ -2,12 +2,12 @@
 
 public final class BookStore: ObservableObject {
 
-  @Published var historyPages: [BookNavigationLink] = []
+  @Published var historyPages: [BookPage] = []
 
   public let title: String
-  public let folders: [BookFolder]
+  public let book: Book
 
-  private let allPages: [BookNavigationLink.ID: BookNavigationLink]
+  private let allPages: [BookPage.ID: BookPage]
 
   private let userDefaults = UserDefaults(suiteName: "jp.eure.storybook2") ?? .standard
 
@@ -16,19 +16,10 @@ public final class BookStore: ObservableObject {
   ) {
 
     self.title = book.title
+    self.book = book
 
-    self.folders = book.folders
-
-    self.allPages = book.folders.flatMap {
-      $0.contents.flatMap {
-        switch $0 {
-        case .folder(let v): return v.allPages()
-        case .group(let v): return v.pages
-        }
-      }
-    }
-    .reduce(
-      into: [BookNavigationLink.ID: BookNavigationLink](),
+    self.allPages = book.allPages().reduce(
+      into: [BookPage.ID: BookPage](),
       { partialResult, item in
         partialResult[item.id] = item
       }
@@ -41,7 +32,8 @@ public final class BookStore: ObservableObject {
 
     let indexes = userDefaults.array(forKey: "history") as? [Int] ?? []
 
-    let _pages = indexes.compactMap { index -> BookPage? in
+    let _pages = indexes.compactMap { (index: Int) -> BookPage? in
+      let id = DeclarationIdentifier(raw: index)
       guard let page = allPages[.init(raw: index)] else {
         return nil
       }
