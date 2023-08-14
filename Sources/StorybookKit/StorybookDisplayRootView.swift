@@ -2,12 +2,13 @@ import SwiftUI
 import SwiftUISupport
 import UIKit
 
-public struct StorybookDisplayRootView<Book: BookType>: View {
+public struct StorybookDisplayRootView: View {
 
-  public let book: Book
+  let book: BookContainer
 
-  public init(book: Book) {
-    self.book = book
+  @MainActor
+  public init(bookStore: BookStore) {
+    self.book = .init(store: bookStore)
   }
 
   public var body: some View {
@@ -20,24 +21,43 @@ public struct StorybookDisplayRootView<Book: BookType>: View {
   }
 }
 
-public struct StorybookDisplayRootView2: View {
+struct BookContainer: BookType {
 
-  public let book: BookContainer
+  @ObservedObject var store: BookStore
 
-  public init(book: BookContainer) {
-    self.book = book
+  @MainActor
+  public init(
+    store: BookStore
+  ) {
+    self.store = store
   }
 
   public var body: some View {
+    NavigationView {
+      List {
+        Section {
+          ForEach(store.historyPages) { link in
+            link
+          }
+        } header: {
+          Text("History")
+        }
 
-    _ViewControllerHost {
-      let controller = _ViewController(book: book)
-      return controller
+        ForEach(store.folders) { folder in
+          Section {
+            folder
+          } header: {
+            Text("Contents")
+          }
+        }
+      }
+      .listStyle(.grouped)
     }
-
+    .navigationTitle(store.title)
+    .environment(\.bookContext, store)
   }
-}
 
+}
 
 final class _ViewController<Book: BookType>: UIViewController {
 

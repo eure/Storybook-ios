@@ -30,112 +30,22 @@ public protocol BookType: View {
 
 }
 
-public final class BookStore: ObservableObject {
-
-  @Published var historyPages: [BookNavigationLink] = []
+public struct Book {
 
   public let title: String
-  public let groups: [BookPageGroup]
-
-  private let allPages: [BookNavigationLink]
-
-  private let userDefaults = UserDefaults(suiteName: "jp.eure.storybook2") ?? .standard
+  public let folders: [BookFolder]
 
   public init(
     title: String,
-    @ArrayBuilder<BookPageGroup> groups: () -> [BookPageGroup]
+    @ArrayBuilder<BookFolder> folders: () -> [BookFolder]
   ) {
     self.title = title
-    self.groups = groups().sorted(by: { $0.title < $1.title })
-    self.allPages = self.groups.flatMap { $0.pages }
-
-    updateHistory()
-  }
-
-  private func updateHistory() {
-
-    let indexes = userDefaults.array(forKey: "history") as? [Int] ?? []
-
-    let _links = indexes.compactMap { index -> BookNavigationLink? in
-      guard let page = allPages.first(where: { $0.declarationIdentifier.index == index }) else {
-        return nil
-      }
-      return page
-    }
-
-    historyPages = _links
-
-  }
-
-  func onOpen(link: BookNavigationLink) {
-
-    guard allPages.contains(where: { $0.id == link.id }) else {
-      return
-    }
-
-    let index = link.declarationIdentifier.index
-
-    var current = userDefaults.array(forKey: "history") as? [Int] ?? []
-    if let index = current.firstIndex(of: index) {
-      current.remove(at: index)
-    }
-
-    current.insert(index, at: 0)
-    current = Array(current.prefix(5))
-
-    userDefaults.set(current, forKey: "history")
-
-    print("Update history", current)
-
-    updateHistory()
+    self.folders = folders()
   }
 
 }
 
-public struct BookContainer: BookType {
 
-  @ObservedObject var store: BookStore
-
-  @MainActor
-  public init(
-    store: BookStore
-  ) {
-    self.store = store
-  }
-
-  public var body: some View {
-    NavigationView {
-      List {
-        Section {
-          ForEach(store.historyPages) { link in
-            link
-          }
-        } header: {
-          Text("History")
-        }
-
-        ForEach(store.groups) { group in
-          Section {
-            group
-          } header: {
-            Text(group.title)
-          }
-        }
-      }
-      .listStyle(.grouped)
-    }
-    .navigationTitle(store.title)
-    .environment(\.bookContext, store)
-  }
-
-}
-
-public final class BookContext {
-
-  func onOpen(link: BookNavigationLink) {
-    print(link)
-  }
-}
 
 private enum BookContextKey: EnvironmentKey {
   static var defaultValue: BookStore?

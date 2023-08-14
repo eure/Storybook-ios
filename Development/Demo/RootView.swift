@@ -33,7 +33,7 @@ struct RootView: View {
 //        book: myBook
 //      )
 
-      StorybookDisplayRootView2(book: myBook2)
+      StorybookDisplayRootView(bookStore: .init(book: myBook2))
       
     }
   }

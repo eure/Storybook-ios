@@ -30,6 +30,10 @@ public struct DeclarationIdentifier: Hashable, Codable {
   nonisolated init() {
     index = issueUniqueNumber()
   }
+
+  public init(raw index: Int) {
+    self.index = index
+  }
 }
 
 private let _lock = NSLock()
@@ -90,18 +94,20 @@ public struct BookNavigationLink: BookView, Identifiable {
 
   public var body: some View {
 
-    NavigationLink(
-      title,
-      destination: {
-        List {
-          destination
-        }
-        .listStyle(.plain)
-        .onAppear(perform: {
-          context?.onOpen(link: self)
-        })
+    NavigationLink {
+      List {
+        destination
       }
-    )
+      .listStyle(.plain)
+      .onAppear(perform: {
+        context?.onOpen(page: self)
+      })
+    } label: {
+      HStack {
+        Image.init(systemName: "doc")
+        Text(title)
+      }
+    }
 
   }
 }
