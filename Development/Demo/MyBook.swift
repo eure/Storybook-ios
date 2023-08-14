@@ -30,7 +30,7 @@ let myBook2 = Book.init(
 
     BookFolder(title: "A") {
       BookPageGroup(title: "Preview UI") {
-        BookNavigationLink(title: "Preview UI") {
+        BookPage(title: "Preview UI") {
           BookSection(title: "Section") {
 
             Text(
@@ -66,7 +66,7 @@ let myBook2 = Book.init(
           }
 
         }
-        BookNavigationLink(title: "AlertController") {
+        BookPage(title: "AlertController") {
 
           BookPresent(title: "Pop") {
             let alert = UIAlertController(
@@ -90,13 +90,13 @@ let myBook2 = Book.init(
 
         }
 
-        BookNavigationLink(title: "Test Push") {
+        BookPage(title: "Test Push") {
           BookPush(title: "Test") {
             UIViewController()
           }
         }
 
-        BookNavigationLink(title: "State") {
+        BookPage(title: "State") {
           BookPreview(title: "State: Success") { _ in
             MySuccessView()
           }
@@ -110,7 +110,7 @@ let myBook2 = Book.init(
           }
         }
 
-        BookNavigationLink(title: "Pattern") {
+        BookPage(title: "Pattern") {
 
           BookPattern.make(
             ["A", "AAA", "AAAAAA"],
@@ -215,18 +215,18 @@ extension MyLabel {
       BookPreview { _ in
         self.init(title: "")
       }
-      BookNavigationLink(title: "Nested") {
+      BookPage(title: "Nested") {
         BookPreview { _ in
           self.init(title: "")
         }
-        BookNavigationLink(title: "Nested") {
+        BookPage(title: "Nested") {
           BookPreview { _ in
             self.init(title: "")
           }
           BookPreview { _ in
             self.init(title: "")
           }
-          BookNavigationLink(title: "Nested") {
+          BookPage(title: "Nested") {
             BookPreview { _ in
               self.init(title: "")
             }

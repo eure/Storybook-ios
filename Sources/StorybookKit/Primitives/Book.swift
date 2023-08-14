@@ -23,7 +23,7 @@ import ResultBuilderKit
 import SwiftUI
 
 public protocol BookProvider {
-  static var body: BookNavigationLink { get }
+  static var body: BookPage { get }
 }
 
 public protocol BookType: View {

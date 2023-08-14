@@ -21,5 +21,3 @@
 
 import Foundation
 import SwiftUI
-
-public typealias BookPage = BookNavigationLink
