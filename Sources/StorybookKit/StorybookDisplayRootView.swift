@@ -17,6 +17,7 @@ public struct StorybookDisplayRootView: View {
       let controller = _ViewController(book: book)
       return controller
     }
+    .ignoresSafeArea()
 
   }
 }
@@ -24,6 +25,7 @@ public struct StorybookDisplayRootView: View {
 struct BookContainer: BookType {
 
   @ObservedObject var store: BookStore
+  @State var isSearching: Bool = false
 
   @MainActor
   public init(
@@ -33,27 +35,89 @@ struct BookContainer: BookType {
   }
 
   public var body: some View {
-    NavigationView {
-      List {
-        Section {
-          ForEach(store.historyPages) { link in
-            link
+
+    TabView {
+      NavigationView {
+        List {
+
+          Button {
+            isSearching = true
+          } label: {
+            Text("Search")
           }
-        } header: {
-          Text("History")
-        }
 
-        Section {
-          store.book
-        } header: {
-          Text("Contents")
-        }
+          Section {
+            ForEach(store.historyPages) { link in
+              link
+            }
+          } header: {
+            Text("History")
+          }
 
+          Section {
+            store.book
+          } header: {
+            Text("Contents")
+          }
+
+        }
+        .navigationTitle(store.title)
       }
-      .navigationTitle(store.title)
-    }
+      .tabItem {
+        Image(systemName: "list.bullet")
+        Text("List")
+      }
 
+      SearchModeView(store: store)
+        .tabItem { 
+          Image(systemName: "magnifyingglass")
+          Text("Search")
+        }
+    }
     .environment(\.bookContext, store)
+  }
+
+  struct SearchModeView: View {
+
+    @State var query: String = ""
+    @State var result: [BookPage] = []
+    @State var currentTask: Task<Void, Error>?
+    let store: BookStore
+
+    var body: some View {
+
+      VStack {
+
+        SearchBar(text: $query)
+          .onChange(of: query) { value in
+            currentTask?.cancel()
+            currentTask = Task {
+
+              let result = await store.search(query: value)
+
+              print(result.map { $0.title })
+
+              guard Task.isCancelled == false else {
+                return
+              }
+
+              self.result = result
+            }
+          }
+          .padding()
+
+        NavigationView {
+          List {
+
+            ForEach(result) { page in
+              page
+            }
+
+          }
+        }
+      }
+
+    }
   }
 
 }

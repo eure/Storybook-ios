@@ -1,5 +1,5 @@
 
-
+@MainActor
 public final class BookStore: ObservableObject {
 
   @Published var historyPages: [BookPage] = []
@@ -64,7 +64,24 @@ public final class BookStore: ObservableObject {
 
     print("Update history", current)
 
+    // TODO: fix - it makes UI state broken
 //    updateHistory()
   }
 
+  nonisolated func search(query: String) async -> [BookPage] {
+
+    // find pages using query but fuzzy
+    let pages = allPages.values
+      .map { page -> (score: Double, page: BookPage) in
+        let score = page.title.score(word: query)
+        return (score, page)
+      }
+      .filter { $0.score > 0 }
+      .sorted { $0.score > $1.score }
+      .map { $0.page }
+
+    return pages
+  }
+
 }
+

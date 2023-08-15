@@ -21,3 +21,70 @@
 
 import Foundation
 import SwiftUI
+import ResultBuilderKit
+
+public struct DeclarationIdentifier: Hashable, Codable {
+
+  public let index: Int
+
+  nonisolated init() {
+    index = issueUniqueNumber()
+  }
+
+  public init(raw index: Int) {
+    self.index = index
+  }
+}
+
+private let _lock = NSLock()
+private var _counter: Int = 0
+private func issueUniqueNumber() -> Int {
+  _lock.lock()
+  defer {
+    _lock.unlock()
+  }
+  _counter += 1
+  return _counter
+}
+
+/// A component that displays a disclosure view.
+public struct BookPage: BookView, Identifiable {
+
+  @Environment(\.bookContext) var context
+
+  public var id: DeclarationIdentifier {
+    declarationIdentifier
+  }
+
+  public let title: String
+  public let destination: AnyView
+  public let declarationIdentifier: DeclarationIdentifier
+
+  public init<Destination: View>(
+    title: String,
+    @ViewBuilder destination: () -> Destination
+  ) {
+    self.title = title
+    self.destination = AnyView(destination())
+    self.declarationIdentifier = .init()
+  }
+
+  public var body: some View {
+
+    NavigationLink {
+      List {
+        destination
+      }
+      .listStyle(.plain)
+      .onAppear(perform: {
+        context?.onOpen(page: self)
+      })
+    } label: {
+      HStack {
+        Image.init(systemName: "doc")
+        Text(title)
+      }
+    }
+
+  }
+}
