@@ -39,13 +39,6 @@ struct BookContainer: BookType {
     TabView {
       NavigationView {
         List {
-
-          Button {
-            isSearching = true
-          } label: {
-            Text("Search")
-          }
-
           Section {
             ForEach(store.historyPages) { link in
               link

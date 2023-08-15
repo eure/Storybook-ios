@@ -59,11 +59,17 @@ public struct BookPage: BookView, Identifiable {
   public let title: String
   public let destination: AnyView
   public let declarationIdentifier: DeclarationIdentifier
+  private let file: StaticString
+  private let line: UInt
 
   public init<Destination: View>(
+    _ file: StaticString = #file,
+    _ line: UInt = #line,
     title: String,
     @ViewBuilder destination: () -> Destination
   ) {
+    self.file = file
+    self.line = line
     self.title = title
     self.destination = AnyView(destination())
     self.declarationIdentifier = .init()
@@ -72,7 +78,7 @@ public struct BookPage: BookView, Identifiable {
   public var body: some View {
 
     NavigationLink {
-      List {
+      ScrollView {
         destination
       }
       .listStyle(.plain)
@@ -82,7 +88,12 @@ public struct BookPage: BookView, Identifiable {
     } label: {
       HStack {
         Image.init(systemName: "doc")
-        Text(title)
+        VStack(alignment: .leading) {
+          Text(title)
+          Text("\(file.description):\(line.description)")
+            .font(.caption.monospacedDigit())
+            .opacity(0.8)
+        }
       }
     }
 
