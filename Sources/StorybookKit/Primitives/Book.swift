@@ -13,6 +13,13 @@ public struct Book: BookView, Identifiable {
 
     case folder(Book)
     case page(BookPage)
+
+    var sortingKey: String {
+      switch self {
+      case .folder(let v): return v.title
+      case .page(let v): return v.title
+      }
+    }
   }
 
   public var id: UUID = .init()
@@ -26,7 +33,36 @@ public struct Book: BookView, Identifiable {
   ) {
 
     self.title = title
-    self.contents = contents()
+
+    let _contents = contents()
+
+    let folders = _contents
+      .filter {
+        switch $0 {
+        case .folder:
+          return true
+        case .page:
+          return false
+        }
+      }
+      .sorted { a, b in
+        a.sortingKey < b.sortingKey
+      }
+
+    let pages = _contents
+      .filter {
+        switch $0 {
+        case .folder:
+          return false
+        case .page:
+          return true
+        }
+      }
+      .sorted { a, b in
+        a.sortingKey < b.sortingKey
+      }
+
+    self.contents = folders + pages
 
   }
 
