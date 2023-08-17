@@ -26,6 +26,7 @@ struct BookContainer: BookType {
 
   @ObservedObject var store: BookStore
   @State var isSearching: Bool = false
+  @State var lastUsedItem: BookPage?
 
   @MainActor
   public init(
@@ -62,12 +63,21 @@ struct BookContainer: BookType {
       }
 
       SearchModeView(store: store)
-        .tabItem { 
+        .tabItem {
           Image(systemName: "magnifyingglass")
           Text("Search")
         }
     }
     .environment(\.bookContext, store)
+    .onAppear {
+      lastUsedItem = store.historyPages.first
+    }
+    .sheet(item: $lastUsedItem) { item in
+      ScrollView {
+        item.destination
+          .padding(.vertical, 24)
+      }
+    }
   }
 
   struct SearchModeView: View {
