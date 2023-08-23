@@ -19,22 +19,18 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
-import UIKit
+import SwiftUI
 
 public struct BookAction: BookView {
-  
+
+  @Environment(\._targetViewController) var targetViewController
+
   public let declarationIdentifier: DeclarationIdentifier
   
   public let action: @MainActor (UIViewController) -> Void
 
   public let title: String
 
-  public var body: BookView {
-    fatalError()
-  }
-
-  @MainActor
   public init(
     title: String,
     action: @escaping @MainActor (UIViewController) -> Void
@@ -44,8 +40,14 @@ public struct BookAction: BookView {
     self.declarationIdentifier = .init()
   }
 
-  public func asTree() -> BookTree {
-    return .action(self)
+  public var body: some View {
+    Button(title) {
+      if let targetViewController {
+        action(targetViewController)
+      } else {
+        
+      }
+    }
   }
-  
+
 }

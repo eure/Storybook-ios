@@ -19,22 +19,30 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
+import ResultBuilderKit
+import SwiftUI
 
-public struct BookHeading2: BookView {
+public protocol BookProvider {
+  static var bookBody: BookPage { get }
+}
 
-  public let text: String
+public protocol BookType: View {
 
-  public init(_ text: String) {
-    self.text = text
-  }
+}
 
-  public var body: BookView {
-    BookGroup {
-      BookSpacer(height: 16)
-      BookText(text)
-        .font(.systemFont(ofSize: 20, weight: .medium))
-      BookSpacer(height: 16)
+private enum BookContextKey: EnvironmentKey {
+  static var defaultValue: BookStore?
+}
+
+extension EnvironmentValues {
+
+  public var bookContext: BookStore? {
+    get {
+      self[BookContextKey.self]
+    }
+    set {
+      self[BookContextKey.self] = newValue
     }
   }
+
 }

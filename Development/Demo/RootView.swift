@@ -19,22 +19,22 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import UIKit
+import Foundation
+import StorybookKit
+import SwiftUI
+import SwiftUISupport
 
-public struct BookParagraph: BookView {
+struct RootView: View {
 
-  public let text: String
+  var body: some View {
+    VStack {
 
-  public init(_ text: String) {
-    self.text = text
-  }
+//      StorybookDisplayRootView(
+//        book: myBook
+//      )
 
-  public var body: BookView {
-    BookGroup {
-      BookSpacer(height: 12)
-      BookText(text)
-        .font(.systemFont(ofSize: 16, weight: .medium))
-      BookSpacer(height: 12)
+      StorybookDisplayRootView(bookStore: .init(book: myBook2))
+      
     }
   }
 }

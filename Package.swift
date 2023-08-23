@@ -9,17 +9,21 @@ let package = Package(
   products: [
     .library(name: "StorybookKit", targets: ["StorybookKit"]),
     .library(name: "StorybookKitTextureSupport", targets: ["StorybookKitTextureSupport"]),
-    .library(name: "StorybookUI", targets: ["StorybookUI"]),
   ],
   dependencies: [
     .package(url: "https://github.com/muukii/MondrianLayout.git", from: "0.8.0"),
     .package(url: "https://github.com/FluidGroup/TextureBridging.git", branch: "main"),
     .package(url: "https://github.com/FluidGroup/TextureSwiftSupport.git", branch: "main"),
+    .package(url: "https://github.com/FluidGroup/swiftui-support", from: "0.4.1"),
+    .package(url: "https://github.com/FluidGroup/ResultBuilderKit", from: "1.3.0")
   ],
   targets: [
     .target(
       name: "StorybookKit",
-      dependencies: []
+      dependencies: [
+        .product(name: "SwiftUISupport", package: "swiftui-support"),
+        "ResultBuilderKit"
+      ]
     ),
     .target(
       name: "StorybookKitTextureSupport",
@@ -29,9 +33,5 @@ let package = Package(
         "StorybookKit",
       ]
     ),
-    .target(
-      name: "StorybookUI",
-      dependencies: ["StorybookKit", "MondrianLayout"]
-    )
   ]
 )

@@ -20,6 +20,7 @@
 // THE SOFTWARE.
 
 import Foundation
+import UIKit
 
 public final class MyComponent: UIView {
 

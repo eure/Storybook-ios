@@ -20,24 +20,13 @@
 // THE SOFTWARE.
 
 import UIKit
+import SwiftUI
 
-public protocol _BookView {
+public protocol BookView: SwiftUI.View {
 
-  func asTree() -> BookTree
-}
-
-public protocol BookView: _BookView {
-
-  var body: BookView { get }
 }
 
 extension BookView {
-  public func asTree() -> BookTree {
-    return .single(body)
-  }
-}
-
-extension _BookView {
 
   public func modified(_ modify: (inout Self) -> Void) -> Self {
     var s = self
@@ -47,20 +36,3 @@ extension _BookView {
 
 }
 
-public struct AnyBookViewRepresentable: BookViewRepresentableType {
-
-  private let _makeView: @MainActor () -> UIView
-
-  public init<E: BookViewRepresentableType>(_ element: E) {
-
-    self._makeView = element.makeView
-  }
-
-  public func asTree() -> BookTree {
-    return .viewRepresentable(self)
-  }
-
-  public func makeView() -> UIView {
-    _makeView()
-  }
-}

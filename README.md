@@ -187,11 +187,11 @@ BookPresent(title: "Another Pop") {
 **Creating a link to another pages for organizing**
 
 Increasing the number of the components, the page would have long vertical scrolling.<br>
-In this case, Storybook offers you to use `BookNavigationLink` to create another page.
+In this case, Storybook offers you to use `BookPage` to create another page.
 
 ```swift
 let myBook = Book(title: "MyBook") {
-  BookNavigationLink(title: "UISwitch") {
+  BookPage(title: "UISwitch") {
     BookPreview {
       let button = UISwitch()
       button.isOn = true
@@ -217,7 +217,7 @@ We can add some descriptions and headlines to clarify what the component is for.
 
 ```swift
 let myBook = Book(title: "MyBook") {
-  BookNavigationLink(title: "UISwitch") {
+  BookPage(title: "UISwitch") {
     BookPage(title: "UISwitch variations") {
 
       BookHeadline("This page previews UISwitch's state.")
@@ -267,7 +267,7 @@ let myBook = Book(title: "MyBook") {
 }
 
 func uiswitchPage() -> BookView {
-  BookNavigationLink(title: "UISwitch") {
+  BookPage(title: "UISwitch") {
     BookPreview {
       let button = UISwitch()
       button.isOn = true

@@ -20,29 +20,82 @@
 // THE SOFTWARE.
 
 import Foundation
+import SwiftUI
+import ResultBuilderKit
 
-public struct BookPage: BookView {
+public struct DeclarationIdentifier: Hashable, Codable {
 
-  public let title: String
-  public let content: BookView
+  public let index: Int
 
-  public init(
-    title: String,
-    @ComponentBuilder content: () -> BookView
-  ) {
-    self.title = title
-    self.content = content()
+  nonisolated init() {
+    index = issueUniqueNumber()
   }
 
-  public var body: BookView {
-    BookGroup {
-      BookSpacer(height: 24)
-      BookText(title)
-        .font(.systemFont(ofSize: 32, weight: .bold))
-      BookSpacer(height: 18)
-      content
+  public init(raw index: Int) {
+    self.index = index
+  }
+}
+
+private let _lock = NSLock()
+private var _counter: Int = 0
+private func issueUniqueNumber() -> Int {
+  _lock.lock()
+  defer {
+    _lock.unlock()
+  }
+  _counter += 1
+  return _counter
+}
+
+/// A component that displays a disclosure view.
+public struct BookPage: BookView, Identifiable {
+
+  @Environment(\.bookContext) var context
+
+  public var id: DeclarationIdentifier {
+    declarationIdentifier
+  }
+
+  public let title: String
+  public let destination: AnyView
+  public let declarationIdentifier: DeclarationIdentifier
+  private let file: StaticString
+  private let line: UInt
+
+  public init<Destination: View>(
+    _ file: StaticString = #file,
+    _ line: UInt = #line,
+    title: String,
+    @ViewBuilder destination: () -> Destination
+  ) {
+    self.file = file
+    self.line = line
+    self.title = title
+    self.destination = AnyView(destination())
+    self.declarationIdentifier = .init()
+  }
+
+  public var body: some View {
+
+    NavigationLink {
+      ScrollView {
+        destination
+      }
+      .listStyle(.plain)
+      .onAppear(perform: {
+        context?.onOpen(page: self)
+      })
+    } label: {
+      HStack {
+        Image.init(systemName: "doc")
+        VStack(alignment: .leading) {
+          Text(title)
+          Text("\(file.description):\(line.description)")
+            .font(.caption.monospacedDigit())
+            .opacity(0.8)
+        }
+      }
     }
 
   }
-
 }

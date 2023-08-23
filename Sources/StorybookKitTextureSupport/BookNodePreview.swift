@@ -20,68 +20,25 @@
 // THE SOFTWARE.
 
 import AsyncDisplayKit
-import Foundation
+import SwiftUI
 import StorybookKit
 import TextureBridging
 import TextureSwiftSupport
 
-public struct BookNodePreview<Node: ASDisplayNode>: BookView {
+public struct BookNodePreview: BookView {
 
-  private var backing: BookPreview<NodeView<AnyDisplayNode>>
+  private var backing: BookPreview
 
-  public var backgroundColor: UIColor {
-    backing.backgroundColor
-  }
-
-  @MainActor
   public init(
     _ file: StaticString = #file,
     _ line: UInt = #line,
-    expandsWidth: Bool = false,
-    preservedHeight: CGFloat? = nil,
-    nodeBlock: @escaping @MainActor () -> Node
-  ) {
-
-    self.backing = .init(file, line) {
-
-      let body = nodeBlock()
-
-      let node = AnyDisplayNode { _, size in
-        if expandsWidth {
-          return LayoutSpec {
-            VStackLayout {
-              body
-                .flexGrow(1)
-                .flexShrink(1)
-                .width(size.max.width)
-            }
-          }
-        } else {
-          return LayoutSpec {
-            VStackLayout { body.flexGrow(1).flexShrink(1) }
-          }
-        }
-      }
-
-      if let preservedHeight = preservedHeight {
-        node.style.height = .init(unit: .points, value: preservedHeight)
-        node.style.flexGrow = 1
-      }
-
-      return NodeView(node: node)
-    }
-  }
-  
-  @MainActor
-  public init(
-    _ file: StaticString = #file,
-    _ line: UInt = #line,
-    nodeBlock: @escaping @MainActor () -> Node
+    title: String? = nil,
+    nodeBlock: @escaping @MainActor (inout BookPreview.Context) -> ASDisplayNode
   ) {
     
-    self.backing = .init(file, line) {
-      let body = nodeBlock()
-      
+    self.backing = .init(file, line, title: title) { context in
+      let body = nodeBlock(&context)
+
       let node = AnyDisplayNode { _, size in
         return LayoutSpec {
           VStackLayout { body.flexGrow(1).flexShrink(1) }
@@ -92,10 +49,8 @@ public struct BookNodePreview<Node: ASDisplayNode>: BookView {
     
   }
 
-
-  public var body: BookView {
+  public var body: some View {
     backing
-      .backgroundColor(backgroundColor)
   }
 
   public func previewFrame(
@@ -124,28 +79,6 @@ public struct BookNodePreview<Node: ASDisplayNode>: BookView {
         idealHeight: idealHeight,
         maxHeight: maxHeight
       )
-    }
-  }
-
-  public func title(_ text: String) -> BookGroup {
-    backing.title(text)
-  }
-
-  public func backgroundColor(_ color: UIColor) -> Self {
-    modified {
-      $0.backing = $0.backing.backgroundColor(color)
-    }
-  }
-
-  @MainActor
-  public func addButton(
-    _ title: String,
-    handler: @escaping (Node) -> Void
-  ) -> Self {
-    modified {
-      $0.backing = $0.backing.addButton(title) { view in
-        handler(view.node.subnodes!.first as! Node)
-      }
     }
   }
 
