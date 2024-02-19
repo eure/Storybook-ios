@@ -20,7 +20,6 @@
 // THE SOFTWARE.
 
 import Foundation
-import StorybookMacrosPlugin
 import MachO
 
 extension Book {
