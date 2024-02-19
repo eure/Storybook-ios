@@ -46,7 +46,7 @@ final class StorybookPageTests: XCTestCase {
       """
     } expansion: {
       """
-      enum __macro_local_27__🤖🛠️_StorybookMacrosPlugin_fMu_: BookProvider {
+      enum __macro_local_20__🤖🛠️_StorybookMagic_fMu_: BookProvider {
         static var bookBody: BookPage {
           .init(
             title: _typeName(Namespace1.Namespace2.Namespace3.TestableView.self),
@@ -73,7 +73,7 @@ final class StorybookPageTests: XCTestCase {
       """
     } expansion: {
       """
-      enum __macro_local_27__🤖🛠️_StorybookMacrosPlugin_fMu_: BookProvider {
+      enum __macro_local_20__🤖🛠️_StorybookMagic_fMu_: BookProvider {
         static var bookBody: BookPage {
           .init(
             title: "Path1.Path2.Title",
@@ -102,7 +102,7 @@ final class StorybookPageTests: XCTestCase {
       """
     } expansion: {
       """
-      enum __macro_local_27__🤖🛠️_StorybookMacrosPlugin_fMu_: BookProvider {
+      enum __macro_local_20__🤖🛠️_StorybookMagic_fMu_: BookProvider {
         static var bookBody: BookPage {
           .init(
             title: _typeName(target: Namespace1.Namespace2.Namespace3.TestableView.self),
@@ -129,7 +129,7 @@ final class StorybookPageTests: XCTestCase {
       """
     } expansion: {
       """
-      enum __macro_local_27__🤖🛠️_StorybookMacrosPlugin_fMu_: BookProvider {
+      enum __macro_local_20__🤖🛠️_StorybookMagic_fMu_: BookProvider {
         static var bookBody: BookPage {
           .init(
             title: "Path1.Path2.Title",
@@ -160,7 +160,7 @@ final class StorybookPageTests: XCTestCase {
       """
     } expansion: {
       """
-      enum __macro_local_27__🤖🛠️_StorybookMacrosPlugin_fMu_: BookProvider {
+      enum __macro_local_20__🤖🛠️_StorybookMagic_fMu_: BookProvider {
         static var bookBody: BookPage {
           .init(
             title: _typeName(Namespace1.Namespace2.Namespace3.TestableView.self),
@@ -190,7 +190,7 @@ final class StorybookPageTests: XCTestCase {
       """
     } expansion: {
       """
-      enum __macro_local_27__🤖🛠️_StorybookMacrosPlugin_fMu_: BookProvider {
+      enum __macro_local_20__🤖🛠️_StorybookMagic_fMu_: BookProvider {
         static var bookBody: BookPage {
           .init(
             title: "Path1.Path2.Title",
@@ -222,7 +222,7 @@ final class StorybookPageTests: XCTestCase {
       """
     } expansion: {
       """
-      enum __macro_local_27__🤖🛠️_StorybookMacrosPlugin_fMu_: BookProvider {
+      enum __macro_local_20__🤖🛠️_StorybookMagic_fMu_: BookProvider {
         static var bookBody: BookPage {
           .init(
             title: _typeName(
@@ -253,7 +253,7 @@ final class StorybookPageTests: XCTestCase {
       """
     } expansion: {
       """
-      enum __macro_local_27__🤖🛠️_StorybookMacrosPlugin_fMu_: BookProvider {
+      enum __macro_local_20__🤖🛠️_StorybookMagic_fMu_: BookProvider {
         static var bookBody: BookPage {
           .init(
             title: "Path1.Path2.Title",
