@@ -29,6 +29,11 @@ import SwiftSyntaxMacros
 
 public struct StorybookPageMacro: DeclarationMacro {
 
+  // MARK: Internal
+
+  /// Should match `Book._magicSubstring`
+  static let _magicSubstring: String = "__🤖🛠️_StorybookMagic_"
+
   // MARK: DeclarationMacro
 
   public static func expansion(
@@ -37,7 +42,7 @@ public struct StorybookPageMacro: DeclarationMacro {
   ) throws -> [DeclSyntax] {
     let (title, closure) = try self.parseArguments(from: node)
     let enumName = context.makeUniqueName(
-      StorybookMacrosPlugin._magicSubstring
+      self._magicSubstring
     )
     return [
       .init(

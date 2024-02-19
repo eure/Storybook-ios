@@ -26,6 +26,13 @@ public struct Book: BookView, Identifiable {
 
   public let title: String
   public let contents: [Node]
+  
+  public static func withAllBookProviders(title: String) -> Self {
+    self.init(title: title) {
+      self.findAllBookProviders()
+        .map({ $0.bookBody })
+    }
+  }
 
   public init(
     title: String,

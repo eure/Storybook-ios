@@ -27,10 +27,6 @@ import SwiftSyntaxMacros
 @main
 struct StorybookMacrosPlugin: CompilerPlugin {
 
-  // MARK: Internal
-
-  static let _magicSubstring: String = "__🤖🛠️_StorybookMacrosPlugin_"
-
   // MARK: CompilerPlugin
 
   let providingMacros: [Macro.Type] = [
