@@ -69,8 +69,9 @@ public struct StorybookPageMacro: DeclarationMacro {
   ) {
     var argumentsIterator = node.argumentList.makeIterator()
     var title: ExprSyntax? = node.genericArgumentClause?.arguments.first?.argument
-      .as(MemberTypeSyntax.self)
+      .as(IdentifierTypeSyntax.self)
       .map({ .init(stringLiteral: "_typeName(\($0).self)") })
+
     var closure: ClosureExprSyntax? = node.trailingClosure
     while let argument = argumentsIterator.next()?
       .as(LabeledExprSyntax.self) {

@@ -31,27 +31,35 @@ extension Book {
 
   static func findAllBookProviders() -> [any BookProvider.Type] {
 
-    let moduleName = #fileID.components(separatedBy: "/").first!
-    let indices = 0..<_dyld_image_count()
-    let index = indices.first { index in
-      guard let pathC = _dyld_get_image_name(index) else {
-        return false
-      }
-      let path = String(cString: pathC)
-      let imageName = path
-        .components(separatedBy: "/")
-        .last?
-        .components(separatedBy: ".")
-        .first
-      if imageName == moduleName {
-        print(path)
-      }
-      return imageName == moduleName
-    }!
+    let moduleName = ((Bundle.main.bundlePath as NSString).lastPathComponent as NSString).deletingPathExtension
+    guard !moduleName.isEmpty else {
+      return []
+    }
+    guard
+      let imageIndex = (0..<_dyld_image_count()).first(
+        where: {
+          guard let pathC = _dyld_get_image_name($0) else {
+            return false
+          }
+          let path = String(cString: pathC)
+          let imageName = path
+            .components(separatedBy: "/")
+            .last?
+            .components(separatedBy: ".")
+            .first
+          if imageName == moduleName {
+            print(path)
+          }
+          return imageName == moduleName
+        }
+      )
+    else {
+      return []
+    }
 
     // Follows same approach here:  https://github.com/apple/swift-testing/blob/main/Sources/TestingInternals/Discovery.cpp#L318
     let headerRawPtr: UnsafeRawPointer = .init(
-      _dyld_get_image_header(index)!
+      _dyld_get_image_header(imageIndex)!
     )
     let headerPtr = headerRawPtr.assumingMemoryBound(
       to: mach_header_64.self

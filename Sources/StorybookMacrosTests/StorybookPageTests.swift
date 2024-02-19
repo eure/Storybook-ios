@@ -37,7 +37,7 @@ final class StorybookPageTests: XCTestCase {
   func testUnlabeledTitleUnlabeledContent() {
     assertMacro {
       """
-      #StorybookPage<Namespace1.Namespace2.Namespace3.TestableView> {
+      #StorybookPage<UIView> {
         VStack {
           Text("test")
         }
@@ -49,7 +49,7 @@ final class StorybookPageTests: XCTestCase {
       enum __macro_local_20__🤖🛠️_StorybookMagic_fMu_: BookProvider {
         static var bookBody: BookPage {
           .init(
-            title: _typeName(Namespace1.Namespace2.Namespace3.TestableView.self),
+            title: _typeName(UIView.self),
             destination: {
         VStack {
           Text("test")
@@ -93,6 +93,7 @@ final class StorybookPageTests: XCTestCase {
   func testLabeledTitleUnlabeledContent() {
     assertMacro {
       """
+      enum Namespace1 { enum Namespace2 { enum Namespace3 { class TestableView: UIView {} } } }
       #StorybookPage(target: Namespace1.Namespace2.Namespace3.TestableView.self) {
         VStack {
           Text("test")
@@ -102,6 +103,7 @@ final class StorybookPageTests: XCTestCase {
       """
     } expansion: {
       """
+      enum Namespace1 { enum Namespace2 { enum Namespace3 { class TestableView: UIView {} } } }
       enum __macro_local_20__🤖🛠️_StorybookMagic_fMu_: BookProvider {
         static var bookBody: BookPage {
           .init(
@@ -149,7 +151,7 @@ final class StorybookPageTests: XCTestCase {
   func testUnlabeledTitleLabeledContent() {
     assertMacro {
       """
-      #StorybookPage<Namespace1.Namespace2.Namespace3.TestableView>(
+      #StorybookPage<UIView>(
         contents: {
           VStack {
             Text("test")
@@ -163,7 +165,7 @@ final class StorybookPageTests: XCTestCase {
       enum __macro_local_20__🤖🛠️_StorybookMagic_fMu_: BookProvider {
         static var bookBody: BookPage {
           .init(
-            title: _typeName(Namespace1.Namespace2.Namespace3.TestableView.self),
+            title: _typeName(UIView.self),
             destination: {
           VStack {
             Text("test")
@@ -210,6 +212,7 @@ final class StorybookPageTests: XCTestCase {
   func testLabeledTitleLabeledContent() {
     assertMacro {
       """
+      enum Namespace1 { enum Namespace2 { enum Namespace3 { class TestableView: UIView {} } } }
       #StorybookPage(
         target: Namespace1.Namespace2.Namespace3.TestableView.self,
         contents: {
@@ -222,6 +225,7 @@ final class StorybookPageTests: XCTestCase {
       """
     } expansion: {
       """
+      enum Namespace1 { enum Namespace2 { enum Namespace3 { class TestableView: UIView {} } } }
       enum __macro_local_20__🤖🛠️_StorybookMagic_fMu_: BookProvider {
         static var bookBody: BookPage {
           .init(
