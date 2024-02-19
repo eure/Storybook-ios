@@ -52,7 +52,7 @@ public struct BookPreview: BookView {
   private var frameConstraint: FrameConstraint = .init()
 
   public init(
-    _ file: StaticString = #file,
+    _ file: StaticString = #fileID,
     _ line: UInt = #line,
     title: String? = nil,
     viewBlock: @escaping @MainActor (inout Context) -> UIView

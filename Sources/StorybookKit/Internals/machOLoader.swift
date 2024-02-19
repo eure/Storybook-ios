@@ -31,7 +31,7 @@ extension Book {
 
   static func findAllBookProviders() -> [any BookProvider.Type] {
 
-    let moduleName = ((Bundle.main.bundlePath as NSString).lastPathComponent as NSString).deletingPathExtension
+    let moduleName = Bundle.main.bundleURL.deletingPathExtension().lastPathComponent
     guard !moduleName.isEmpty else {
       return []
     }
