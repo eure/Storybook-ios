@@ -23,7 +23,7 @@ import Foundation
 
 @_exported import SwiftUI
 
-@freestanding(declaration, names: .arbitrary)
+@freestanding(declaration, names: arbitrary)
 public macro StorybookPage(
   title: String = "\(#fileID):\(#line)",
   @ViewBuilder contents: @escaping () -> any View
@@ -32,7 +32,7 @@ public macro StorybookPage(
   type: "StorybookPageMacro"
 )
 
-@freestanding(declaration, names: .arbitrary)
+@freestanding(declaration, names: arbitrary)
 public macro StorybookPage<Target>(
   target: Target.Type = Target.self,
   @ViewBuilder contents: @escaping () -> any View
