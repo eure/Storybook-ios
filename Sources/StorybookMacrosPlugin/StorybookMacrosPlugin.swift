@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2020 Eureka, Inc.
+// Copyright (c) 2024 Eureka, Inc.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -19,24 +19,21 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
+import SwiftCompilerPlugin
+import SwiftSyntaxMacros
 
-@_exported import SwiftUI
+// MARK: - StorybookMacrosPlugin
 
-@freestanding(declaration, names: .arbitrary)
-public macro StorybookPage(
-  title: String = "\(#fileID):\(#line)",
-  @ViewBuilder contents: @escaping () -> any View
-) = #externalMacro(
-  module: "StorybookMacrosPlugin",
-  type: "StorybookPageMacro"
-)
+@main
+struct StorybookMacrosPlugin: CompilerPlugin {
 
-@freestanding(declaration, names: .arbitrary)
-public macro StorybookPage<Target>(
-  target: Target.Type = Target.self,
-  @ViewBuilder contents: @escaping () -> any View
-) = #externalMacro(
-  module: "StorybookMacrosPlugin",
-  type: "StorybookPageMacro"
-)
+  // MARK: Internal
+
+  static let _magicSubstring: String = "__🤖🛠️_StorybookMacrosPlugin_"
+
+  // MARK: CompilerPlugin
+
+  let providingMacros: [Macro.Type] = [
+    StorybookPageMacro.self
+  ]
+}
