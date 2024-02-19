@@ -25,7 +25,7 @@ import Foundation
 
 @freestanding(declaration)
 public macro StorybookPage(
-  title: String = "\(#fileID):\(#line)",
+  title: String,
   @ViewBuilder contents: @escaping () -> any View
 ) = #externalMacro(
   module: "StorybookMacrosPlugin",
