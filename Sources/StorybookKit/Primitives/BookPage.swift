@@ -63,7 +63,7 @@ public struct BookPage: BookView, Identifiable {
   private let line: UInt
 
   public init<Destination: View>(
-    _ file: StaticString = #file,
+    _ file: StaticString = #fileID,
     _ line: UInt = #line,
     title: String,
     @ViewBuilder destination: () -> Destination

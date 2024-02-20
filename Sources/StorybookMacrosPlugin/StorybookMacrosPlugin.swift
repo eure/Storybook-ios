@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2020 Eureka, Inc.
+// Copyright (c) 2024 Eureka, Inc.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -19,26 +19,17 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
-import StorybookKit
-import SwiftUI
-import SwiftUISupport
+import SwiftCompilerPlugin
+import SwiftSyntaxMacros
 
-struct RootView: View {
+// MARK: - StorybookMacrosPlugin
 
-  var body: some View {
-    StorybookDisplayRootView(
-      bookStore: .init(
-        book: .init(title: "Storybook Demo") {
+@main
+struct StorybookMacrosPlugin: CompilerPlugin {
 
-          myBook
+  // MARK: CompilerPlugin
 
-          Book(title: "#StorybookPage macro") {
-            Book.allStorybookPages()
-              .map({ $0.bookBody })
-          }
-        }
-      )
-    )
-  }
+  let providingMacros: [Macro.Type] = [
+    StorybookPageMacro.self
+  ]
 }

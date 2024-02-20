@@ -24,7 +24,7 @@ import StorybookKit
 import SwiftUISupport
 
 @MainActor
-let myBook2 = Book.init(
+let myBook = Book.init(
   title: "MyUI",
   contents: {
 
@@ -135,100 +135,91 @@ let myBook2 = Book.init(
   }
 )
 
-private func labelExpandingTestBook() -> some View {
+#StorybookPage(title: "UILabel updating text") {
+  BookPreview { context in
+    let label = UILabel()
+    label.text = "Test"
 
-  BookSection(title: "UILabel updating text") {
-    BookPreview { context in
-      let label = UILabel()
-      label.text = ""
-
-      context.control {
-        HStack {
-          Button("Empty") {
-            label.text = ""
-          }
-          Button("Short") {
-            label.text = "Hello"
-          }
-          Button("Long Text") {
-            label.text = "Hello, Hello,"
-          }
+    context.control {
+      HStack {
+        Button("Empty") {
+          label.text = ""
+        }
+        Button("Short") {
+          label.text = "Hello"
+        }
+        Button("Long Text") {
+          label.text = "Hello, Hello,"
         }
       }
-
-      return label
     }
-  }
 
+    return label
+  }
 }
 
-extension MyLabel {
 
-  fileprivate static func makeBookView() -> some View {
-    Group {
-      BookPreview(title: "Short Text") { _ in
-        self.init(title: "Hello")
-      }
+#StorybookPage<MyLabel> {
+  BookPreview(title: "Short Text") { _ in
+    MyLabel(title: "Hello")
+  }
+  .previewFrame(width: nil, height: 100)
 
-      BookPreview(title: "Long Text") { _ in
-        self.init(title: "HelloHelloHelloHello")
-      }
+  BookPreview(title: "Long Text") { _ in
+    MyLabel(title: "HelloHelloHelloHello")
+  }
+  .previewFrame(width: nil, height: 100)
 
-      BookPreview { context in
-        let view = self.init(title: "HelloHelloHelloHello")
+  BookPreview { context in
+    let view = MyLabel(title: "HelloHelloHelloHello")
 
-        context.control {
-          Button("Delete") {
-            view.label.text = ""
-          }
-        }
-
-        return view
+    context.control {
+      Button("Delete") {
+        view.label.text = ""
       }
     }
-  }
 
-  fileprivate static func makeBookView_1() -> some View {
+    return view
+  }
+  .previewFrame(width: nil, height: 100)
+}
+
+#StorybookPage<MyLabel> {
+  BookPreview { _ in
+    MyLabel(title: "Test")
+  }
+}
+
+#StorybookPage<MyLabel> {
+  BookPreview { _ in
+    MyLabel(title: "Test")
+  }
+  BookPreview { _ in
+    MyLabel(title: "Test")
+  }
+}
+
+#StorybookPage<MyLabel> {
+  BookPreview { _ in
+    MyLabel(title: "Test")
+  }
+  BookPreview { _ in
+    MyLabel(title: "Test")
+  }
+  BookPage(title: "Nested") {
     BookPreview { _ in
-      self.init(title: "")
+      MyLabel(title: "Test")
     }
-  }
-
-  fileprivate static func makeBookView_2() -> some View {
-    Group {
+    BookPage(title: "Nested") {
       BookPreview { _ in
-        self.init(title: "")
+        MyLabel(title: "Test")
       }
       BookPreview { _ in
-        self.init(title: "")
-      }
-    }
-  }
-
-  fileprivate static func makeBookView_3() -> some View {
-    Group {
-      BookPreview { _ in
-        self.init(title: "")
-      }
-      BookPreview { _ in
-        self.init(title: "")
+        MyLabel(title: "Test")
       }
       BookPage(title: "Nested") {
         BookPreview { _ in
-          self.init(title: "")
-        }
-        BookPage(title: "Nested") {
-          BookPreview { _ in
-            self.init(title: "")
-          }
-          BookPreview { _ in
-            self.init(title: "")
-          }
-          BookPage(title: "Nested") {
-            BookPreview { _ in
-              self.init(title: "")
-            }
-          }
+          MyLabel(title: "Test")
         }
       }
     }

@@ -22,3 +22,21 @@
 import Foundation
 
 @_exported import SwiftUI
+
+@freestanding(declaration)
+public macro StorybookPage(
+  title: String,
+  @ViewBuilder contents: @escaping () -> any View
+) = #externalMacro(
+  module: "StorybookMacrosPlugin",
+  type: "StorybookPageMacro"
+)
+
+@freestanding(declaration)
+public macro StorybookPage<Target>(
+  target: Target.Type = Target.self,
+  @ViewBuilder contents: @escaping () -> any View
+) = #externalMacro(
+  module: "StorybookMacrosPlugin",
+  type: "StorybookPageMacro"
+)
