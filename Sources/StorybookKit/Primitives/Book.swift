@@ -26,12 +26,15 @@ public struct Book: BookView, Identifiable {
 
   public let title: String
   public let contents: [Node]
-  
-  public static func withAllBookProviders(title: String) -> Self {
-    self.init(title: title) {
-      self.findAllBookProviders()
-        .map({ $0.bookBody })
-    }
+
+  /// All conformers to `BookProvider`, including those declared from the `#StorybookPage` macro
+  public static func allBookProviders() -> [any BookProvider.Type] {
+    self.findAllBookProviders(filterByStorybookPageMacro: false) ?? []
+  }
+
+  /// All conformers to `BookProvider` that were declared from the `#StorybookPage` macro
+  public static func allStorybookPages() -> [any BookProvider.Type] {
+    self.findAllBookProviders(filterByStorybookPageMacro: true) ?? []
   }
 
   public init(

@@ -29,11 +29,12 @@ extension Book {
   /// Should match `StorybookPageMacro._magicSubstring`
   static let _magicSubstring: String = "__🤖🛠️_StorybookMagic_"
 
-  static func findAllBookProviders() -> [any BookProvider.Type] {
-
+  static func findAllBookProviders(
+    filterByStorybookPageMacro: Bool = false
+  ) -> [any BookProvider.Type]? {
     let moduleName = Bundle.main.bundleURL.deletingPathExtension().lastPathComponent
     guard !moduleName.isEmpty else {
-      return []
+      return nil
     }
     guard
       let imageIndex = (0..<_dyld_image_count()).first(
@@ -54,28 +55,33 @@ extension Book {
         }
       )
     else {
-      return []
+      return nil
     }
 
     // Follows same approach here:  https://github.com/apple/swift-testing/blob/main/Sources/TestingInternals/Discovery.cpp#L318
-    let headerRawPtr: UnsafeRawPointer = .init(
-      _dyld_get_image_header(imageIndex)!
-    )
+    guard
+      let headerRawPtr: UnsafeRawPointer = _dyld_get_image_header(imageIndex)
+        .map(UnsafeRawPointer.init(_:))
+    else {
+      return nil
+    }
     let headerPtr = headerRawPtr.assumingMemoryBound(
       to: mach_header_64.self
     )
     // https://derekselander.github.io/dsdump/
     var size: UInt = 0
-    let sectionRawPtr: UnsafeRawPointer = .init(
-      getsectiondata(
+    guard
+      let sectionRawPtr = getsectiondata(
         headerPtr,
         SEG_TEXT,
         "__swift5_types",
         &size
-      )!
-    )
+      )
+      .map(UnsafeRawPointer.init(_:))
+    else {
+      return nil
+    }
     let capacity: Int = .init(size) / MemoryLayout<SwiftTypeMetadataRecord>.size
-
     let sectionPtr = sectionRawPtr.assumingMemoryBound(
       to: SwiftTypeMetadataRecord.self
     )
@@ -91,11 +97,13 @@ extension Book {
       guard !contextDescriptor.pointee.isGeneric() else {
         return nil
       }
-      let nameCString = contextDescriptor.resolvePointer(for: \.name)
       guard
-        self._magicSubstring.withCString(
-          { nil != strstr(nameCString, $0) }
-        ) 
+        !filterByStorybookPageMacro || self._magicSubstring.withCString(
+          {
+            let nameCString = contextDescriptor.resolvePointer(for: \.name)
+            return nil != strstr(nameCString, $0)
+          }
+        )
       else {
         return nil
       }

@@ -33,8 +33,21 @@ struct RootView: View {
 //        book: myBook
 //      )
 
-      StorybookDisplayRootView(bookStore: .init(book: myBook2))
+//      StorybookDisplayRootView(bookStore: .init(book: myBook2))
       
+      StorybookDisplayRootView(
+        bookStore: .init(
+          book: .init(title: "Storybook Demo") {
+
+            myBook2
+
+            Book(title: "#StorybookPage macro") {
+              Book.allStorybookPages()
+                .map({ $0.bookBody })
+            }
+          }
+        )
+      )
     }
   }
 }
