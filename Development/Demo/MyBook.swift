@@ -24,7 +24,7 @@ import StorybookKit
 import SwiftUISupport
 
 @MainActor
-let myBook2 = Book.init(
+let myBook = Book.init(
   title: "MyUI",
   contents: {
 

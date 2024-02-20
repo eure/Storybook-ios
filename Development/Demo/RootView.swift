@@ -27,27 +27,18 @@ import SwiftUISupport
 struct RootView: View {
 
   var body: some View {
-    VStack {
+    StorybookDisplayRootView(
+      bookStore: .init(
+        book: .init(title: "Storybook Demo") {
 
-//      StorybookDisplayRootView(
-//        book: myBook
-//      )
+          myBook
 
-//      StorybookDisplayRootView(bookStore: .init(book: myBook2))
-      
-      StorybookDisplayRootView(
-        bookStore: .init(
-          book: .init(title: "Storybook Demo") {
-
-            myBook2
-
-            Book(title: "#StorybookPage macro") {
-              Book.allStorybookPages()
-                .map({ $0.bookBody })
-            }
+          Book(title: "#StorybookPage macro") {
+            Book.allStorybookPages()
+              .map({ $0.bookBody })
           }
-        )
+        }
       )
-    }
+    )
   }
 }
