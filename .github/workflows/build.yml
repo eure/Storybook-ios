@@ -11,7 +11,7 @@ jobs:
           xcode-version: "15.0"
       - uses: actions/checkout@v2
       - name: xcodebuild
-        run: xcodebuild -scheme StorybookKit -sdk iphonesimulator -destination 'platform=iOS Simulator'
+        run: xcodebuild -scheme StorybookKit -sdk iphonesimulator -destination 'generic/platform=iOS Simulator'
   build-storybook-kit-texture-support:
     runs-on: macos-13
     steps:
@@ -20,4 +20,4 @@ jobs:
           xcode-version: "15.0"
       - uses: actions/checkout@v2
       - name: xcodebuild
-        run: xcodebuild -scheme StorybookKitTextureSupport -sdk iphonesimulator -destination 'platform=iOS Simulator'
+        run: xcodebuild -scheme StorybookKitTextureSupport -sdk iphonesimulator -destination 'generic/platform=iOS Simulator'
