@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   build-storybook-kit:
-    runs-on: macos-13
+    runs-on: macos-14
     steps:
       - uses: maxim-lobanov/setup-xcode@v1.1
         with:
@@ -13,7 +13,7 @@ jobs:
       - name: xcodebuild
         run: xcodebuild -scheme StorybookKit -sdk iphonesimulator -destination 'generic/platform=iOS Simulator'
   build-storybook-kit-texture-support:
-    runs-on: macos-13
+    runs-on: macos-14
     steps:
       - uses: maxim-lobanov/setup-xcode@v1.1
         with:
