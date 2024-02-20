@@ -8,16 +8,16 @@ jobs:
     steps:
       - uses: maxim-lobanov/setup-xcode@v1.1
         with:
-          xcode-version: "14.3"
+          xcode-version: "15.0"
       - uses: actions/checkout@v2
       - name: xcodebuild
-        run: xcodebuild -scheme StorybookKit -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 8,OS=16.2'
+        run: xcodebuild -scheme StorybookKit -sdk iphonesimulator -destination 'platform=iOS Simulator'
   build-storybook-kit-texture-support:
     runs-on: macos-13
     steps:
       - uses: maxim-lobanov/setup-xcode@v1.1
         with:
-          xcode-version: "14.3"
+          xcode-version: "15.0"
       - uses: actions/checkout@v2
       - name: xcodebuild
-        run: xcodebuild -scheme StorybookKitTextureSupport -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 8,OS=16.2'
+        run: xcodebuild -scheme StorybookKitTextureSupport -sdk iphonesimulator -destination 'platform=iOS Simulator'
