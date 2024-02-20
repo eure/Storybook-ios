@@ -98,6 +98,7 @@ extension Book {
         return nil
       }
       guard
+        contextDescriptor.pointee.kind().canConformToProtocol,
         !filterByStorybookPageMacro || self._magicSubstring.withCString(
           {
             let nameCString = contextDescriptor.resolvePointer(for: \.name)
@@ -264,6 +265,10 @@ struct SwiftTypeContextDescriptor: SwiftLayoutPointer {
 
     init(rawValue: UInt32) {
       self.rawValue = rawValue
+    }
+
+    var canConformToProtocol: Bool {
+      return (Self.classType.rawValue ... Self.typesEnd.rawValue).contains(self.rawValue)
     }
   }
 }
