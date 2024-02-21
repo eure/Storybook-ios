@@ -22,6 +22,7 @@
 import ResultBuilderKit
 import SwiftUI
 
+@_alwaysEmitConformanceMetadata
 public protocol BookProvider {
   static var bookBody: BookPage { get }
 }
