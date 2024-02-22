@@ -68,8 +68,11 @@ public struct StorybookPageMacro: DeclarationMacro {
     closure: ClosureExprSyntax
   ) {
     var argumentsIterator = node.argumentList.makeIterator()
-    var title: ExprSyntax? = node.genericArgumentClause?.arguments.first?.argument
-      .as(IdentifierTypeSyntax.self)
+    var title: ExprSyntax? = (node.genericArgumentClause?.arguments.first?.argument)
+      .flatMap { genericType -> TypeSyntaxProtocol? in
+        genericType.as(IdentifierTypeSyntax.self)
+        ?? genericType.as(MemberTypeSyntax.self)
+      }
       .map({ .init(stringLiteral: "_typeName(\($0).self)") })
 
     var closure: ClosureExprSyntax? = node.trailingClosure
