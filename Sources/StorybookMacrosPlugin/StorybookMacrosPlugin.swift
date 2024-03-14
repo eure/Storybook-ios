@@ -30,6 +30,7 @@ struct StorybookMacrosPlugin: CompilerPlugin {
   // MARK: CompilerPlugin
 
   let providingMacros: [Macro.Type] = [
-    StorybookPageMacro.self
+    StorybookPageMacro.self,
+    StorybookPreviewMacro.self
   ]
 }

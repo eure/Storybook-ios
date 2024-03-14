@@ -40,3 +40,21 @@ public macro StorybookPage<Target>(
   module: "StorybookMacrosPlugin",
   type: "StorybookPageMacro"
 )
+
+@freestanding(expression)
+public macro StorybookPreview(
+  title: String,
+  @ViewBuilder contents: @escaping () -> any View
+) -> AnyView = #externalMacro(
+  module: "StorybookMacrosPlugin",
+  type: "StorybookPreviewMacro"
+)
+
+@freestanding(expression)
+public macro StorybookPreview<Target>(
+  target: Target.Type = Target.self,
+  @ViewBuilder contents: @escaping () -> any View
+) -> AnyView = #externalMacro(
+  module: "StorybookMacrosPlugin",
+  type: "StorybookPreviewMacro"
+)
