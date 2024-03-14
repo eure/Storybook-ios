@@ -190,6 +190,25 @@ let myBook = Book.init(
   }
 }
 
+
+#Preview("Some title") {
+  #StorybookPreview<UILabel> {
+    BookPreview { _ in
+      let label = UILabel()
+      label.text = "UILabel 1"
+      return label
+    }
+  }
+}
+
+#Preview("Some title 2") {
+  #StorybookPreview<MyLabel> {
+    BookPreview { _ in
+      MyLabel(title: "MyLabel 2")
+    }
+  }
+}
+
 #StorybookPage<MyLabel> {
   BookPreview { _ in
     MyLabel(title: "Test")

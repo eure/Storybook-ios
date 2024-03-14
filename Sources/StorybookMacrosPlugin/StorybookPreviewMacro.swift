@@ -25,28 +25,28 @@ import SwiftSyntax
 import SwiftSyntaxBuilder
 import SwiftSyntaxMacros
 
-// MARK: - StorybookPageMacro
+// MARK: - StorybookPreviewMacro
 
-public struct StorybookPageMacro: DeclarationMacro {
+public struct StorybookPreviewMacro: ExpressionMacro {
 
   // MARK: Internal
 
   /// Should match `Book._magicSubstring`
   static let _magicSubstring: String = "__🤖🛠️_StorybookMagic_"
 
-  // MARK: DeclarationMacro
+  // MARK: ExpressionMacro
 
   public static func expansion(
     of node: some FreestandingMacroExpansionSyntax,
     in context: some MacroExpansionContext
-  ) throws -> [DeclSyntax] {
+  ) throws -> ExprSyntax {
     let (title, closure) = try self.parseArguments(from: node)
     let enumName = context.makeUniqueName(
       self._magicSubstring
     )
-    return [
-      .init(
-        stringLiteral: """
+    return .init(
+      stringLiteral: """
+      {
         enum \(enumName): BookProvider {
           static var bookBody: BookPage {
             .init(
@@ -55,9 +55,10 @@ public struct StorybookPageMacro: DeclarationMacro {
             )
           }
         }
-        """
-      )
-    ]
+        return \(enumName).bookBody.destination
+      }()
+      """
+    )
   }
 
 
