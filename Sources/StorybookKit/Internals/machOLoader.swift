@@ -36,28 +36,21 @@ extension Book {
     guard !moduleName.isEmpty else {
       return nil
     }
-    let allImageNames: [String?] = (0..<_dyld_image_count()).map {
-      guard let pathC = _dyld_get_image_name($0) else {
-        return nil
-      }
-      let path = String(cString: pathC)
-      let imageName = path
-        .components(separatedBy: "/")
-        .last?
-        .components(separatedBy: ".")
-        .first
-      print(path)
-      return imageName
+    return (0..<_dyld_image_count()).flatMap {
+      self.findAllBookProviders(
+        inImageIndex: .init($0),
+        filterByStorybookPageMacro: filterByStorybookPageMacro
+      ) ?? []
     }
-    guard
-      let imageIndex = allImageNames.firstIndex(of: moduleName)
-    else {
-      return nil
-    }
+  }
 
+  private static func findAllBookProviders(
+    inImageIndex imageIndex: UInt32,
+    filterByStorybookPageMacro: Bool
+  ) -> [any BookProvider.Type]? {
     // Follows same approach here:  https://github.com/apple/swift-testing/blob/main/Sources/TestingInternals/Discovery.cpp#L318
     guard
-      let headerRawPtr: UnsafeRawPointer = _dyld_get_image_header(.init(imageIndex))
+      let headerRawPtr: UnsafeRawPointer = _dyld_get_image_header(imageIndex)
         .map(UnsafeRawPointer.init(_:))
     else {
       return nil
