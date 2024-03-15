@@ -36,31 +36,28 @@ extension Book {
     guard !moduleName.isEmpty else {
       return nil
     }
+    let allImageNames: [String?] = (0..<_dyld_image_count()).map {
+      guard let pathC = _dyld_get_image_name($0) else {
+        return nil
+      }
+      let path = String(cString: pathC)
+      let imageName = path
+        .components(separatedBy: "/")
+        .last?
+        .components(separatedBy: ".")
+        .first
+      print(path)
+      return imageName
+    }
     guard
-      let imageIndex = (0..<_dyld_image_count()).first(
-        where: {
-          guard let pathC = _dyld_get_image_name($0) else {
-            return false
-          }
-          let path = String(cString: pathC)
-          let imageName = path
-            .components(separatedBy: "/")
-            .last?
-            .components(separatedBy: ".")
-            .first
-          if imageName == moduleName {
-            print(path)
-          }
-          return imageName == moduleName
-        }
-      )
+      let imageIndex = allImageNames.firstIndex(of: moduleName)
     else {
       return nil
     }
 
     // Follows same approach here:  https://github.com/apple/swift-testing/blob/main/Sources/TestingInternals/Discovery.cpp#L318
     guard
-      let headerRawPtr: UnsafeRawPointer = _dyld_get_image_header(imageIndex)
+      let headerRawPtr: UnsafeRawPointer = _dyld_get_image_header(.init(imageIndex))
         .map(UnsafeRawPointer.init(_:))
     else {
       return nil
