@@ -36,24 +36,28 @@ extension Book {
     guard !moduleName.isEmpty else {
       return nil
     }
-    return (0..<_dyld_image_count()).flatMap {
+    var results: [any BookProvider.Type] = []
+    for imageIndex in 0 ..< _dyld_image_count() {
       self.findAllBookProviders(
-        inImageIndex: .init($0),
-        filterByStorybookPageMacro: filterByStorybookPageMacro
-      ) ?? []
+        inImageIndex: .init(imageIndex),
+        filterByStorybookPageMacro: filterByStorybookPageMacro,
+        results: &results
+      )
     }
+    return results
   }
 
   private static func findAllBookProviders(
     inImageIndex imageIndex: UInt32,
-    filterByStorybookPageMacro: Bool
-  ) -> [any BookProvider.Type]? {
+    filterByStorybookPageMacro: Bool,
+    results: inout [any BookProvider.Type]
+  ) {
     // Follows same approach here:  https://github.com/apple/swift-testing/blob/main/Sources/TestingInternals/Discovery.cpp#L318
     guard
       let headerRawPtr: UnsafeRawPointer = _dyld_get_image_header(imageIndex)
         .map(UnsafeRawPointer.init(_:))
     else {
-      return nil
+      return
     }
     let headerPtr = headerRawPtr.assumingMemoryBound(
       to: mach_header_64.self
@@ -69,23 +73,23 @@ extension Book {
       )
       .map(UnsafeRawPointer.init(_:))
     else {
-      return nil
+      return
     }
     let capacity: Int = .init(size) / MemoryLayout<SwiftTypeMetadataRecord>.size
     let sectionPtr = sectionRawPtr.assumingMemoryBound(
       to: SwiftTypeMetadataRecord.self
     )
-    return (0 ..< capacity).compactMap { index in
+    for index in 0 ..< capacity {
       let record = sectionPtr.advanced(by: index)
       guard
         let contextDescriptor = record.pointee.contextDescriptor(
           from: record
         )
       else {
-        return nil
+        continue
       }
       guard !contextDescriptor.pointee.isGeneric() else {
-        return nil
+        continue
       }
       guard
         contextDescriptor.pointee.kind().canConformToProtocol,
@@ -96,23 +100,23 @@ extension Book {
           }
         )
       else {
-        return nil
+        continue
       }
       let metadataClosure = contextDescriptor.resolveValue(for: \.metadataAccessFunction)
       let metadata = metadataClosure(0xFF)
       guard
         let metadataAccessFunction = metadata.value
       else {
-        return nil
+        continue
       }
       let anyType = unsafeBitCast(
         metadataAccessFunction,
         to: Any.Type.self
       )
       guard let bookProviderType = anyType as? any BookProvider.Type else {
-        return nil
+        continue
       }
-      return bookProviderType
+      results.append(bookProviderType)
     }
   }
 }
