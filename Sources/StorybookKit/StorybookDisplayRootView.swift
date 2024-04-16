@@ -26,8 +26,8 @@ public struct BookActionHosting<Content: View>: View {
 
   private let content: Content
 
-  public init(_ content: Content) {
-    self.content = content
+  public init(@ViewBuilder content: () -> Content) {
+    self.content = content()
   }
 
   public var body: some View {
@@ -186,7 +186,7 @@ final class _ViewController<Content: View>: UIViewController {
 #if DEBUG
 
 #Preview {
-  BookActionHosting(BookAction(title: "Hello", action: { vc in }))
+  BookActionHosting { BookAction(title: "Hello", action: { vc in }) }
 }
 
 #endif

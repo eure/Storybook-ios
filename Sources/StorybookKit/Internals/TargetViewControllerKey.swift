@@ -1,7 +1,7 @@
 import SwiftUI
 
-enum _ViewControllerKey: EnvironmentKey {
-  static var defaultValue: UIViewController?
+public enum _ViewControllerKey: EnvironmentKey {
+  public static var defaultValue: UIViewController?
 }
 
 enum TestKey: EnvironmentKey {
