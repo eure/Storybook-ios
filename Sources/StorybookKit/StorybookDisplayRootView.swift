@@ -10,6 +10,11 @@ public struct StorybookDisplayRootView: View {
   public init(bookStore: BookStore) {
     self.book = .init(store: bookStore)
   }
+  
+  @MainActor
+  public init(book: any BookType) {
+    self.book = .init(store: .init(book: book))
+  }
 
   public var body: some View {
 
