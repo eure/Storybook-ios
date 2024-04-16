@@ -10,16 +10,11 @@ public struct StorybookDisplayRootView: View {
   public init(bookStore: BookStore) {
     self.book = .init(store: bookStore)
   }
-  
-  @MainActor
-  public init(book: any BookType) {
-    self.book = .init(store: .init(book: book))
-  }
 
   public var body: some View {
 
     _ViewControllerHost {
-      let controller = _ViewController(book: book)
+      let controller = _ViewController(content: book)
       return controller
     }
     .ignoresSafeArea()
@@ -27,7 +22,26 @@ public struct StorybookDisplayRootView: View {
   }
 }
 
-struct BookContainer: BookType {
+public struct BookActionHosting<Content: View>: View {
+
+  private let content: Content
+
+  public init(_ content: Content) {
+    self.content = content
+  }
+
+  public var body: some View {
+
+    _ViewControllerHost {
+      let controller = _ViewController(content: content)
+      return controller
+    }
+    .ignoresSafeArea()
+
+  }
+}
+
+struct BookContainer: View {
 
   @ObservedObject var store: BookStore
   @State var isSearching: Bool = false
@@ -130,12 +144,12 @@ struct BookContainer: BookType {
 
 }
 
-final class _ViewController<Book: BookType>: UIViewController {
+final class _ViewController<Content: View>: UIViewController {
 
-  private let book: Book
+  private let content: Content
 
-  init(book: Book) {
-    self.book = book
+  init(content: Content) {
+    self.content = content
     super.init(nibName: nil, bundle: nil)
   }
 
@@ -148,7 +162,7 @@ final class _ViewController<Book: BookType>: UIViewController {
 
     let hosting = UIHostingController(
       rootView:
-        book
+        content
         .environment(\._targetViewController, self)
     )
 
@@ -167,4 +181,8 @@ final class _ViewController<Book: BookType>: UIViewController {
 
   }
 
+}
+
+#Preview {
+  BookActionHosting(BookAction(title: "Hello", action: { vc in }))
 }

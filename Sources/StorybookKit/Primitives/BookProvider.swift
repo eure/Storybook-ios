@@ -27,10 +27,6 @@ public protocol BookProvider {
   static var bookBody: BookPage { get }
 }
 
-public protocol BookType: View {
-
-}
-
 private enum BookContextKey: EnvironmentKey {
   static var defaultValue: BookStore?
 }
