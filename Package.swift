@@ -5,7 +5,7 @@ import CompilerPluginSupport
 let package = Package(
   name: "Storybook",
   platforms: [
-    .iOS(.v14),
+    .iOS(.v15),
     .macCatalyst(.v15),
     .macOS(.v10_15)
   ],
