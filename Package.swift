@@ -11,7 +11,7 @@ let package = Package(
   ],
   products: [
     .library(name: "StorybookKit", targets: ["StorybookKit"]),
-//    .library(name: "StorybookKitTextureSupport", targets: ["StorybookKitTextureSupport"]),
+    .library(name: "StorybookKitTextureSupport", targets: ["StorybookKitTextureSupport"]),
   ],
   dependencies: [
     .package(url: "https://github.com/muukii/MondrianLayout.git", from: "0.8.0"),
@@ -46,13 +46,13 @@ let package = Package(
         .product(name: "MacroTesting", package: "swift-macro-testing"),
       ]
     ),
-//    .target(
-//      name: "StorybookKitTextureSupport",
-//      dependencies: [
-//        .product(name: "TextureSwiftSupport", package: "TextureSwiftSupport"),
-//        .product(name: "TextureBridging", package: "TextureBridging"),
-//        "StorybookKit",
-//      ]
-//    ),
+    .target(
+      name: "StorybookKitTextureSupport",
+      dependencies: [
+        .product(name: "TextureSwiftSupport", package: "TextureSwiftSupport"),
+        .product(name: "TextureBridging", package: "TextureBridging"),
+        "StorybookKit",
+      ]
+    ),
   ]
 )
