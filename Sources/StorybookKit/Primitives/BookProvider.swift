@@ -27,19 +27,8 @@ public protocol BookProvider {
   static var bookBody: BookPage { get }
 }
 
-private enum BookContextKey: EnvironmentKey {
-  static var defaultValue: BookStore?
-}
-
 extension EnvironmentValues {
-
-  public var bookContext: BookStore? {
-    get {
-      self[BookContextKey.self]
-    }
-    set {
-      self[BookContextKey.self] = newValue
-    }
-  }
+  
+  @Entry public var bookContext: BookStore?
 
 }
