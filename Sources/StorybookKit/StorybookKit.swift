@@ -26,7 +26,7 @@ import Foundation
 @freestanding(declaration)
 public macro StorybookPage(
   title: String,
-  @ViewBuilder contents: @escaping () -> any View
+  @ViewBuilder contents: @escaping @MainActor () -> any View
 ) = #externalMacro(
   module: "StorybookMacrosPlugin",
   type: "StorybookPageMacro"
@@ -35,7 +35,7 @@ public macro StorybookPage(
 @freestanding(declaration)
 public macro StorybookPage<Target>(
   target: Target.Type = Target.self,
-  @ViewBuilder contents: @escaping () -> any View
+  @ViewBuilder contents: @escaping @MainActor () -> any View
 ) = #externalMacro(
   module: "StorybookMacrosPlugin",
   type: "StorybookPageMacro"
@@ -44,7 +44,7 @@ public macro StorybookPage<Target>(
 @freestanding(expression)
 public macro StorybookPreview(
   title: String,
-  @ViewBuilder contents: @escaping () -> any View
+  @ViewBuilder contents: @escaping @MainActor () -> any View
 ) -> AnyView = #externalMacro(
   module: "StorybookMacrosPlugin",
   type: "StorybookPreviewMacro"
@@ -53,7 +53,7 @@ public macro StorybookPreview(
 @freestanding(expression)
 public macro StorybookPreview<Target>(
   target: Target.Type = Target.self,
-  @ViewBuilder contents: @escaping () -> any View
+  @ViewBuilder contents: @escaping @MainActor () -> any View
 ) -> AnyView = #externalMacro(
   module: "StorybookMacrosPlugin",
   type: "StorybookPreviewMacro"

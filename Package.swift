@@ -54,5 +54,6 @@ let package = Package(
         "StorybookKit",
       ]
     ),
-  ]
+  ],
+  swiftLanguageVersions: [.v5]
 )
