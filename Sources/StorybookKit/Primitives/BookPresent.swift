@@ -25,7 +25,6 @@ import SwiftUI
 public struct BookPresent: BookView {
 
   @Environment(\._targetViewController) private var targetViewController
-  @Environment(\.test) var test
 
   public let declarationIdentifier: DeclarationIdentifier
   public let presentedViewControllerBlock: @MainActor () -> UIViewController
@@ -44,8 +43,6 @@ public struct BookPresent: BookView {
   public var body: some View {
     Button(title) {
       let viewController = presentedViewControllerBlock()
-      print(test)
-      print(targetViewController)
       targetViewController?.present(viewController, animated: true)
     }
   }
