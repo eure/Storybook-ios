@@ -115,6 +115,7 @@ public struct FolderBuilder {
 
   public typealias Element = Book.Node
 
+  @MainActor
   public static func buildExpression<Provider: BookProvider>(_ expression: Provider.Type) -> [FolderBuilder.Element] {
     return [.page(expression.bookBody)]
   }

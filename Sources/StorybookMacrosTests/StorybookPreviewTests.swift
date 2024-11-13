@@ -51,6 +51,7 @@ final class StorybookPreviewTests: XCTestCase {
       #Preview("Some title") {
         {
           enum __macro_local_20__🤖🛠️_StorybookMagic_fMu_: BookProvider {
+            @MainActor
             static var bookBody: BookPage {
               .init(
                 title: _typeName(UIView.self),
