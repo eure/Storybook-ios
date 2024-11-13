@@ -24,6 +24,7 @@ import SwiftUI
 
 @_alwaysEmitConformanceMetadata
 public protocol BookProvider {
+  @MainActor
   static var bookBody: BookPage { get }
 }
 
