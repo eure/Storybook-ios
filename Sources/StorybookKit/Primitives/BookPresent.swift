@@ -24,7 +24,7 @@ import SwiftUI
 /// A component descriptor that just displays UI-Component
 public struct BookPresent: BookView {
 
-  @Environment(\._targetViewController) private var targetViewController
+  @Environment(\.storybook_targetViewController) private var targetViewController
 
   public let declarationIdentifier: DeclarationIdentifier
   public let presentedViewControllerBlock: @MainActor () -> UIViewController

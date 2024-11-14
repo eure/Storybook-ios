@@ -23,7 +23,7 @@ import SwiftUI
 
 public struct BookAction: BookView {
 
-  @Environment(\._targetViewController) var targetViewController
+  @Environment(\.storybook_targetViewController) var targetViewController
 
   public let declarationIdentifier: DeclarationIdentifier
   
