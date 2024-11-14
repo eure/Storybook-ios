@@ -1,5 +1,5 @@
 import SwiftUI
 
 extension EnvironmentValues {
-  @Entry var _targetViewController: UIViewController?
+  @Entry public var storybook_targetViewController: UIViewController?
 }
