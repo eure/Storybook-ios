@@ -66,7 +66,7 @@ public struct BookPage: BookView, Identifiable {
     _ file: StaticString = #fileID,
     _ line: UInt = #line,
     title: String,
-    @ViewBuilder destination: () -> Destination
+    @ViewBuilder destination: @MainActor () -> Destination
   ) {
     self.file = file
     self.line = line
