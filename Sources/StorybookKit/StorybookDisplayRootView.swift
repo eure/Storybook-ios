@@ -163,7 +163,7 @@ final class _ViewController<Content: View>: UIViewController {
     let hosting = UIHostingController(
       rootView:
         content
-        .environment(\._targetViewController, self)
+        .environment(\.storybook_targetViewController, self)
     )
 
     addChild(hosting)

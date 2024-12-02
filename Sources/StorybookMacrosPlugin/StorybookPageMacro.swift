@@ -48,6 +48,7 @@ public struct StorybookPageMacro: DeclarationMacro {
       .init(
         stringLiteral: """
         enum \(enumName): BookProvider {
+          @MainActor
           static var bookBody: BookPage {
             .init(
               title: \(title),

@@ -23,7 +23,7 @@ import Foundation
 import SwiftUI
 import ResultBuilderKit
 
-public struct DeclarationIdentifier: Hashable, Codable {
+public struct DeclarationIdentifier: Hashable, Codable, Sendable {
 
   public let index: Int
 
@@ -37,7 +37,7 @@ public struct DeclarationIdentifier: Hashable, Codable {
 }
 
 private let _lock = NSLock()
-private var _counter: Int = 0
+private nonisolated(unsafe) var _counter: Int = 0
 private func issueUniqueNumber() -> Int {
   _lock.lock()
   defer {
@@ -52,13 +52,13 @@ public struct BookPage: BookView, Identifiable {
 
   @Environment(\.bookContext) var context
 
-  public var id: DeclarationIdentifier {
+  public nonisolated var id: DeclarationIdentifier {
     declarationIdentifier
   }
 
   public let title: String
   public let destination: AnyView
-  public let declarationIdentifier: DeclarationIdentifier
+  public nonisolated let declarationIdentifier: DeclarationIdentifier
   private let file: StaticString
   private let line: UInt
 
@@ -66,7 +66,7 @@ public struct BookPage: BookView, Identifiable {
     _ file: StaticString = #fileID,
     _ line: UInt = #line,
     title: String,
-    @ViewBuilder destination: () -> Destination
+    @ViewBuilder destination: @MainActor () -> Destination
   ) {
     self.file = file
     self.line = line
