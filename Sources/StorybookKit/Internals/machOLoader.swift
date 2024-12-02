@@ -113,6 +113,38 @@ extension Book {
         metadataAccessFunction,
         to: Any.Type.self
       )
+      if #available(iOS 17.0, *) {
+        if let previewType = anyType as? any DeveloperToolsSupport.PreviewRegistry.Type {
+          print("========")
+          print("fileID: \(previewType.fileID)")
+          print("line: \(previewType.line)")
+          print("column: \(previewType.column)")
+          
+          let preview = try! previewType.makePreview()
+          dump(preview)
+
+          let mirror: Mirror = .init(reflecting: preview)
+          for child in mirror.children {
+            switch child.label {
+            case "displayName":
+              print("displayName: \(child.value)")
+
+            case "source":
+              let mirror: Mirror = .init(reflecting: child.value)
+              let factory = mirror.children.first!.value as! @MainActor () -> any SwiftUI.View
+//              let view = AnyView(factory())
+              print("view:")
+              let anyView: AnyView = MainActor.assumeIsolated(factory) as! AnyView
+              dump(anyView)
+              print("========")
+
+            default:
+              break
+            }
+          }
+          print("========")
+        }
+      }
       guard let bookProviderType = anyType as? any BookProvider.Type else {
         continue
       }
