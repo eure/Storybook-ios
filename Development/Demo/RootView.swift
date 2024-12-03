@@ -37,6 +37,12 @@ struct RootView: View {
             Book.allStorybookPages()
               .map({ $0.bookBody })
           }
+
+          if #available(iOS 17.0, *) {
+            Book(title: "#Preview macro") {
+              Book.allBookPreviews()
+            }
+          }
         }
       )
     )

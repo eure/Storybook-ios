@@ -27,6 +27,12 @@ public struct Book: BookView, Identifiable {
   public let title: String
   public let contents: [Node]
 
+  /// All `#Preview`s as `BookPage`s
+  @available(iOS 17.0, *)
+  public static func allBookPreviews() -> [BookPage] {
+    self.findAllPreviews() ?? []
+  }
+
   /// All conformers to `BookProvider`, including those declared from the `#StorybookPage` macro
   public static func allBookProviders() -> [any BookProvider.Type] {
     self.findAllBookProviders(filterByStorybookPageMacro: false) ?? []

@@ -30,8 +30,8 @@ public struct BookNodePreview: BookView {
   private var backing: BookPreview
 
   public init(
-    _ file: StaticString = #fileID,
-    _ line: UInt = #line,
+    _ file: String = #fileID,
+    _ line: Int = #line,
     title: String? = nil,
     nodeBlock: @escaping @MainActor (inout BookPreview.Context) -> ASDisplayNode
   ) {

@@ -46,14 +46,14 @@ public struct BookPreview: BookView {
 
   public let declarationIdentifier: DeclarationIdentifier
 
-  private let file: StaticString
-  private let line: UInt
+  private let file: String
+  private let line: Int
   private let title: String?
   private var frameConstraint: FrameConstraint = .init()
 
   public init(
-    _ file: StaticString = #fileID,
-    _ line: UInt = #line,
+    _ file: String = #fileID,
+    _ line: Int = #line,
     title: String? = nil,
     viewBlock: @escaping @MainActor (inout Context) -> UIView
   ) {

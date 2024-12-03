@@ -59,12 +59,12 @@ public struct BookPage: BookView, Identifiable {
   public let title: String
   public let destination: AnyView
   public nonisolated let declarationIdentifier: DeclarationIdentifier
-  private let file: StaticString
-  private let line: UInt
+  private let file: String
+  private let line: Int
 
   public init<Destination: View>(
-    _ file: StaticString = #fileID,
-    _ line: UInt = #line,
+    _ file: String = #fileID,
+    _ line: Int = #line,
     title: String,
     @ViewBuilder destination: @MainActor () -> Destination
   ) {
