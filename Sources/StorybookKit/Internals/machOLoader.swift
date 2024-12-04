@@ -112,12 +112,7 @@ extension Book {
       }
       guard
         contextDescriptor.pointee.kind().canConformToProtocol,
-        !filterByStorybookPageMacro || self._magicSubstring.withCString(
-          {
-            let nameCString = contextDescriptor.resolvePointer(for: \.name)
-            return nil != strstr(nameCString, $0)
-          }
-        )
+        !filterByStorybookPageMacro || contextDescriptor.nameContains(self._magicSubstring)
       else {
         continue
       }
@@ -187,12 +182,7 @@ extension Book {
       }
       guard
         contextDescriptor.pointee.kind().canConformToProtocol,
-        !excludeStorybookPageMacro || !self._magicSubstring.withCString(
-          {
-            let nameCString = contextDescriptor.resolvePointer(for: \.name)
-            return nil != strstr(nameCString, $0)
-          }
-        )
+        !excludeStorybookPageMacro || !contextDescriptor.nameContains(self._magicSubstring)
       else {
         continue
       }
@@ -231,7 +221,7 @@ extension Book {
         let fileID = previewType.fileID
         let line = previewType.line
         let preview = try! previewType.makePreview()
-
+//        dump(preview)
         var title: String?
         var makeBookView: ((String) -> any View)?
         let previewMirror: Mirror = .init(reflecting: preview)
@@ -277,8 +267,16 @@ extension Book {
 //              let factory = MakeViewFactory<UIKit.UIView>(anyFactory.value)
 //              let view = factory()
 //              print(view)
-//              dump(view)
-//              anyView = .init(view)
+//              makeBookView = { title in
+//                BookPreview(
+//                  fileID,
+//                  line,
+//                  title: title,
+//                  viewBlock: { _ in
+//                    view
+//                  }
+//                )
+//              }
 
             case "DeveloperToolsSupport.DefaultPreviewSource<SwiftUI.ViewPreviewBody>": // iOS 18
               guard
@@ -356,17 +354,17 @@ extension Book {
               }
 
             case let sourceTypeName:
-              print(sourceTypeName)
+//              print(sourceTypeName)
               break
             }
 
           case "traits":
-            let traitsMirror: Mirror = .init(reflecting: previewChild.value)
-            dump(traitsMirror)
+//            let traitsMirror: Mirror = .init(reflecting: previewChild.value)
+//            dump(traitsMirror)
             break
 
           default:
-            print(previewChild.label)
+//            print(previewChild.label)
             break
           }
         }
@@ -426,7 +424,7 @@ extension Book {
 
 extension UnsafePointer where Pointee: SwiftLayoutPointer {
 
-  func resolvePointer<U>(for keyPath: KeyPath<Pointee, SwiftRelativePointer<U>>) -> UnsafePointer<U> {
+  fileprivate func resolvePointer<U>(for keyPath: KeyPath<Pointee, SwiftRelativePointer<U>>) -> UnsafePointer<U> {
     let base: UnsafeRawPointer = .init(self)
     let fieldOffset = MemoryLayout<Pointee>.offset(of: keyPath)!
     let relativePointer = self.pointee[keyPath: keyPath]
@@ -436,7 +434,7 @@ extension UnsafePointer where Pointee: SwiftLayoutPointer {
       .assumingMemoryBound(to: U.self)
   }
 
-  func resolveValue<U>(for keyPath: KeyPath<Pointee, SwiftRelativePointer<U>>) -> U {
+  fileprivate func resolveValue<U>(for keyPath: KeyPath<Pointee, SwiftRelativePointer<U>>) -> U {
     let base: UnsafeRawPointer = .init(self)
     let fieldOffset = MemoryLayout<Pointee>.offset(of: keyPath)!
     let relativePointer = self.pointee[keyPath: keyPath]
@@ -447,17 +445,28 @@ extension UnsafePointer where Pointee: SwiftLayoutPointer {
   }
 }
 
-protocol SwiftLayoutPointer {
+extension UnsafePointer where Pointee == SwiftTypeContextDescriptor {
+  fileprivate func nameContains(_ string: String) -> Bool {
+    string.withCString(
+      {
+        let nameCString = self.resolvePointer(for: \.name)
+        return nil != strstr(nameCString, $0)
+      }
+    )
+  }
+}
+
+fileprivate protocol SwiftLayoutPointer {
   static var maskValue: Int32 { get }
 }
 
 extension SwiftLayoutPointer {
-  static var maskValue: Int32 {
+  fileprivate static var maskValue: Int32 {
     return 0
   }
 }
 
-struct SwiftRelativePointer<T> {
+fileprivate struct SwiftRelativePointer<T> {
 
   var offset: Int32 = 0
 
@@ -495,7 +504,7 @@ extension SwiftRelativePointer where T: SwiftLayoutPointer {
   }
 }
 
-struct SwiftTypeMetadataRecord: SwiftLayoutPointer {
+fileprivate struct SwiftTypeMetadataRecord: SwiftLayoutPointer {
 
   var pointer: SwiftRelativePointer<SwiftTypeContextDescriptor>
 
@@ -521,7 +530,7 @@ struct SwiftTypeMetadataRecord: SwiftLayoutPointer {
   }
 }
 
-struct SwiftTypeContextDescriptor: SwiftLayoutPointer {
+fileprivate struct SwiftTypeContextDescriptor: SwiftLayoutPointer {
   var flags: UInt32 = 0
   var parent: SwiftRelativePointer<UInt8> = .init()
   var name: SwiftRelativePointer<CChar> = .init()
