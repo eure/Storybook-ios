@@ -5,7 +5,7 @@ import PackageDescription
 let package = Package(
   name: "Storybook",
   platforms: [
-    .iOS(.v15),
+    .iOS(.v16),
     .macCatalyst(.v15),
     .macOS(.v10_15),
   ],
