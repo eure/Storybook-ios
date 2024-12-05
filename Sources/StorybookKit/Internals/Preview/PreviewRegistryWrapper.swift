@@ -20,7 +20,10 @@ struct PreviewRegistryWrapper: Comparable {
 
   @MainActor
   var makeView: (@MainActor () -> any View) {
-    let preview: FieldReader = .init(try! previewType.makePreview())
+    guard let rawPreview = try? previewType.makePreview() else {
+      return { EmptyView() }
+    }
+    let preview: FieldReader = .init(rawPreview)
     let title: String? = preview["displayName"]
     let source: FieldReader = preview["source"]
     switch source.typeName {
@@ -48,10 +51,27 @@ struct PreviewRegistryWrapper: Comparable {
             Text(title)
               .font(.system(size: 17, weight: .semibold))
           }
+          Text("UIView Preview not supported on iOS 17")
+            .foregroundStyle(Color.red)
+            .font(.caption.monospacedDigit())
           Text("\(fileID):\(line)")
             .font(.caption.monospacedDigit())
-          Text("UIView Preview not supported (UIKit.UIViewPreviewSource)")
+          BookSpacer(height: 16)
+        }
+      }
+
+    case "UIKit.UIViewControllerPreviewSource": // iOS 17
+      // Unsupported due to iOS 17 not supporting casting between non-sendable closure types
+      return {
+        VStack {
+          if let title, !title.isEmpty {
+            Text(title)
+              .font(.system(size: 17, weight: .semibold))
+          }
+          Text("UIViewController Preview not supported on iOS 17")
             .foregroundStyle(Color.red)
+            .font(.caption.monospacedDigit())
+          Text("\(fileID):\(line)")
             .font(.caption.monospacedDigit())
           BookSpacer(height: 16)
         }
@@ -103,10 +123,10 @@ struct PreviewRegistryWrapper: Comparable {
             Text(title)
               .font(.system(size: 17, weight: .semibold))
           }
-          Text("\(fileID):\(line)")
-            .font(.caption.monospacedDigit())
           Text("Failed to load preview (\(sourceTypeName))")
             .foregroundStyle(Color.red)
+            .font(.caption.monospacedDigit())
+          Text("\(fileID):\(line)")
             .font(.caption.monospacedDigit())
           BookSpacer(height: 16)
         }
@@ -152,7 +172,7 @@ struct PreviewRegistryWrapper: Comparable {
 
     subscript<T>(_ key: String, _ nextKeys: String...) -> T {
       if nextKeys.isEmpty {
-        return fields[key] as! T
+        return fields[key]! as! T
       }
       else {
         return Self.traverse(from: fields[key]!, nextKeys: nextKeys) as! T
