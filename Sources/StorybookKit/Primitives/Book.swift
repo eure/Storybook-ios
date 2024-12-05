@@ -51,26 +51,31 @@ public struct Book: BookView, Identifiable {
                   0,
                   title: .init(fileID[module.endIndex...]),
                   destination: { [registries = registriesByFileID[fileID]!] in
-                    ScrollView {
-                      LazyVStack(
-                        alignment: .center,
-                        spacing: 16,
-                        pinnedViews: .sectionHeaders
-                      ) {
-                        Section(
-                          content: {
-                            ForEach.inefficient(items: registries) { registry in
-                              AnyView(registry.makeView())
-                            }
-                          },
-                          header: {
-                            Text(fileID)
-                              .truncationMode(.head)
-                              .font(.caption.monospacedDigit())
+                    LazyVStack(
+                      alignment: .center,
+                      spacing: 16,
+                      pinnedViews: .sectionHeaders
+                    ) {
+                      Section(
+                        content: {
+                          ForEach.inefficient(items: registries) { registry in
+                            AnyView(registry.makeView())
                           }
-                        )
-                      }
+                        },
+                        header: {
+                          Text(fileID)
+                            .multilineTextAlignment(.leading)
+                            .truncationMode(.head)
+                            .foregroundStyle(.secondary)
+                            .font(.caption.monospacedDigit())
+                            .padding(.horizontal, 16)
+                            .padding(.vertical, 8)
+                            .frame(maxWidth: .infinity)
+                            .background(.thickMaterial)
+                        }
+                      )
                     }
+                    .edgesIgnoringSafeArea(.top)
                   }
                 )
               )
