@@ -49,33 +49,17 @@ public struct Book: BookView, Identifiable {
                 .init(
                   fileID,
                   0,
-                  title: .init(fileID[module.endIndex...]),
+                  title: .init(fileID[fileID.index(after: module.endIndex)...]),
                   destination: { [registries = registriesByFileID[fileID]!] in
                     LazyVStack(
                       alignment: .center,
                       spacing: 16,
                       pinnedViews: .sectionHeaders
                     ) {
-                      Section(
-                        content: {
-                          ForEach.inefficient(items: registries) { registry in
-                            AnyView(registry.makeView())
-                          }
-                        },
-                        header: {
-                          Text(fileID)
-                            .multilineTextAlignment(.leading)
-                            .truncationMode(.head)
-                            .foregroundStyle(.secondary)
-                            .font(.caption.monospacedDigit())
-                            .padding(.horizontal, 16)
-                            .padding(.vertical, 8)
-                            .frame(maxWidth: .infinity)
-                            .background(.thickMaterial)
-                        }
-                      )
+                      ForEach.inefficient(items: registries) { registry in
+                        AnyView(registry.makeView())
+                      }
                     }
-                    .edgesIgnoringSafeArea(.top)
                   }
                 )
               )
@@ -144,6 +128,7 @@ public struct Book: BookView, Identifiable {
             folder
           }
           .navigationTitle(folder.title)
+          .navigationBarTitleDisplayMode(.inline)
         } label: {
           HStack {
             Image.init(systemName: "folder")

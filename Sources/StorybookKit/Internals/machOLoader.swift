@@ -180,7 +180,8 @@ extension Book {
         continue
       }
       guard
-        contextDescriptor.pointee.kind().canConformToProtocol,
+        case .structType = contextDescriptor.pointee.kind(),
+        contextDescriptor.nameContains("PreviewRegistry"),
         !excludeStorybookPageMacro || !contextDescriptor.nameContains(self._magicSubstring)
       else {
         continue
@@ -358,7 +359,7 @@ fileprivate struct SwiftTypeContextDescriptor: SwiftLayoutPointer {
     }
 
     var canConformToProtocol: Bool {
-      return (Self.classType.rawValue ... Self.typesEnd.rawValue).contains(self.rawValue)
+      return (Self.typesStart.rawValue ... Self.typesEnd.rawValue).contains(self.rawValue)
     }
   }
 }

@@ -82,6 +82,8 @@ public struct BookPage: BookView, Identifiable {
         destination
       }
       .listStyle(.plain)
+      .navigationTitle(title)
+      .navigationBarTitleDisplayMode(.inline)
       .onAppear(perform: {
         context?.onOpen(pageID: id)
       })
