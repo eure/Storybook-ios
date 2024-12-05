@@ -30,13 +30,13 @@ public struct BookNodePreview: BookView {
   private var backing: BookPreview
 
   public init(
-    _ file: String = #fileID,
-    _ line: Int = #line,
+    _ fileID: any StringProtocol = #fileID,
+    _ line: any FixedWidthInteger = #line,
     title: String? = nil,
     nodeBlock: @escaping @MainActor (inout BookPreview.Context) -> ASDisplayNode
   ) {
     
-    self.backing = .init(file, line, title: title) { context in
+    self.backing = .init(fileID, line, title: title) { context in
       let body = nodeBlock(&context)
 
       let node = AnyDisplayNode { _, size in

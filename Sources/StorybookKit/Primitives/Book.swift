@@ -29,8 +29,56 @@ public struct Book: BookView, Identifiable {
 
   /// All `#Preview`s as `BookPage`s
   @available(iOS 17.0, *)
-  public static func allBookPreviews() -> [BookPage] {
-    self.findAllPreviews() ?? []
+  public static func allBookPreviews() -> [Node]? {
+    guard let sortedPreviewRegistries = self.findAllPreviews() else {
+      return nil
+    }
+    var fileIDsByModule: [String: Set<String>] = [:]
+    var registriesByFileID: [String: [PreviewRegistryWrapper]] = [:]
+    for item in sortedPreviewRegistries {
+      fileIDsByModule[item.module, default: []].insert(item.fileID)
+      registriesByFileID[item.fileID, default: []].append(item)
+    }
+    return fileIDsByModule.keys.sorted().map { module in
+      return Node.folder(
+        .init(
+          title: module,
+          contents: { [fileIDs = fileIDsByModule[module]!.sorted()] in
+            fileIDs.map { fileID in
+              return Node.page(
+                .init(
+                  fileID,
+                  0,
+                  title: .init(fileID[module.endIndex...]),
+                  destination: { [registries = registriesByFileID[fileID]!] in
+                    ScrollView {
+                      LazyVStack(
+                        alignment: .center,
+                        spacing: 16,
+                        pinnedViews: .sectionHeaders
+                      ) {
+                        Section(
+                          content: {
+                            ForEach.inefficient(items: registries) { registry in
+                              AnyView(registry.makeView())
+                            }
+                          },
+                          header: {
+                            Text(fileID)
+                              .truncationMode(.head)
+                              .font(.caption.monospacedDigit())
+                          }
+                        )
+                      }
+                    }
+                  }
+                )
+              )
+            }
+          }
+        )
+      )
+    }
   }
 
   /// All conformers to `BookProvider`, including those declared from the `#StorybookPage` macro

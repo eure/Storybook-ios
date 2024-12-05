@@ -50,12 +50,12 @@ extension Book {
   @available(iOS 17.0, *)
   static func findAllPreviews(
     excludeStorybookPageMacro: Bool = true
-  ) -> [BookPage]? {
+  ) -> [PreviewRegistryWrapper]? {
     let moduleName = Bundle.main.bundleURL.deletingPathExtension().lastPathComponent
     guard !moduleName.isEmpty else {
       return nil
     }
-    var results: [BookPage] = []
+    var results: [PreviewRegistryWrapper] = []
     for imageIndex in 0 ..< _dyld_image_count() {
       self.findAllPreviews(
         inImageIndex: .init(imageIndex),
@@ -138,7 +138,7 @@ extension Book {
   private static func findAllPreviews(
     inImageIndex imageIndex: UInt32,
     excludeStorybookPageMacro: Bool,
-    results: inout [BookPage]
+    results: inout [PreviewRegistryWrapper]
   ) {
     // Follows same approach here:  https://github.com/apple/swift-testing/blob/main/Sources/TestingInternals/Discovery.cpp#L318
     guard
@@ -167,7 +167,6 @@ extension Book {
     let sectionPtr = sectionRawPtr.assumingMemoryBound(
       to: SwiftTypeMetadataRecord.self
     )
-    var bookPagesByFileID: [String: [(line: Int, title: String, bookView: (String) -> any View)]] = [:]
     for index in 0 ..< capacity {
       let record = sectionPtr.advanced(by: index)
       guard
@@ -197,227 +196,12 @@ extension Book {
         metadataAccessFunction,
         to: Any.Type.self
       )
-
-      @MainActor
-      struct MakeViewFactory<T> {
-
-        typealias Closure = @MainActor () -> T
-        private let closure: Closure
-
-        init(_ closure: Any) {
-          // TODO: We need a workaround to avoid implicit @Sendable from @MainActor closures
-          self.closure = unsafeBitCast(
-            closure,
-            to: Closure.self
-          )
-        }
-
-        func callAsFunction() -> T {
-          closure()
-        }
+      guard
+        let previewType = anyType as? DeveloperToolsSupport.PreviewRegistry.Type
+      else {
+        continue
       }
-
-      if let previewType = anyType as? any DeveloperToolsSupport.PreviewRegistry.Type {
-        let fileID = previewType.fileID
-        let line = previewType.line
-        let preview = try! previewType.makePreview()
-//        dump(preview)
-        var title: String?
-        var makeBookView: ((String) -> any View)?
-        let previewMirror: Mirror = .init(reflecting: preview)
-        for previewChild in previewMirror.children {
-          switch previewChild.label {
-          case "displayName":
-            title = (previewChild.value as! String?) ?? ""
-
-          case "source":
-            let sourceMirror: Mirror = .init(reflecting: previewChild.value)
-            switch String(reflecting: sourceMirror.subjectType) {
-
-            case "SwiftUI.ViewPreviewSource": // iOS 17
-              guard
-                let anyFactory = sourceMirror.children
-                  .first(where: { $0.label == "makeView" })
-              else {
-                break
-              }
-              let factory = MakeViewFactory<any SwiftUI.View>(anyFactory.value)
-              makeBookView = { title in
-                VStack {
-                  if !title.isEmpty {
-                    Text(title)
-                      .font(.system(size: 17, weight: .semibold))
-                  }
-                  AnyView(factory())
-                  Text("\(fileID):\(line)")
-                    .font(.caption.monospacedDigit())
-                  BookSpacer(height: 16)
-                }
-              }
-
-            case "UIKit.UIViewPreviewSource": // iOS 17
-              // Unsupported due to iOS 17 not supporting casting between non-sendable closure types
-              break
-//              guard
-//                let anyFactory = sourceMirror.children
-//                  .first(where: { $0.label == "makeView" })
-//              else {
-//                break
-//              }
-//              let factory = MakeViewFactory<UIKit.UIView>(anyFactory.value)
-//              let view = factory()
-//              print(view)
-//              makeBookView = { title in
-//                BookPreview(
-//                  fileID,
-//                  line,
-//                  title: title,
-//                  viewBlock: { _ in
-//                    view
-//                  }
-//                )
-//              }
-
-            case "DeveloperToolsSupport.DefaultPreviewSource<SwiftUI.ViewPreviewBody>": // iOS 18
-              guard
-                let structureMirror = sourceMirror.children
-                  .first(where: { $0.label == "structure" })
-                  .map({ Mirror.init(reflecting: $0.value) }),
-                let previewMirror = structureMirror.children
-                  .first(where: { $0.label == "singlePreview" })
-                  .map({ Mirror.init(reflecting: $0.value) }),
-                let anyFactory = previewMirror.children
-                  .first(where: { $0.label == "makeBody" })
-              else {
-                break
-              }
-              let factory = MakeViewFactory<any SwiftUI.View>(anyFactory.value)
-              makeBookView = { title in
-                VStack {
-                  if !title.isEmpty {
-                    Text(title)
-                      .font(.system(size: 17, weight: .semibold))
-                  }
-                  AnyView(factory())
-                  Text("\(fileID):\(line)")
-                    .font(.caption.monospacedDigit())
-                  BookSpacer(height: 16)
-                }
-              }
-
-            case "DeveloperToolsSupport.DefaultPreviewSource<__C.UIView>": // iOS 18
-              guard
-                let structureMirror = sourceMirror.children
-                  .first(where: { $0.label == "structure" })
-                  .map({ Mirror.init(reflecting: $0.value) }),
-                let previewMirror = structureMirror.children
-                  .first(where: { $0.label == "singlePreview" })
-                  .map({ Mirror.init(reflecting: $0.value) }),
-                let anyFactory = previewMirror.children
-                  .first(where: { $0.label == "makeBody" })
-              else {
-                break
-              }
-              let factory = MakeViewFactory<UIView>(anyFactory.value)
-              makeBookView = { title in
-                BookPreview(
-                  fileID,
-                  line,
-                  title: title,
-                  viewBlock: { _ in
-                    factory()
-                  }
-                )
-              }
-
-            case "DeveloperToolsSupport.DefaultPreviewSource<__C.UIViewController>": // iOS 18
-              guard
-                let structureMirror = sourceMirror.children
-                  .first(where: { $0.label == "structure" })
-                  .map({ Mirror.init(reflecting: $0.value) }),
-                let previewMirror = structureMirror.children
-                  .first(where: { $0.label == "singlePreview" })
-                  .map({ Mirror.init(reflecting: $0.value) }),
-                let anyFactory = previewMirror.children
-                  .first(where: { $0.label == "makeBody" })
-              else {
-                break
-              }
-              let factory = MakeViewFactory<UIViewController>(anyFactory.value)
-              makeBookView = { title in
-                BookPresent(
-                  title: title,
-                  presentingViewControllerBlock: {
-                    factory()
-                  }
-                )
-              }
-
-            case let sourceTypeName:
-//              print(sourceTypeName)
-              break
-            }
-
-          case "traits":
-//            let traitsMirror: Mirror = .init(reflecting: previewChild.value)
-//            dump(traitsMirror)
-            break
-
-          default:
-//            print(previewChild.label)
-            break
-          }
-        }
-
-        if let title, let makeBookView {
-          bookPagesByFileID[previewType.fileID, default: []].append(
-            (
-              line: previewType.line,
-              title: title,
-              bookView: makeBookView
-            )
-          )
-        }
-      }
-    }
-    bookPagesByFileID.sorted { $0.key < $1.key }.forEach { (file, items) in
-      switch items.count {
-      case 0:
-        return
-
-      case 1:
-        let (line, title, makeBookView) = items[0]
-        results.append(
-          BookPage(
-            file,
-            line,
-            title: title,
-            destination: {
-              AnyView(makeBookView(title))
-            }
-          )
-        )
-
-      default:
-        results.append(
-          BookPage(
-            file,
-            0,
-            title: file,
-            destination: {
-              BookSection(
-                title: file,
-                content: {
-                  ForEach.inefficient(items: items.sorted { $0.line < $1.line }) { (line, title, makeBookView) in
-                    BookSpacer(height: 16)
-                    AnyView(makeBookView(title))
-                  }
-                }
-              )
-            }
-          )
-        )
-      }
+      results.append(.init(previewType))
     }
   }
 }

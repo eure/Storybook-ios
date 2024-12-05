@@ -140,6 +140,43 @@ let myBook = Book.init(
     .foregroundStyle(Color.green)
 }
 
+struct StorybookTrait: PreviewModifier {
+  func body(content: Content, context: Void) -> some View {
+    content
+  }
+}
+
+@available(iOS 18.0, *)
+extension PreviewTrait where T == Preview.ViewTraits {
+
+  @MainActor public static var storybook: PreviewTrait<Preview.ViewTraits> {
+    return .init(.modifier(StorybookTrait()))
+  }
+}
+
+struct Storybook: View {
+
+  let content: AnyView
+  init<Content: View>(
+    @ViewBuilder content: () -> Content
+  ) {
+    self.content = .init(content())
+  }
+
+  var body: some View {
+    content
+  }
+}
+
+@available(iOS 18.0, *)
+#Preview(traits: .storybook) {
+  Text("My Component")
+}
+
+#Preview {
+  Text("My Component")
+}
+
 #Preview {
   Text("NO TITLE!")
     .foregroundStyle(Color.purple)
@@ -272,18 +309,15 @@ let myBook = Book.init(
   }
 }
 
-#Preview("Some title 2") {
+#Preview("Title") {
   #StorybookPreview<MyLabel> {
     BookPreview { _ in
-      MyLabel(title: "MyLabel 2")
+      MyLabel(title: "Test")
     }
   }
 }
 
 #StorybookPage<MyLabel> {
-  BookPreview { _ in
-    MyLabel(title: "Test")
-  }
   BookPreview { _ in
     MyLabel(title: "Test")
   }

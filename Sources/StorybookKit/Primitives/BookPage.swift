@@ -59,16 +59,16 @@ public struct BookPage: BookView, Identifiable {
   public let title: String
   public let destination: AnyView
   public nonisolated let declarationIdentifier: DeclarationIdentifier
-  private let file: String
-  private let line: Int
+  private let fileID: any StringProtocol
+  private let line: any FixedWidthInteger
 
   public init<Destination: View>(
-    _ file: String = #fileID,
-    _ line: Int = #line,
+    _ fileID: any StringProtocol = #fileID,
+    _ line: any FixedWidthInteger = #line,
     title: String,
     @ViewBuilder destination: @MainActor () -> Destination
   ) {
-    self.file = file
+    self.fileID = fileID
     self.line = line
     self.title = title
     self.destination = AnyView(destination())
@@ -83,14 +83,14 @@ public struct BookPage: BookView, Identifiable {
       }
       .listStyle(.plain)
       .onAppear(perform: {
-        context?.onOpen(page: self)
+        context?.onOpen(pageID: id)
       })
     } label: {
       HStack {
         Image.init(systemName: "doc")
         VStack(alignment: .leading) {
           Text(title)
-          Text("\(file.description):\(line.description)")
+          Text("\(fileID):\(line)")
             .font(.caption.monospacedDigit())
             .opacity(0.8)
         }

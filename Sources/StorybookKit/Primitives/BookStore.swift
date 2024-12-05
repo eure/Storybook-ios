@@ -44,13 +44,13 @@ public final class BookStore: ObservableObject {
 
   }
 
-  func onOpen(page: BookPage) {
+  func onOpen(pageID: DeclarationIdentifier) {
 
-    guard allPages.keys.contains(page.id) else {
+    guard allPages.keys.contains(pageID) else {
       return
     }
 
-    let index = page.declarationIdentifier.index
+    let index = pageID.index
 
     var current = userDefaults.array(forKey: "history") as? [Int] ?? []
     if let index = current.firstIndex(of: index) {

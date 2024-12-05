@@ -46,20 +46,20 @@ public struct BookPreview: BookView {
 
   public let declarationIdentifier: DeclarationIdentifier
 
-  private let file: String
-  private let line: Int
+  private let fileID: any StringProtocol
+  private let line: any FixedWidthInteger
   private let title: String?
   private var frameConstraint: FrameConstraint = .init()
 
   public init(
-    _ file: String = #fileID,
-    _ line: Int = #line,
+    _ fileID: any StringProtocol = #fileID,
+    _ line: any FixedWidthInteger = #line,
     title: String? = nil,
     viewBlock: @escaping @MainActor (inout Context) -> UIView
   ) {
 
     self.title = title
-    self.file = file
+    self.fileID = fileID
     self.line = line
     self.viewBlock = viewBlock
 
@@ -95,7 +95,7 @@ public struct BookPreview: BookView {
 
       controlView
 
-      Text("\(file.description):\(line.description)")
+      Text("\(fileID):\(line)")
         .font(.caption.monospacedDigit())
 
       BookSpacer(height: 16)

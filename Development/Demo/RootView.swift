@@ -39,8 +39,10 @@ struct RootView: View {
           }
 
           if #available(iOS 17.0, *) {
-            Book(title: "#Preview macro") {
-              Book.allBookPreviews()
+            if let nodes = Book.allBookPreviews() {
+              Book(title: "#Preview macro") {
+                nodes
+              }
             }
           }
         }
