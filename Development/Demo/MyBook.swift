@@ -135,6 +135,114 @@ let myBook = Book.init(
   }
 )
 
+#Preview("Simple Sample") {
+  Text("Yo there!")
+    .foregroundStyle(Color.green)
+}
+
+struct StorybookTrait: PreviewModifier {
+  func body(content: Content, context: Void) -> some View {
+    content
+  }
+}
+
+@available(iOS 18.0, *)
+extension PreviewTrait where T == Preview.ViewTraits {
+
+  @MainActor public static var storybook: PreviewTrait<Preview.ViewTraits> {
+    return .init(.modifier(StorybookTrait()))
+  }
+}
+
+struct Storybook: View {
+
+  let content: AnyView
+  init<Content: View>(
+    @ViewBuilder content: () -> Content
+  ) {
+    self.content = .init(content())
+  }
+
+  var body: some View {
+    content
+  }
+}
+
+@available(iOS 18.0, *)
+#Preview(traits: .storybook) {
+  Text("My Component")
+}
+
+#Preview {
+  Text("My Component")
+}
+
+#Preview {
+  Text("NO TITLE!")
+    .foregroundStyle(Color.purple)
+}
+
+@available(iOS 17.0, *)
+#Preview("States Sample") {
+  @Previewable @State var state: Int = 1
+
+  VStack {
+    Text("Aloha \(state)")
+    Button(
+      action: { state += 1 },
+      label: { Text("+") }
+    )
+  }
+}
+
+@available(iOS 17.0, *)
+#Preview("UIView Sample") {
+  {
+    var state: Int = 1
+
+    let label = UILabel()
+    label.text = "Test \(state)"
+
+    let button = UIButton(
+      configuration: .bordered(),
+      primaryAction: .init { _ in
+        state += 1
+        label.text = "Test \(state)"
+      }
+    )
+    button.setTitle("+", for: .normal)
+    let stack = UIStackView(arrangedSubviews: [label, button])
+    stack.spacing = 8
+    return stack
+  }()
+}
+
+@available(iOS 17.0, *)
+#Preview("UIViewController Sample") {
+  {
+    let controller = UIViewController()
+    controller.view.backgroundColor = .systemMint
+    var state: Int = 1
+
+    let label = UILabel()
+    label.text = "Test \(state)"
+
+    let button = UIButton(
+      configuration: .bordered(),
+      primaryAction: .init { _ in
+        state += 1
+        label.text = "Test \(state)"
+      }
+    )
+    button.setTitle("+", for: .normal)
+    let stack = UIStackView(arrangedSubviews: [label, button])
+    stack.spacing = 8
+    stack.frame = controller.view.bounds
+    controller.view.addSubview(stack)
+    return controller
+  }()
+}
+
 #StorybookPage(title: "UILabel updating text") {
   BookPreview { context in
     let label = UILabel()
@@ -201,18 +309,15 @@ let myBook = Book.init(
   }
 }
 
-#Preview("Some title 2") {
+#Preview("Title") {
   #StorybookPreview<MyLabel> {
     BookPreview { _ in
-      MyLabel(title: "MyLabel 2")
+      MyLabel(title: "Test")
     }
   }
 }
 
 #StorybookPage<MyLabel> {
-  BookPreview { _ in
-    MyLabel(title: "Test")
-  }
   BookPreview { _ in
     MyLabel(title: "Test")
   }

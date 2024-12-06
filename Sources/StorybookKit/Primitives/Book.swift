@@ -27,6 +27,49 @@ public struct Book: BookView, Identifiable {
   public let title: String
   public let contents: [Node]
 
+  /// All `#Preview`s as `BookPage`s
+  @available(iOS 17.0, *)
+  public static func allBookPreviews() -> [Node]? {
+    guard let sortedPreviewRegistries = self.findAllPreviews() else {
+      return nil
+    }
+    var fileIDsByModule: [String: Set<String>] = [:]
+    var registriesByFileID: [String: [PreviewRegistryWrapper]] = [:]
+    for item in sortedPreviewRegistries {
+      fileIDsByModule[item.module, default: []].insert(item.fileID)
+      registriesByFileID[item.fileID, default: []].append(item)
+    }
+    return fileIDsByModule.keys.sorted().map { module in
+      return Node.folder(
+        .init(
+          title: module,
+          contents: { [fileIDs = fileIDsByModule[module]!.sorted()] in
+            fileIDs.map { fileID in
+              return Node.page(
+                .init(
+                  fileID,
+                  0,
+                  title: .init(fileID[fileID.index(after: module.endIndex)...]),
+                  destination: { [registries = registriesByFileID[fileID]!] in
+                    LazyVStack(
+                      alignment: .center,
+                      spacing: 16,
+                      pinnedViews: .sectionHeaders
+                    ) {
+                      ForEach.inefficient(items: registries) { registry in
+                        AnyView(registry.makeView())
+                      }
+                    }
+                  }
+                )
+              )
+            }
+          }
+        )
+      )
+    }
+  }
+
   /// All conformers to `BookProvider`, including those declared from the `#StorybookPage` macro
   public static func allBookProviders() -> [any BookProvider.Type] {
     self.findAllBookProviders(filterByStorybookPageMacro: false) ?? []
@@ -85,6 +128,7 @@ public struct Book: BookView, Identifiable {
             folder
           }
           .navigationTitle(folder.title)
+          .navigationBarTitleDisplayMode(.inline)
         } label: {
           HStack {
             Image.init(systemName: "folder")

@@ -47,6 +47,25 @@ extension Book {
     return results
   }
 
+  @available(iOS 17.0, *)
+  static func findAllPreviews(
+    excludeStorybookPageMacro: Bool = true
+  ) -> [PreviewRegistryWrapper]? {
+    let moduleName = Bundle.main.bundleURL.deletingPathExtension().lastPathComponent
+    guard !moduleName.isEmpty else {
+      return nil
+    }
+    var results: [PreviewRegistryWrapper] = []
+    for imageIndex in 0 ..< _dyld_image_count() {
+      self.findAllPreviews(
+        inImageIndex: .init(imageIndex),
+        excludeStorybookPageMacro: excludeStorybookPageMacro,
+        results: &results
+      )
+    }
+    return results
+  }
+
   private static func findAllBookProviders(
     inImageIndex imageIndex: UInt32,
     filterByStorybookPageMacro: Bool,
@@ -93,12 +112,7 @@ extension Book {
       }
       guard
         contextDescriptor.pointee.kind().canConformToProtocol,
-        !filterByStorybookPageMacro || self._magicSubstring.withCString(
-          {
-            let nameCString = contextDescriptor.resolvePointer(for: \.name)
-            return nil != strstr(nameCString, $0)
-          }
-        )
+        !filterByStorybookPageMacro || contextDescriptor.nameContains(self._magicSubstring)
       else {
         continue
       }
@@ -119,11 +133,83 @@ extension Book {
       results.append(bookProviderType)
     }
   }
+
+  @available(iOS 17.0, *)
+  private static func findAllPreviews(
+    inImageIndex imageIndex: UInt32,
+    excludeStorybookPageMacro: Bool,
+    results: inout [PreviewRegistryWrapper]
+  ) {
+    // Follows same approach here:  https://github.com/apple/swift-testing/blob/main/Sources/TestingInternals/Discovery.cpp#L318
+    guard
+      let headerRawPtr: UnsafeRawPointer = _dyld_get_image_header(imageIndex)
+        .map(UnsafeRawPointer.init(_:))
+    else {
+      return
+    }
+    let headerPtr = headerRawPtr.assumingMemoryBound(
+      to: mach_header_64.self
+    )
+    // https://derekselander.github.io/dsdump/
+    var size: UInt = 0
+    guard
+      let sectionRawPtr = getsectiondata(
+        headerPtr,
+        SEG_TEXT,
+        "__swift5_types",
+        &size
+      )
+      .map(UnsafeRawPointer.init(_:))
+    else {
+      return
+    }
+    let capacity: Int = .init(size) / MemoryLayout<SwiftTypeMetadataRecord>.size
+    let sectionPtr = sectionRawPtr.assumingMemoryBound(
+      to: SwiftTypeMetadataRecord.self
+    )
+    for index in 0 ..< capacity {
+      let record = sectionPtr.advanced(by: index)
+      guard
+        let contextDescriptor = record.pointee.contextDescriptor(
+          from: record
+        )
+      else {
+        continue
+      }
+      guard !contextDescriptor.pointee.isGeneric() else {
+        continue
+      }
+      guard
+        case .structType = contextDescriptor.pointee.kind(),
+        contextDescriptor.nameContains("PreviewRegistry"),
+        !excludeStorybookPageMacro || !contextDescriptor.nameContains(self._magicSubstring)
+      else {
+        continue
+      }
+      let metadataClosure = contextDescriptor.resolveValue(for: \.metadataAccessFunction)
+      let metadata = metadataClosure(0xFF)
+      guard
+        let metadataAccessFunction = metadata.value
+      else {
+        continue
+      }
+      let anyType = unsafeBitCast(
+        metadataAccessFunction,
+        to: Any.Type.self
+      )
+      guard
+        let previewType = anyType as? DeveloperToolsSupport.PreviewRegistry.Type
+      else {
+        continue
+      }
+      results.append(.init(previewType))
+    }
+  }
 }
 
 extension UnsafePointer where Pointee: SwiftLayoutPointer {
 
-  func resolvePointer<U>(for keyPath: KeyPath<Pointee, SwiftRelativePointer<U>>) -> UnsafePointer<U> {
+  fileprivate func resolvePointer<U>(for keyPath: KeyPath<Pointee, SwiftRelativePointer<U>>) -> UnsafePointer<U> {
     let base: UnsafeRawPointer = .init(self)
     let fieldOffset = MemoryLayout<Pointee>.offset(of: keyPath)!
     let relativePointer = self.pointee[keyPath: keyPath]
@@ -133,7 +219,7 @@ extension UnsafePointer where Pointee: SwiftLayoutPointer {
       .assumingMemoryBound(to: U.self)
   }
 
-  func resolveValue<U>(for keyPath: KeyPath<Pointee, SwiftRelativePointer<U>>) -> U {
+  fileprivate func resolveValue<U>(for keyPath: KeyPath<Pointee, SwiftRelativePointer<U>>) -> U {
     let base: UnsafeRawPointer = .init(self)
     let fieldOffset = MemoryLayout<Pointee>.offset(of: keyPath)!
     let relativePointer = self.pointee[keyPath: keyPath]
@@ -144,17 +230,28 @@ extension UnsafePointer where Pointee: SwiftLayoutPointer {
   }
 }
 
-protocol SwiftLayoutPointer {
+extension UnsafePointer where Pointee == SwiftTypeContextDescriptor {
+  fileprivate func nameContains(_ string: String) -> Bool {
+    string.withCString(
+      {
+        let nameCString = self.resolvePointer(for: \.name)
+        return nil != strstr(nameCString, $0)
+      }
+    )
+  }
+}
+
+fileprivate protocol SwiftLayoutPointer {
   static var maskValue: Int32 { get }
 }
 
 extension SwiftLayoutPointer {
-  static var maskValue: Int32 {
+  fileprivate static var maskValue: Int32 {
     return 0
   }
 }
 
-struct SwiftRelativePointer<T> {
+fileprivate struct SwiftRelativePointer<T> {
 
   var offset: Int32 = 0
 
@@ -192,7 +289,7 @@ extension SwiftRelativePointer where T: SwiftLayoutPointer {
   }
 }
 
-struct SwiftTypeMetadataRecord: SwiftLayoutPointer {
+fileprivate struct SwiftTypeMetadataRecord: SwiftLayoutPointer {
 
   var pointer: SwiftRelativePointer<SwiftTypeContextDescriptor>
 
@@ -218,7 +315,7 @@ struct SwiftTypeMetadataRecord: SwiftLayoutPointer {
   }
 }
 
-struct SwiftTypeContextDescriptor: SwiftLayoutPointer {
+fileprivate struct SwiftTypeContextDescriptor: SwiftLayoutPointer {
   var flags: UInt32 = 0
   var parent: SwiftRelativePointer<UInt8> = .init()
   var name: SwiftRelativePointer<CChar> = .init()
@@ -262,7 +359,7 @@ struct SwiftTypeContextDescriptor: SwiftLayoutPointer {
     }
 
     var canConformToProtocol: Bool {
-      return (Self.classType.rawValue ... Self.typesEnd.rawValue).contains(self.rawValue)
+      return (Self.typesStart.rawValue ... Self.typesEnd.rawValue).contains(self.rawValue)
     }
   }
 }

@@ -1,4 +1,5 @@
 {
+  "originHash" : "f5a894bbdc3287a91c8c33f864cfb447314305f7fc66cabf1c369e8c3a67521d",
   "pins" : [
     {
       "identity" : "descriptors",
@@ -32,8 +33,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/swift-macro-testing.git",
       "state" : {
-        "branch" : "main",
-        "revision" : "15916c0c328339f54c15d616465d79700e3f7de8"
+        "revision" : "20c1a8f3b624fb5d1503eadcaa84743050c350f4",
+        "version" : "0.5.2"
       }
     },
     {
@@ -41,8 +42,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/swift-snapshot-testing",
       "state" : {
-        "revision" : "e7b77228b34057041374ebef00c0fd7739d71a2b",
-        "version" : "1.15.3"
+        "revision" : "7b0bbbae90c41f848f90ac7b4df6c4f50068256d",
+        "version" : "1.17.5"
       }
     },
     {
@@ -50,8 +51,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-syntax.git",
       "state" : {
-        "revision" : "64889f0c732f210a935a0ad7cda38f77f876262d",
-        "version" : "509.1.1"
+        "revision" : "0687f71944021d616d34d922343dcef086855920",
+        "version" : "600.0.1"
       }
     },
     {
@@ -86,8 +87,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/FluidGroup/TextureBridging.git",
       "state" : {
-        "branch" : "main",
-        "revision" : "4383f8a9846a0507d2c22ee9fac22153f9b86fed"
+        "revision" : "4383f8a9846a0507d2c22ee9fac22153f9b86fed",
+        "version" : "3.2.1"
       }
     },
     {
@@ -95,10 +96,10 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/FluidGroup/TextureSwiftSupport.git",
       "state" : {
-        "branch" : "main",
-        "revision" : "5bae50cab3798dccb8b98c3ffbc70320ae66b45a"
+        "revision" : "fb748d6a9d0a2dca0635227e1db0360fd26e0e24",
+        "version" : "3.20.1"
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }
